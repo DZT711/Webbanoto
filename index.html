@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web kinh doanh xe hàng hiệu</title>
+    <link rel="stylesheet" href="style.css  ">
+    <script src="index.js"></script>
+    <link rel="icon" href="dp56vcf7.png" type="image/png">
+    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a class="nav" href="index.html">
+                <img src="dp56vcf7.png" alt="logo"    height="120px" >
+            </a>
+        </div>
+    </header>
+    
+    <div class="login-register-ctn">
+        <div class="login-register">
+            <div class="lg"></div>
+            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
+            <span>&nbsp;&nbsp;</span>
+            <a href="#" id="logout-btn" style="display:none;"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="login-form" class="form" style="display:none;">
+            <h2 class="lg-rgt-title">Đăng nhập</h2>
+            <form>
+                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
+                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
+                <button type="submit">Đăng nhập</button>
+            </form>
+        </div>
+        <div id="register-form" class="form" style="display:none;">
+            <h2 class="lg-rgt-title">Đăng ký</h2>
+            <form>
+                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
+                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
+                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Xác nhận mật khẩu">
+                <button type="submit">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <hr>
+
+
+<div class="navbar">
+    
+    <a href="index.html" class="homelink" >Trang Chủ</a>
+    <div class="dropdown">
+        <button class="dropbtn">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-content">
+            <a href="brand.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+            <a href="price.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+            <a href="color.html">Màu Xe <i class="fa-solid fa-caret-left"></i></a>
+        </div>
+    </div>
+    
+    <a href="about.html">Giới Thiệu</a>
+    <a href="contact.html">Liên Hệ</a>
+    <div id="tlp">
+        <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="Hotline">Hotline 2: 080 123 4567</span>
+    </div>
+</div>
+
+
+<main >
+        <div class="ctn-img">
+             <div class="wp">
+                 <div class="wp-hld">
+                    <div id="img1"></div>
+                    <div id="img2"></div>
+                    <div id="img3"></div>
+                    <div id="img4"></div>
+                    <div id="img5"></div>
+                    <div id="img6"></div>
+                </div>
+            </div>
+             <div class="btn-hld">
+                <a href="#img1" class="btn" id="btn1"></a>
+                <a href="#img2" class="btn" id="btn2"></a>
+                <a href="#img3" class="btn" id="btn3"></a>
+                <a href="#img4" class="btn" id="btn4"></a>
+                <a href="#img5" class="btn" id="btn5"></a>
+                <a href="#img6" class="btn" id="btn6"></a>
+            </div>
+        </div>
+        <div class="ds-md-sb">
+
+            <div id="searchbar">
+                <input type="text" class="search"id="search" placeholder="Nhập hãng xe vd: Lamborghini,....">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+            <div id="ds-md">
+                <h1 id="ds-md-title">Kiểu Dáng/ Hãng Xe Phổ Biến</h1>
+                <div id="ctn21">
+                    <div class="lgb">
+                        <a class="lg" href="BMW.html">
+                            <img class="lg-b" src="BMW.png" alt="">
+                            <br>
+                            BMW
+                        </a>
+                    </div>
+                    <div class="lgb">
+                        <a class="lg" href="Lamborghini.html">
+                            <img class="lg-b" src="images.png" alt="">
+                            <br>
+                            Lamborghini
+                        </a>
+                    </div>
+                    <div class="lgb">
+                        <a class="lg" href="Mazda.html">
+                            <img class="lg-b" src="png-transparent-mazda-biante-logo-mazda3-car-mazda-angle-emblem-text-thumbnail.png" alt="">
+                            <br>
+                            Mazda
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="newcar">
+            <div class="nc-title">
+                <h2 class="hot-car">
+                    <span class="hct">
+
+                        Xe Bán Chạy
+                    </span>
+                </h2>
+
+            </div>
+            <div class="ctn21">
+                <div class="nc-item">
+                    <a href="LA.html" class="linkcar">
+
+                        <img class="carpic" src="lambo1.jpg" alt="lambo1">
+                        <h2 class="cith2"> 1.500.000.000 USD</h2>
+                        <p class="cit">Lamborghini Aventador SVJ</p>
+                        <div class="carinfo">
+                            <i class="fas fa-car">
+                                <span class="info">
+                                    2 chỗ
+                                </span>
+                            </i>
+                            <i class="fas fa-gas-pump">
+                                <span class="info">Xăng</span>
+                            </i>
+                            <i class="fas fa-tachometer-alt">
+                                <span class="info">
+                                    150 km/h
+                                </span>
+                            </i>
+                            <i class="fas fa-calendar-alt">
+                                <span class="info">
+                                    2021
+                                </span>
+                            </i>
+                            <i class="fa-solid fa-location-dot">
+                                <span class="info">
+
+                                    TP.HCM
+                                </span>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+                <div class="nc-item">
+                    <a href="LG.html" class="linkcar">
+
+                        <img class="carpic" src="lambo2.png" alt="lambo2">
+                        <h2 class="cith2"> 1.800.000.000 USD</h2>
+                        <p class="cit">Lamborghini Gallardo</p>
+                        <div class="carinfo">
+                            <i class="fas fa-car">
+                                <span class="info">
+                                    2 chỗ
+                                </span>
+                            </i>
+
+                            <i class="fas fa-gas-pump">
+                                <span class="info">Xăng</span>
+                            </i>
+                            <i class="fas fa-tachometer-alt">
+                                <span class="info">
+                                    160 km/h
+                                </span>
+                            </i>
+                            <i class="fas fa-calendar-alt">
+                                <span class="info">
+                                    2022
+                                </span>
+                            </i>
+                            <i class="fa-solid fa-location-dot">
+                                <span class="info" >
+
+                                    TP.HCM
+                                </span>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+                <div class="nc-item">
+                    <a href="LH.html" class="linkcar">
+
+                        <img class="carpic" src="lambo3.jpg" alt="lambo3">
+                        <h2 class="cith2"> 2.000.000.000 USD</h2>
+                        <p class="cit">Lamborghini Huracan</p>
+                        <div class="carinfo">
+                            <i class="fas fa-car">
+                                <span class="info">
+                                    2 chỗ
+                                </span>
+                            </i>
+                            <i class="fas fa-gas-pump">
+                                <span class="info">Xăng</span>
+                            </i>
+                            <i class="fas fa-tachometer-alt">
+                                <span class="info">
+                                    170 km/h
+                                </span>
+                            </i>
+                            <i class="fas fa-calendar-alt">
+                                <span class="info">
+                                    2023
+                                </span>
+                            </i>
+                            <i class="fa-solid fa-location-dot">
+                                <span class="info">
+
+                                    TP.HCM
+                                </span>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="nc-title">
+                <h2 class="more-car">
+                    <span class="morecar">
+
+                        <a class="more" href="more.html"><small>Xem Thêm</small></a>
+                    </span>
+                </h2>
+
+            </div>
+        </div>
+        <div id="why" >
+            <div class="why-title">
+                <h2 class="hot-car">
+                    <span class="wco">
+                        Vì sao chọn chúng tôi
+                    </span>
+                </h2>
+        
+                <div class="t-i">
+                    <img src="dp56vcf7.png" alt="logo" class="image">
+                    <p>
+                        <b style="color: aqua;">AUTO CAR</b> là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là  Siêu Xe.
+                    </p>
+                        <p>
+
+                            Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                        </p>
+                        <p>
+                            
+                            Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
+                        </p>
+                       <p>
+
+                           Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
+                        </p> 
+                </div>
+            </div>
+        </div>
+    </main>
+
+<footer>
+    <div id="if-ct">
+        <div class="if">
+            <img src="dp56vcf7.png" alt="logo" class="image1">
+            <div class="if-text">
+
+                <h2 class="if-title">
+                    giới thiệu
+                </h2>
+                <small class="if-content">
+                    AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                    Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                    Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
+                    Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
+                  
+                </small>
+                <br><br>
+                <small>
+                    Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
+                </small>
+
+            </div>
+            <div class="ct-text">
+                <h2 class="ct-title">
+                    thông tin liên hệ
+                </h2>
+                <div class="ct-item">
+                    <i class="fa fa-phone" style="line-height: 0.2;"></i>
+                    <p>0987654321</p>
+                    <p>Hotline 1: 090 123 4567</p>
+                    <p>Hotline 2: 080 123 4567</p>
+                </div>
+                <div class="ct-item">
+                    <i class="fa fa-envelope"></i>
+                    <p>email@auto.com</p>
+                </div>
+                <div class="ct-item">
+                    <i class="fa fa-map-marker"></i>
+                    <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
+        
+                 </div>
+            </div>
+        </div>
+<hr style="color: lightslategray;">
+<div class="copyright">
+    <p>Copyright © 2024 Auto Car. All rights reserved.</p>
+    <small>
+        Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
+    </small>  
+    <br>
+    <small>
+        
+        Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
+    </small>
+    <p style="font-size: large;font-weight: bolder;text-decoration: underline;">Main page by: Huy Nguyen</p>
+</div>
+</footer>
+</body>
+</html>
