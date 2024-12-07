@@ -39,85 +39,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update active button based on the calculated index every slide duration
     setInterval(moveToNextSlide, slideDuration);
 });
-document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('login-btn');
-    const registerBtn = document.getElementById('register-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const shopArea = document.getElementById('shop-area');
-    const userInfo = document.getElementById('user-info');
-    const usernameDisplay = document.getElementById('username-display');
+document.addEventListener("DOMContentLoaded", () => {
+    // DOM Elements
+    const loginBtn = document.getElementById("login-btn");
+    const registerBtn = document.getElementById("register-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const usernameDisplay = document.getElementById("username-display");
+    const userInfo = document.getElementById("user-info");
+    const priceFilter = document.getElementById("priceFilter");
+    const yearFilter = document.getElementById("yearFilter");
+    const carItems = document.querySelectorAll(".nc-item");
 
-    let loggedInUser = null;
-    const users = [];
-
-    loginBtn.addEventListener('click', () => {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-        shopArea.style.display = 'none';
+    // Toggle Login Form
+    loginBtn.addEventListener("click", () => {
+        loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
+        registerForm.style.display = "none"; // Hide register form if open
     });
 
-    registerBtn.addEventListener('click', () => {
-        registerForm.style.display = 'block';
-        loginForm.style.display = 'none';
-        shopArea.style.display = 'none';
+    // Toggle Register Form
+    registerBtn.addEventListener("click", () => {
+        registerForm.style.display = registerForm.style.display === "none" ? "block" : "none";
+        loginForm.style.display = "none"; // Hide login form if open
     });
 
-    logoutBtn.addEventListener('click', () => {
-        alert('Đã đăng xuất!');
-        loggedInUser = null;
-        logoutBtn.style.display = 'none';
-        userInfo.style.display = 'none';
-        loginBtn.style.display = 'inline';
-        registerBtn.style.display = 'inline';
-        shopArea.style.display = 'none';
-    });
-
-    loginForm.querySelector('form').addEventListener('submit', (e) => {
+    // Login Handling (Example only)
+    loginForm.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
 
-        const user = users.find(user => user.username === username);
-        if (user) {
-            if (user.password === password) {
-                loggedInUser = username;
-                alert('Đăng nhập thành công!');
-                loginForm.style.display = 'none';
-                logoutBtn.style.display = 'inline';
-                userInfo.style.display = 'inline';
-                usernameDisplay.textContent = loggedInUser;
-                loginBtn.style.display = 'none';
-                registerBtn.style.display = 'none';
-                shopArea.style.display = 'block';
-            } else {
-                alert('Sai mật khẩu hoặc tên đăng nhập. Vui lòng thử lại.');
-            }
+        // Simple validation (can be replaced with API call)
+        if (username === "user" && password === "password") {
+            alert("Đăng nhập thành công!");
+            loginForm.style.display = "none";
+            loginBtn.style.display = "none";
+            registerBtn.style.display = "none";
+            logoutBtn.style.display = "inline";
+            userInfo.style.display = "inline";
+            usernameDisplay.textContent = username;
         } else {
-            alert('Tên đăng nhập không tồn tại. Vui lòng đăng ký.');
+            alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         }
     });
 
-    registerForm.querySelector('form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newUsername = document.getElementById('new-username').value;
-        const newPassword = document.getElementById('new-password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
+    // Logout Handling
+    logoutBtn.addEventListener("click", () => {
+        alert("Đăng xuất thành công!");
+        loginBtn.style.display = "inline";
+        registerBtn.style.display = "inline";
+        logoutBtn.style.display = "none";
+        userInfo.style.display = "none";
+        usernameDisplay.textContent = "";
+    });
 
-        if (newPassword === confirmPassword) {
-            users.push({ username: newUsername, password: newPassword });
-            loggedInUser = newUsername;
-            alert('Đăng ký thành công!');
-            registerForm.style.display = 'none';
-            logoutBtn.style.display = 'inline';
-            userInfo.style.display = 'inline';
-            usernameDisplay.textContent = loggedInUser;
-            loginBtn.style.display = 'none';
-            registerBtn.style.display = 'none';
-            shopArea.style.display = 'block';
+    // Register Handling (Example only)
+    registerForm.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const newUsername = document.getElementById("new-username").value;
+        const newPassword = document.getElementById("new-password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        if (newPassword !== confirmPassword) {
+            alert("Mật khẩu xác nhận không khớp!");
         } else {
-            alert('Mật khẩu xác nhận không khớp.');
+            alert(`Đăng ký thành công! Xin chào, ${newUsername}`);
+            registerForm.style.display = "none";
         }
     });
-});
+})
+
+

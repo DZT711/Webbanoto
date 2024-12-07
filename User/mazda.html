@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MAZDA</title>
+        <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="stylemazda.css">
+        <script src="mazda.js"></script>
+        <link rel="icon" href="png-transparent-mazda-biante-logo-mazda3-car-mazda-angle-emblem-text-thumbnail.png" type="image/png">
+
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a class="nav" href="mazda.html">
+                    <img src="dp56vcf7.png" alt="logo"    height="120px" >
+                </a>
+            </div>
+        </header>
+        <div class="login-register-ctn">
+            <div class="login-register">
+                <div class="lg"></div>
+                <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
+                <span>&nbsp;&nbsp;</span>
+                <a href="#" id="logout-btn" style="display:none;"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div id="login-form" class="form" style="display:none;">
+                <h2 class="lg-rgt-title">Đăng nhập</h2>
+                <form>
+                    <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                    <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
+                    <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                    <input type="password" id="password" name="password" required placeholder="Mật khẩu">
+                    <button type="submit">Đăng nhập</button>
+                </form>
+            </div>
+            <div id="register-form" class="form" style="display:none;">
+                <h2 class="lg-rgt-title">Đăng ký</h2>
+                <form>
+                    <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                    <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
+                    <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                    <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
+                    <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Xác nhận mật khẩu">
+                    <button type="submit">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+        <header>
+            <div class="navbar">
+    
+                <a href="index.html" class="homelink" >Trang Chủ</a>
+                <div class="dropdown">
+                    <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+                    </div>
+                </div>
+                
+                <a href="#about">Giới Thiệu</a>
+                <a href="#contact">Liên Hệ</a>
+            <div id="tlp">
+                    <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="Hotline">Hotline 2: 080 123 4567</span>
+                </div>
+            </div>
+            
+        </header>  
+        <main>
+
+            <h1 style="text-align: center;background-image: url('MAZDA-BANNER-1-copy.webp');min-height: 100vh;padding: 50px;color: rgb(255, 255, 255);background-repeat: no-repeat;margin-right:7em;margin-left: 7em;margin-bottom: -7em;color: #CDD2D0;">Mazda Motors</h1>
+        
+            <div id="newcar">
+                <!-- Bộ lọc sản phẩm -->
+                <div class="filter-section">
+                    <div class="s1">
+                        <label for="priceFilter">Lọc theo giá:</label>
+                        <select id="priceFilter" onchange="filterProducts()">
+                            <option value="all">Tất cả</option>
+                            <option value="below10b">Dưới 500 triệu</option>
+                            <option value="10to20b">Từ 500 triệu tới 1 tỷ</option>
+                            <option value="above20b">Trên 1 tỷ</option>
+                        </select>
+                    </div>
+                    <div class="s2">
+                        <label for="yearFilter">Lọc theo năm:</label>
+                        <select id="yearFilter" onchange="filterProducts()">
+                            <option value="all">Tất cả</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Các sản phẩm -->
+                <div class="ctn21">
+                    <div class="nc-item" data-price="899000000" data-year="2023">
+                        <a href="bmw320.html" class="linkcar">
+                            <img class="carpic" src="mazda1.png" alt="mazda1">
+                            <h2 class="cith2"> 899.000.000 VND</h2>
+                            <p class="cit">MAZDA 6</p>
+                            <div class="carinfo">
+                                <i class="fas fa-car">
+                                    <span class="info">4 chỗ</span>
+                                </i>
+                                <i class="fas fa-gas-pump">
+                                    <span class="info">Xăng</span>
+                                </i>
+                                <i class="fas fa-tachometer-alt">
+                                    <span class="info">220 km/h</span>
+                                </i>
+                                <i class="fas fa-calendar-alt">
+                                    <span class="info">2023</span>
+                                </i>
+                                <i class="fa-solid fa-location-dot">
+                                    <span class="info">TP.HCM</span>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nc-item" data-price="420000000" data-year="2021">
+                        <a href="bmw320.html" class="linkcar">
+                            <img class="carpic" src="mazda2.jpg" alt="mazda2">
+                            <h2 class="cith2"> 420.000.000 VND</h2>
+                            <p class="cit">MAZDA 2</p>
+                            <div class="carinfo">
+                                <i class="fas fa-car">
+                                    <span class="info">4 chỗ</span>
+                                </i>
+                                <i class="fas fa-gas-pump">
+                                    <span class="info">Xăng</span>
+                                </i>
+                                <i class="fas fa-tachometer-alt">
+                                    <span class="info">220 km/h</span>
+                                </i>
+                                <i class="fas fa-calendar-alt">
+                                    <span class="info">2021</span>
+                                </i>
+                                <i class="fa-solid fa-location-dot">
+                                    <span class="info">TP.HCM</span>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nc-item" data-price="579000000" data-year="2022">
+                        <a href="bmw320.html" class="linkcar">
+                            <img class="carpic" src="mazda3.png" alt="mazda3">
+                            <h2 class="cith2"> 579.000.000 VND</h2>
+                            <p class="cit">MAZDA 3</p>
+                            <div class="carinfo">
+                                <i class="fas fa-car">
+                                    <span class="info">4 chỗ</span>
+                                </i>
+                                <i class="fas fa-gas-pump">
+                                    <span class="info">Xăng</span>
+                                </i>
+                                <i class="fas fa-tachometer-alt">
+                                    <span class="info">187 km/h</span>
+                                </i>
+                                <i class="fas fa-calendar-alt">
+                                    <span class="info">2022</span>
+                                </i>
+                                <i class="fa-solid fa-location-dot">
+                                    <span class="info">TP.HCM</span>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nc-item" data-price="829000000" data-year="2023">
+                        <a href="bmw320.html" class="linkcar">
+                            <img class="carpic" src="mazda4.png" alt="mazda4">
+                            <h2 class="cith2"> 829.000.000 VND</h2>
+                            <p class="cit">MAZDA CX-5</p>
+                            <div class="carinfo">
+                                <i class="fas fa-car">
+                                    <span class="info">4 chỗ</span>
+                                </i>
+                                <i class="fas fa-gas-pump">
+                                    <span class="info">Xăng</span>
+                                </i>
+                                <i class="fas fa-tachometer-alt">
+                                    <span class="info">220 km/h</span>
+                                </i>
+                                <i class="fas fa-calendar-alt">
+                                    <span class="info">2023</span>
+                                </i>
+                                <i class="fa-solid fa-location-dot">
+                                    <span class="info">TP.HCM</span>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nc-item" data-price="1109000000" data-year="2024">
+                        <a href="bmw320.html" class="linkcar">
+                            <img class="carpic" src="mazda5.webp" alt="mazda5">
+                            <h2 class="cith2"> 1.109.000.000 VND</h2>
+                            <p class="cit">MAZDA CX-8</p>
+                            <div class="carinfo">
+                                <i class="fas fa-car">
+                                    <span class="info">4 chỗ</span>
+                                </i>
+                                <i class="fas fa-gas-pump">
+                                    <span class="info">Xăng</span>
+                                </i>
+                                <i class="fas fa-tachometer-alt">
+                                    <span class="info">240 km/h</span>
+                                </i>
+                                <i class="fas fa-calendar-alt">
+                                    <span class="info">2024</span>
+                                </i>
+                                <i class="fa-solid fa-location-dot">
+                                    <span class="info">TP.HCM</span>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <hr>
+        <footer>
+            <div id="if-ct">
+                <div class="if">
+                    <img src="dp56vcf7.png" alt="logo" class="image1">
+                    <div class="if-text">
+        
+                        <h2 class="if-title">
+                            giới thiệu
+                        </h2>
+                        <small class="if-content" id="about">
+                            AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                            Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                            Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
+                            Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
+                          
+                        </small>
+                        <br><br>
+                        <small>
+                            Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
+                        </small>
+        
+                    </div>
+                    <div class="ct-text">
+                        <h2 class="ct-title" id="contact">
+                            thông tin liên hệ
+                        </h2>
+                        <div class="ct-item">
+                            <i class="fa fa-phone" style="line-height: 0.2;"></i>
+                            <p>0987654321</p>
+                            <p>Hotline 1: 090 123 4567</p>
+                            <p>Hotline 2: 080 123 4567</p>
+                        </div>
+                        <div class="ct-item">
+                            <i class="fa fa-envelope"></i>
+                            <p>email@auto.com</p>
+                        </div>
+                        <div class="ct-item">
+                            <i class="fa fa-map-marker"></i>
+                            <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
+                
+                         </div>
+                    </div>
+                </div>
+        <hr style="color: lightslategray;">
+        <div class="copyright">
+            <p>Copyright © 2024 Auto Car. All rights reserved.</p>
+            <small>
+                Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
+            </small>  
+            <br>
+            <small>
+                
+                Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
+            </small>
+        </div>
+        </footer>
+    </body>               
+</html>        
