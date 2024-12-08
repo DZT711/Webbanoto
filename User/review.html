@@ -21,28 +21,15 @@
             <div class="p-6">
                 <div class="mb-6">
                     <h2 class="text-xl font-semibold mb-4">1. CHI TIẾT SẢN PHẨM</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <p class="font-medium">Danh sách sản phẩm:</p>
-                            <ul class="list-disc pl-5">
-                                <li>BMW 320I SPORT LINE 2023 - 1,189,000,000 VND</li>
-                                <li>BMW 520I LUXURY 2021 - 1,450,000,000 VND</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p class="font-medium">Tổng số lượng: 2 xe</p>
-                            <p class="font-medium">Tạm tính: 2,639,000,000 VND</p>
-                            <p class="font-medium">Thuế VAT: 0%</p>
-                            <p class="font-bold text-lg text-blue-600">TỔNG CỘNG: 2,639,000,000 VND</p>
-                        </div>
+                    <div id="product-details" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Product details will be dynamically populated by JavaScript -->
                     </div>
                 </div>
 
                 <div class="mb-6">
                     <h2 class="text-xl font-semibold mb-4">2. THÔNG TIN GIAO HÀNG</h2>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <p><strong>Trạng thái:</strong> Chờ nhập địa chỉ giao hàng</p>
-                        <p class="text-yellow-600">Vui lòng hoàn tất thông tin địa chỉ để tiếp tục</p>
+                    <div id="delivery-details" class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-600">Đang tải thông tin giao hàng...</p>
                     </div>
                 </div>
 
@@ -51,11 +38,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <h3 class="font-medium mb-2">Thẻ tín dụng</h3>
-                            <p class="text-gray-600">Chưa chọn phương thức</p>
+                            <p id="credit-card-method" class="text-gray-600">Chưa chọn phương thức</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <h3 class="font-medium mb-2">Thẻ ATM / Tiền mặt</h3>
-                            <p class="text-gray-600">Chưa chọn phương thức</p>
+                            <p id="atm-method" class="text-gray-600">Chưa chọn phương thức</p>
                         </div>
                     </div>
                 </div>
@@ -72,8 +59,198 @@
         </div>
 
         <div class="text-center mt-6 text-gray-600">
-            <p>AUTO CAR - Chỉ Xe Chất - Giá Tốt Nhất!</p>
+            AUTO CAR - Chỉ Xe Chất - Giá Tốt Nhất!
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            class RandomOrderGenerator {
+                constructor() {
+                    this.carBrands = [
+                        'BMW', 'Mercedes-Benz', 'Audi', 'Lexus', 
+                        'Porsche', 'Land Rover', 'Volvo', 'Ferrari'
+                    ];
+                    this.provinces = [
+                        'Hà Nội', 'TP. Hồ Chí Minh', 'Đà Nẵng', 
+                        'Hải Phòng', 'Cần Thơ', 'Đồng Nai', 'Bình Dương'
+                    ];
+                    this.districts = [
+                        'Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 
+                        'Quận 7', 'Quận 10', 'Bình Thạnh', 'Gò Vấp'
+                    ];
+                }
+
+                generateRandomProducts(count = 2) {
+                    return Array.from({length: count}, () => ({
+                        brand: this.getRandomItem(this.carBrands),
+                        name: this.generateCarModel(),
+                        year: this.getRandomYear(),
+                        price: this.generateRandomPrice()
+                    }));
+                }
+
+                generateDeliveryInfo() {
+                    return {
+                        fullName: this.generateRandomName(),
+                        phone: this.generateRandomPhone(),
+                        province: this.getRandomItem(this.provinces),
+                        district: this.getRandomItem(this.districts),
+                        address: this.generateRandomAddress()
+                    };
+                }
+
+                generatePaymentMethod() {
+                    const methods = [
+                        { 
+                            creditCard: this.generateCreditCardNumber(),
+                            atmMethod: this.getRandomItem(['cash', 'bank_transfer', 'atm'])
+                        }
+                    ];
+                    return methods[0];
+                }
+
+                getRandomItem(array) {
+                    return array[Math.floor(Math.random() * array.length)];
+                }
+
+                generateCarModel() {
+                    const models = [
+                        'Luxury Edition', 'Sport Line', 'Premium', 
+                        'Executive', 'Performance Pack', 'Touring'
+                    ];
+                    return `${this.getRandomItem(models)} ${Math.floor(Math.random() * 500) + 100}i`;
+                }
+
+                getRandomYear() {
+                    return Math.floor(Math.random() * 5) + 2019;
+                }
+
+                generateRandomPrice() {
+                    return Math.floor(Math.random() * 1000000000) + 500000000;
+                }
+
+                generateRandomName() {
+                    const firstNames = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Vũ'];
+                    const lastNames = ['Văn', 'Thị', 'Đức', 'Minh', 'Hùng', 'Mai'];
+                    const middleNames = ['Anh', 'Tuấn', 'Hương', 'Lan', 'Quốc', 'Thành'];
+                    
+                    return `${this.getRandomItem(firstNames)} ${this.getRandomItem(middleNames)} ${this.getRandomItem(lastNames)}`;
+                }
+
+                generateRandomPhone() {
+                    const prefixes = ['090', '091', '092', '088', '086', '089'];
+                    return `${this.getRandomItem(prefixes)} ${Math.floor(Math.random() * 9000000) + 1000000}`;
+                }
+
+                generateRandomAddress() {
+                    const streetTypes = ['Đường', 'Phố', 'Đại lộ', 'Ngõ'];
+                    const streetNames = ['Bà Huyện Thanh Quan', 'Trần Hưng Đạo', 'Lê Lợi', 'Nguyễn Trãi', 'Lý Thái Tổ'];
+                    
+                    return `Số ${Math.floor(Math.random() * 200) + 1} ${this.getRandomItem(streetTypes)} ${this.getRandomItem(streetNames)}`;
+                }
+
+                generateCreditCardNumber() {
+                    return Array.from({length: 4}, () => 
+                        Math.floor(Math.random() * 9000) + 1000
+                    ).join(' ');
+                }
+
+                displayReviewDetails() {
+                    const products = this.generateRandomProducts();
+                    const deliveryInfo = this.generateDeliveryInfo();
+                    const paymentMethod = this.generatePaymentMethod();
+
+                    // Update product details
+                    const productContainer = document.getElementById('product-details');
+                    if (productContainer) {
+                        let totalPrice = 0;
+                        const productList = products.map(item => {
+                            totalPrice += item.price;
+                            return `
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">${item.brand} ${item.name} (${item.year})</span>
+                                        <span class="text-blue-600">${item.price.toLocaleString()} VND</span>
+                                    </div>
+                                    <div class="text-sm text-gray-500 mt-2">
+                                        <p>Số lượng: 1</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+
+                        productContainer.innerHTML = productList + `
+                            <div class="bg-white border-t p-4">
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">Tổng số lượng:</span>
+                                    <span>${products.length} xe</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">Tổng tiền:</span>
+                                    <span class="text-blue-600 font-bold">${totalPrice.toLocaleString()} VND</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Thuế VAT (10%):</span>
+                                    <span>${(totalPrice * 0.1).toLocaleString()} VND</span>
+                                </div>
+                                <div class="flex justify-between font-bold">
+                                    <span>Tổng cộng:</span>
+                                    <span class="text-red-600">${(totalPrice * 1.1).toLocaleString()} VND</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Update delivery information
+                    const deliveryContainer = document.getElementById('delivery-details');
+                    if (deliveryContainer) {
+                        deliveryContainer.innerHTML = `
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="font-semibold text-gray-700">Thông Tin Người Nhận</p>
+                                    <p><strong>Họ và Tên:</strong> ${deliveryInfo.fullName}</p>
+                                    <p><strong>Số Điện Thoại:</strong> ${deliveryInfo.phone}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-700">Địa Chỉ Giao Hàng</p>
+                                    <p>${deliveryInfo.address}, ${deliveryInfo.district}, ${deliveryInfo.province}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Update payment method
+                    const creditCardMethod = document.getElementById('credit-card-method');
+                    const atmMethod = document.getElementById('atm-method');
+
+                    // Credit Card Method
+                    if (paymentMethod.creditCard) {
+                        const cardType = this.getRandomItem(['Visa', 'MasterCard', 'American Express']);
+                        creditCardMethod.innerHTML = `${cardType}: **** **** **** ${paymentMethod.creditCard.slice(-4)}`;
+                        creditCardMethod.classList.remove('text-gray-600');
+                        creditCardMethod.classList.add('text-green-600');
+                    }
+
+                    // ATM/Cash Method
+                    if (paymentMethod.atmMethod) {
+                        const methodLabels = {
+                            'cash': 'Thanh toán tiền mặt',
+                            'bank_transfer': 'Chuyển khoản ngân hàng',
+                            'atm': 'Thanh toán qua thẻ ATM'
+                        };
+                        atmMethod.innerHTML = methodLabels[paymentMethod.atmMethod];
+                        atmMethod.classList.remove('text-gray-600');
+                        atmMethod.classList.add('text-green-600');
+                    }
+                }
+            }
+
+            const reviewManager = new RandomOrderGenerator();
+            reviewManager.displayReviewDetails();
+        });
+    </script>
+
+
 </body>
 </html>
