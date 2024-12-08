@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="payment.css">
+    <script src="payment.js"></script>
+    <link rel="icon" href="dp56vcf7.png" type="image/png">
+    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a class="nav" href="index.html">
+                <img src="dp56vcf7.png" alt="logo" height="120px">
+            </a>
+        </div>
+    </header>
+
+    <div class="login-register-ctn">
+        <div class="login-register">
+            <div class="lg"></div>
+            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
+            <span>&nbsp;&nbsp;</span>
+            <a href="#" id="logout-btn" style="display:none;"><i
+                    class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất
+            </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span
+                    id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="login-form" class="form" style="display:none;">
+            <h2 class="lg-rgt-title">Đăng nhập</h2>
+            <form>
+                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
+                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
+                <button type="submit">Đăng nhập</button>
+            </form>
+        </div>
+        <div id="register-form" class="form" style="display:none;">
+            <h2 class="lg-rgt-title">Đăng ký</h2>
+            <form>
+                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
+                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
+                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
+                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
+                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                    placeholder="Xác nhận mật khẩu">
+                <button type="submit">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+    <div class="navbar">
+    
+        <a href="index.html" class="homelink" >Trang Chủ</a>
+        <div class="dropdown">
+            <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+            </div>
+        </div>
+        
+        <a href="#about">Giới Thiệu</a>
+        <a href="#contact">Liên Hệ</a>
+    <div id="tlp">
+            <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span class="Hotline">Hotline 2: 080 123 4567</span>
+        </div>
+    </div>
+
+    <!------------payment----------------->
+    <section class="payment">
+        <div class="container">
+            <div class="payment-top-wrap">
+                <div class="payment-top">
+                   <div class="payment-top-cart payment-top-item">
+                    <a href="cart.html">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                   </div> 
+        
+                   <div class="payment-top-address payment-top-item">
+                    <a href="delivery.html">
+
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>    
+                   </div> 
+        
+                   <div class="payment-top-payment payment-top-item">
+                    <a href="payment.html">
+
+                        <i class="fa-solid fa-money-check"></i>
+                    </a>    
+                    </div> 
+                </div>
+            </div>
+        <div class="container">
+            <div class="payment-content row">
+            <!----Thanh toán bằng thẻ tín dụng-->
+            <div class="payment-column payment-column-left">
+                <p style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ tín dụng</p>
+                <div class="payment-content-left-method-payment">
+                    <p>(Mọi giao dịch đều được bảo mật và mã hóa, thông tin thẻ tín dụng sẽ không được lưu lại.)</p>
+                    <div class="payment-content-left-method-payment-item">
+                        <input name="method-payment" type="radio" id="credit-card-option">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p>Nhập thông tin thẻ Visa:</p>
+                        <input type="text" placeholder="Số thẻ Visa">
+                        <input type="text" placeholder="Họ tên trên thẻ">
+                        <input type="text" placeholder="Ngày hết hạn (MM/YY)">
+                        <input type="text" placeholder="Mã CVV">
+                    </div>
+                </div>
+            </div>
+
+                <!--Thanh toán bằng thẻ ATM--->
+                <div class="payment-column payment-column-right">
+                    <p style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ ATM</p>
+                    <div class="payment-content-right-method-payment">
+                        <div class="payment-content-right-method-payment-item">
+                            <input name="method-payment" type="radio" id="atm-option">
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <p>Nhập thông tin thẻ ATM:</p>
+                            <input type="text" placeholder="Số thẻ ATM">
+                            <input type="text" placeholder="Tên ngân hàng">
+                            <input type="text" placeholder="Tên chủ tài khoản">
+                        </div>
+
+                    <!----Thanh toán bằng tiền mặt-->
+                    <div class="payment-content-right-method-payment-item">
+                        <input name="method-payment" type="radio" id="cash-option">
+                        <label for="cash-option" style="color: black;font-weight: bold;">Thanh toán bằng tiền mặt</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+                   <!-- Quà tặng và nút Thanh toán trên cùng hàng -->
+                    <div class="payment-content-right-button" style=" justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <!-- Nút chọn quà tặng -->
+                    <!-- <button id="gift-btn" style="padding: 10px; width: 49%; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: black; cursor: pointer;" >
+                        Chọn quà tặng
+                    </button> -->
+
+                    <!-- Danh sách quà tặng (ẩn mặc định) -->
+                    <!-- <ul id="gift-options" style="display: none; position: absolute; top: 100%; left: 0; width: 70%; background-color: white; border: 1px solid #ccc; border-radius: 5px; list-style: none; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); z-index: 100;">
+                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Bọc vô lăng')">Bọc vô lăng</li>
+                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Trang trí xe')">Trang trí xe</li>
+                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Vệ sinh xe')">Vệ sinh xe</li>
+                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Nước hoa xe hơi')">Nước hoa xe hơi</li>
+                    </ul> -->
+                        <button class="cbtn" style="padding: 10px 20px;" onclick="window.location.href='review.html'">THANH TOÁN</button>
+                        <button class="cbtn" style="padding: 10px 20px;" onclick="history.back()">TRỞ VỀ</button>
+                    </div>
+                </div>   
+            </div>
+        </section>
+    <!------------footer----------->
+    <footer>
+        <div id="if-ct">
+            <div class="if">
+                <img src="dp56vcf7.png" alt="logo" class="image1">
+                <div class="if-text">
+    
+                    <h2 class="if-title">
+                        giới thiệu
+                    </h2>
+                    <small class="if-content" id="about">
+                        AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                        Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
+                        Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
+                        Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
+                      
+                    </small>
+                    <br><br>
+                    <small>
+                        Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
+                    </small>
+    
+                </div>
+                <div class="ct-text">
+                    <h2 class="ct-title">
+                        thông tin liên hệ
+                    </h2>
+                    <div class="ct-item">
+                        <i class="fa fa-phone" style="line-height: 0.2;"></i>
+                        <p id="contact">0987654321</p>
+                        <p>Hotline 1: 090 123 4567</p>
+                        <p>Hotline 2: 080 123 4567</p>
+                    </div>
+                    <div class="ct-item">
+                        <i class="fa fa-envelope"></i>
+                        <p>email@auto.com</p>
+                    </div>
+                    <div class="ct-item">
+                        <i class="fa fa-map-marker"></i>
+                        <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
+            
+                     </div>
+                </div>
+            </div>
+    <hr style="color: lightslategray;">
+    <div class="copyright">
+        <p>Copyright © 2024 Auto Car. All rights reserved.</p>
+        <small>
+            Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
+        </small>  
+        <br>
+        <small>
+            
+            Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
+        </small>
+    </div>
+    </footer>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('login-btn');
     const registerBtn = document.getElementById('register-btn');
@@ -93,36 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+// Payment
+// Xử lý sự kiện bấm nút "Chọn quà tặng"
 
-document.getElementById('priceFilter').addEventListener('change', filterProducts);
-document.getElementById('yearFilter').addEventListener('change', filterProducts);
+// document.getElementById("gift-btn").addEventListener("click", function () {
+//     const giftOptions = document.getElementById("gift-options");
+    
+//     // Kiểm tra trạng thái hiển thị và chuyển đổi
+//     // if (giftOptions.style.display === "none" || giftOptions.style.display === "") {
+//     //     giftOptions.style.display = "block"; 
+//     //     giftOptions.style.display = "none"; 
+//     // }
+// });
+//     //Hàm chọn quà tặng và hiển thị lựa chọn 
+//     function selectGift(gift) {
+//         alert(`Bạn đã chọn: ${gift}`); 
+//         document.getElementById("gift-options").style.display = "none"; 
+//     }
 
-function filterProducts() {
-    var priceFilterValue = document.getElementById('priceFilter').value;
-    var yearFilterValue = document.getElementById('yearFilter').value;
-    var products = document.querySelectorAll('.nc-item');
 
-    products.forEach(function(product) {
-        var price = parseInt(product.getAttribute('data-price'));
-        var year = product.getAttribute('data-year');
-
-        var displayByPrice = false;
-        var displayByYear = (yearFilterValue === 'all' || year === yearFilterValue);
-
-        if (priceFilterValue === 'all') {
-            displayByPrice = true;
-        } else if (priceFilterValue === 'below10b' && price < 1000000000) {
-            displayByPrice = true;
-        } else if (priceFilterValue === '10to20b' && price >= 1000000000 && price <= 10000000000) {
-            displayByPrice = true;
-        } else if (priceFilterValue === 'above20b' && price > 10000000000) {
-            displayByPrice = true;
-        }
-
-        if (displayByPrice && displayByYear) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-}
