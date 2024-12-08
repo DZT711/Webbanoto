@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <script src="index.js"></script>
+    <link rel="icon" href="../User/dp56vcf7.png" type="image/png">
+
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 </head>
@@ -20,11 +22,14 @@
     
     <!-- Navbar -->
     <div class="navbar">
-        <a href="admin.html" class="homelink"><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Dashboard</a>
+        <a href="index.html" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
+        <a href="statics.html" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
         <a href="manage-users.html"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
         <a href="manage-orders.html"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
-        <a href="reports.html"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a>
-        <a href="settings.html"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a>
+        <!-- <a href="reports.html"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a> -->
+        <!-- <a href="settings.html"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a> -->
+        <a href="manage-products.html" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
+
     </div>
     
     <!-- Main Content -->
@@ -41,15 +46,15 @@
             <div class="stats-container">
                 <div class="stat-box">
                     <h2><i class="fa-solid fa-user-group">&nbsp;&nbsp;</i>Total Users</h2>
-                    <p>1,234</p>
+                    <p>2</p>
                 </div>
                 <div class="stat-box">
                     <h2><i class="fa-solid fa-list-check">&nbsp;&nbsp;</i>Orders Today</h2>
-                    <p>56</p>
+                    <p>1</p>
                 </div>
                 <div class="stat-box">
                     <h2><i class="fa-solid fa-wallet">&nbsp;&nbsp;</i>Revenue</h2>
-                    <p>$120,345M </p>
+                    <p>120,345,000,000 đ</p>
                 </div>
             </div>
         </section>
@@ -68,17 +73,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>john_doe</td>
-                        <td>john@example.com</td>
+                        <td>DZT711</td>
+                        <td>nguyenihuynsh7112005@gmail.com</td>
                         <td>Admin</td>
                         <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button onclick="window.location.href='manage-users.html'"   style="background-color: red;"class="ban">Ban</button>
+                            <button onclick="window.location.href='manage-users.html'" >Edit</button>
+                            <button onclick="window.location.href='manage-users.html'" >Delete</button>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
+            <button class="link"  onclick="window.location.href='manage-users.html'">More</button>
         </section>
 
         <!-- Order Management -->
@@ -96,16 +103,18 @@
                 <tbody>
                     <tr>
                         <td>12345</td>
-                        <td>Jane Doe</td>
+                        <td>Huy Nguyen</td>
                         <td>Shipped</td>
                         <td>
-                            <button>View</button>
-                            <button>Update</button>
+                            <button onclick="window.location.href='manage-orders.html'">View</button>
+                            <button onclick="window.location.href='manage-orders.html'">Update</button>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
+            <button class="link"  onclick="window.location.href='manage-orders.html'">More</button>
+
         </section>
         <hr>
     </main>

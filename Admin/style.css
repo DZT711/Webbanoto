@@ -48,9 +48,7 @@
     background-color: #f3f3f3;
     font-weight: bold;
 }
-.admin-table .customer{
 
-}
 
 /* Admin Buttons */
 .admin-table button {
@@ -176,4 +174,46 @@
     background-color: #c0392b;
 }
 
+Specific hover effect for Ban button
+.admin-table button[style*="background-color: red;"] {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-table button[style*="background-color: red;"]:hover {
+     background-color: #c0392b; /* Darker red on hover  */
+    transform: scale(1.1); 
+    /* Slight zoom effect  */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    /* Add shadow  */
+}
+/* More Button Styling */
+button.link {
+    margin-top: 20px;
+    display: inline-block;
+    background-color: #1abc9c; /* Màu nền xanh ngọc */
+    color: white; /* Màu chữ trắng */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px; /* Kích thước nút */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* Đậm chữ */
+    cursor: pointer; /* Hiển thị icon tay khi hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+    text-align: center; /* Canh giữa văn bản */
+}
+
+/* Hover Effect for More Button */
+button.link:hover {
+    background-color: #16a085; /* Màu nền đậm hơn khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+}
+
+/* Active State for More Button */
+button.link:active {
+    background-color: #0e7766; /* Màu tối hơn khi bấm */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Giảm độ cao bóng */
+}
 

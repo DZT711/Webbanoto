@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lí hóa đơn</title>
+    <script src="mo.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mo.css">
+    <link rel="icon" href="../User/dp56vcf7.png" type="image/png">
+    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="logo">
+            <a href="index.html">
+                <img id="logoheader" src="../User/dp56vcf7.png" alt="Image Description">
+            </a>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="index.html" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
+        <a href="statics.html" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
+        <a href="manage-users.html"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
+        <a href="manage-orders.html"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
+        <a href="manage-products.html" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
+    </div>
+
+    <main>
+        <!-- Filter & Sorting Section -->
+        <section class="filter-section">
+            <h2>Filter & Sort Orders</h2>
+            <!-- Date Range Filter -->
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+            <br><br>
+            <!-- Status Filter -->
+            <label for="status-filter">Status:</label>
+            <select id="status-filter">
+                <option value="">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <br><br>
+            <!-- Sort By Location -->
+            <button id="sort-location">Sort by Location</button>
+        </section>
+
+        <!-- Order Management -->
+        <section class="admin-section">
+            <h2><i class="fa-solid fa-list-check">&nbsp;&nbsp;</i>Order Management</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Order ID&nbsp;&nbsp;&nbsp;</th>
+                        <th class="customer">Customer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th class="status">Status</th>
+                        <th class="Date">Date</th>
+                        <th class="Location">Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Random orders will be added dynamically here -->
+                </tbody>
+            </table>
+        </section>
+        <hr>
+    </main>
+
+    <footer>
+        <div class="copyright">
+            <p>© 2024 Auto Car. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
