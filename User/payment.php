@@ -16,7 +16,7 @@
 <body>
     <header>
         <div class="logo">
-            <a class="nav" href="index.html">
+            <a class="nav" href="index.php">
                 <img src="dp56vcf7.png" alt="logo" height="120px">
             </a>
         </div>
@@ -63,19 +63,19 @@
     <hr>
     <div class="navbar">
     
-        <a href="index.html" class="homelink" >Trang Chủ</a>
+        <a href="index.php" class="homelink" >Trang Chủ</a>
         <div class="dropdown">
             <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
-                <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+                <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
             </div>
         </div>
-        <a href="billhistory.html">Xem lịch sử mua hàng</a>
+        <a href="billhistory.php">Xem lịch sử mua hàng</a>
         <a href="#about">Giới Thiệu</a>
         <a href="#contact">Liên Hệ</a>
-        <a href="../Admin/login.html">Admin</a>
+        <a href="../Admin/login.php">Admin</a>
 
     <div id="tlp">
             <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -89,21 +89,21 @@
             <div class="payment-top-wrap">
                 <div class="payment-top">
                    <div class="payment-top-cart payment-top-item">
-                    <a href="cart.html">
+                    <a href="cart.php">
 
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                    </div> 
         
                    <div class="payment-top-address payment-top-item">
-                    <a href="delivery.html">
+                    <a href="delivery.php">
 
                         <i class="fa-solid fa-location-dot"></i>
                     </a>    
                    </div> 
         
                    <div class="payment-top-payment payment-top-item">
-                    <a href="payment.html">
+                    <a href="payment.php">
 
                         <i class="fa-solid fa-money-check"></i>
                     </a>    
@@ -166,7 +166,7 @@
                         <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Vệ sinh xe')">Vệ sinh xe</li>
                         <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Nước hoa xe hơi')">Nước hoa xe hơi</li>
                     </ul> -->
-                        <button class="cbtn" style="padding: 10px 20px;" onclick="window.location.href='review.html'">THANH TOÁN</button>
+                        <button class="cbtn" style="padding: 10px 20px;" onclick="window.location.href='review.php'">THANH TOÁN</button>
                         <button class="cbtn" style="padding: 10px 20px;" onclick="history.back()">TRỞ VỀ</button>
                     </div>
                 </div>   

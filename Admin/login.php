@@ -34,7 +34,7 @@
             // Replace with your admin credentials check
             if (username === 'admin' && password === 'admin') {
                 localStorage.setItem('adminUser', username);
-                window.location.href = 'index.html'; // Redirect to the admin dashboard
+                window.location.href = 'index.php'; // Redirect to the admin dashboard
             } else {
                 document.getElementById('error-message').style.display = 'block';
             }

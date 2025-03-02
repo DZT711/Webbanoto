@@ -15,7 +15,7 @@
     <body>
         <header>
             <div class="logo">
-                <a class="nav" href="BMW.html">
+                <a class="nav" href="BMW.php">
                     <img src="dp56vcf7.png" alt="logo"    height="120px" >
                 </a>
             </div>
@@ -56,19 +56,19 @@
         <header>
             <div class="navbar">
     
-                <a href="index.html" class="homelink" >Trang Chủ</a>
+                <a href="index.php" class="homelink" >Trang Chủ</a>
                 <div class="dropdown">
                     <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
                     <div class="dropdown-content">
-                        <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
                     </div>
                 </div>
-                <a href="billhistory.html">Xem lịch sử mua hàng</a>
+                <a href="billhistory.php">Xem lịch sử mua hàng</a>
                 <a href="#about">Giới Thiệu</a>
                 <a href="#contact">Liên Hệ</a>
-                <a href="../Admin/login.html">Admin</a>
+                <a href="../Admin/login.php">Admin</a>
             <div id="tlp">
                     <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span class="Hotline">Hotline 2: 080 123 4567</span>
@@ -109,7 +109,7 @@
 
     <div class="ctn21">
         <div class="nc-item" data-price="1529000000" data-year="2024">
-            <a href="bmw320.html" class="linkcar">
+            <a href="bmw320.php" class="linkcar">
                 
                 <img class="carpic" src="3-series.jpeg" alt="bmw1">
                 <h2 class="cith2"> 1.529.000.000 VND</h2>
@@ -143,7 +143,7 @@
                 </a>
             </div>
             <div class="nc-item" data-price="1629000000" data-year="2023">
-                <a href="bmw320.html" class="linkcar">
+                <a href="bmw320.php" class="linkcar">
                     <img class="carpic" src="trang-alpine-3.webp" alt="bmw2" >
                     <h2 class="cith2"> 1.629.000.000 VND</h2>
                     <p class="cit">BMW 330i M SPort </p>
@@ -176,7 +176,7 @@
                 </a>
             </div>
             <div class="nc-item" data-price="2629000000" data-year="2021">
-                <a href="bmw320.html" class="linkcar">
+                <a href="bmw320.php" class="linkcar">
                     <img class="carpic" src="bmw3.png" alt="bmw3">
                     <h2 class="cith2"> 2.629.000.000 VND</h2>
                     <p class="cit">430i Convertible M Sport</p>
@@ -209,7 +209,7 @@
                 </a>
             </div>
             <div class="nc-item" data-price="4499000000" data-year="2023">
-                <a href="bmw320.html" class="linkcar">
+                <a href="bmw320.php" class="linkcar">
 
                     <img class="carpic" src="bmw4.png" alt="bmw4">
                     <h2 class="cith2"> 4.499.000.000 VND</h2>
@@ -243,7 +243,7 @@
                 </a>
             </div>
             <div class="nc-item" data-price="10990000000" data-year="2022">
-                <a href="bmw320.html" class="linkcar">
+                <a href="bmw320.php" class="linkcar">
 
                     <img class="carpic" src="bmw5.jpg" alt="bmw5">
                     <h2 class="cith2"> 10.990.000.000 VND</h2>

@@ -14,7 +14,7 @@
     <body>
         <header>
             <div class="logo">
-                <a class="nav" href="Lamborghini.html">
+                <a class="nav" href="Lamborghini.php">
                     <img src="dp56vcf7.png" alt="logo"    height="120px" >
                 </a>
             </div>
@@ -55,19 +55,19 @@
         <header>
             <div class="navbar">
     
-                <a href="index.html" class="homelink" >Trang Chủ</a>
+                <a href="index.php" class="homelink" >Trang Chủ</a>
                 <div class="dropdown">
                     <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
                     <div class="dropdown-content">
-                        <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                        <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
                     </div>
                 </div>
-                <a href="billhistory.html">Xem lịch sử mua hàng</a>
+                <a href="billhistory.php">Xem lịch sử mua hàng</a>
                 <a href="#about">Giới Thiệu</a>
                 <a href="#contact">Liên Hệ</a>
-                <a href="../Admin/login.html">Admin</a>
+                <a href="../Admin/login.php">Admin</a>
 
             <div id="tlp">
                     <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -105,7 +105,7 @@
                 <!-- Các sản phẩm -->
                 <div class="ctn21">
                     <div class="nc-item" data-price="60000000000" data-year="2021">
-                        <a href="bmw320.html" class="linkcar">
+                        <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo1.jpg" alt="lambo1">
                             <h2 class="cith2"> 60.000.000.000 VND</h2>
                             <p class="cit">Lamborghini Aventador SVJ</p>
@@ -129,7 +129,7 @@
                         </a>
                     </div>
                     <div class="nc-item" data-price="50000000000" data-year="2022">
-                        <a href="bmw320.html" class="linkcar">
+                        <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo2.png" alt="lambo2">
                             <h2 class="cith2"> 5.000.000.000 VND</h2>
                             <p class="cit">Lamborghini Gallardo</p>
@@ -153,7 +153,7 @@
                         </a>
                     </div>
                     <div class="nc-item" data-price="7100000000" data-year="2023">
-                        <a href="bmw320.html" class="linkcar">
+                        <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo3.jpg" alt="lambo3">
                             <h2 class="cith2"> 7.100.000.000 VND</h2>
                             <p class="cit">Lamborghini Huracan</p>
@@ -177,7 +177,7 @@
                         </a>
                     </div>
                     <div class="nc-item" data-price="12000000000" data-year="2024">
-                        <a href="bmw320.html" class="linkcar">
+                        <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo4.jpg" alt="lambo4">
                             <h2 class="cith2"> 12.000.000.000 VND</h2>
                             <p class="cit">Lamborghini Aventador LP 770-4 SVJ</p>
@@ -201,7 +201,7 @@
                         </a>
                     </div>
                     <div class="nc-item" data-price="17900000000" data-year="2024">
-                        <a href="bmw320.html" class="linkcar">
+                        <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo5.jpg" alt="lambo5">
                             <h2 class="cith2"> 17.900.000.000 VND</h2>
                             <p class="cit">Lamborghini Huracan Tecnica</p>

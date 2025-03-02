@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${product.quantitySold}</td>
                 <td>${(product.quantitySold * product.price).toLocaleString()} VND</td>
                 <td>
-                    <button onclick="window.location.href='view-product.html'">View</button>
+                    <button onclick="window.location.href='view-invoice.html'">View</button>
                 </td>
             `;
             productListTableBody.appendChild(row);

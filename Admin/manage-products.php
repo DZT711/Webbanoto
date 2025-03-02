@@ -16,17 +16,17 @@
     <!-- Header -->
     <header class="admin-header">
         <div class="logo">
-            <a href="index.html">
+            <a href="index.php">
                 <img id="logoheader" src="../User/dp56vcf7.png" alt="Image Description">
             </a>
         </div>
     </header>
     <div class="navbar">
-        <a href="index.html" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
-        <a href="statics.html"><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
-        <a href="manage-users.html"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
-        <a href="manage-orders.html"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
-        <a href="manage-products.html"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
+        <a href="index.php" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
+        <a href="statics.php"><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
+        <a href="manage-users.php"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
+        <a href="manage-orders.php"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
+        <a href="manage-products.php"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
     </div>
     <main>
         <section class="admin-section">

@@ -12,7 +12,7 @@
 <body>
     <header>
         <div class="logo">
-            <a class="nav" href="bmw.html"> 
+            <a class="nav" href="bmw.php"> 
             </a>
         </div>
     </header>
@@ -64,7 +64,7 @@
 
         <!-- Action Buttons -->
         <div class="actions">
-            <button class="btn primary" onclick="window.location.href='cart.html'">Thêm vào giỏ hàng</button>
+            <button class="btn primary" onclick="window.location.href='cart.php'">Thêm vào giỏ hàng</button>
             <button class="btn secondary" onclick="history.back()">Trở về</button>
         </div>
     </main>

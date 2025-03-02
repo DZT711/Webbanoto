@@ -6,11 +6,10 @@
     <link rel="icon" href="dp56vcf7.png" type="image/png">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="history.css">
-    <script src="history.js"></script>
     <title>Lịch sử mua hàng</title>
 </head>
 <body>
-    <a href="index.html" class="back-button"> Trở Về</a>
+    <a href="index.php" class="back-button"> Trở Về</a>
 
     <h1>Lịch Sử Mua Hàng</h1>
     
@@ -50,7 +49,7 @@
             for (let i = 0; i < numBills; i++) {
                 // Randomly select cars
                 const purchasedCars = [];
-                const numCars = Math.floor(Math.random() * 3) + 1; // 1-3 cars per bill
+                const numCars = Math.floor(Math.random() * 10) + 1; // 1-3 cars per bill
                 
                 for (let j = 0; j < numCars; j++) {
                     const randomCar = cars[Math.floor(Math.random() * cars.length)];

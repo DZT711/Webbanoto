@@ -17,13 +17,13 @@
 <body>
 
     <div id="searchbar">
-        <a href="index.html" class="home" >
+        <a href="index.php" class="home" >
             <i class="fa-solid fa-house">
     
             </i>
         </a>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <form action="search-results.html" method="GET" style="display: flex; align-items: center;">
+        <form action="search-results.php" method="GET" style="display: flex; align-items: center;">
             <input type="text" class="search" id="search" name="query" placeholder="Nhập hãng xe vd: Lamborghini,...." style="flex: 1; padding: 10px; font-size: 16px;">
             <button type="submit" style="padding: 10px 20px; font-size: 16px; margin-left: 5px; cursor: pointer;">
                 <i class="fa fa-search"></i>

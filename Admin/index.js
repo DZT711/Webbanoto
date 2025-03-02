@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${getRandomStatus()}</td>
             <td>
                 <button onclick="window.location.href='manage-orders.html'">View</button>
-                <button onclick="window.location.href='manage-orders.html'">Update</button>
             </td>
         `;
         orderTableBody.appendChild(row);

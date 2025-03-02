@@ -17,7 +17,7 @@
 <body>
     <header>
         <div class="logo">
-            <a class="nav" href="index.html">
+            <a class="nav" href="index.php">
                 <img src="dp56vcf7.png" alt="logo" height="120px">
             </a>
         </div>
@@ -64,19 +64,19 @@
     <hr>
     <div class="navbar">
     
-        <a href="index.html" class="homelink" >Trang Chủ</a>
+        <a href="index.php" class="homelink" >Trang Chủ</a>
         <div class="dropdown">
             <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
-                <a href="index.html">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+                <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+                <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
             </div>
         </div>
-        <a href="billhistory.html">Xem lịch sử mua hàng</a>
+        <a href="billhistory.php">Xem lịch sử mua hàng</a>
         <a href="#about">Giới Thiệu</a>
         <a href="#contact">Liên Hệ</a>
-        <a href="../Admin/login.html">Admin</a>
+        <a href="../Admin/login.php">Admin</a>
     <div id="tlp">
             <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span class="Hotline">Hotline 2: 080 123 4567</span>
@@ -89,21 +89,21 @@
             <div class="cart-top-wrap">
                 <div class="cart-top">
                     <div class="cart-top-cart cart-top-item">
-                        <a href="cart.html">
+                        <a href="cart.php">
 
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </div>
 
                     <div class="cart-top-addres cart-top-item">
-                        <a href="delivery.html">
+                        <a href="delivery.php">
 
                             <i class="fa-solid fa-location-dot"></i>
                         </a>
                     </div>
 
                     <div class="cart-top-payment cart-top-item">
-                        <a href="payment.html">
+                        <a href="payment.php">
 
                             <i class="fa-solid fa-money-check"></i>
                         </a>
@@ -323,13 +323,13 @@
 
                     <!-- <script>
                         function navigateToDelivery() {
-                            // Chuyển đến trang delivery.html
-                            window.location.href = "delivery.html";
+                            // Chuyển đến trang delivery.php
+                            window.location.href = "delivery.php";
                         }
 
                         function goToHomePage() {
                             // Chuyển hướng về trang chủ
-                            window.location.href = "index.html";
+                            window.location.href = "index.php";
 }
 
                     </script> -->

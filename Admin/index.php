@@ -14,7 +14,7 @@
     <!-- Header -->
     <header class="admin-header">
         <div class="logo">
-            <a href="index.html">
+            <a href="index.php">
                 <img id="logoheader" src="../User/dp56vcf7.png" alt="Image Description">
             </a>
         </div>
@@ -22,13 +22,13 @@
     
     <!-- Navbar -->
     <div class="navbar">
-        <a href="index.html" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
-        <a href="statics.html" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
-        <a href="manage-users.html"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
-        <a href="manage-orders.html"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
-        <!-- <a href="reports.html"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a> -->
-        <!-- <a href="settings.html"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a> -->
-        <a href="manage-products.html" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
+        <a href="index.php" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
+        <a href="statics.php" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
+        <a href="manage-users.php"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
+        <a href="manage-orders.php"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
+        <!-- <a href="reports.php"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a> -->
+        <!-- <a href="settings.php"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a> -->
+        <a href="manage-products.php" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
 
     </div>
     
@@ -37,7 +37,7 @@
         <section class="admin-section">
             <div class="admin-info">
                 <span id="admin-greeting">Welcome, <span id="admin-name"></span></span>
-                <button id="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Logout</button>
+                <!-- <button id="logout-btn" onclick=""><a href="login.php"></a><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Logout</button> -->
             </div>
 
             <p>Overview of recent activities and system status.</p>
@@ -77,15 +77,15 @@
                         <td>nguyenihuynsh7112005@gmail.com</td>
                         <td>Admin</td>
                         <td>
-                            <button onclick="window.location.href='manage-users.html'"   style="background-color: red;"class="ban">Ban</button>
-                            <button onclick="window.location.href='manage-users.html'" >Edit</button>
-                            <button onclick="window.location.href='manage-users.html'" >Delete</button>
+                            <button onclick="window.location.href='manage-users.php'"   style="background-color: red;"class="ban">Ban</button>
+                            <button onclick="window.location.href='manage-users.php'" >Edit</button>
+                            <button onclick="window.location.href='manage-users.php'" >Delete</button>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
-            <button class="link"  onclick="window.location.href='manage-users.html'">More</button>
+            <button class="link"  onclick="window.location.href='manage-users.php'">More</button>
         </section>
 
         <!-- Order Management -->
@@ -106,14 +106,13 @@
                         <td>Huy Nguyen</td>
                         <td>Shipped</td>
                         <td>
-                            <button onclick="window.location.href='manage-orders.html'">View</button>
-                            <button onclick="window.location.href='manage-orders.html'">Update</button>
+                            <button onclick="window.location.href='manage-orders.php'">View</button>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
-            <button class="link"  onclick="window.location.href='manage-orders.html'">More</button>
+            <button class="link"  onclick="window.location.href='manage-orders.php'">More</button>
 
         </section>
         <hr>
@@ -127,23 +126,36 @@
     </footer>
 
     <script>
-        // Display the admin's name and handle redirection if not logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            const adminUser = localStorage.getItem('adminUser');
-            if (!adminUser) {
-                // Redirect to login page if not logged in
-                window.location.href = 'login.html';
-            } else {
-                // Display admin's name in the header
-                document.getElementById('admin-name').textContent = adminUser;
-            }
-        });
 
-        // Logout function
-        function logout() {
-            localStorage.removeItem('adminUser'); // Clear the stored username
-            window.location.href = 'login.html'; // Redirect to login page
+    // Display the admin's name and handle redirection if not logged in
+    document.addEventListener('DOMContentLoaded', function() {
+        const adminUser = localStorage.getItem('adminUser');
+        const loginPage = 'login.php'; // Define login page path
+
+        if (!adminUser) {
+            // Redirect to login page if not logged in
+            window.location.replace(loginPage);
+        } else {
+            // Display admin's name in the header
+            document.getElementById('admin-name').textContent = adminUser;
         }
+    });
+
+    // Logout function
+    function logout() {
+        // Clear the stored username
+        localStorage.removeItem('adminUser');
+        sessionStorage.clear(); // Clear any session data
+        
+        // Redirect to login page
+        const loginPage = 'login.php';
+        window.location.replace(loginPage);
+        
+        // Prevent any potential code execution after redirect
+        return false;
+    }
+</script>
+        </script>
     </script>
 </body>
 </html>

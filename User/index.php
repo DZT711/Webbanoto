@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +13,7 @@
 <body>
     <header>
         <div class="logo">
-            <a class="nav" href="index.html">
+            <a class="nav" href="index.php">
                 <img src="dp56vcf7.png" alt="logo"    height="120px" >
             </a>
         </div>
@@ -57,20 +59,20 @@
 
 <div class="navbar">
     
-    <a href="index.html" class="homelink" >Trang Chủ</a>
+    <a href="index.php" class="homelink" >Trang Chủ</a>
     <div class="dropdown">
         <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-content">
             <a href="#ds-md">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-            <a href="more.html">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-            <a href="more.html">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
+            <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
+            <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
         </div>
     </div>
     
-    <a href="billhistory.html">Xem lịch sử mua hàng</a>
+    <a href="billhistory.php">Xem lịch sử mua hàng</a>
     <a href="#about">Giới Thiệu</a>
     <a href="#contact">Liên Hệ</a>
-    <a href="../Admin/login.html">Admin</a>
+    <a href="../Admin/login.php">Admin</a>
 
 <div id="tlp">
         <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -103,7 +105,7 @@
         <div class="ds-md-sb">
 
             <div id="searchbar">
-                <form action="search-results.html" method="GET" style="display: flex; align-items: center;">
+                <form action="search-results.php" method="GET" style="display: flex; align-items: center;">
                     <input type="text" class="search" id="search" name="query" placeholder="Nhập hãng xe vd: Lamborghini,...." style="flex: 1; padding: 10px; font-size: 16px;">
                     <button type="submit" style="padding: 10px 20px; font-size: 16px; margin-left: 5px; cursor: pointer;">
                         <i class="fa fa-search"></i>
@@ -114,21 +116,21 @@
                 <h1 id="ds-md-title">Kiểu Dáng/ Hãng Xe Phổ Biến</h1>
                 <div id="ctn21">
                     <div class="lgb">
-                        <a class="lg" href="BMW.html">
+                        <a class="lg" href="BMW.php">
                             <img class="lg-b" src="BMW.png" alt="">
                             <br>
                             BMW
                         </a>
                     </div>
                     <div class="lgb">
-                        <a class="lg" href="Lamborghini.html">
+                        <a class="lg" href="Lamborghini.php">
                             <img class="lg-b" src="images.png" alt="">
                             <br>
                             Lamborghini
                         </a>
                     </div>
                     <div class="lgb">
-                        <a class="lg" href="Mazda.html">
+                        <a class="lg" href="Mazda.php">
                             <img class="lg-b" src="png-transparent-mazda-biante-logo-mazda3-car-mazda-angle-emblem-text-thumbnail.png" alt="">
                             <br>
                             Mazda
@@ -151,7 +153,7 @@
             </div>
             <div class="ctn21">
                 <div class="nc-item">
-                    <a href="bmw320.html" class="linkcar">
+                    <a href="bmw320.php" class="linkcar">
 
                         <img class="carpic" src="lambo1.jpg" alt="lambo1">
                         <h2 class="cith2"> 60.000.000.000 VND</h2>
@@ -185,7 +187,7 @@
                     </a>
                 </div>
                 <div class="nc-item">
-                    <a href="bmw320.html" class="linkcar">
+                    <a href="bmw320.php" class="linkcar">
 
                         <img class="carpic" src="lambo2.png" alt="lambo2">
                         <h2 class="cith2"> 5.000.000.000 VND</h2>
@@ -220,7 +222,7 @@
                     </a>
                 </div>
                 <div class="nc-item">
-                    <a href="bmw320.html" class="linkcar">
+                    <a href="bmw320.php" class="linkcar">
 
                         <img class="carpic" src="lambo3.jpg" alt="lambo3">
                         <h2 class="cith2"> 7.100.000.000 VND</h2>
@@ -259,7 +261,7 @@
                 <h2 class="more-car">
                     <span class="morecar">
 
-                        <a class="more" href="more.html"><small>Xem Thêm</small></a>
+                        <a class="more" href="more.php"><small>Xem Thêm</small></a>
                     </span>
                 </h2>
 
