@@ -2648,6 +2648,68 @@ session_start();
 .back-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }</style>
+
+
+<style>/* Update password container and input styles */
+.password-container {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Remove gap */
+    margin-bottom: 1rem;
+    width: 100%; /* Ensure full width */
+}
+
+.input-group.password {
+    margin-bottom: 0;
+    flex: 1;
+    width: 100%; /* Ensure full width */
+}
+
+.input-group.password input {
+    width: 100%;
+    padding-right: 45px; /* Make space for separator and eye icon */
+    border-right: none; /* Remove right border */
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.separator {
+    width: 1px;
+    height: 25px;
+    background-color: #ddd;
+    margin: 0;
+    position: relative;
+    right: -1px; /* Align with input border */
+}
+
+.password-toggle {
+    position: relative;
+    padding: 8px 12px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+    border-left: none;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.password-toggle:hover {
+    color: #007bff;
+}
+
+/* Update input focus states */
+.input-group.password input:focus {
+    border-right: none;
+}
+
+.input-group.password input:focus + .separator + .password-toggle {
+    border-color: #007bff;
+}</style>
 <body>
 <div class="starfall">
   <div class="falling-star"></div>
@@ -2713,12 +2775,17 @@ session_start();
                     <i class="fa-solid fa-user"></i>
                     <input type="text" placeholder="Tên đăng nhập" name="usn" required>
                 </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Mật Khẩu " required name="pass">
-                </div>
+                <div class="password-container">
+    <div class="input-group password">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="loginPassword" placeholder="Mật Khẩu" required name="pass">
+    </div>
+    <div class="separator"></div>
+    <i class="fa-regular fa-eye password-toggle" onclick="togglePassword('loginPassword', this)"></i>
+</div>
                 <input type="submit" class="submit-btn" value="Đăng Nhập" name="login"></input>
             </form>
+            
 
             <!-- Sign Up Form -->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="signup-form" class="form" style="display: none;">
@@ -2743,14 +2810,23 @@ session_start();
                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                            onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Mật Khẩu " required name="password">
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Nhập Lại Mật Khẩu" required name="c-password">
-                </div>
+                <div class="password-container">
+    <div class="input-group password">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="signupPassword" placeholder="Mật Khẩu" required name="password">
+    </div>
+    <div class="separator"></div>
+    <i class="fa-regular fa-eye password-toggle" onclick="togglePassword('signupPassword', this)"></i>
+</div>
+
+<div class="password-container">
+    <div class="input-group password">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="confirmPassword" placeholder="Nhập Lại Mật Khẩu" required name="c-password">
+    </div>
+    <div class="separator"></div>
+    <i class="fa-regular fa-eye password-toggle" onclick="togglePassword('confirmPassword', this)"></i>
+</div>
                 <input type="submit" class="submit-btn" value="Đăng Ký" name="register"></input>
             </form>
         </div>
@@ -2847,6 +2923,27 @@ session_start();
                 this.value = this.value.slice(0, 20);
             }
         });
+    </script>
+    <script>
+                // Add to your existing scripts
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+            
+            // Add animation effect
+            icon.style.transform = 'scale(1.2) ';
+            setTimeout(() => {
+                icon.style.transform = '';
+            }, 200);
+        }
     </script>
 
 </body>

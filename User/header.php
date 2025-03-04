@@ -454,7 +454,7 @@ color:lightslategray;
     .user-greeting {
         display: flex;
         align-items: center;
-        gap: 10px;
+
         color: #333;
     }
     
@@ -517,6 +517,514 @@ color:lightslategray;
         }
     }
 </style>
+<style>
+        /* Add these styles to your existing navbar styles */
+    .brand-dropdown {
+        position: relative;
+    }
+    
+    .sub-dropdown {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        border-radius: 4px;
+    }
+    
+    .brand-dropdown:hover .sub-dropdown {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .brand-dropdown > a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .sub-dropdown a {
+        padding: 12px 16px;
+        color: rgb(109, 110, 113);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .sub-dropdown a:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+        padding-left: 20px;
+    }
+    
+    @keyframes fadeIn {
+        from { 
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<style>
+        /* Update these styles in your header.php */
+        .user-greeting {
+            display: flex;
+            align-items: center;
+             /* Increased gap */
+            color: #333;
+            font-size: 14px; /* Base font size */
+            padding-top:5px;
+            padding-bottom: 8px;
+        }
+    
+        .username-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600; /* Slightly bolder */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+    
+        .username-link:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #0056b3;
+        }
+    
+        .logout-btn {
+            background-color: transparent; /* Changed to transparent */
+            color: #dc3545; /* Red text */
+            border: 1px solid #dc3545; /* Red border */
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            height: 35px; /* Fixed height */
+        }
+    
+        .logout-btn:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+        }
+    
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+    
+        .logout-btn i {
+            font-size: 14px; /* Match icon size */
+        }
+    
+        /* Additional professional touches */
+        .loggedin {
+            display: flex;
+            align-items: center;
+            padding: 5px 15px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+<style>
+        .login-register-ctn {
+        padding: 0 200px; /* Match navbar padding */
+        display: flex;
+        justify-content: flex-end;
+        height: 50px;
+        border-bottom: 1px solid #e9ecef;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .login-register {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        /* gap: 15px; */
+    }
+    
+    /* Logged in state styles */
+    .loggedin {
+        display: flex;
+        align-items: center;
+
+        background-color: #f0f0f0;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        /* gap: 15px; */
+        color: #495057;
+        font-size: 14px;
+    }
+    
+    .username-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        /* gap: 8px; */
+        padding: 6px 12px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+    
+    .username-link:hover {
+        background-color: rgba(0,123,255,0.1);
+        color: #0056b3;
+    }
+    
+    .logout-btn {
+        background-color: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .logout-btn:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    /* Not logged in state styles */
+    .notlogin {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px 15px;
+    }
+    
+    .auth-link {
+        color: #495057;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        /* gap: 8px; */
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    
+    .auth-link:hover {
+        background-color: rgba(0,123,255,0.1);
+        color: #007bff;
+    }
+    
+    .separator {
+        color: #dee2e6;
+        margin: 0 5px;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .login-register-ctn {
+            padding: 0 20px;
+            justify-content: center;
+        }
+    
+        .login-register {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+<style>
+        /* Logo animations */
+    .logo a img {
+        transition: transform 0.3s ease;
+    }
+    
+    .logo a:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Navbar animations */
+    .navbar {
+        animation: slideInDown 0.5s ease;
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .navbar:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Navigation link effects */
+    .nav-link {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #007bff;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
+    /* Dropdown animations */
+    .dropdown-content {
+        transform-origin: top;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    
+    /* Sub-dropdown animations */
+    .sub-dropdown {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+    
+    .brand-dropdown:hover .sub-dropdown {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
+    /* Hotline pulse effect */
+    .hotline i {
+        animation: pulse 2s infinite;
+    }
+    
+    /* User greeting animations */
+    .user-greeting {
+        animation: fadeInRight 0.5s ease;
+    }
+    
+    .username-link {
+        transition: all 0.3s ease;
+    }
+    
+    .username-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+    }
+    
+    /* Logout button animations */
+    .logout-btn {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .logout-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+    
+    .logout-btn:hover::before {
+        width: 300%;
+        height: 300%;
+    }
+    
+    /* Notification refinements */
+    .notification {
+        animation: slideInRight 0.5s ease;
+    }
+    
+    /* New keyframe animations */
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Page load animation */
+    body {
+        animation: fadeIn 0.5s ease;
+    }
+    
+    /* Responsive animations */
+    @media (max-width: 768px) {
+        .navbar {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .nav-left {
+            animation: slideInDown 0.5s ease;
+        }
+    }
+        /* Updated dropdown animations */
+    .dropdown-content {
+        transform-origin: top;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+    }
+    
+    .dropdown-content a {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: calc(var(--index) * 0.1s);
+    }
+    
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .dropdown:hover .dropdown-content a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    /* Enhanced sub-dropdown animations */
+    .sub-dropdown {
+        transform-origin: left center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-20px) scaleX(0.9);
+    }
+    
+    .sub-dropdown a {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: calc(var(--index) * 0.1s);
+    }
+    
+    .brand-dropdown:hover .sub-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0) scaleX(1);
+    }
+    
+    .brand-dropdown:hover .sub-dropdown a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    /* Updated logout modal animations */
+    .modal {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .modal.show {
+        opacity: 1;
+        visibility: visible;
+        display: block;
+    }
+    
+    .modal-content {
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .modal.show .modal-content {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    
+    /* Updated buttons animations */
+    .confirm-btn, .cancel-btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .confirm-btn::before, .cancel-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+    
+    .confirm-btn:hover::before, .cancel-btn:hover::before {
+        width: 300%;
+        height: 300%;
+    }
+</style>
     <body>
     <header>
     <div id="notification" class="notification"></div>
@@ -527,44 +1035,7 @@ color:lightslategray;
         </div>
     </header>
         <!-- Replace the entire login-register-ctn div with this -->
-    <div class="login-register-ctn">
-        <div class="login-register">
-            <?php if(isset($_SESSION['username'])): ?>
-                <!-- Logged in state -->
-                 <br><br>
-                <span class="user-greeting">
-                    <span>Xin chào,</span>
-                    <a href="userinfor.php" class="username-link">
-                        <i class="fa-regular fa-user"></i>
-                        <?php echo htmlspecialchars($_SESSION['username']); ?>
-                    </a>
-                    <button type="button"
-                            id="logout-btn" 
-                            onclick="showLogoutModal(event)"
-                            class="logout-btn">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Đăng xuất
-                    </button>
-                </span>
-            <?php else: ?>
-                <!-- Not logged in state -->
-                <a href="login.php" id="login-btn" class="auth-link">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Đăng nhập
-                </a>
-                <span class="separator">|</span>
-                                <!-- Replace the sign up link with this -->
-                                <!-- Replace the existing signup link -->
-                <a href="login.php#signup" class="auth-link">
-                    <i class="fas fa-user-plus"></i>
-                    Đăng ký
-                </a>
-                <span class="separator">|</span>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <hr>
+    
 
         <nav class="navbar">
 
@@ -578,10 +1049,25 @@ color:lightslategray;
                     <i class="fa-solid fa-car"></i> Xe Đang Bán 
                     <i class="fa fa-caret-down"></i>
                 </a>
+                                <!-- Replace the existing dropdown-content div in header.php -->
                 <div class="dropdown-content">
-                    <a href="#ds-md">
-                        <i class="fa-solid fa-tag"></i> Thương Hiệu
-                    </a>
+                    <div class="brand-dropdown">
+                        <a href="#" class="nav-link dropbtn">
+                            <i class="fa-solid fa-tag"></i> Thương Hiệu
+                            <i class="fa fa-caret-right"></i>
+                        </a>
+                        <div class="sub-dropdown">
+                            <a href="bmw.php">
+                                <i class="fa-solid fa-car"></i> BMW
+                            </a>
+                            <a href="mazda.php">
+                                <i class="fa-solid fa-car"></i> Mazda
+                            </a>
+                            <a href="lamborghini.php">
+                                <i class="fa-solid fa-car"></i> Lamborghini
+                            </a>
+                        </div>
+                    </div>
                     <a href="more.php">
                         <i class="fa-solid fa-money-bill"></i> Mức Giá
                     </a>
@@ -614,6 +1100,45 @@ color:lightslategray;
             </span>
         </div>
     </nav>
+    <div class="login-register-ctn">
+        <div class="login-register">
+            <?php if (isset($_SESSION['username'])): ?>
+                <!-- Logged in state -->
+                 <div class="loggedin">
+
+                     <br><br>
+                     <span class="user-greeting">
+                         <span>Xin chào,</span>
+                         <a href="userinfor.php" class="username-link">
+                             <i class="fa-regular fa-user"></i>
+                             <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    </a>
+                    <button type="button" id="logout-btn" onclick="showLogoutModal(event)" class="logout-btn">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Đăng xuất
+                    </button>
+                </span>
+            </div>
+            <?php else: ?>
+                <!-- Not logged in state -->
+                 <div class="notlogin">
+
+                     <a href="login.php" id="login-btn" class="auth-link">
+                         <i class="fa-solid fa-right-to-bracket"></i>
+                         Đăng nhập
+                        </a>
+                        <span class="separator">|</span>
+                <!-- Replace the sign up link with this -->
+                <!-- Replace the existing signup link -->
+                <a href="login.php#signup" class="auth-link">
+                    <i class="fas fa-user-plus"></i>
+                    Đăng ký
+                </a>
+                <span class="separator">|</span>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
 <!-- Add this right before closing </body> tag -->
 <div id="logoutModal" class="modal">
     <div class="modal-content">
@@ -670,24 +1195,32 @@ color:lightslategray;
     // showNotification('Warning message', 'warning');
     </script>
     <script>
-                // Add this JavaScript before the closing </body> tag
-        
-        function showLogoutModal(event) {
-            event.preventDefault();
-            document.getElementById('logoutModal').style.display = 'block';
-        }
-        
-        function closeLogoutModal() {
-            document.getElementById('logoutModal').style.display = 'none';
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('logoutModal');
-            if (event.target == modal) {
-                closeLogoutModal();
-            }
-        }
+                function showLogoutModal(event) {
+                    event.preventDefault();
+                    const modal = document.getElementById('logoutModal');
+                    modal.style.display = 'block';
+                    // Add show class after a small delay to trigger animations
+                    setTimeout(() => {
+                        modal.classList.add('show');
+                    }, 10);
+                }
+                
+                function closeLogoutModal() {
+                    const modal = document.getElementById('logoutModal');
+                    modal.classList.remove('show');
+                    // Wait for animations to complete before hiding
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 400);
+                }
+                
+                // Close modal when clicking outside
+                window.onclick = function(event) {
+                    const modal = document.getElementById('logoutModal');
+                    if (event.target == modal) {
+                        closeLogoutModal();
+                    }
+                }
         
     </script>
 
