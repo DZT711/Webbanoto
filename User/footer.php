@@ -130,7 +130,9 @@ footer{
             </div>
         </div>
 <hr style="color: lightslategray;">
-<div class="copyright">
+<div class="copyright" style="background-color: azure ; height: 20vh; color: black;" >
+    <br><br><br><br>
+
     <p>Copyright © 2024 Auto Car. All rights reserved.</p>
     <small>
         Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
@@ -140,6 +142,6 @@ footer{
         
         Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
     </small>
-    <p style="font-size: large;font-weight: bolder;text-decoration: underline;">Main page by: Huy Nguyen</p>
+    <!-- <p style="font-size: large;font-weight: bolder;text-decoration: underline;">Main page by: Huy Nguyen</p> -->
 </div>
 </footer>

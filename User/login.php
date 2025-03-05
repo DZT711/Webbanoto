@@ -3015,6 +3015,8 @@ session_start();
                     $_SESSION["phone_num"] = $phone_num;
                     $_SESSION["register_date"] = $row["register_date"];
                     $_SESSION['first_login'] = true;
+                    $_SESSION['full_name'] = null;
+                    $_SESSION['address'] = null;
 
                     
                     echo "<script>showNotification('Đăng ký thành công . Vui lòng chờ 1 lát...', 'success');</script>";
@@ -3070,8 +3072,10 @@ session_start();
                     $_SESSION["phone_num"] = $row["phone_num"];
                     $_SESSION["register_date"] = $row["register_date"];
                     $_SESSION['first_login'] = true;
-            
-                    echo "<script>showNotification('Đăng nhập thành công. Vui lòng chờ một lát...', 'success');</script>";
+                $_SESSION['full_name'] = null;
+                $_SESSION['address'] = null;
+
+                echo "<script>showNotification('Đăng nhập thành công. Vui lòng chờ một lát...', 'success');</script>";
                     // Use JavaScript to redirect after notification
                     echo "<script>
                         setTimeout(function() {

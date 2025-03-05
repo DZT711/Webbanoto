@@ -6,6 +6,9 @@
     $status = isset($_SESSION['status']) ? htmlspecialchars($_SESSION['status']) : '';
     $phone_num = isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; // Removed $ from key
     $register_date = isset($_SESSION['register_date']) ? htmlspecialchars($_SESSION['register_date']) : ''; // Removed $ from key
+    $full_name = isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : '';
+    $address = isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : '';
+    
     if (isset($_POST["logout"])) {
         session_destroy();
         session_start();
@@ -437,7 +440,7 @@ color:lightslategray;
 <style>
         /* Add to your existing CSS */
     .login-register-ctn {
-        background-color: #f0f0f0;
+        background-color:rgb(230, 230, 230);
         padding-right: 200px;
         display: flex;
         justify-content: flex-end;
@@ -730,6 +733,7 @@ color:lightslategray;
         border-radius: 4px;
         font-size: 14px;
         transition: all 0.3s ease;
+        font-size:16px;
     }
     
     .auth-link:hover {
@@ -1025,6 +1029,7 @@ color:lightslategray;
         height: 300%;
     }
 </style>
+
     <body>
     <header>
     <div id="notification" class="notification"></div>
@@ -1136,7 +1141,8 @@ color:lightslategray;
                 </a>
                 <span class="separator">|</span>
             </div>
-            <?php endif; ?>
+            <?php endif; ?><!--kết thúc điều kiện if của php trong html
+            -->
         </div>
     </div>
 <!-- Add this right before closing </body> tag -->
