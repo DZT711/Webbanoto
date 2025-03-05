@@ -1,4 +1,7 @@
-
+<?php
+include 'header.php';
+include 'connect.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,79 +9,612 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web kinh doanh xe hàng hiệu</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <script src="index.js"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
-<body>
-    <header>
-        <div class="logo">
-            <a class="nav" href="index.php">
-                <img src="dp56vcf7.png" alt="logo"    height="120px" >
-            </a>
-        </div>
-    </header>
-    
-    <div class="login-register-ctn">
-        <div class="login-register">
-            <div class="lg"></div>
-            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-            <span>&nbsp;&nbsp;</span>
-            <a href="#" id="logout-btn" style="display:none;"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="login-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng nhập</h2>
-            <form>
-                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                <button type="submit">Đăng nhập</button>
-            </form>
-        </div>
-        <div id="register-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng ký</h2>
-            <form>
-                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Xác nhận mật khẩu">
-                <button type="submit">Đăng ký</button>
-            </form>
-        </div>
-    </div>
-    
+</head>
+<style>
+    /* .logo{
+    display: flex;
+    justify-content: center;
 
-    <hr>
+    }
 
 
-<div class="navbar">
-    
-    <a href="index.php" class="homelink" >Trang Chủ</a>
-    <div class="dropdown">
-        <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-        <div class="dropdown-content">
-            <a href="#ds-md">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-            <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-            <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-        </div>
-    </div>
-    
-    <a href="billhistory.php">Xem lịch sử mua hàng</a>
-    <a href="#about">Giới Thiệu</a>
-    <a href="#contact">Liên Hệ</a>
-    <a href="../Admin/login.php">Admin</a>
+    header {
+        
+        align-items: center;
+        background-color: #f8f8f8;
+    }
+    main{
+        align-items: center;
+        
 
-<div id="tlp">
-        <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span class="Hotline">Hotline 2: 080 123 4567</span>
-    </div>
-</div>
+        background-color: #EFEFEF;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        background-color: white;
+        overflow: hidden;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    .navbar a {
+        color: rgb(109,110,113);
+        float: left;
+        display: block;
+
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .navbar a:hover, .dropdown:hover .dropbtn {
+        border-bottom: 2px solid rgb(33, 158, 199);
+    }
+
+    /* CSS cho dropdown 
+    .dropdown {
+        
+        float: left;
+        overflow: hidden;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: rgb(109,110,113);
+    }
+
+    .dropdown .dropbtn {
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: rgb(109,110,113);
+        border: none;
+        outline: none;
+
+        padding: 14px 16px;
+        background-color: inherit;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgb(218, 218, 218) ;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: rgb(128, 112, 112);
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropdown-content::after {
+        content: '';
+    } */
+
+    .ctn-img {
+        margin-top: -4.1em;
+        position: relative;
+        background-color: rgb(196, 193, 193);
+
+    }
+    
+    .ctn-img .wp {
+        width: 60vw;
+        height: 75vh;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+        margin: 5rem auto;
+        overflow: hidden;
+        background-color: white;
+
+    }
+    
+    .ctn-img .wp-hld {
+        display: grid;
+        grid-template-columns: repeat(6, 100%);
+        height: 100%;
+        width: 100%;
+        animation: slider 30s ease-in-out infinite alternate;
+        margin-bottom: 50px;
+    }
+    
+    .ctn-img #img1 {
+        background-image: url('lambo1.jpg');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+
+
+
+    }
+    
+    .ctn-img #img2 {
+        background-image: url('lambo2.png');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+    }
+    
+    .ctn-img #img3 {
+        background-image: url('lambo3.jpg');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+    }
+    
+    .ctn-img #img4 {
+        background-image: url('lambo4.jpg');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+    }
+    
+    .ctn-img #img5 {
+        background-image: url('lambo5.jpg');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+    }
+    
+    .ctn-img #img6 {
+        background-image: url('lambo6.jpg');
+        background-size: cover;
+        background-position: center;
+                max-height: 650px;
+    }
+    
+    .ctn-img .btn-hld .btn {
+        background-color: rgb(131, 117, 117);
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        display: inline-block;
+        margin: .3rem;
+    }
+
+    .ctn-img .btn-hld {
+        position: absolute;
+        left: 45%;
+        bottom: 0%;
+    }
+    
+    .btn:hover {
+        box-shadow: 0px 0px 7px 4px rgba(0, 255, 255, 0.6);
+    }
+    
+    @keyframes slider {
+        0% { transform: translateX(0%); }
+        10% { transform: translateX(-100%); }
+        20% { transform: translateX(-100%); }
+        30% { transform: translateX(-200%); }
+        40% { transform: translateX(-200%); }
+        50% { transform: translateX(-300%); }
+        60% { transform: translateX(-300%); }
+        70% { transform: translateX(-400%); }
+        80% { transform: translateX(-400%); }
+        90% { transform: translateX(-500%); }
+        100% { transform: translateX(-500%); }
+    }
+    /* #tlp{
+        text-align: center;
+        background-color: white;
+        overflow: hidden;
+        text-transform: uppercase;
+        font-weight: bolder;
+        padding: 14px 16px;
+    } */
+
+
+    #searchbar {
+        width: 700px; /* Half of the image slider's width */
+        margin: 2px auto; /* Center the search bar */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 20px;
+
+        border-radius: 15px;
+    }
+    
+    #searchbar input[type="text"] {
+        max-width: 500px; /* Adjust as needed */
+        padding: 10px;
+        min-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #F5F5F5
+    }
+#searchbar .search:hover{
+    border:1px solid #333;
+}
+
+#searchbar button {
+    padding: 10px;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+#searchbar button:hover {
+    background-color: #000;
+}
+</style>
+<style>
+     #searchbar {
+        width: 700px; /* Half of the image slider's width */
+        margin: 2px auto; /* Center the search bar */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 20px;
+
+        border-radius: 15px;
+    }
+    
+    #searchbar input[type="text"] {
+        max-width: 500px; /* Adjust as needed */
+        padding: 10px;
+        min-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #F5F5F5
+    }
+#searchbar .search:hover{
+    border:1px solid #333;
+}
+
+#searchbar button {
+    padding: 10px;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+#searchbar button:hover {
+    background-color: #000;
+}
+.ds-md-sb{
+background-color: #ffffff;
+padding :30px;
+margin :20px;
+margin-left:320px;
+margin-right: 320px;
+border: 2px solid rgb(227,219,219);
+border-radius: 15px;
+}
+#ds-md {
+    text-align: center;
+}
+
+#ctn21 {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Khoảng cách giữa các phần tử */
+}
+
+.lgb {
+    border: 2px solid gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius:15px ;
+}
+.lgb:hover{
+    border: 2px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius:15px ;
+}
+
+.lg-b {
+    max-width: 100px; /* Điều chỉnh kích thước hình ảnh nếu cần */
+}
+
+.lg {
+    text-align: center;
+    text-decoration: none;
+    color: gray;
+    
+    font-weight: bold;
+}
+.lg:hover{
+    color: rgba(59, 130, 246, 0.5);
+}
+#ds-md-title{
+    color: gray;
+}
+#newcar{
+background-color: #ffffff;
+padding :30px;
+margin :20px;
+margin-left:320px;
+margin-right: 320px;
+border: 2px solid rgb(227,219,219);
+border-radius: 15px;
+}
+
+#why{
+background-color: #ffffff;
+padding :10px;
+margin :20px;
+margin-left:320px;
+margin-right: 320px;
+border: 2px solid rgb(227,219,219);
+border-radius: 15px;
+}
+
+.nc-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: #ffffff;
+    padding: -20px; /* Thêm padding 10px */
+    margin: 10px;
+
+}
+
+.why-title {
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: #ffffff;
+    padding: 10px; /* Thêm padding 10px */
+    margin: 10px;
+    margin-bottom: 50px;
+}
+
+.hct{
+    text-transform: uppercase;
+    border: 1px solid #ccc;
+    border-radius:15px ;
+    background-color: #00B3FC;
+    padding: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.wco{
+    border: 1px solid #ccc;
+    border-radius:15px ;
+    background-color: #00B3FC;
+    padding: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    text-transform: uppercase;
+}
+.morecar{
+    border: 1px solid #ccc;
+    border-radius:15px ;
+    background-color: #00B3FC;
+    padding: 10px;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+.morecar:hover{
+background-color: #007BFF;
+}
+.carpic{
+
+    max-height: 60vh;
+
+}
+.linkcar{
+    text-decoration: none;
+
+}
+.cith2{
+    color: black;
+    padding-left: 40px;
+
+}
+.cit{
+    color:gray;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 40px;
+
+}
+.nc-item {
+    border: 1px solid black;
+    margin-bottom: 50px;
+    border-radius: 15px;
+    overflow: hidden; /* Đảm bảo phần vượt quá sẽ bị ẩn */
+}
+.nc-item:hover{
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+}
+.carinfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 20px;
+    color: black;
+}
+.info{
+    padding-left: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.more{
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #ffffff;
+    font-weight:lighter;
+    font-size: 25px;
+}
+</style>
+<style>
+/* Car List Container */
+#newcar {
+    padding: 40px;
+    background-color: #efefef;
+}
+
+/* Grid Layout */
+.ctn21 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    margin-top: 20px;
+}
+
+/* Car Card Styling */
+.nc-item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.nc-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Car Image */
+.carpic {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.nc-item:hover .carpic {
+    transform: scale(1.05);
+}
+
+/* Car Details */
+.cith2 {
+    color: #007bff;
+    padding: 15px;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.cit {
+    color: #666;
+    padding: 0 15px 15px;
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* Car Info Icons */
+.carinfo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 15px;
+    gap: 10px;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+.carinfo i {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.info {
+    font-family: Arial, sans-serif;
+    padding-left: 5px;
+    color: #666;
+}
+
+/* Section Titles */
+.nc-title {
+    text-align: center;
+    margin: 40px 0;
+    background-color:#EFEFEF;
+}
+
+.hct, .morecar {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.morecar:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+.linkcar {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ctn21 {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .carinfo {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    #newcar {
+        padding: 20px;
+    }
+}
+
+/* More Button */
+.more {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: Arial, sans-serif;
+}
+</style>
+    <body>
 
 
 <main >
@@ -267,92 +803,12 @@
 
             </div>
         </div>
-        <div id="why" >
-            <div class="why-title">
-                <h2 class="hot-car">
-                    <span class="wco">
-                        Vì sao chọn chúng tôi
-                    </span>
-                </h2>
         
-                <div class="t-i">
-                    <img src="dp56vcf7.png" alt="logo" class="image">
-                    <p>
-                        <b style="color: aqua;">AUTO CAR</b> là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là  Siêu Xe.
-                    </p>
-                        <p>
-
-                            Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        </p>
-                        <p>
-                            
-                            Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                        </p>
-                       <p>
-
-                           Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                        </p> 
-                </div>
-            </div>
-        </div>
     </main>
 
-<footer>
-    <div id="if-ct">
-        <div class="if">
-            <img src="dp56vcf7.png" alt="logo" class="image1">
-            <div class="if-text">
 
-                <h2 class="if-title">
-                    giới thiệu
-                </h2>
-                <small class="if-content" id="about">
-                    AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                    Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                    Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                    Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                  
-                </small>
-                <br><br>
-                <small>
-                    Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                </small>
-
-            </div>
-            <div class="ct-text">
-                <h2 class="ct-title" id="contact">
-                    thông tin liên hệ
-                </h2>
-                <div class="ct-item">
-                    <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                    <p>0987654321</p>
-                    <p>Hotline 1: 090 123 4567</p>
-                    <p>Hotline 2: 080 123 4567</p>
-                </div>
-                <div class="ct-item">
-                    <i class="fa fa-envelope"></i>
-                    <p>email@auto.com</p>
-                </div>
-                <div class="ct-item">
-                    <i class="fa fa-map-marker"></i>
-                    <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-        
-                 </div>
-            </div>
-        </div>
-<hr style="color: lightslategray;">
-<div class="copyright">
-    <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-    <small>
-        Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-    </small>  
-    <br>
-    <small>
-        
-        Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-    </small>
-    <p style="font-size: large;font-weight: bolder;text-decoration: underline;">Main page by: Huy Nguyen</p>
-</div>
-</footer>
 </body>
 </html>
+<?php
+include 'footer.php';
+?>

@@ -129,7 +129,7 @@ footer{
                  </div>
             </div>
         </div>
-<hr style="color: lightslategray;">
+<!-- <hr style="color: lightslategray;"> -->
 <div class="copyright" style="background-color: azure ; height: 20vh; color: black;" >
     <br><br><br><br>
 

@@ -152,6 +152,7 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
 .logo{
 display: flex;
 justify-content: center;
+background-color: white;
 }
 body {
     font-family: Arial, sans-serif;

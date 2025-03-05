@@ -1,88 +1,256 @@
+<?php
+include 'header.php';
+include 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web kinh doanh xe hàng hiệu</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="cart.css">
+    <title>Giỏ hàng</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" href="cart.css"> -->
 
     <script src="cart.js"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 
 </head>
+<style>/* Cart Page Container */
+.cart {
+    --cart-primary: #007bff;
+    --cart-secondary: #f8f9fa;
+    --cart-accent: #0056b3;
+    padding: 40px 0;
+    background-color: #efefef;
+}
 
+/* Progress Bar Section */
+.cart-top-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-top {
+    height: 2px;
+    width: 70%;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 840px;
+    position: relative;
+}
+
+.cart-top-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.cart-top-item i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.cart-top-item.active {
+    border-color: var(--cart-primary);
+    background-color: var(--cart-primary);
+}
+
+.cart-top-item.active i {
+    color: #fff;
+}
+
+/* Cart Content Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cart-content-row {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Cart Items Table */
+.cart-content-left {
+    flex: 2;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-content-left table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-content-left th {
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+    text-align: left;
+}
+
+.cart-content-left td {
+    padding: 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.cart-content-left img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.cart-content-left img:hover {
+    transform: scale(1.05);
+}
+
+/* Quantity Controls */
+.cart-content-left input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Cart Summary */
+.cart-content-right {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.cart-content-right table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.cart-content-right th {
+    padding: 15px;
+    text-align: center;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.cart-content-right td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Action Buttons */
+.cart-content-right-button {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cart-content-right-button button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#continue-shopping {
+    background-color: #6c757d;
+    color: white;
+}
+
+#checkout-button {
+    background-color: var(--cart-primary);
+    color: white;
+}
+
+#continue-shopping:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+#checkout-button:hover {
+    background-color: var(--cart-accent);
+    transform: translateY(-2px);
+}
+
+/* Remove Item Button */
+.remove-item {
+    color: #dc3545;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.remove-item:hover {
+    color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-content-row {
+        flex-direction: column;
+    }
+
+    .cart-content-left {
+        overflow-x: auto;
+    }
+
+    .cart-content-left table {
+        min-width: 600px;
+    }
+
+    .cart-top {
+        width: 90%;
+    }
+}
+
+/* Preserve Header Styles */
+.header-container {
+    --header-bg: #f8f9fa;
+    --header-text: #495057;
+}
+
+/* Preserve Cart Original Styles */
+.cart-top-cart {
+    border: 1px solid rgb(7, 7, 7);
+}
+
+.cart-top-cart i {
+    color: black;
+}</style>
 <body>
-    <header>
-        <div class="logo">
-            <a class="nav" href="index.php">
-                <img src="dp56vcf7.png" alt="logo" height="120px">
-            </a>
-        </div>
-    </header>
-
-    <div class="login-register-ctn">
-        <div class="login-register">
-            <div class="lg"></div>
-            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-            <span>&nbsp;&nbsp;</span>
-            <a href="#" id="logout-btn" style="display:none;"><i
-                    class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất
-            </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span
-                    id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="login-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng nhập</h2>
-            <form>
-                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                <button type="submit">Đăng nhập</button>
-            </form>
-        </div>
-        <div id="register-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng ký</h2>
-            <form>
-                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required
-                    placeholder="Xác nhận mật khẩu">
-                <button type="submit">Đăng ký</button>
-            </form>
-        </div>
-    </div>
-
-    <hr>
-    <div class="navbar">
     
-        <a href="index.php" class="homelink" >Trang Chủ</a>
-        <div class="dropdown">
-            <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-            <div class="dropdown-content">
-                <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-            </div>
-        </div>
-        <a href="billhistory.php">Xem lịch sử mua hàng</a>
-        <a href="#about">Giới Thiệu</a>
-        <a href="#contact">Liên Hệ</a>
-        <a href="../Admin/login.php">Admin</a>
-    <div id="tlp">
-            <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span class="Hotline">Hotline 2: 080 123 4567</span>
-        </div>
-    </div>
-
     <!------------cart------------->
     <section class="cart">
         <div class="container">
@@ -339,62 +507,11 @@
     </section>
 
     <!------------footer----------->
-    <footer>
-        <div id="if-ct">
-            <div class="if">
-                <img src="dp56vcf7.png" alt="logo" class="image1">
-                <div class="if-text">
     
-                    <h2 class="if-title">
-                        giới thiệu
-                    </h2>
-                    <small class="if-content" id="about">
-                        AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                        Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                      
-                    </small>
-                    <br><br>
-                    <small>
-                        Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                    </small>
-    
-                </div>
-                <div class="ct-text">
-                    <h2 class="ct-title">
-                        thông tin liên hệ
-                    </h2>
-                    <div class="ct-item">
-                        <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                        <p id="contact">0987654321</p>
-                        <p>Hotline 1: 090 123 4567</p>
-                        <p>Hotline 2: 080 123 4567</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-envelope"></i>
-                        <p>email@auto.com</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-map-marker"></i>
-                        <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-            
-                     </div>
-                </div>
-            </div>
-    <hr style="color: lightslategray;">
-    <div class="copyright">
-        <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-        <small>
-            Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-        </small>  
-        <br>
-        <small>
-            
-            Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-        </small>
-    </div>
-    </footer>
 </body>
 
 </html>
+<?php
+
+include 'footer.php';
+?>
