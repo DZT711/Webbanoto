@@ -15,106 +15,11 @@ include 'connect.php';
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 </head>
 <style>
-    /* .logo{
-    display: flex;
-    justify-content: center;
-
-    }
-
-
-    header {
-        
-        align-items: center;
-        background-color: #f8f8f8;
-    }
-    main{
-        align-items: center;
-        
-
-        background-color: #EFEFEF;
-    }
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    .navbar {
-        background-color: white;
-        overflow: hidden;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
     
-    .navbar a {
-        color: rgb(109,110,113);
-        float: left;
-        display: block;
-
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-    .navbar a:hover, .dropdown:hover .dropbtn {
-        border-bottom: 2px solid rgb(33, 158, 199);
-    }
-
-    /* CSS cho dropdown 
-    .dropdown {
-        
-        float: left;
-        overflow: hidden;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: rgb(109,110,113);
-    }
-
-    .dropdown .dropbtn {
-        font-size: 16px;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: rgb(109,110,113);
-        border: none;
-        outline: none;
-
-        padding: 14px 16px;
-        background-color: inherit;
-        margin: 0;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: rgb(218, 218, 218) ;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-    
-
-    .dropdown-content a {
-        float: none;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-    }
-
-    .dropdown-content a:hover {
-        background-color: rgb(128, 112, 112);
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-    .dropdown:hover .dropdown-content::after {
-        content: '';
-    } */
-
     .ctn-img {
-        margin-top: -4.1em;
+        margin-top: -5.1em;
         position: relative;
-        background-color: rgb(196, 193, 193);
+        background-color: rgb(220, 220, 220);
 
     }
     
@@ -214,14 +119,7 @@ include 'connect.php';
         90% { transform: translateX(-500%); }
         100% { transform: translateX(-500%); }
     }
-    /* #tlp{
-        text-align: center;
-        background-color: white;
-        overflow: hidden;
-        text-transform: uppercase;
-        font-weight: bolder;
-        padding: 14px 16px;
-    } */
+
 
 
     #searchbar {
@@ -261,45 +159,10 @@ include 'connect.php';
 #searchbar button:hover {
     background-color: #000;
 }
+
 </style>
 <style>
-     #searchbar {
-        width: 700px; /* Half of the image slider's width */
-        margin: 2px auto; /* Center the search bar */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ffffff;
-        padding: 20px;
-
-        border-radius: 15px;
-    }
-    
-    #searchbar input[type="text"] {
-        max-width: 500px; /* Adjust as needed */
-        padding: 10px;
-        min-width: 400px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #F5F5F5
-    }
-#searchbar .search:hover{
-    border:1px solid #333;
-}
-
-#searchbar button {
-    padding: 10px;
-    border: none;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 5px;
-}
-
-#searchbar button:hover {
-    background-color: #000;
-}
+     
 .ds-md-sb{
 background-color: #ffffff;
 padding :30px;
@@ -379,7 +242,7 @@ border-radius: 15px;
     align-items: center;
     text-align: center;
     color: white;
-    background-color: #ffffff;
+    background-color: #efefef;
     padding: -20px; /* Thêm padding 10px */
     margin: 10px;
 
@@ -562,11 +425,11 @@ background-color: #007BFF;
 }
 
 /* Section Titles */
-.nc-title {
+/* .nc-title {
     text-align: center;
     margin: 40px 0;
     background-color:#EFEFEF;
-}
+} */
 
 .hct, .morecar {
     display: inline-block;
@@ -613,13 +476,21 @@ background-color: #007BFF;
     font-weight: 500;
     font-family: Arial, sans-serif;
 }
+body{
+    margin:0;
+}
+.fctn{
+    
+}
 </style>
     <body>
 
-
+<div class="" style="background-color:rgb(220, 220, 220);height:5vh;"></div>
 <main >
+    <div class="fctn">
+
         <div class="ctn-img">
-             <div class="wp">
+            <div class="wp">
                  <div class="wp-hld">
                     <div id="img1"></div>
                     <div id="img2"></div>
@@ -638,6 +509,7 @@ background-color: #007BFF;
                 <a href="#img6" class="btn" id="btn6"></a>
             </div>
         </div>
+    </div>
         <div class="ds-md-sb">
 
             <div id="searchbar">

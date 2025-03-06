@@ -79,7 +79,8 @@ footer{
     max-width: 40%;
 }
 .copyright{
-    color: rgb(152,152,155);
+    color: rgb(138, 138, 138);
+    background-color: rgb(238, 238, 238);
     font-family: 'calibri';
     text-align: center;
     align-items: center;
@@ -130,7 +131,7 @@ footer{
             </div>
         </div>
 <!-- <hr style="color: lightslategray;"> -->
-<div class="copyright" style="background-color: azure ; height: 20vh; color: black;" >
+<div class="copyright" style=" height: 20vh; " >
     <br><br><br><br>
 
     <p>Copyright © 2024 Auto Car. All rights reserved.</p>

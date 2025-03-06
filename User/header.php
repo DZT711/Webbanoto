@@ -49,7 +49,7 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 0 200px; /* Add horizontal margins */
+            padding: 0 100px; /* Add horizontal margins */
             height: 50px;
             
         }
@@ -367,56 +367,11 @@ body {
 <style>
     
 
-.login-register a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-.form {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.form .lg-rgt-title {
-    margin-top: 0;
-}
-
-.form label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-.form input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.form button {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.form button:hover {
-    background-color: #0056b3;
-}
-
 
 .login-register-ctn {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -442,7 +397,7 @@ color:lightslategray;
         /* Add to your existing CSS */
     .login-register-ctn {
         background-color:rgb(230, 230, 230);
-        padding-right: 200px;
+        /* padding-right: 200px; */
         display: flex;
         justify-content: flex-end;
         height: 50px;
@@ -463,7 +418,7 @@ color:lightslategray;
     }
     
     .username-link {
-        color: #007bff;
+        color: gray;
         text-decoration: none;
         font-weight: bold;
         display: flex;
@@ -506,9 +461,7 @@ color:lightslategray;
         color: #007bff;
     }
     
-    .separator {
-        color: #666;
-    }
+
     
     @media (max-width: 768px) {
         .login-register-ctn {
@@ -586,11 +539,10 @@ color:lightslategray;
             color: #333;
             font-size: 14px; /* Base font size */
             padding-top:5px;
-            padding-bottom: 8px;
         }
     
         .username-link {
-            color: #007bff;
+            color: gray;
             text-decoration: none;
             font-weight: 600; /* Slightly bolder */
             display: flex;
@@ -650,11 +602,11 @@ color:lightslategray;
     </style>
 <style>
         .login-register-ctn {
-        padding: 0 200px; /* Match navbar padding */
+        padding: 0 70px; /* Match navbar padding */
         display: flex;
         justify-content: flex-end;
         height: 50px;
-        border-bottom: 1px solid #e9ecef;
+        /* border-bottom: 1px solid rgb(190, 190, 190);  */
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     
@@ -743,7 +695,7 @@ color:lightslategray;
     }
     
     .separator {
-        color: #dee2e6;
+        color: #333;
         margin: 0 5px;
     }
     
@@ -1029,6 +981,7 @@ color:lightslategray;
         width: 300%;
         height: 300%;
     }
+    
 </style>
 
     <body>
@@ -1234,8 +1187,3 @@ color:lightslategray;
 </body>
 
 </html>
-<?php
-    // session_destroy();
-    // header('Location: index.php');
-    // exit();
-?>

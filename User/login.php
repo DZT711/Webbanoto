@@ -2863,7 +2863,7 @@ session_start();
         }
     });
     
-    // Update your signup link in header.php to include the hash
+    // Update your signup link in index.php to include the hash
     document.querySelector('a[href="login.php#signup"]').addEventListener('click', function(e) {
         e.preventDefault();
         window.location.href = 'login.php#signup';
@@ -3023,7 +3023,7 @@ session_start();
                     // Use JavaScript to redirect after notification
                     echo "<script>
                         setTimeout(function() {
-                            window.location.href = 'header.php';
+                            window.location.href = 'index.php';
                         }, 1000);
                     </script>";
                 } catch(mysqli_sql_exception ){
@@ -3079,7 +3079,7 @@ session_start();
                     // Use JavaScript to redirect after notification
                     echo "<script>
                         setTimeout(function() {
-                            window.location.href = 'header.php';
+                            window.location.href = 'index.php';
                         }, 1000);
                     </script>";
                 }
