@@ -261,6 +261,34 @@ include 'connect.php';
         .info{
             font-family:' Font Awesome 5 Free';
         }
+
+    </style>
+    <style>
+                /* Update main styles */
+        main {
+            padding: 0 !important; /* Force override any other padding */
+            margin: 0;
+        }
+        
+        /* Update BMW content container */
+        .bmw-content {
+            --bmw-primary: #007bff;
+            --bmw-secondary: #f8f9fa;
+            --bmw-accent: #0056b3;
+            padding: 20px 20px 0 20px; /* Remove bottom padding */
+            background-color: #efefef;
+        }
+        
+        /* Update container for products */
+        .ctn21 {
+            padding: 40px 40px 0 40px; /* Remove bottom padding */
+            margin-bottom: 0; /* Remove bottom margin */
+        }
+        
+        /* Update footer spacing if needed */
+        footer {
+            margin-top: 0; /* Remove top margin from footer */
+        }
     </style>
     <body>
 
@@ -471,7 +499,6 @@ include 'connect.php';
 </div>
 </main>
 
-        <hr>
         
         
 

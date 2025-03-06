@@ -1,88 +1,272 @@
+<?php
+    include 'header.php';
+    include 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lamborghini</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="stylelamborghini.css">
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <!-- <link rel="stylesheet" href="stylelamborghini.css"> -->
         <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
         <script src="lamborghini.js"></script>
         <link rel="icon" href="images.png" type="image/png">
 
     </head>
-    <body>
-        <header>
-            <div class="logo">
-                <a class="nav" href="Lamborghini.php">
-                    <img src="dp56vcf7.png" alt="logo"    height="120px" >
-                </a>
-            </div>
-        </header>
-        <div class="login-register-ctn">
-            <div class="login-register">
-                <div class="lg"></div>
-                <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-                <span>&nbsp;&nbsp;</span>
-                <a href="#" id="logout-btn" style="display:none;"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <div id="login-form" class="form" style="display:none;">
-                <h2 class="lg-rgt-title">Đăng nhập</h2>
-                <form>
-                    <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                    <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                    <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                    <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                    <button type="submit">Đăng nhập</button>
-                </form>
-            </div>
-            <div id="register-form" class="form" style="display:none;">
-                <h2 class="lg-rgt-title">Đăng ký</h2>
-                <form>
-                    <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                    <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                    <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                    <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                    <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Xác nhận mật khẩu">
-                    <button type="submit">Đăng ký</button>
-                </form>
-            </div>
-        </div>
-        <header>
-            <div class="navbar">
-    
-                <a href="index.php" class="homelink" >Trang Chủ</a>
-                <div class="dropdown">
-                    <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-                    <div class="dropdown-content">
-                        <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-                    </div>
-                </div>
-                <a href="billhistory.php">Xem lịch sử mua hàng</a>
-                <a href="#about">Giới Thiệu</a>
-                <a href="#contact">Liên Hệ</a>
-                <a href="../Admin/login.php">Admin</a>
+                <style>
+        /* Lamborghini Page Container */
+        .lamborghini-content {
+            --lambo-primary: #007bff;
+            --lambo-secondary: #f8f9fa;
+            --lambo-accent: #0056b3;
+            padding: 20px;
+            background-color: #efefef;
+        }
+        
+        /* Hero Section */
+        .lamborghini-content h1 {
+            text-align: center;
+            background-image: url('art_basel_2024_cover.webp');
+            min-height: 60vh;
+            padding: 50px;
+            color: rgb(0,186,211);
+            font-weight: normal;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: 25px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px auto;
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-section:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .s1, .s2 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Filter Labels and Selects */
+        .filter-section label {
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+        
+        .filter-section select {
+            padding: 12px 24px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            min-width: 180px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 12px) center;
+            padding-right: 35px;
+        }
+        
+        .filter-section select:hover {
+            border-color: var(--lambo-primary);
+            background-color: #f8f9fa;
+        }
+        
+        /* Products Grid */
+        .ctn21 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        /* Product Cards */
+        .nc-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nc-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Car Images */
+        .carpic {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .nc-item:hover .carpic {
+            transform: scale(1.05);
+        }
+        
+        /* Car Details */
+        .cith2 {
+            color: var(--lambo-primary);
+            padding: 15px;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .cit {
+            color: #666;
+            padding: 0 15px 15px;
+            margin: 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        /* Car Info Icons */
+        .carinfo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 15px;
+            gap: 10px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .carinfo i {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Links */
+        .linkcar {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            padding: auto;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-section {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+                margin: 20px;
+            }
+        
+            .s1, .s2 {
+                width: 100%;
+                justify-content: space-between;
+            }
+        
+            .filter-section select {
+                flex: 1;
+                min-width: 150px;
+            }
+        
+            .ctn21 {
+                padding: 20px;
+                gap: 20px;
+            }
+        
+            .carinfo {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .info{
+                        font-family: 'Times New Roman', Times, serif;
 
-            <div id="tlp">
-                    <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="Hotline">Hotline 2: 080 123 4567</span>
-                </div>
-            </div>
-                    </header>  
+        }
+        /* Preserve Header Styles */
+        .header-container {
+            --header-bg: #f8f9fa;
+            --header-text: #495057;
+        }
+</style>
+<style>
+        /* Add to your existing filter section styles */
+    .filter-section label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+    
+    .filter-section label i {
+        color: var(--lambo-primary);
+        font-size: 1.1rem;
+    }
+    
+    .filter-section select {
+        padding-left: 35px;
+        background-position: calc(100% - 12px) center, 12px center;
+        background-image: 
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    }
+    
+    .s1 select {
+        background-image: 
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    }
+    
+    /* Hover effect for filter labels */
+    .filter-section label:hover i {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    main{
+        margin-top:-0.9em;
+    }
+</style>
+    <body>
+        
+        
+          
         <main >
             <h1 style="text-align: center;background-image: url('art_basel_2024_cover.webp');min-height: 60vh;padding: 50px;color: rgb(0,186,211);">Automobili Lamborghini S.p.A</h1>
 
             <!-- Bộ lọc sản phẩm -->
             <div id="newcar">
+                                <!-- Update the filter section HTML -->
                 <div class="filter-section">
                     <div class="s1">
-                        <label for="priceFilter">Lọc theo giá:</label>
+                        <label for="priceFilter">
+                            <i class="fas fa-tags"></i>
+                            Lọc theo giá:
+                        </label>
                         <select id="priceFilter" onchange="filterProducts()">
                             <option value="all">Tất cả</option>
                             <option value="below10b">Dưới 10 tỷ</option>
@@ -91,7 +275,10 @@
                         </select>
                     </div>
                     <div class="s2">
-                        <label for="yearFilter">Lọc theo năm:</label>
+                        <label for="yearFilter">
+                            <i class="fas fa-calendar"></i>
+                            Lọc theo năm:
+                        </label>
                         <select id="yearFilter" onchange="filterProducts()">
                             <option value="all">Tất cả</option>
                             <option value="2021">2021</option>
@@ -104,35 +291,27 @@
                 
                 <!-- Các sản phẩm -->
                 <div class="ctn21">
-                    <div class="nc-item" data-price="60000000000" data-year="2021">
+                                        <div class="nc-item" data-price="60000000000" data-year="2021">
                         <a href="bmw320.php" class="linkcar">
                             <img class="carpic" src="lambo1.jpg" alt="lambo1">
                             <h2 class="cith2"> 60.000.000.000 VND</h2>
                             <p class="cit">Lamborghini Aventador SVJ</p>
+                            <br>
                             <div class="carinfo">
-                                <i class="fas fa-car">
-                                    <span class="info">2 chỗ</span>
-                                </i>
-                                <i class="fas fa-gas-pump">
-                                    <span class="info">Xăng</span>
-                                </i>
-                                <i class="fas fa-tachometer-alt">
-                                    <span class="info">310 km/h</span>
-                                </i>
-                                <i class="fas fa-calendar-alt">
-                                    <span class="info">2021</span>
-                                </i>
-                                <i class="fa-solid fa-location-dot">
-                                    <span class="info">TP.HCM</span>
-                                </i>
+                                <i class="fas fa-car"><span class="info">2 chỗ</span></i>
+                                <i class="fas fa-gas-pump"><span class="info">Xăng</span></i>
+                                <i class="fas fa-tachometer-alt"><span class="info">310 km/h</span></i>
+                                <i class="fas fa-calendar-alt"><span class="info">2021</span></i>
+                                <i class="fa-solid fa-location-dot"><span class="info">TP.HCM</span></i>
                             </div>
                         </a>
                     </div>
                     <div class="nc-item" data-price="50000000000" data-year="2022">
-                        <a href="bmw320.php" class="linkcar">
+                        <a href="bmw320.php" class="linkcar" >
                             <img class="carpic" src="lambo2.png" alt="lambo2">
                             <h2 class="cith2"> 5.000.000.000 VND</h2>
                             <p class="cit">Lamborghini Gallardo</p>
+                            <br>
                             <div class="carinfo">
                                 <i class="fas fa-car">
                                     <span class="info">2 chỗ</span>
@@ -154,9 +333,10 @@
                     </div>
                     <div class="nc-item" data-price="7100000000" data-year="2023">
                         <a href="bmw320.php" class="linkcar">
-                            <img class="carpic" src="lambo3.jpg" alt="lambo3">
+                            <img class="carpic" src="lambo3.jpg" alt="lambo3" >
                             <h2 class="cith2"> 7.100.000.000 VND</h2>
                             <p class="cit">Lamborghini Huracan</p>
+                            <br>
                             <div class="carinfo">
                                 <i class="fas fa-car">
                                     <span class="info">2 chỗ</span>
@@ -205,6 +385,7 @@
                             <img class="carpic" src="lambo5.jpg" alt="lambo5">
                             <h2 class="cith2"> 17.900.000.000 VND</h2>
                             <p class="cit">Lamborghini Huracan Tecnica</p>
+                            <br>
                             <div class="carinfo">
                                 <i class="fas fa-car">
                                     <span class="info">2 chỗ</span>
@@ -229,63 +410,11 @@
             </div>
         </main>
 
-        <hr>
-        <footer>
-            <div id="if-ct">
-                <div class="if">
-                    <img src="dp56vcf7.png" alt="logo" class="image1">
-                    <div class="if-text">
+
         
-                        <h2 class="if-title" id="about">
-                            giới thiệu
-                        </h2>
-                        <small class="if-content">
-                            AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                            Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                            Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                            Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                          
-                        </small>
-                        <br><br>
-                        <small>
-                            Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                        </small>
-        
-                    </div>
-                    <div class="ct-text" id="contact">
-                        <h2 class="ct-title">
-                            thông tin liên hệ
-                        </h2>
-                        <div class="ct-item">
-                            <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                            <p>0987654321</p>
-                            <p>Hotline 1: 090 123 4567</p>
-                            <p>Hotline 2: 080 123 4567</p>
-                        </div>
-                        <div class="ct-item">
-                            <i class="fa fa-envelope"></i>
-                            <p>email@auto.com</p>
-                        </div>
-                        <div class="ct-item">
-                            <i class="fa fa-map-marker"></i>
-                            <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-                
-                         </div>
-                    </div>
-                </div>
-        <hr style="color: lightslategray;">
-        <div class="copyright">
-            <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-            <small>
-                Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-            </small>  
-            <br>
-            <small>
-                
-                Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-            </small>
-        </div>
-        </footer>
 
     </body>               
 </html>        
+<?php
+    include 'footer.php';
+?>

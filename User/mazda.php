@@ -1,3 +1,8 @@
+<?php
+include 'header.php';
+
+include 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,86 +10,283 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MAZDA</title>
         <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="stylemazda.css">
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <!-- <link rel="stylesheet" href="stylemazda.css"> -->
         <script src="mazda.js"></script>
         <link rel="icon" href="png-transparent-mazda-biante-logo-mazda3-car-mazda-angle-emblem-text-thumbnail.png" type="image/png">
 
     </head>
-    <body>
-        <header>
-            <div class="logo">
-                <a class="nav" href="mazda.php">
-                    <img src="dp56vcf7.png" alt="logo"    height="120px" >
-                </a>
-            </div>
-        </header>
-        <div class="login-register-ctn">
-            <div class="login-register">
-                <div class="lg"></div>
-                <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-                <span>&nbsp;&nbsp;</span>
-                <a href="#" id="logout-btn" style="display:none;"><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <div id="login-form" class="form" style="display:none;">
-                <h2 class="lg-rgt-title">Đăng nhập</h2>
-                <form>
-                    <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                    <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                    <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                    <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                    <button type="submit">Đăng nhập</button>
-                </form>
-            </div>
-            <div id="register-form" class="form" style="display:none;">
-                <h2 class="lg-rgt-title">Đăng ký</h2>
-                <form>
-                    <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                    <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                    <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                    <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                    <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Xác nhận mật khẩu">
-                    <button type="submit">Đăng ký</button>
-                </form>
-            </div>
-        </div>
-        <header>
-            <div class="navbar">
+    <style>
+        <style>
+    /* Mazda Page Container */
+    .mazda-content {
+        --mazda-primary: #007bff;
+        --mazda-secondary: #f8f9fa;
+        --mazda-accent: #0056b3;
+        padding: 20px;
+        background-color: #efefef;
+    }
     
-                <a href="index.php" class="homelink" >Trang Chủ</a>
-                <div class="dropdown">
-                    <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-                    <div class="dropdown-content">
-                        <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                        <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-                    </div>
-                </div>
-                <a href="billhistory.php">Xem lịch sử mua hàng</a>
-                <a href="#about">Giới Thiệu</a>
-                <a href="#contact">Liên Hệ</a>
-                <a href="../Admin/login.php">Admin</a>
+    /* Hero Section */
+    .mazda-content h1 {
+        text-align: center;
+        background-image: url('madzabanner.png');
+        min-height: 100vh;
+        padding: 50px;
+        color: #CDD2D0;
+        font-weight: normal;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        background-color: #555
+    }
+    
+    /* Filter Section */
+    .filter-section {
+        padding: 25px;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin: 30px auto;
+        max-width: 800px;
+        transition: all 0.3s ease;
+    }
+    
+    .filter-section:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .s1, .s2 {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    /* Filter Labels and Icons */
+    .filter-section label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+    
+    .filter-section label i {
+        color: var(--mazda-primary);
+        font-size: 1.1rem;
+    }
+    
+    /* Filter Select Inputs */
+    .filter-section select {
+        padding: 12px 24px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: white;
+        color: #2c3e50;
+        font-size: 0.95rem;
+        min-width: 180px;
+        appearance: none;
+        background-repeat: no-repeat;
+        background-position: calc(100% - 12px) center;
+        padding-right: 35px;
+    }
+    
+    .filter-section select:hover {
+        border-color: var(--mazda-primary);
+        background-color: #f8f9fa;
+    }
+    
+    /* Products Grid */
+    .ctn21 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 40px;
+        margin-top: 20px;
+    }
+    
+    /* Product Cards */
+    .nc-item {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nc-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Car Images */
+    .carpic {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .nc-item:hover .carpic {
+        transform: scale(1.05);
+    }
+    
+    /* Car Details */
+    .cith2 {
+        color: var(--mazda-primary);
+        padding: 15px;
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .cit {
+        color: #666;
+        padding: 0 15px 15px;
+        margin: 0;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    
+    /* Car Info Icons */
+    .carinfo {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 15px;
+        gap: 10px;
+        border-top: 1px solid #eee;
+        background: #f8f9fa;
+    }
+    
+    .carinfo i {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .info {
+        font-family: 'Times New Roman', Times, serif;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    /* Links */
+    .linkcar {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .filter-section {
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            margin: 20px;
+        }
+    
+        .s1, .s2 {
+            width: 100%;
+            justify-content: space-between;
+        }
+    
+        .filter-section select {
+            flex: 1;
+            min-width: 150px;
+        }
+    
+        .ctn21 {
+            padding: 20px;
+            gap: 20px;
+        }
+    
+        .carinfo {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    
+        .mazda-content h1 {
+            min-height: 50vh;
+            margin: 0;
+        }
+    }
+    
+    /* Preserve Header Styles */
+    .header-container {
+        --header-bg: #f8f9fa;
+        --header-text: #495057;
+    }
+    </style>
+    <style>
+        /* Add to your filter section styles */
+    .filter-section label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+    
+    .filter-section label i {
+        color: var(--mazda-primary);
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .filter-section label:hover i {
+        transform: scale(1.1);
+    }
+    
+    .filter-section select {
+        padding-left: 35px;
+        background-position: calc(100% - 12px) center, 12px center;
+        background-image: 
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    }
+    </style>
+    <style>
+    .title{
+        background-color:rgb(201, 201, 201);
+        margin-top:-1.1em;
+    }        
+    .ctn21{
+        margin-bottom: 50px;
+    }
+    </style>
+    <body>
 
-            <div id="tlp">
-                    <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="Hotline">Hotline 2: 080 123 4567</span>
-                </div>
-            </div>
-            
-        </header>  
-        <main>
+    <div class="title">
 
-            <h1 style="text-align: center;background-image: url('MAZDA-BANNER-1-copy.webp');min-height: 100vh;padding: 50px;color: rgb(255, 255, 255);background-repeat: no-repeat;margin-right:7em;margin-left: 7em;margin-bottom: -7em;color: #CDD2D0;">Mazda Motors</h1>
-        
+        <h1 style="text-align: center;background-image: url('MAZDA-BANNER-1-copy.webp');min-height: 80vh;padding: 50px;color: rgb(255, 255, 255);background-repeat: no-repeat;margin-right:7em;margin-left: 7em;margin-bottom: -7em;color: #CDD2D0;">Mazda Motors</h1>
+    </div>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br>
             <div id="newcar">
                 <!-- Bộ lọc sản phẩm -->
+                                <!-- Update the filter section -->
                 <div class="filter-section">
                     <div class="s1">
-                        <label for="priceFilter">Lọc theo giá:</label>
+                        <label for="priceFilter">
+                            <i class="fas fa-tags"></i>
+                            Lọc theo giá:
+                        </label>
                         <select id="priceFilter" onchange="filterProducts()">
                             <option value="all">Tất cả</option>
                             <option value="below10b">Dưới 500 triệu</option>
@@ -93,7 +295,10 @@
                         </select>
                     </div>
                     <div class="s2">
-                        <label for="yearFilter">Lọc theo năm:</label>
+                        <label for="yearFilter">
+                            <i class="fas fa-calendar"></i>
+                            Lọc theo năm:
+                        </label>
                         <select id="yearFilter" onchange="filterProducts()">
                             <option value="all">Tất cả</option>
                             <option value="2021">2021</option>
@@ -230,62 +435,10 @@
             </div>
         </main>
         
-        <hr>
-        <footer>
-            <div id="if-ct">
-                <div class="if">
-                    <img src="dp56vcf7.png" alt="logo" class="image1">
-                    <div class="if-text">
+
         
-                        <h2 class="if-title">
-                            giới thiệu
-                        </h2>
-                        <small class="if-content" id="about">
-                            AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                            Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                            Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                            Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                          
-                        </small>
-                        <br><br>
-                        <small>
-                            Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                        </small>
-        
-                    </div>
-                    <div class="ct-text">
-                        <h2 class="ct-title" id="contact">
-                            thông tin liên hệ
-                        </h2>
-                        <div class="ct-item">
-                            <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                            <p>0987654321</p>
-                            <p>Hotline 1: 090 123 4567</p>
-                            <p>Hotline 2: 080 123 4567</p>
-                        </div>
-                        <div class="ct-item">
-                            <i class="fa fa-envelope"></i>
-                            <p>email@auto.com</p>
-                        </div>
-                        <div class="ct-item">
-                            <i class="fa fa-map-marker"></i>
-                            <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-                
-                         </div>
-                    </div>
-                </div>
-        <hr style="color: lightslategray;">
-        <div class="copyright">
-            <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-            <small>
-                Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-            </small>  
-            <br>
-            <small>
-                
-                Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-            </small>
-        </div>
-        </footer>
     </body>               
 </html>        
+<?php
+include 'footer.php';
+?>

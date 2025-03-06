@@ -242,7 +242,7 @@ border-radius: 15px;
     align-items: center;
     text-align: center;
     color: white;
-    background-color: #efefef;
+    background-color: #ffffff;
     padding: -20px; /* Thêm padding 10px */
     margin: 10px;
 
@@ -261,7 +261,6 @@ border-radius: 15px;
 }
 
 .hct{
-    text-transform: uppercase;
     border: 1px solid #ccc;
     border-radius:15px ;
     background-color: #00B3FC;
@@ -325,7 +324,7 @@ background-color: #007BFF;
     align-items: center;
     padding-left: 40px;
     padding-right: 40px;
-    margin-bottom: 20px;
+
     color: black;
 }
 .info{
@@ -345,7 +344,7 @@ background-color: #007BFF;
 /* Car List Container */
 #newcar {
     padding: 40px;
-    background-color: #efefef;
+    background-color:rgb(255, 255, 255);
 }
 
 /* Grid Layout */
@@ -419,8 +418,9 @@ background-color: #007BFF;
 }
 
 .info {
-    font-family: Arial, sans-serif;
+    font-family:'Times New Roman', Times, serif;
     padding-left: 5px;
+    font-weight: bolder;
     color: #666;
 }
 
@@ -437,7 +437,6 @@ background-color: #007BFF;
     color: white;
     padding: 12px 30px;
     border-radius: 8px;
-    text-transform: uppercase;
     transition: background-color 0.3s ease;
 }
 
@@ -665,7 +664,7 @@ body{
                 </div>
                 
             </div>
-            <div class="nc-title">
+            <!-- <div class="nc-title">
                 <h2 class="more-car">
                     <span class="morecar">
 
@@ -673,7 +672,7 @@ body{
                     </span>
                 </h2>
 
-            </div>
+            </div> -->
         </div>
         
     </main>
