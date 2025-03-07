@@ -36,7 +36,7 @@ include 'connect.php';
 .cart-top {
     height: 2px;
     width: 70%;
-    background-color: #e9ecef;
+    background-color: #909091;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -249,12 +249,104 @@ include 'connect.php';
 .cart-top-cart i {
     color: black;
 }</style>
+<style>/* Title styling for cart page */
+
+.cart-title {
+    text-align: center;
+    padding: 25px 0;
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    background-color: #fff;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 8px;
+}
+
+.cart-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--cart-primary);
+    border-radius: 2px;
+}
+
+/* Update container spacing */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Adjust cart section spacing */
+.cart {
+    padding: 20px 0 40px;
+    background-color: #efefef;
+}</style>
+<style>
+    h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #666;
+  font-size: 40px;
+  /* color: #080808; */
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  height: 50px;
+}
+
+h1 span {
+  display: block;
+  font-size: 0.5em;
+  line-height: 1.3;
+}
+h1 em {
+  font-style: normal;
+  font-weight: 600;
+}
+.eight{
+    height :100px;
+    background-color: #efefef;
+    /* border-radius: 10px; */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.eight h1 {
+    padding-top: 30px;
+  text-align:center;
+ 
+  text-transform:uppercase;
+  font-size:26px; letter-spacing:1px;
+  
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 16px 0;
+  grid-gap: 22px;
+}
+
+.eight h1:after,.eight h1:before {
+  content: " ";
+  display: block;
+  border-bottom: 2px solid #ccc;
+  background-color:#efefef  ;
+}
+
+</style>
 <body>
     
     <!------------cart------------->
     <section class="cart">
         <div class="container">
             <div class="cart-top-wrap">
+                
                 <div class="cart-top">
                     <div class="cart-top-cart cart-top-item">
                         <a href="cart.php">
@@ -280,6 +372,10 @@ include 'connect.php';
             </div>
         </div>
         <div class="container">
+            <div class="eight">
+  <h1>Giỏ Hàng</h1>
+</div>
+      
             <div class="cart-content-row">
                 <div class="cart-content-left"><table>
                     <tr>

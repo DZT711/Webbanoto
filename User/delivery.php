@@ -1,3 +1,7 @@
+<?php
+include 'header.php';
+include 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,83 +9,271 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Địa chỉ vận chuyển</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="delivery.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" href="delivery.css"> -->
     <script src="delivery.js"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 
 </head>
-
-<body>
-    <header>
-        <div class="logo">
-            <a class="nav" href="index.php">
-                <img src="dp56vcf7.png" alt="logo" height="120px">
-            </a>
-        </div>
-    </header>
-
-    <div class="login-register-ctn">
-        <div class="login-register">
-            <div class="lg"></div>
-            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-            <span>&nbsp;&nbsp;</span>
-            <a href="#" id="logout-btn" style="display:none;"><i
-                    class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất
-            </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span
-                    id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="login-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng nhập</h2>
-            <form>
-                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                <button type="submit">Đăng nhập</button>
-            </form>
-        </div>
-        <div id="register-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng ký</h2>
-            <form>
-                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required
-                    placeholder="Xác nhận mật khẩu">
-                <button type="submit">Đăng ký</button>
-            </form>
-        </div>
-    </div>
-
-    <hr>
-    <div class="navbar">
+<style>
+        /* Add to your existing delivery.php styles */
     
-        <a href="index.php" class="homelink" >Trang Chủ</a>
-        <div class="dropdown">
-            <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-            <div class="dropdown-content">
-                <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-            </div>
-        </div>
-        <a href="billhistory.php">Xem lịch sử mua hàng</a>
+    /* Title Container */
+    .eight {
+        height: 100px;
+        background-color: #efefef;
+        /* border-radius: 10px; */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+        width:1200px;
+        margin-left:345px;
+    }
+    
+    /* Title Styling */
+    .eight h1 {
+        padding-top: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 26px;
+        letter-spacing: 1px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: 16px 0;
+        grid-gap: 22px;
+        color:rgb(172, 172, 172);
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #efefef;
+        
+        color: #2c3e50;
+    }
+    
+    /* Title Lines */
+    .eight h1:after,
+    .eight h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 2px solid #ccc;
+        background-color: #efefef;
+    }
+    
+ 
+    /* Add this to your HTML right after the delivery-top section */
+</style>
+<style>
+/* Delivery Page Container */
+.delivery {
+    padding: 40px 0;
+    background-color: #efefef;
+}
 
-        <a href="#about">Giới Thiệu</a>
-        <a href="#contact">Liên Hệ</a>
-        <a href="../Admin/login.php">Admin</a>
-    <div id="tlp">
-            <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span class="Hotline">Hotline 2: 080 123 4567</span>
-        </div>
-    </div>
+/* Title Styling */
+.eight {
+    height: 100px;
+    background-color: #efefef;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+/* .eight h1 {
+    text-align: center;
+    padding: 30px 0;
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+} */
+
+/* Progress Bar */
+.delivery-top-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.delivery-top {
+    height: 2px;
+    width: 70%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 840px;
+    position: relative;
+}
+
+.delivery-top-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.delivery-top-item i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.delivery-top-item.active {
+    border-color: #007bff;
+    background-color: #007bff;
+}
+
+.delivery-top-item.active i {
+    color: #fff;
+}
+
+/* Content Layout */
+.delivery-content-row {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Left Section - Form */
+.delivery-content-left {
+    flex: 2;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width:590px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Right Section - Summary */
+.delivery-content-right {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.delivery-content-right table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.delivery-content-right th,
+.delivery-content-right td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.delivery-content-right th {
+    font-weight: 600;
+    color: #2c3e50;
+    background-color: #f8f9fa;
+}
+
+/* Action Buttons */
+.delivery-content-left-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#checkout-button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#checkout-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.return {
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.return:hover {
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .delivery-content-row {
+        flex-direction: column;
+    }
+
+    .delivery-content-left,
+    .delivery-content-right {
+        width: 100%;
+    }
+
+    .delivery-content-left-button {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #checkout-button {
+        width: 100%;
+    }
+}
+.registration-form{
+padding: 10px;
+}
+</style>
+<body>
+    
+
+    
+
+    
 
     <!------------Delivery------------>
     <section class="delivery">
@@ -111,7 +303,13 @@
                 </div>
             </div>
         </div>
-        <div class="delivery-content-row">
+
+
+            <div class="eight">
+                <h1>Thông Tin Vận Chuyển</h1>
+            </div>
+
+            <div class="delivery-content-row">
             <div class="delivery-content-left">
                 <p><span class="info">Vui lòng chọn địa chỉ giao hàng</span></p>
                 <!-- <div class="delvery-content-left-dangnhap row">
@@ -160,8 +358,8 @@
                     toggleRegisterForm(true);
                 </script>
                 <div class="delivery-content-left-button row">
-                    <a href="cart.php"><span>&#171;</span>
-                        <p><span class="return">Quay lại giỏ hàng</span></p>
+                    <a href="cart.php">
+                        <p><span class="return"><span>&#171;</span>Quay lại giỏ hàng</span></p>
                     </a>
                     <button id="checkout-button" onclick="navigateToPayment()">THANH TOÁN VÀ GIAO HÀNG</button>
                     <script>
@@ -222,62 +420,10 @@
     </section>
 
     <!------------footer----------->
-    <footer>
-        <div id="if-ct">
-            <div class="if">
-                <img src="dp56vcf7.png" alt="logo" class="image1">
-                <div class="if-text">
     
-                    <h2 class="if-title">
-                        giới thiệu
-                    </h2>
-                    <small class="if-content" id="about">
-                        AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                        Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                      
-                    </small>
-                    <br><br>
-                    <small>
-                        Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                    </small>
-    
-                </div>
-                <div class="ct-text">
-                    <h2 class="ct-title">
-                        thông tin liên hệ
-                    </h2>
-                    <div class="ct-item">
-                        <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                        <p id="contact">0987654321</p>
-                        <p>Hotline 1: 090 123 4567</p>
-                        <p>Hotline 2: 080 123 4567</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-envelope"></i>
-                        <p>email@auto.com</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-map-marker"></i>
-                        <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-            
-                     </div>
-                </div>
-            </div>
-    <hr style="color: lightslategray;">
-    <div class="copyright">
-        <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-        <small>
-            Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-        </small>  
-        <br>
-        <small>
-            
-            Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-        </small>
-    </div>
-    </footer>
 </body>
 
                     </html>
+<?php
+include 'footer.php';
+?>

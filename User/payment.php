@@ -1,3 +1,8 @@
+<?php
+include 'header.php';
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,83 +10,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="payment.css">
+    <!-- <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="payment.css"> -->
     <script src="payment.js"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 
 </head>
+<style>
+/* Payment Page Container */
+.payment {
+    padding: 40px 0;
+    background-color: #efefef;
+}
 
-<body>
-    <header>
-        <div class="logo">
-            <a class="nav" href="index.php">
-                <img src="dp56vcf7.png" alt="logo" height="120px">
-            </a>
-        </div>
-    </header>
+/* Progress Bar Section */
+.payment-top-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    <div class="login-register-ctn">
-        <div class="login-register">
-            <div class="lg"></div>
-            <a href="#" id="login-btn"><i class="fa-solid fa-right-to-bracket">&nbsp;&nbsp;</i>Đăng nhập</a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="space">|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="#" id="register-btn"><i class="fas fa-user-plus">&nbsp;&nbsp;</i>Đăng ký</a>
-            <span>&nbsp;&nbsp;</span>
-            <a href="#" id="logout-btn" style="display:none;"><i
-                    class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Đăng xuất
-            </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-            <span id="user-info" style="display:none;">Xin chào, <i class="fa-regular fa-user">&nbsp;&nbsp;</i><span
-                    id="username-display"></span>!</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="login-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng nhập</h2>
-            <form>
-                <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="username" name="username" required placeholder="Tên đăng nhập">
-                <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="password" name="password" required placeholder="Mật khẩu">
-                <button type="submit">Đăng nhập</button>
-            </form>
-        </div>
-        <div id="register-form" class="form" style="display:none;">
-            <h2 class="lg-rgt-title">Đăng ký</h2>
-            <form>
-                <label for="new-username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Tên đăng nhập:</label>
-                <input type="text" id="new-username" name="username" required placeholder="Tên đăng nhập">
-                <label for="new-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Mật khẩu:</label>
-                <input type="password" id="new-password" name="password" required placeholder="Mật khẩu">
-                <label for="confirm-password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Xác nhận mật khẩu:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required
-                    placeholder="Xác nhận mật khẩu">
-                <button type="submit">Đăng ký</button>
-            </form>
-        </div>
-    </div>
+.payment-top {
+    height: 2px;
+    width: 70%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 840px;
+    position: relative;
+}
 
-    <hr>
-    <div class="navbar">
+.payment-top-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.payment-top-item i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.payment-top-item.active {
+    border-color: #007bff;
+    background-color: #007bff;
+}
+
+.payment-top-item.active i {
+    color: #fff;
+}
+
+/* Payment Content Layout */
+.payment-content {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Payment Columns */
+.payment-column {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Form Elements */
+.payment-column input[type="text"],
+.payment-column input[type="radio"] {
+    width: 500px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.payment-column input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.payment-column input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Labels and Text */
+.payment-column p,
+.payment-column label {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.payment-column p strong {
+    font-weight: 600;
+}
+
+/* Action Buttons */
+.payment-content-right-button {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.cbtn {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cbtn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-content {
+        flex-direction: column;
+    }
+
+    .payment-column {
+        width: 100%;
+    }
+
+    .payment-content-right-button {
+        flex-direction: column;
+    }
+
+    .cbtn {
+        width: 100%;
+    }
+}
+
+/* Preserve Header Styles */
+.header-container {
+    --header-bg: #f8f9fa;
+    --header-text: #495057;
+}
+
+/* Add this to ensure proper spacing */
+main {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<style>
+.eight {
+    height: 100px;
+    background-color: #efefef;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+    /* Title Container */
+    .eight {
+        height: 100px;
+        background-color: #efefef;
+        /* border-radius: 10px; */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+        width:1200px;
+        margin-left:345px;
+    }
     
-        <a href="index.php" class="homelink" >Trang Chủ</a>
-        <div class="dropdown">
-            <button class="dropbtn" style="cursor: pointer;">Xe Đang Bán <i class="fa fa-caret-down"></i></button>
-            <div class="dropdown-content">
-                <a href="index.php">Thương Hiệu <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Mức Giá <i class="fa-solid fa-caret-left"></i></a>
-                <a href="more.php">Năm Sản Xuất <i class="fa-solid fa-caret-left"></i></a>
-            </div>
-        </div>
-        <a href="billhistory.php">Xem lịch sử mua hàng</a>
-        <a href="#about">Giới Thiệu</a>
-        <a href="#contact">Liên Hệ</a>
-        <a href="../Admin/login.php">Admin</a>
+    /* Title Styling */
+    .eight h1 {
+        padding-top: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 26px;
+        letter-spacing: 1px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: 16px 0;
+        grid-gap: 22px;
+        color:rgb(172, 172, 172);
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #efefef;
+        
+        color: #2c3e50;
+    }
+    
+    /* Title Lines */
+    .eight h1:after,
+    .eight h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 2px solid #ccc;
+        background-color: #efefef;
+    }
+</style>
+<style>
+/* Add these styles to your existing CSS */
+.links-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    <div id="tlp">
-            <span class="Hotline">Hotline 1: 090 123 4567&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span class="Hotline">Hotline 2: 080 123 4567</span>
-        </div>
-    </div>
+.payment-content-right-button {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.return-btn {
+    padding: 12px 24px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pay-btn {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.return-btn:hover,
+.pay-btn:hover {
+    transform: translateY(-2px);
+}
+
+.return-btn:hover {
+    background-color: #5a6268;
+}
+
+.pay-btn:hover {
+    background-color: #0056b3;
+}
+</style>
+<style>
+
+</style>
+<body>
+    
+
+
 
     <!------------payment----------------->
     <section class="payment">
@@ -111,37 +328,40 @@
                 </div>
             </div>
         <div class="container">
+            <div class="eight">
+                <h1>Thông Tin Vận Chuyển</h1>
+            </div>
             <div class="payment-content row">
             <!----Thanh toán bằng thẻ tín dụng-->
             <div class="payment-column payment-column-left">
-                <p style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ tín dụng</p>
+                <div class="payment-content-left-method-payment-item">
+                    <input name="method-payment" type="radio" id="credit-card-option">
+                    <label for="" style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ tín dụng</label>
+                </div>
                 <div class="payment-content-left-method-payment">
                     <p>(Mọi giao dịch đều được bảo mật và mã hóa, thông tin thẻ tín dụng sẽ không được lưu lại.)</p>
-                    <div class="payment-content-left-method-payment-item">
-                        <input name="method-payment" type="radio" id="credit-card-option">
-                    </div>
                     <div style="margin-top: 10px;">
                         <p>Nhập thông tin thẻ Visa:</p>
-                        <input type="text" placeholder="Số thẻ Visa">
-                        <input type="text" placeholder="Họ tên trên thẻ">
-                        <input type="text" placeholder="Ngày hết hạn (MM/YY)">
-                        <input type="text" placeholder="Mã CVV">
+                        <input type="text" class="input-text" placeholder="Số thẻ Visa">
+                        <input type="text" class="input-text" placeholder="Họ tên trên thẻ">
+                        <input type="text" class="input-text" placeholder="Ngày hết hạn (MM/YY)">
+                        <input type="text" class="input-text" placeholder="Mã CVV">
                     </div>
                 </div>
             </div>
 
                 <!--Thanh toán bằng thẻ ATM--->
                 <div class="payment-column payment-column-right">
-                    <p style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ ATM</p>
+                    <div class="payment-content-right-method-payment-item">
+                        <input name="method-payment" type="radio" id="atm-option">
+                        <label for="" style="font-weight: bold; text-align: left;">Thanh toán bằng thẻ ATM<labap>
+                    </div>
                     <div class="payment-content-right-method-payment">
-                        <div class="payment-content-right-method-payment-item">
-                            <input name="method-payment" type="radio" id="atm-option">
-                        </div>
                         <div style="margin-top: 10px;">
                             <p>Nhập thông tin thẻ ATM:</p>
-                            <input type="text" placeholder="Số thẻ ATM">
-                            <input type="text" placeholder="Tên ngân hàng">
-                            <input type="text" placeholder="Tên chủ tài khoản">
+                            <input type="text" class="input-text" placeholder="Số thẻ ATM">
+                            <input type="text" class="input-text" placeholder="Tên ngân hàng">
+                            <input type="text" class="input-text" placeholder="Tên chủ tài khoản">
                         </div>
 
                     <!----Thanh toán bằng tiền mặt-->
@@ -166,69 +386,26 @@
                         <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Vệ sinh xe')">Vệ sinh xe</li>
                         <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Nước hoa xe hơi')">Nước hoa xe hơi</li>
                     </ul> -->
-                        <button class="cbtn" style="padding: 10px 20px;" onclick="window.location.href='review.php'">THANH TOÁN</button>
-                        <button class="cbtn" style="padding: 10px 20px;" onclick="history.back()">TRỞ VỀ</button>
-                    </div>
+                </div>
+                <!-- Replace the existing button section -->
+<div class="links-container">
+<a href="delivery.php" class="return-btn">
+<i class="fas fa-arrow-left"></i>
+TRỞ VỀ
+</a>
+<a href="review.php" class="pay-btn">
+THANH TOÁN
+<i class="fas fa-arrow-right"></i>
+</a>
+</div>
                 </div>   
             </div>
         </section>
     <!------------footer----------->
-    <footer>
-        <div id="if-ct">
-            <div class="if">
-                <img src="dp56vcf7.png" alt="logo" class="image1">
-                <div class="if-text">
     
-                    <h2 class="if-title">
-                        giới thiệu
-                    </h2>
-                    <small class="if-content" id="about">
-                        AUTO CAR là đơn vị chuyên hoạt động trong lĩnh vực kinh doanh các loại xe, đặc biệt là siêu xe                             Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Với tiêu chí tập trung vào những xe chính hãng, chất lượng cao, còn bảo hành chính hãng và giá cả tối ưu nhất. 
-                        Tất cả các xe bán ra đều được trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo tiêu chuẩn chất lượng cũng như độ an toàn cho khách hàng. 
-                        Ngoài ra, công ty sẽ ký văn bản cam kết để bảo đảm sự minh bạch, trung thực với khách hàng, giúp khách hàng tăng thêm sự yên tâm và tin tưởng vào sản phẩm dịch vụ của chúng tôi.
-                      
-                    </small>
-                    <br><br>
-                    <small>
-                        Tiêu chí của chúng tôi: Chỉ Xe Chất - Giá Tốt Nhất !
-                    </small>
-    
-                </div>
-                <div class="ct-text">
-                    <h2 class="ct-title">
-                        thông tin liên hệ
-                    </h2>
-                    <div class="ct-item">
-                        <i class="fa fa-phone" style="line-height: 0.2;"></i>
-                        <p id="contact">0987654321</p>
-                        <p>Hotline 1: 090 123 4567</p>
-                        <p>Hotline 2: 080 123 4567</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-envelope"></i>
-                        <p>email@auto.com</p>
-                    </div>
-                    <div class="ct-item">
-                        <i class="fa fa-map-marker"></i>
-                        <p>105 Bà Huyện Thanh Quan, P. Võ Thị Sáu, Q.3, TP.HCM</p>
-            
-                     </div>
-                </div>
-            </div>
-    <hr style="color: lightslategray;">
-    <div class="copyright">
-        <p>Copyright © 2024 Auto Car. All rights reserved.</p>
-        <small>
-            Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
-        </small>  
-        <br>
-        <small>
-            
-            Chính sách bảo hành - Chính sách kiểm hàng - Chính sách bảo mật thông tin
-        </small>
-    </div>
-    </footer>
 </body>
 
 </html>
+<?php
+include 'footer.php';
+?>
