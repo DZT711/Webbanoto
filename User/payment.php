@@ -181,7 +181,7 @@ main {
     margin: 0;
 }
 </style>
-<style>
+<!-- <style>
 .eight {
     height: 100px;
     background-color: #efefef;
@@ -225,8 +225,9 @@ main {
         display: block;
         border-bottom: 2px solid #ccc;
         background-color: #efefef;
-    }
+    } -->
 </style>
+
 <style>
 /* Add these styles to your existing CSS */
 .links-container {
@@ -293,7 +294,147 @@ main {
 }
 </style>
 <style>
-
+        /* Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: #007bff;
+        border-radius: 2px;
+    }
+    
+    /* Remove old title lines */
+    .eight h1:before,
+    .eight h1:after {
+        content: none;
+    }
+</style>
+<style>
+        /* Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        display: inline-block; /* Add this */
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 0; /* Change this */
+        width: 100%; /* Change this */
+        height: 3px;
+        background-color: #007bff;
+        border-radius: 2px;
+        transform: none; /* Remove transform */
+    }
+    
+    /* Remove any conflicting styles */
+    .eight h1:before {
+        display: none;
+    }
+        /* Update Title Container and Styling */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Fix underline accent to match cart.php */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: #007bff;
+        border-radius: 2px;
+    }
+    
+    /* Remove any conflicting styles */
+    .eight h1:before {
+        display: none;
+    }
 </style>
 <body>
     

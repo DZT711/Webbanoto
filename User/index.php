@@ -2,6 +2,151 @@
 include 'header.php';
 include 'connect.php';
 ?>
+<?php
+// Replace the existing cars array with this updated version
+$cars = [
+    [
+        'name' => 'BMW 320i Sportline',
+        'price' => 1529000000,
+        'year' => 2024,
+        'speed' => '235 km/h',
+        'location' => 'TP.HCM',
+        'image' => '3-series.jpeg'
+    ],
+    [
+        'name' => 'BMW 330i M Sport',
+        'price' => 1629000000,
+        'year' => 2023,
+        'speed' => '250 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'trang-alpine-3.webp'
+    ],
+    [
+        'name' => '430i Convertible M Sport',
+        'price' => 2629000000,
+        'year' => 2021,
+        'speed' => '250 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'bmw3.png'
+    ],
+    [
+        'name' => 'BMW 735i M Sport',
+        'price' => 4499000000,
+        'year' => 2023,
+        'speed' => '250 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'bmw4.png'
+    ],
+    [
+        'name' => 'BMW XM',
+        'price' => 10990000000,
+        'year' => 2022,
+        'speed' => '250 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'bmw5.jpg'
+    ],
+    [
+        'name' => 'MAZDA 6',
+        'price' => 899000000,
+        'year' => 2023,
+        'speed' => '220 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'mazda1.png'
+    ],
+    [
+        'name' => 'MAZDA 2',
+        'price' => 420000000,
+        'year' => 2021,
+        'speed' => '220 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'mazda2.jpg'
+    ],
+    [
+        'name' => 'MAZDA 3',
+        'price' => 579000000,
+        'year' => 2022,
+        'speed' => '187 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'mazda3.png'
+    ],
+    [
+        'name' => 'MAZDA CX-5',
+        'price' => 829000000,
+        'year' => 2023,
+        'speed' => '220 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'mazda4.png'
+    ],
+    [
+        'name' => 'MAZDA CX-8',
+        'price' => 1109000000,
+        'year' => 2024,
+        'speed' => '240 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'mazda5.webp'
+    ],
+    [
+        'name' => 'Lamborghini Aventador SVJ',
+        'price' => 60000000000,
+        'year' => 2021,
+        'speed' => '310 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'lambo1.jpg'
+    ],
+    [
+        'name' => 'Lamborghini Gallardo',
+        'price' => 50000000000,
+        'year' => 2022,
+        'speed' => '309 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'lambo2.png'
+    ],
+    [
+        'name' => 'Lamborghini Huracan',
+        'price' => 7100000000,
+        'year' => 2023,
+        'speed' => '325 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'lambo3.jpg'
+    ],
+    [
+        'name' => 'Lamborghini Aventador LP 770-4 SVJ',
+        'price' => 12000000000,
+        'year' => 2024,
+        'speed' => '350 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'lambo4.jpg'
+    ],
+    [
+        'name' => 'Lamborghini Huracan Tecnica',
+        'price' => 17900000000,
+        'year' => 2024,
+        'speed' => '325 km/h',
+        'location' => 'TP.HCM',
+        'image' => 'lambo5.jpg'
+    ]
+];
+
+// Get current page number
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$carsPerPage = 3;
+
+// Shuffle the array to get random cars
+shuffle($cars);
+
+// Calculate total pages
+$totalCars = count($cars);
+$totalPages = ceil($totalCars / $carsPerPage);
+
+// Ensure page is within valid range
+$page = max(1, min($page, $totalPages));
+
+// Get cars for current page
+$startIndex = ($page - 1) * $carsPerPage;
+$currentCars = array_slice($cars, $startIndex, $carsPerPage);
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -482,6 +627,98 @@ body{
     
 }
 </style>
+<style>
+        /* Add to your existing CSS */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 30px 0;
+    }
+    
+    .page-link {
+        padding: 8px 16px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        color: #007bff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .page-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .page-link.active {
+        background-color: #007bff;
+        color: white;
+        pointer-events: none;
+    }
+        /* Add to your existing pagination styles */
+    .page-nav {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 8px 16px;
+        background-color: #fff;
+        border: 1px solid #007bff;
+        color: #007bff;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .page-nav:hover {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .page-nav i {
+        font-size: 0.8rem;
+    }
+    
+    /* Update existing pagination styles */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 30px 0;
+    }
+</style>
+<style>
+        /* Add to your existing styles */
+    .garage-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    
+    .garage-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 30px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    .garage-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .garage-btn i {
+        font-size: 1.1rem;
+    }
+</style>
     <body>
 
 <div class="" style="background-color:rgb(220, 220, 220);height:5vh;"></div>
@@ -547,6 +784,7 @@ body{
             </div>
             
         </div>
+        <div id="view"></div>
 
         <div id="newcar">
             <div class="nc-title">
@@ -558,121 +796,64 @@ body{
                 </h2>
 
             </div>
-            <div class="ctn21">
-                <div class="nc-item">
-                    <a href="bmw320.php" class="linkcar">
-
-                        <img class="carpic" src="lambo1.jpg" alt="lambo1">
-                        <h2 class="cith2"> 60.000.000.000 VND</h2>
-                        <p class="cit">Lamborghini Aventador SVJ</p>
+                        <div class="ctn21" >
+                <?php foreach ($currentCars as $car): ?>
+                                <div class="nc-item">
+                    <a href="car-details.php?name=<?= urlencode($car['name']) ?>" class="linkcar">
+                        <img class="carpic" src="<?= $car['image'] ?>" alt="<?= $car['name'] ?>">
+                        <h2 class="cith2"><?= number_format($car['price'], 0, ',', '.') ?> VND</h2>
+                        <p class="cit"><?= $car['name'] ?></p>
                         <div class="carinfo">
                             <i class="fas fa-car">
-                                <span class="info">
-                                    2 chỗ
-                                </span>
+                                <span class="info">2 chỗ</span>
                             </i>
                             <i class="fas fa-gas-pump">
                                 <span class="info">Xăng</span>
                             </i>
                             <i class="fas fa-tachometer-alt">
-                                <span class="info">
-                                    150 km/h
-                                </span>
+                                <span class="info"><?= $car['speed'] ?></span>
                             </i>
                             <i class="fas fa-calendar-alt">
-                                <span class="info">
-                                    2021
-                                </span>
+                                <span class="info"><?= $car['year'] ?></span>
                             </i>
                             <i class="fa-solid fa-location-dot">
-                                <span class="info">
-
-                                    TP.HCM
-                                </span>
+                                <span class="info"><?= $car['location'] ?></span>
                             </i>
                         </div>
                     </a>
                 </div>
-                <div class="nc-item">
-                    <a href="bmw320.php" class="linkcar">
-
-                        <img class="carpic" src="lambo2.png" alt="lambo2">
-                        <h2 class="cith2"> 5.000.000.000 VND</h2>
-                        <p class="cit">Lamborghini Gallardo</p>
-                        <div class="carinfo">
-                            <i class="fas fa-car">
-                                <span class="info">
-                                    2 chỗ
-                                </span>
-                            </i>
-
-                            <i class="fas fa-gas-pump">
-                                <span class="info">Xăng</span>
-                            </i>
-                            <i class="fas fa-tachometer-alt">
-                                <span class="info">
-                                    160 km/h
-                                </span>
-                            </i>
-                            <i class="fas fa-calendar-alt">
-                                <span class="info">
-                                    2022
-                                </span>
-                            </i>
-                            <i class="fa-solid fa-location-dot">
-                                <span class="info" >
-
-                                    TP.HCM
-                                </span>
-                            </i>
-                        </div>
-                    </a>
-                </div>
-                <div class="nc-item">
-                    <a href="bmw320.php" class="linkcar">
-
-                        <img class="carpic" src="lambo3.jpg" alt="lambo3">
-                        <h2 class="cith2"> 7.100.000.000 VND</h2>
-                        <p class="cit">Lamborghini Huracan</p>
-                        <div class="carinfo">
-                            <i class="fas fa-car">
-                                <span class="info">
-                                    2 chỗ
-                                </span>
-                            </i>
-                            <i class="fas fa-gas-pump">
-                                <span class="info">Xăng</span>
-                            </i>
-                            <i class="fas fa-tachometer-alt">
-                                <span class="info">
-                                    170 km/h
-                                </span>
-                            </i>
-                            <i class="fas fa-calendar-alt">
-                                <span class="info">
-                                    2023
-                                </span>
-                            </i>
-                            <i class="fa-solid fa-location-dot">
-                                <span class="info">
-
-                                    TP.HCM
-                                </span>
-                            </i>
-                        </div>
-                    </a>
-                </div>
-                
+                <?php endforeach; ?>
             </div>
-            <!-- <div class="nc-title">
-                <h2 class="more-car">
-                    <span class="morecar">
-
-                        <a class="more" href="more.php"><small>Xem Thêm</small></a>
-                    </span>
-                </h2>
-
-            </div> -->
+            
+            <!-- Pagination -->
+                        <!-- Replace the existing pagination div -->
+            <div class="pagination" >
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?= $page - 1 ?>#view" class="page-link page-nav">
+                        <i class="fas fa-chevron-left"></i> Prev
+                    </a>
+                <?php endif; ?>
+                
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <a href="?page=<?= $i ?>#view" class="page-link <?= $i === $page ? 'active' : '' ?>">
+                        <?= $i ?>
+                    </a>
+                <?php endfor; ?>
+                
+                <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?= $page + 1 ?>#view" class="page-link page-nav">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </a>
+                <?php endif; ?>
+            </div>
+                        <!-- Add this after the pagination div -->
+            <div class="garage-btn-container">
+                <a href="more.php" class="garage-btn">
+                    <i class="fas fa-warehouse"></i>
+                    Garage Xe
+                </a>
+            </div>
+            
         </div>
         
     </main>
@@ -680,6 +861,7 @@ body{
 
 </body>
 </html>
+
 <?php
 include 'footer.php';
 ?>

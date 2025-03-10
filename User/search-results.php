@@ -1,3 +1,8 @@
+<?php
+include 'header.php';
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -12,6 +17,108 @@
         /* Style đơn giản cho kết quả */
         .results { margin: 20px; font-family: Arial, sans-serif; }
         .result-item { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+
+    </style>
+        <style>
+        /* Reset margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(255, 255, 255);
+        }
+    
+        /* Search Results Container */
+        .results {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+    
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+    
+        /* Search Bar Styling */
+        #searchbar {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+    
+        .home {
+            color: #333;
+            text-decoration: none;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+    
+        .search {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            margin-right: 10px;
+        }
+    
+        /* Results Styling */
+        .result-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: start;
+            gap: 20px;
+        }
+    
+        .result-item img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    
+        .result-item h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+    
+        .result-item p {
+            color: #666;
+            margin: 5px 0;
+        }
+    
+        /* Override header and footer styles */
+        header, footer {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    
+        /* Make search button consistent */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -195,3 +302,6 @@
     </script>
 </body>
 </html>
+<?php
+include 'footer.php';
+?>

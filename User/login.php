@@ -3017,6 +3017,7 @@ session_start();
                     $_SESSION['first_login'] = true;
                     $_SESSION['full_name'] = null;
                     $_SESSION['address'] = null;
+                    $_SESSION['role'] = 'user';
 
                     
                     echo "<script>showNotification('Đăng ký thành công . Vui lòng chờ 1 lát...', 'success');</script>";
@@ -3032,57 +3033,57 @@ session_start();
             }
         }
         else
-        if(isset($_POST['login'])) {
-            $username = filter_input(INPUT_POST, "usn",FILTER_SANITIZE_SPECIAL_CHARS);
-            $password = filter_input(INPUT_POST, "pass",FILTER_SANITIZE_SPECIAL_CHARS);
+                if(isset($_POST['login'])) {
+            $username = filter_input(INPUT_POST, "usn", FILTER_SANITIZE_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, "pass", FILTER_SANITIZE_SPECIAL_CHARS);
             
-            
-            if(empty($username)||empty($password)){
+            if(empty($username) || empty($password)) {
                 echo "<script>showNotification('Bạn cần phải nhập tất cả thông tin để đăng nhập', 'warning');</script>";
                 exit();
-            }
-            else{
+            } else {
                 $sql = "SELECT * FROM users_acc WHERE username='$username'";
                 $result = mysqli_query($connect, $sql);
-                $row = mysqli_fetch_assoc($result);
-                $hash = $row["password"];
-                if($row["password"]!=$password ){
+                
+                // First check if username exists
+                if(mysqli_num_rows($result) === 0) {
                     echo "<script>showNotification('Tên đăng nhập hoặc mật khẩu không đúng!!', 'warning');</script>";
-                }
-                if($row['status']=='banned'||$row['status']=='disabled'){
-                    switch($row['status']){
-                        case 'banned':
-                            $viestatus='cấm';
-                            break;
-                            case 'disabled':
-                                $viestatus='vô hiệu hóa';
-                            
-                            break;
-                    }
-                    echo "<script>showNotification('Tài khoản của bạn hiện bị {$viestatus} . Vui lòng liên hệ với quản trị viên để biết thêm thông tin', 'error');</script>";
                     exit();
-
                 }
-                else{
-                    // Set session variables
-                    $_SESSION["username"] = $username;
-                    $_SESSION["password"] = $password;
-                    $_SESSION["email"] = $row["email"];
-                    $_SESSION["status"] = $row["status"];
-                    $_SESSION["phone_num"] = $row["phone_num"];
-                    $_SESSION["register_date"] = $row["register_date"];
-                    $_SESSION['first_login'] = true;
+        
+                // Only fetch row if username exists
+                $row = mysqli_fetch_assoc($result);
+                
+                // Now check password
+                if($row["password"] != $password) {
+                    echo "<script>showNotification('Tên đăng nhập hoặc mật khẩu không đúng!!', 'warning');</script>";
+                    exit();
+                }
+        
+                // Check account status
+                if($row['status'] == 'banned' || $row['status'] == 'disabled') {
+                    $viestatus = ($row['status'] == 'banned') ? 'cấm' : 'vô hiệu hóa';
+                    echo "<script>showNotification('Tài khoản của bạn hiện bị {$viestatus}. Vui lòng liên hệ với quản trị viên để biết thêm thông tin', 'error');</script>";
+                    exit();
+                }
+        
+                // Login successful
+                $_SESSION["username"] = $username;
+                $_SESSION["password"] = $password;
+                $_SESSION["email"] = $row["email"];
+                $_SESSION["status"] = $row["status"];
+                $_SESSION["phone_num"] = $row["phone_num"];
+                $_SESSION["register_date"] = $row["register_date"];
+                $_SESSION["role"] = $row["role"];
+                $_SESSION['first_login'] = true;
                 $_SESSION['full_name'] = null;
                 $_SESSION['address'] = null;
-
+        
                 echo "<script>showNotification('Đăng nhập thành công. Vui lòng chờ một lát...', 'success');</script>";
-                    // Use JavaScript to redirect after notification
-                    echo "<script>
-                        setTimeout(function() {
-                            window.location.href = 'index.php';
-                        }, 1000);
-                    </script>";
-                }
+                echo "<script>
+                    setTimeout(function() {
+                        window.location.href = 'index.php';
+                    }, 1000);
+                </script>";
             }
         }
         // else if (isset($_POST['forgotpass'])) {

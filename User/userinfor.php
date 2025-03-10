@@ -411,6 +411,28 @@ if (isset($_POST['edit_profile'])) { {
                         : 'Không có'; ?>
                 </div>
             </div>
+                        <!-- Role display section -->
+            <div class="info-row">
+                <div class="info-label">Vai trò:</div>
+                <div class="info-value">
+                    <?php 
+                    if (isset($_SESSION['role'])) {
+                        $roleClass = 'role-' . strtolower($_SESSION['role']);
+                        $roleText = '';
+                        switch($_SESSION['role']) {
+                            case 'admin':
+                                $roleText = 'Quản trị viên';
+                                break;
+                            default:
+                                $roleText = 'Khách hàng';
+                        }
+                        echo "<span class='role-badge {$roleClass}'>{$roleText}</span>";
+                    } else {
+                        echo 'Không có';
+                    }
+                    ?>
+                </div>
+            </div>
         
             <!-- Status -->
             <div class="info-row">

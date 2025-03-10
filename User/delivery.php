@@ -16,7 +16,7 @@ include 'connect.php';
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 
 </head>
-<style>
+<!-- <style>
         /* Add to your existing delivery.php styles */
     
     /* Title Container */
@@ -58,7 +58,7 @@ include 'connect.php';
     }
     
  
-    /* Add this to your HTML right after the delivery-top section */
+    /* Add this to your HTML right after the delivery-top section */ -->
 </style>
 <style>
 /* Delivery Page Container */
@@ -68,24 +68,15 @@ include 'connect.php';
 }
 
 /* Title Styling */
-.eight {
+/* .eight {
     height: 100px;
     background-color: #efefef;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     margin-bottom: 30px;
-}
-
-/* .eight h1 {
-    text-align: center;
-    padding: 30px 0;
-    margin: 0;
-    font-size: 26px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
 } */
+
+
 
 /* Progress Bar */
 .delivery-top-wrap {
@@ -267,6 +258,97 @@ include 'connect.php';
 .registration-form{
 padding: 10px;
 }
+</style>
+<style>
+    /* Update Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Update Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--cart-primary);
+        border-radius: 2px;
+    }    
+</style>
+<style>
+        /* Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: #007bff;
+        border-radius: 2px;
+    }
+    
+    /* Remove old title lines */
+    .eight h1:before {
+        content: none;
+    }
 </style>
 <body>
     

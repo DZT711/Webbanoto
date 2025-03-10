@@ -8,6 +8,7 @@
     $register_date = isset($_SESSION['register_date']) ? htmlspecialchars($_SESSION['register_date']) : ''; // Removed $ from key
     $full_name = isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : '';
     $address = isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : '';
+    $address = isset($_SESSION['role']) ? htmlspecialchars($_SESSION['role']) : '';
     
     if (isset($_POST["logout"])) {
         session_destroy();
@@ -1039,15 +1040,17 @@ color:lightslategray;
             <!-- <a href="billhistory.php" class="nav-link">
                 <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mua hàng
             </a> -->
-            <a href="#about" class="nav-link">
+            <a href="aboutus.php" class="nav-link">
                 <i class="fa-solid fa-info-circle"></i> Giới Thiệu
             </a>
             <a href="#contact" class="nav-link">
                 <i class="fa-solid fa-envelope"></i> Liên Hệ
             </a>
-            <a href="../Admin/login.php" class="nav-link">
-                <i class="fa-solid fa-user-shield"></i> Admin
-            </a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <a href="../Admin/login.php" class="nav-link">
+                    <i class="fa-solid fa-user-shield"></i> Admin
+                </a>
+            <?php endif; ?>
         </div>
 
         <div class="nav-right" id="tlp">

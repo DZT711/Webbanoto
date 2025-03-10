@@ -249,8 +249,7 @@ include 'connect.php';
 .cart-top-cart i {
     color: black;
 }</style>
-<style>/* Title styling for cart page */
-
+<!-- <style>
 .cart-title {
     text-align: center;
     padding: 25px 0;
@@ -276,18 +275,16 @@ include 'connect.php';
     border-radius: 2px;
 }
 
-/* Update container spacing */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Adjust cart section spacing */
 .cart {
     padding: 20px 0 40px;
     background-color: #efefef;
-}</style>
+}</style> -->
 <style>
     h1 {
   position: relative;
@@ -339,6 +336,147 @@ h1 em {
   background-color:#efefef  ;
 }
 
+</style>
+<!-- <style>
+        /* Update Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+    }
+    
+    /* Update Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 30px 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--cart-primary);
+        border-radius: 2px;
+    }
+    
+    /* Remove old decorative lines */
+    .eight h1:before {
+        content: none;
+    }
+    
+    /* Container spacing */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    /* Section spacing */
+    .cart {
+        padding: 20px 0 40px;
+        background-color: #efefef;
+    } -->
+</style>
+<style>
+        /* Update Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Update Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Add underline accent */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--cart-primary);
+        border-radius: 2px;
+    }
+        /* Update Title Container */
+    .eight {
+        height: 100px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 20px auto;
+        max-width: 1200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Update Title Styling */
+    .eight h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Fix underline spacing */
+    .eight h1::after {
+        content: '';
+        position: absolute;
+        bottom: -8px; /* Changed from -15px to -8px */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--cart-primary);
+        border-radius: 2px;
+    }
 </style>
 <body>
     
