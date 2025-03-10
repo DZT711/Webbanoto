@@ -1,3 +1,16 @@
+<?php
+session_start();
+include '../User/connect.php';
+// Check for logout message
+if (isset($_SESSION['logout_message'])) {
+    echo "<script>
+            window.onload = function() {
+                showNotification('{$_SESSION['logout_message']}', 'info');
+            }
+        </script>";
+    unset($_SESSION['logout_message']); // Remove the message after showing it
+}//neeed notification features for testing the connection
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,32 +26,23 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form id="admin-login-form">
+        <form id="admin-login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <label for="username"><i class="fa-regular fa-user">&nbsp;&nbsp;</i>Username:</label>
             <input type="text" id="username" name="username" required>
             
             <label for="password"><i class="fa-solid fa-lock">&nbsp;&nbsp;</i>Password:</label>
             <input type="password" id="password" name="password" required>
             
-            <button type="submit">Login</button>
+            <button type="submit" name="login">Login</button>
         </form>
         <p id="error-message" style="color: red; display: none;">Invalid username or password. Please try again.</p>
     </div>
 
     <script>
-        document.getElementById('admin-login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
 
-            // Replace with your admin credentials check
-            if (username === 'admin' && password === 'admin') {
-                localStorage.setItem('adminUser', username);
-                window.location.href = 'index.php'; // Redirect to the admin dashboard
-            } else {
-                document.getElementById('error-message').style.display = 'block';
-            }
-        });
     </script>
 </body>
 </html>
+<?php
+
+?>

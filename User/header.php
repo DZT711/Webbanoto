@@ -1043,7 +1043,7 @@ color:lightslategray;
             <a href="aboutus.php" class="nav-link">
                 <i class="fa-solid fa-info-circle"></i> Giới Thiệu
             </a>
-            <a href="#contact" class="nav-link">
+            <a href="contact.php" class="nav-link">
                 <i class="fa-solid fa-envelope"></i> Liên Hệ
             </a>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>

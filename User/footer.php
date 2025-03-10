@@ -85,7 +85,136 @@ footer{
     text-align: center;
     align-items: center;
 }
+/* Add to your existing styles */
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
 
+.social-links a {
+    color: #666;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px) !important;
+}
+
+.social-links .fa-facebook:hover { color: #1877f2; }
+.social-links .fa-youtube:hover { color: #ff0000; }
+.social-links .fa-x-twitter:hover { color: #000000; }
+.social-links .fa-github:hover { color: #333; }
+.social-links .fa-linkedin:hover { color: #0077b5; }
+</style>
+<style>
+        /* Add these styles to your existing footer styles */
+    .if {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .image1 {
+        transition: transform 0.3s ease;
+    }
+    
+    .image1:hover {
+        transform: rotate(5deg) scale(1.05);
+    }
+    
+    .if-title, .ct-title {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .if-title::after, .ct-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: #007bff;
+        transition: width 0.3s ease;
+    }
+    
+    .if-title:hover::after, .ct-title:hover::after {
+        width: 100px;
+    }
+    
+    /* .ct-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        transition: transform 0.3s ease;
+    }
+     */
+    .ct-item:hover {
+        transform: translateX(10px);
+    }
+    
+    .ct-item i {
+        color: #007bff;
+        transition: transform 0.3s ease;
+    }
+    
+    .ct-item:hover i {
+        transform: scale(1.2);
+    }
+    
+    
+    
+    .copyright {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .copyright::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #007bff, transparent);
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Add hover effects for copyright links */
+    .copyright small {
+        display: block;
+        transition: color 0.3s ease;
+    }
+    
+    .copyright small:hover {
+        color: #007bff;
+        cursor: pointer;
+    }
+    
+    /* Responsive animations */
+    @media (max-width: 768px) {
+        .if {
+            flex-direction: column;
+            height: auto;
+        }
+        
+        .if-text, .ct-text {
+            max-width: 100%;
+            margin-left: 0;
+        }
+    }
 </style>
 <footer>
     <div id="if-ct">
@@ -113,6 +242,27 @@ footer{
                 <h2 class="ct-title" id="contact">
                     thông tin liên hệ
                 </h2>
+                 <div class="social-links">
+        <a href="https://facebook.com" target="_blank" title="Facebook">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <!-- <a href="https://zalo.me/autocar" target="_blank" title="Zalo">
+            <img src="zalo-icon.png" alt="Zalo" style="width: 24px; height: 24px;">
+        </a> -->
+        <a href="https://youtube.com" target="_blank" title="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" title="X (Twitter)">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://github.com" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/company" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <br><br><br><br>
+    </div>
                 <div class="ct-item">
                     <i class="fa fa-phone" style="line-height: 0.2;"></i>
                     <p>0987654321</p>
@@ -146,3 +296,26 @@ footer{
     <!-- <p style="font-size: large;font-weight: bolder;text-decoration: underline;">Main page by: Huy Nguyen</p> -->
 </div>
 </footer>
+<script>
+// Intersection Observer for smooth reveal animations
+document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // Observe footer elements
+    document.querySelectorAll('.ct-item, .social-links a').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.5s ease';
+        observer.observe(el);
+    });
+});
+</script>

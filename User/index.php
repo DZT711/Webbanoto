@@ -11,7 +11,10 @@ $cars = [
         'year' => 2024,
         'speed' => '235 km/h',
         'location' => 'TP.HCM',
-        'image' => '3-series.jpeg'
+        'image' => '3-series.jpeg',
+        'horsepower' => 184, // số mã lực
+        'engine_name' => '2.0L I4', // tên động cơ
+        'seating_capacity' => 5 // số chỗ
     ],
     [
         'name' => 'BMW 330i M Sport',
@@ -19,15 +22,21 @@ $cars = [
         'year' => 2023,
         'speed' => '250 km/h',
         'location' => 'TP.HCM',
-        'image' => 'trang-alpine-3.webp'
+        'image' => 'trang-alpine-3.webp',
+        'horsepower' => 258,
+        'engine_name' => '2.0L I4',
+        'seating_capacity' => 5
     ],
     [
-        'name' => '430i Convertible M Sport',
+        'name' => 'BMW 430i Convertible M Sport',
         'price' => 2629000000,
         'year' => 2021,
         'speed' => '250 km/h',
         'location' => 'TP.HCM',
-        'image' => 'bmw3.png'
+        'image' => 'bmw3.png',
+        'horsepower' => 258,
+        'engine_name' => '2.0L I4',
+        'seating_capacity' => 4
     ],
     [
         'name' => 'BMW 735i M Sport',
@@ -35,7 +44,10 @@ $cars = [
         'year' => 2023,
         'speed' => '250 km/h',
         'location' => 'TP.HCM',
-        'image' => 'bmw4.png'
+        'image' => 'bmw4.png',
+        'horsepower' => 286,
+        'engine_name' => '3.0L I6',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'BMW XM',
@@ -43,7 +55,10 @@ $cars = [
         'year' => 2022,
         'speed' => '250 km/h',
         'location' => 'TP.HCM',
-        'image' => 'bmw5.jpg'
+        'image' => 'bmw5.jpg',
+        'horsepower' => 653,
+        'engine_name' => '4.4L V8',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'MAZDA 6',
@@ -51,7 +66,10 @@ $cars = [
         'year' => 2023,
         'speed' => '220 km/h',
         'location' => 'TP.HCM',
-        'image' => 'mazda1.png'
+        'image' => 'mazda1.png',
+        'horsepower' => 188,
+        'engine_name' => '2.5L I4',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'MAZDA 2',
@@ -59,7 +77,10 @@ $cars = [
         'year' => 2021,
         'speed' => '220 km/h',
         'location' => 'TP.HCM',
-        'image' => 'mazda2.jpg'
+        'image' => 'mazda2.jpg',
+        'horsepower' => 110,
+        'engine_name' => '1.5L I4',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'MAZDA 3',
@@ -67,7 +88,10 @@ $cars = [
         'year' => 2022,
         'speed' => '187 km/h',
         'location' => 'TP.HCM',
-        'image' => 'mazda3.png'
+        'image' => 'mazda3.png',
+        'horsepower' => 153,
+        'engine_name' => '2.0L I4',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'MAZDA CX-5',
@@ -75,7 +99,10 @@ $cars = [
         'year' => 2023,
         'speed' => '220 km/h',
         'location' => 'TP.HCM',
-        'image' => 'mazda4.png'
+        'image' => 'mazda4.png',
+        'horsepower' => 188,
+        'engine_name' => '2.5L I4',
+        'seating_capacity' => 5
     ],
     [
         'name' => 'MAZDA CX-8',
@@ -83,7 +110,10 @@ $cars = [
         'year' => 2024,
         'speed' => '240 km/h',
         'location' => 'TP.HCM',
-        'image' => 'mazda5.webp'
+        'image' => 'mazda5.webp',
+        'horsepower' => 188,
+        'engine_name' => '2.5L I4',
+        'seating_capacity' => 7
     ],
     [
         'name' => 'Lamborghini Aventador SVJ',
@@ -91,7 +121,10 @@ $cars = [
         'year' => 2021,
         'speed' => '310 km/h',
         'location' => 'TP.HCM',
-        'image' => 'lambo1.jpg'
+        'image' => 'lambo1.jpg',
+        'horsepower' => 770,
+        'engine_name' => '6.5L V12',
+        'seating_capacity' => 2
     ],
     [
         'name' => 'Lamborghini Gallardo',
@@ -99,7 +132,10 @@ $cars = [
         'year' => 2022,
         'speed' => '309 km/h',
         'location' => 'TP.HCM',
-        'image' => 'lambo2.png'
+        'image' => 'lambo2.png',
+        'horsepower' => 570,
+        'engine_name' => '5.2L V10',
+        'seating_capacity' => 2
     ],
     [
         'name' => 'Lamborghini Huracan',
@@ -107,7 +143,10 @@ $cars = [
         'year' => 2023,
         'speed' => '325 km/h',
         'location' => 'TP.HCM',
-        'image' => 'lambo3.jpg'
+        'image' => 'lambo3.jpg',
+        'horsepower' => 640,
+        'engine_name' => '5.2L V10',
+        'seating_capacity' => 2
     ],
     [
         'name' => 'Lamborghini Aventador LP 770-4 SVJ',
@@ -115,7 +154,10 @@ $cars = [
         'year' => 2024,
         'speed' => '350 km/h',
         'location' => 'TP.HCM',
-        'image' => 'lambo4.jpg'
+        'image' => 'lambo4.jpg',
+        'horsepower' => 770,
+        'engine_name' => '6.5L V12',
+        'seating_capacity' => 2
     ],
     [
         'name' => 'Lamborghini Huracan Tecnica',
@@ -123,9 +165,13 @@ $cars = [
         'year' => 2024,
         'speed' => '325 km/h',
         'location' => 'TP.HCM',
-        'image' => 'lambo5.jpg'
+        'image' => 'lambo5.jpg',
+        'horsepower' => 610,
+        'engine_name' => 'V10 5.2L',
+        'seating_capacity' => 2
     ]
-];
+    ]; 
+
 
 // Get current page number
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -157,6 +203,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
     <!-- <link rel="stylesheet" href="style.css"> -->
     <script src="index.js"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
+    
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 </head>
 <style>
@@ -718,6 +765,40 @@ body{
     .garage-btn i {
         font-size: 1.1rem;
     }
+        /* Update Car Info Icons Grid */
+    .carinfo {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 15px;
+        padding: 15px;
+        border-top: 1px solid #eee;
+        background: #f8f9fa;
+    }
+    
+    .carinfo i {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .info {
+        font-family: 'Times New Roman', Times, serif;
+        padding-left: 5px;
+        font-weight: bold;
+        color: #666;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .carinfo {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 </style>
     <body>
 
@@ -796,34 +877,37 @@ body{
                 </h2>
 
             </div>
-                        <div class="ctn21" >
-                <?php foreach ($currentCars as $car): ?>
-                                <div class="nc-item">
-                    <a href="car-details.php?name=<?= urlencode($car['name']) ?>" class="linkcar">
-                        <img class="carpic" src="<?= $car['image'] ?>" alt="<?= $car['name'] ?>">
-                        <h2 class="cith2"><?= number_format($car['price'], 0, ',', '.') ?> VND</h2>
-                        <p class="cit"><?= $car['name'] ?></p>
-                        <div class="carinfo">
-                            <i class="fas fa-car">
-                                <span class="info">2 chỗ</span>
-                            </i>
-                            <i class="fas fa-gas-pump">
-                                <span class="info">Xăng</span>
-                            </i>
-                            <i class="fas fa-tachometer-alt">
-                                <span class="info"><?= $car['speed'] ?></span>
-                            </i>
-                            <i class="fas fa-calendar-alt">
-                                <span class="info"><?= $car['year'] ?></span>
-                            </i>
-                            <i class="fa-solid fa-location-dot">
-                                <span class="info"><?= $car['location'] ?></span>
-                            </i>
+                <div class="ctn21">
+                    <?php foreach ($currentCars as $car): ?>
+                        <div class="nc-item">
+                            <a href="car-details.php?name=<?= urlencode($car['name']) ?>" class="linkcar">
+                                <img class="carpic" src="<?= $car['image'] ?>" alt="<?= $car['name'] ?>">
+                                <h2 class="cith2"><?= number_format($car['price'], 0, ',', '.') ?> VND</h2>
+                                <p class="cit"><?= $car['name'] ?></p>
+                                                                <div class="carinfo">
+                                    <i class="fas fa-car">
+                                        <span class="info"><?= $car['seating_capacity'] ?> chỗ</span>
+                                    </i>
+                                    <i class="fa-solid fa-gear">  <!-- Changed from fas fa-engine -->
+                                        <span class="info"><?= $car['engine_name'] ?></span>
+                                    </i>
+                                    <i class="fa-solid fa-wrench">  <!-- Changed to engine icon -->
+        <span class="info"><?= $car['horsepower'] ?>&nbsp;Mã lực</span>
+    </i>
+                                    <i class="fas fa-tachometer-alt">
+                                        <span class="info"><?= $car['speed'] ?></span>
+                                    </i>
+                                    <i class="fas fa-calendar-alt">
+                                        <span class="info"><?= $car['year'] ?></span>
+                                    </i>
+                                    <i class="fa-solid fa-location-dot">
+                                        <span class="info"><?= $car['location'] ?></span>
+                                    </i>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
-            </div>
             
             <!-- Pagination -->
                         <!-- Replace the existing pagination div -->
