@@ -3046,7 +3046,7 @@ session_start();
                 
                 // First check if username exists
                 if(mysqli_num_rows($result) === 0) {
-                    echo "<script>showNotification('Tên đăng nhập hoặc mật khẩu không đúng!!', 'warning');</script>";
+                    echo "<script>showNotification('Bạn chưa có tài khoản ! Vui lòng đăng kí trở thành viên mới của chúng tôi !', 'warning');</script>";
                     exit();
                 }
         

@@ -1,3 +1,559 @@
 <?php
 session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '';
+$password = isset($_SESSION['password']) ? htmlspecialchars($_SESSION['password']) : '';
+$email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : '';
+$status = isset($_SESSION['status']) ? htmlspecialchars($_SESSION['status']) : '';
+$phone_num = isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; // Removed $ from key
+$register_date = isset($_SESSION['register_date']) ? htmlspecialchars($_SESSION['register_date']) : ''; // Removed $ from key
+$full_name = isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : '';
+$address = isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : '';
+$address = isset($_SESSION['role']) ? htmlspecialchars($_SESSION['role']) : '';
+
+if (isset($_POST["logout"])) {
+    session_destroy();
+    session_start();
+
+    $_SESSION['logout_message'] = "Bạn đã đăng xuất thành công.";
+    header("Location: login.php");
+    exit();
+}
+// Add this new variable for first login check
+$showLoginNotification = false;
+if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
+    $showLoginNotification = true;
+    $_SESSION['first_login'] = false; // Reset the flag
+}
+include '../User/connect.php';
+
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="icon" href="../User/dp56vcf7.png" type="image/png">
+     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Document</title> -->
+</head>
+
+<style>
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateX(150%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    
+        .notification.show {
+            transform: translateX(0);
+        }
+    
+        /* Notification types */
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+    
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+    
+        .notification.info {
+            background-color: #cce5ff;
+            color: #004085;
+            border-left: 4px solid #007bff;
+        }
+    
+        .notification.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+    
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .notification {
+                width: 90%;
+                top: 10px;
+                right: 50%;
+                transform: translateX(50%) translateY(-100%);
+            }
+    
+            .notification.show {
+                transform: translateX(50%) translateY(0);
+            }
+        }
+    
+</style>
+<style>
+    .nav-user {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-right: 20px;
+    }
+
+    .user-greeting {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+    }
+
+    .user-greeting i {
+        font-size: 16px;
+    }
+
+    .logout-form {
+        margin: 0;
+    }
+
+    .logout-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .nav-user {
+            padding: 10px;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+<style>
+    .nav-user {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        max-width: 240px;
+    }
+
+    .user-greeting {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+    }
+
+    .user-greeting .greeting-text {
+        display: inline-block;
+        opacity: 0.9;
+    }
+
+    .user-greeting .username {
+        font-weight: bold;
+        color: #fff;
+        position: relative;
+    }
+
+    .user-greeting .username::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #fff;
+        transition: width 0.3s ease;
+    }
+
+    .user-greeting:hover .username::after {
+        width: 100%;
+    }
+
+    .logout-form {
+        margin: 0;
+    }
+
+    .logout-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .nav-user {
+            padding: 10px;
+            flex-direction: column;
+            gap: 10px;
+            margin-right: 10px;
+        }
+    }
+</style>
+<style>
+    /* Admin Header */
+.admin-header {
+    background-color: #fff !important;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Admin Main Sections */
+.admin-section {
+    margin: 20px ;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    
+}
+
+/* Quick Stats Boxes */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    width: 30%;
+}
+
+/* Admin Tables */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table th {
+    background-color: #f3f3f3;
+    font-weight: bold;
+}
+
+
+/* Admin Buttons */
+.admin-table button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.admin-table button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Navbar Styling */
+.navbar {
+    background-color: #2c3e50; /* Darker color for admin navbar */
+    overflow: hidden;
+    font-weight: bold;
+    padding: 10px 0;
+    padding-left: 0px !important;
+}
+
+.navbar a {
+    color: #ecf0f1; /* Light text color */
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Hover Effects for Links */
+.navbar a:hover {
+    background-color: #34495e; /* Slightly lighter background on hover */
+    color: #1abc9c; /* Accent color for text on hover */
+}
+
+/* Active Link */
+.navbar a.active {
+    background-color: #1abc9c; /* Highlight color for active page */
+    color: #ffffff;
+}
+
+/* Dropdown Menu for Navbar (optional for sub-navigation) */
+.navbar .dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.navbar .dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: #ecf0f1;
+    padding: 14px 20px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #34495e;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Links inside Dropdown */
+.navbar .dropdown-content a {
+    float: none;
+    color: #ecf0f1;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.navbar .dropdown-content a:hover {
+    background-color: #1abc9c; /* Highlight for dropdown items on hover */
+}
+
+/* Show Dropdown on Hover */
+.navbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#logoheader{
+    max-width: 10%;
+}
+
+
+/* Styling for Admin Info in Header */
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 20px;
+    font-size: 16px;
+    color: #000000;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c0392b;
+}
+
+Specific hover effect for Ban button
+.admin-table button[style*="background-color: red;"] {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-table button[style*="background-color: red;"]:hover {
+     background-color: #c0392b; /* Darker red on hover  */
+    transform: scale(1.1); 
+    /* Slight zoom effect  */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    /* Add shadow  */
+}
+/* More Button Styling */
+button.link {
+    margin-top: 20px;
+    display: inline-block;
+    background-color: #1abc9c; /* Màu nền xanh ngọc */
+    color: white; /* Màu chữ trắng */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px; /* Kích thước nút */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* Đậm chữ */
+    cursor: pointer; /* Hiển thị icon tay khi hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+    text-align: center; /* Canh giữa văn bản */
+}
+
+/* Hover Effect for More Button */
+button.link:hover {
+    background-color: #16a085; /* Màu nền đậm hơn khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+}
+
+/* Active State for More Button */
+button.link:active {
+    background-color: #0e7766; /* Màu tối hơn khi bấm */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Giảm độ cao bóng */
+}
+
+/* Add this to style.css */
+#logout-btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #dc3545;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+#logout-btn:hover {
+    background-color: #c82333;
+}
+</style>
+<body>
+    <div id="notification" class="notification"></div>
+    <header class="admin-header">
+        <div class="logo">
+            <a href="index.php">
+                <img id="logoheader" src="../User/dp56vcf7.png" alt="Image Description">
+            </a>
+        </div>
+    </header>
+    
+    <div class="navbar">
+        <a href="index.php" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
+        <a href="statics.php" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
+        <a href="manage-users.php"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
+        <a href="manage-orders.php"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
+         <!-- <a href="reports.php"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a> 
+         <a href="settings.php"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a>  -->
+        <a href="manage-products.php" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
+        <!-- &emsp; -->
+        <div class="nav-user">
+        <span class="user-greeting">
+            <i class="fa-regular fa-user"></i>
+            <span class="greeting-text">Hi,</span>
+            <span class="username"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+        </span>
+        <form method="POST" class="logout-form">
+            <button type="submit" name="logout" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log out
+            </button>
+        </form>
+    </div>
+    </div> 
+<script>
+        function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        let icon = '';
+        
+        // Set icon based on notification type
+        switch(type) {
+            case 'success':
+                icon = '<i class="fa-solid fa-circle-check"></i>';
+                break;
+            case 'error':
+                icon = '<i class="fa-solid fa-circle-xmark"></i>';
+                break;
+            case 'warning':
+                icon = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                break;
+            case 'info':
+                icon = '<i class="fa-solid fa-circle-info"></i>';
+                break;
+        }
+        
+        notification.innerHTML = `${icon} ${message}`;
+        notification.className = `notification ${type}`;
+        
+        // Show notification
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Hide notification after 5 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.textContent = '';
+            }, 300);
+        }, 5000);
+    }
+    </script>
+    
+</body>
+<?php
+if ($connect) {
+    // echo "<script>showNotification('hi','success');</script>";
+}else{
+     echo "<script>showNotification('Database connection failed', 'error');</script>";
+
+}
+?>
+</html>
