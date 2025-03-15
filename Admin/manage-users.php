@@ -101,9 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $phone = mysqli_real_escape_string($connect, $_POST['phone']);
                 $address = mysqli_real_escape_string($connect, $_POST['address']);
                 $role = mysqli_real_escape_string($connect, $_POST['role']);
+                $password = mysqli_real_escape_string($connect, $_POST['password']);
 
                 $sql = "UPDATE users_acc 
-                        SET username = '$username', email = '$email', full_name = '$fullName', phone_num = '$phone', address = '$address', role = '$role'
+                        SET username = '$username', email = '$email', full_name = '$fullName', phone_num = '$phone', address = '$address', role = '$role',password='$password'
                         WHERE id = $userId";
                 $success = mysqli_query($connect, $sql);
                 $message = $success ? 'User updated successfully' : 'Error updating user';
@@ -519,7 +520,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         width: 400px;
     }
 </style>
+<style>
+    /* Add this to your existing styles */
+.popup-buttons button {
+    min-width: 120px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
 
+.confirm-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.confirm-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#add-user-btn {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+#add-user-btn:hover {
+    background: #16a085;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#add-user-btn i {
+    font-size: 16px;
+}
+
+/* Product form icons */
+.form-group label i {
+    width: 20px;
+    /* color: #1abc9c; */
+    margin-right: 8px;
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1abc9c;
+    box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2);
+    outline: none;
+}
+</style>
 <body>
 
     <main>
@@ -527,8 +607,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- User Management -->
         <section class="admin-section">
             <h2><i class="fa-solid fa-users">&nbsp;&nbsp;</i>User Management</h2>
-            <button onclick="addUser()" id="add-user-btn" style="margin-bottom: 10px;">Add User</button>
-            <table class="admin-table">
+            <button onclick="addUser()" id="add-user-btn">
+                <i class="fa-solid fa-plus"></i>
+                Add User
+            </button>            <table class="admin-table">
                 <!-- ... existing code -->
                 <thead>
                     <tr>
@@ -620,6 +702,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label><i class="fa fa-user"></i> Username:</label>
                 <input type="text" name="username" id="editUsername" required>
             </div>
+<div class="form-group">
+    <label><i class="fa-solid fa-lock"></i> Password:</label>
+    <div style="position: relative;">
+        <input type="password" name="password" id="editPassword" required>
+        <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+    </div>
+</div>
             <div class="form-group">
                 <label><i class="fa fa-envelope"></i> Email:</label>
                 <input type="email" name="email" id="editEmail" required>
@@ -630,8 +719,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label><i class="fa fa-phone"></i> Phone:</label>
-                <input type="text" name="phone" id="editPhone" pattern="\d{8,10}" minlength="8" maxlength="10"
-                    title="Please enter a phone number with 8 to 10 digits." required>
+                <input type="text" name="phone" id="editPhone" pattern="\d{8,20}" minlength="8" maxlength="20"
+                    title="Please enter a phone number with 8 to 20 digits." required>
             </div>
             <div class="form-group">
                 <label><i class="fa fa-home"></i> Address:</label>
@@ -645,10 +734,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <div class="popup-buttons">
-                <button type="submit" class="confirm-btn"><i class="fa fa-check"></i> Update User</button>
-                <button type="button" onclick="hideEditPopup()" class="cancel-btn"><i class="fa fa-times"></i>
-                    Cancel</button>
-            </div>
+    <button type="submit" class="confirm-btn">
+        <i class="fa-solid fa-check"></i>
+        Update User
+    </button>
+    <button type="button" onclick="hideEditPopup()" class="cancel-btn">
+        <i class="fa-solid fa-times"></i>
+        Cancel
+    </button>
+</div>
         </form>
     </div>
 </div>
@@ -697,9 +791,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <!-- ... existing code -->
                 <div class="popup-buttons">
-                    <button type="submit" class="confirm-btn">Add User</button>
-                    <button type="button" onclick="hideAddUserPopup()" class="cancel-btn">Cancel</button>
-                </div>
+    <button type="submit" class="confirm-btn">
+        <i class="fa-solid fa-check"></i>
+        Add User
+    </button>
+    <button type="button" onclick="hideAddUserPopup()" class="cancel-btn">
+        <i class="fa-solid fa-times"></i>
+        Cancel
+    </button>
+</div>
             </form>
         </div>
     </div>
@@ -764,7 +864,22 @@ function hideEditPopup() {
     document.getElementById('editUserPopup').style.display = 'none';
 }
 </script>
-
+<!-- Add this script at the end of your document before </body> -->
+<script>
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('editPassword');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        }
+    });
+</script>
 </body>
 
 </html>
