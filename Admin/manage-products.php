@@ -1130,6 +1130,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         padding-right:10px;
 }
 </style>
+
 <body>
     <main>
         <section class="admin-section">

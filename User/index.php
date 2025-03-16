@@ -4,181 +4,200 @@ include 'connect.php';
 ?>
 <?php
 // Replace the existing cars array with this updated version
-$cars = [
-    [
-        'name' => 'BMW 320i Sportline',
-        'price' => 1529000000,
-        'year' => 2024,
-        'speed' => '235 km/h',
-        'location' => 'TP.HCM',
-        'image' => '3-series.jpeg',
-        'horsepower' => 184, // số mã lực
-        'engine_name' => '2.0L I4', // tên động cơ
-        'seating_capacity' => 5 // số chỗ
-    ],
-    [
-        'name' => 'BMW 330i M Sport',
-        'price' => 1629000000,
-        'year' => 2023,
-        'speed' => '250 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'trang-alpine-3.webp',
-        'horsepower' => 258,
-        'engine_name' => '2.0L I4',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'BMW 430i Convertible M Sport',
-        'price' => 2629000000,
-        'year' => 2021,
-        'speed' => '250 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'bmw3.png',
-        'horsepower' => 258,
-        'engine_name' => '2.0L I4',
-        'seating_capacity' => 4
-    ],
-    [
-        'name' => 'BMW 735i M Sport',
-        'price' => 4499000000,
-        'year' => 2023,
-        'speed' => '250 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'bmw4.png',
-        'horsepower' => 286,
-        'engine_name' => '3.0L I6',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'BMW XM',
-        'price' => 10990000000,
-        'year' => 2022,
-        'speed' => '250 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'bmw5.jpg',
-        'horsepower' => 653,
-        'engine_name' => '4.4L V8',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'MAZDA 6',
-        'price' => 899000000,
-        'year' => 2023,
-        'speed' => '220 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'mazda1.png',
-        'horsepower' => 188,
-        'engine_name' => '2.5L I4',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'MAZDA 2',
-        'price' => 420000000,
-        'year' => 2021,
-        'speed' => '220 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'mazda2.jpg',
-        'horsepower' => 110,
-        'engine_name' => '1.5L I4',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'MAZDA 3',
-        'price' => 579000000,
-        'year' => 2022,
-        'speed' => '187 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'mazda3.png',
-        'horsepower' => 153,
-        'engine_name' => '2.0L I4',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'MAZDA CX-5',
-        'price' => 829000000,
-        'year' => 2023,
-        'speed' => '220 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'mazda4.png',
-        'horsepower' => 188,
-        'engine_name' => '2.5L I4',
-        'seating_capacity' => 5
-    ],
-    [
-        'name' => 'MAZDA CX-8',
-        'price' => 1109000000,
-        'year' => 2024,
-        'speed' => '240 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'mazda5.webp',
-        'horsepower' => 188,
-        'engine_name' => '2.5L I4',
-        'seating_capacity' => 7
-    ],
-    [
-        'name' => 'Lamborghini Aventador SVJ',
-        'price' => 60000000000,
-        'year' => 2021,
-        'speed' => '310 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'lambo1.jpg',
-        'horsepower' => 770,
-        'engine_name' => '6.5L V12',
-        'seating_capacity' => 2
-    ],
-    [
-        'name' => 'Lamborghini Gallardo',
-        'price' => 50000000000,
-        'year' => 2022,
-        'speed' => '309 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'lambo2.png',
-        'horsepower' => 570,
-        'engine_name' => '5.2L V10',
-        'seating_capacity' => 2
-    ],
-    [
-        'name' => 'Lamborghini Huracan',
-        'price' => 7100000000,
-        'year' => 2023,
-        'speed' => '325 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'lambo3.jpg',
-        'horsepower' => 640,
-        'engine_name' => '5.2L V10',
-        'seating_capacity' => 2
-    ],
-    [
-        'name' => 'Lamborghini Aventador LP 770-4 SVJ',
-        'price' => 12000000000,
-        'year' => 2024,
-        'speed' => '350 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'lambo4.jpg',
-        'horsepower' => 770,
-        'engine_name' => '6.5L V12',
-        'seating_capacity' => 2
-    ],
-    [
-        'name' => 'Lamborghini Huracan Tecnica',
-        'price' => 17900000000,
-        'year' => 2024,
-        'speed' => '325 km/h',
-        'location' => 'TP.HCM',
-        'image' => 'lambo5.jpg',
-        'horsepower' => 610,
-        'engine_name' => 'V10 5.2L',
-        'seating_capacity' => 2
-    ]
-    ]; 
+// $cars = [
+//     [
+//         'name' => 'BMW 320i Sportline',
+//         'price' => 1529000000,
+//         'year' => 2024,
+//         'speed' => '235 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => '3-series.jpeg',
+//         'horsepower' => 184, // số mã lực
+//         'engine_name' => '2.0L I4', // tên động cơ
+//         'seating_capacity' => 5 // số chỗ
+//     ],
+//     [
+//         'name' => 'BMW 330i M Sport',
+//         'price' => 1629000000,
+//         'year' => 2023,
+//         'speed' => '250 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'trang-alpine-3.webp',
+//         'horsepower' => 258,
+//         'engine_name' => '2.0L I4',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'BMW 430i Convertible M Sport',
+//         'price' => 2629000000,
+//         'year' => 2021,
+//         'speed' => '250 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'bmw3.png',
+//         'horsepower' => 258,
+//         'engine_name' => '2.0L I4',
+//         'seating_capacity' => 4
+//     ],
+//     [
+//         'name' => 'BMW 735i M Sport',
+//         'price' => 4499000000,
+//         'year' => 2023,
+//         'speed' => '250 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'bmw4.png',
+//         'horsepower' => 286,
+//         'engine_name' => '3.0L I6',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'BMW XM',
+//         'price' => 10990000000,
+//         'year' => 2022,
+//         'speed' => '250 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'bmw5.jpg',
+//         'horsepower' => 653,
+//         'engine_name' => '4.4L V8',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'MAZDA 6',
+//         'price' => 899000000,
+//         'year' => 2023,
+//         'speed' => '220 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'mazda1.png',
+//         'horsepower' => 188,
+//         'engine_name' => '2.5L I4',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'MAZDA 2',
+//         'price' => 420000000,
+//         'year' => 2021,
+//         'speed' => '220 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'mazda2.jpg',
+//         'horsepower' => 110,
+//         'engine_name' => '1.5L I4',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'MAZDA 3',
+//         'price' => 579000000,
+//         'year' => 2022,
+//         'speed' => '187 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'mazda3.png',
+//         'horsepower' => 153,
+//         'engine_name' => '2.0L I4',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'MAZDA CX-5',
+//         'price' => 829000000,
+//         'year' => 2023,
+//         'speed' => '220 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'mazda4.png',
+//         'horsepower' => 188,
+//         'engine_name' => '2.5L I4',
+//         'seating_capacity' => 5
+//     ],
+//     [
+//         'name' => 'MAZDA CX-8',
+//         'price' => 1109000000,
+//         'year' => 2024,
+//         'speed' => '240 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'mazda5.webp',
+//         'horsepower' => 188,
+//         'engine_name' => '2.5L I4',
+//         'seating_capacity' => 7
+//     ],
+//     [
+//         'name' => 'Lamborghini Aventador SVJ',
+//         'price' => 60000000000,
+//         'year' => 2021,
+//         'speed' => '310 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'lambo1.jpg',
+//         'horsepower' => 770,
+//         'engine_name' => '6.5L V12',
+//         'seating_capacity' => 2
+//     ],
+//     [
+//         'name' => 'Lamborghini Gallardo',
+//         'price' => 50000000000,
+//         'year' => 2022,
+//         'speed' => '309 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'lambo2.png',
+//         'horsepower' => 570,
+//         'engine_name' => '5.2L V10',
+//         'seating_capacity' => 2
+//     ],
+//     [
+//         'name' => 'Lamborghini Huracan',
+//         'price' => 7100000000,
+//         'year' => 2023,
+//         'speed' => '325 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'lambo3.jpg',
+//         'horsepower' => 640,
+//         'engine_name' => '5.2L V10',
+//         'seating_capacity' => 2
+//     ],
+//     [
+//         'name' => 'Lamborghini Aventador LP 770-4 SVJ',
+//         'price' => 12000000000,
+//         'year' => 2024,
+//         'speed' => '350 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'lambo4.jpg',
+//         'horsepower' => 770,
+//         'engine_name' => '6.5L V12',
+//         'seating_capacity' => 2
+//     ],
+//     [
+//         'name' => 'Lamborghini Huracan Tecnica',
+//         'price' => 17900000000,
+//         'year' => 2024,
+//         'speed' => '325 km/h',
+//         'location' => 'TP.HCM',
+//         'image' => 'lambo5.jpg',
+//         'horsepower' => 610,
+//         'engine_name' => 'V10 5.2L',
+//         'seating_capacity' => 2
+//     ]
+//     ]; 
 
+
+// Get products with selling or discounting status
+$query = "SELECT * FROM products 
+          WHERE status IN ('selling', 'discounting') 
+          ORDER BY RAND()"; // Using RAND() for random ordering
+$result = mysqli_query($connect, $query);
+
+$cars = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $cars[] = array(
+        'name' => $row['car_name'],
+        'price' => $row['price'],
+        'year' => $row['year_manufacture'],
+        'speed' => $row['max_speed'],
+        'location' => 'TP.HCM', // You might want to add this field to your database
+        'image' => $row['image_link'],
+        'horsepower' => $row['horse_power'],
+        'engine_name' => $row['engine_name'],
+        'seating_capacity' => $row['seat_number'],
+        'status' => $row['status']
+    );
+}
 
 // Get current page number
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $carsPerPage = 3;
-
-// Shuffle the array to get random cars
-shuffle($cars);
 
 // Calculate total pages
 $totalCars = count($cars);
@@ -480,11 +499,11 @@ border-radius: 15px;
 .morecar:hover{
 background-color: #007BFF;
 }
-.carpic{
+/* .carpic{
 
     max-height: 60vh;
 
-}
+} */
 .linkcar{
     text-decoration: none;
 
@@ -567,6 +586,7 @@ background-color: #007BFF;
 .carpic {
     width: 100%;
     height: 200px;
+    max-height: 400px;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -798,6 +818,30 @@ body{
         .carinfo {
             grid-template-columns: repeat(2, 1fr);
         }
+    }
+</style>
+<style>
+        /* Add to your existing styles */
+    .nc-item {
+        position: relative;
+        max-width: 357px;
+    }
+    
+    .discount-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4757;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 1;
     }
 </style>
     <body>

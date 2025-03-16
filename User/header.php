@@ -50,7 +50,7 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 0 100px; /* Add horizontal margins */
+            padding: 0 100px ; /* Add horizontal margins */
             height: 50px;
             
         }
