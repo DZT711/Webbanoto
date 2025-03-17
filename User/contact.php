@@ -308,7 +308,7 @@ if(isset($_POST['inbox']))
     
         <div class="company-info">
             <h2>Thông Tin Công Ty</h2>
-            <p><strong>Công Ty TNHH Ô Tô ABC</strong></p>
+            <p><strong>Công Ty TNHH 1 Thành viên AutoCar</strong></p>
             <p>📍 Địa chỉ: 123 Đường XYZ, Quận 1, TP.HCM</p>
             <p>📞 Điện thoại: (028) 1234 5678</p>
             <p>📧 Email: contact@autocompany.com</p>

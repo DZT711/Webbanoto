@@ -1,6 +1,19 @@
 <?php
-    include 'header.php';
-    include 'connect.php';
+include 'header.php';
+include 'connect.php';
+
+// Get only Lamborghini cars with selling or discounting status
+$query = "SELECT p.*, c.type_name 
+          FROM products p 
+          LEFT JOIN car_types c ON p.brand_id = c.type_id 
+          WHERE c.type_name = 'Lamborghini' 
+          AND p.status IN ('selling', 'discounting')
+          ORDER BY p.product_id DESC";
+$result = mysqli_query($connect, $query);
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($connect));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -250,6 +263,61 @@
     main{
         margin-top:-0.9em;
     }
+   
+</style>
+<style>
+/* Add to your existing styles */
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+}
+
+.status-discounting {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+.status-discounting::before {
+    /* content: '\f02c'; */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.no-cars {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.1em;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+    .nc-item{
+            max-width: 360px !important;
+
+    }
+    .carinfo{
+        height: 54px;
+    }
+
 </style>
     <body>
         
@@ -290,121 +358,44 @@
                 </div>
                 
                 <!-- Các sản phẩm -->
-                <div class="ctn21">
-                                        <div class="nc-item" data-price="60000000000" data-year="2021">
-                        <a href="bmw320.php" class="linkcar">
-                            <img class="carpic" src="lambo1.jpg" alt="lambo1">
-                            <h2 class="cith2"> 60.000.000.000 VND</h2>
-                            <p class="cit">Lamborghini Aventador SVJ</p>
-                            <br>
-                            <div class="carinfo">
-                                <i class="fas fa-car"><span class="info">2 chỗ</span></i>
-                                <i class="fas fa-gas-pump"><span class="info">Xăng</span></i>
-                                <i class="fas fa-tachometer-alt"><span class="info">310 km/h</span></i>
-                                <i class="fas fa-calendar-alt"><span class="info">2021</span></i>
-                                <i class="fa-solid fa-location-dot"><span class="info">TP.HCM</span></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nc-item" data-price="50000000000" data-year="2022">
-                        <a href="bmw320.php" class="linkcar" >
-                            <img class="carpic" src="lambo2.png" alt="lambo2">
-                            <h2 class="cith2"> 5.000.000.000 VND</h2>
-                            <p class="cit">Lamborghini Gallardo</p>
-                            <br>
-                            <div class="carinfo">
-                                <i class="fas fa-car">
-                                    <span class="info">2 chỗ</span>
-                                </i>
-                                <i class="fas fa-gas-pump">
-                                    <span class="info">Xăng</span>
-                                </i>
-                                <i class="fas fa-tachometer-alt">
-                                    <span class="info">309 km/h</span>
-                                </i>
-                                <i class="fas fa-calendar-alt">
-                                    <span class="info">2022</span>
-                                </i>
-                                <i class="fa-solid fa-location-dot">
-                                    <span class="info">TP.HCM</span>
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nc-item" data-price="7100000000" data-year="2023">
-                        <a href="bmw320.php" class="linkcar">
-                            <img class="carpic" src="lambo3.jpg" alt="lambo3" >
-                            <h2 class="cith2"> 7.100.000.000 VND</h2>
-                            <p class="cit">Lamborghini Huracan</p>
-                            <br>
-                            <div class="carinfo">
-                                <i class="fas fa-car">
-                                    <span class="info">2 chỗ</span>
-                                </i>
-                                <i class="fas fa-gas-pump">
-                                    <span class="info">Xăng</span>
-                                </i>
-                                <i class="fas fa-tachometer-alt">
-                                    <span class="info">325 km/h</span>
-                                </i>
-                                <i class="fas fa-calendar-alt">
-                                    <span class="info">2023</span>
-                                </i>
-                                <i class="fa-solid fa-location-dot">
-                                    <span class="info">TP.HCM</span>
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nc-item" data-price="12000000000" data-year="2024">
-                        <a href="bmw320.php" class="linkcar">
-                            <img class="carpic" src="lambo4.jpg" alt="lambo4">
-                            <h2 class="cith2"> 12.000.000.000 VND</h2>
-                            <p class="cit">Lamborghini Aventador LP 770-4 SVJ</p>
-                            <div class="carinfo">
-                                <i class="fas fa-car">
-                                    <span class="info">2 chỗ</span>
-                                </i>
-                                <i class="fas fa-gas-pump">
-                                    <span class="info">Xăng</span>
-                                </i>
-                                <i class="fas fa-tachometer-alt">
-                                    <span class="info">350 km/h</span>
-                                </i>
-                                <i class="fas fa-calendar-alt">
-                                    <span class="info">2024</span>
-                                </i>
-                                <i class="fa-solid fa-location-dot">
-                                    <span class="info">TP.HCM</span>
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nc-item" data-price="17900000000" data-year="2024">
-                        <a href="bmw320.php" class="linkcar">
-                            <img class="carpic" src="lambo5.jpg" alt="lambo5">
-                            <h2 class="cith2"> 17.900.000.000 VND</h2>
-                            <p class="cit">Lamborghini Huracan Tecnica</p>
-                            <br>
-                            <div class="carinfo">
-                                <i class="fas fa-car">
-                                    <span class="info">2 chỗ</span>
-                                </i>
-                                <i class="fas fa-gas-pump">
-                                    <span class="info">Xăng</span>
-                                </i>
-                                <i class="fas fa-tachometer-alt">
-                                    <span class="info">325 km/h</span>
-                                </i>
-                                <i class="fas fa-calendar-alt">
-                                    <span class="info">2024</span>
-                                </i>
-                                <i class="fa-solid fa-location-dot">
-                                    <span class="info">TP.HCM</span>
-                                </i>
-                            </div>
-                        </a>
-                    </div>
+                                <div class="ctn21">
+                    <?php
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<div class="nc-item" data-price="' . $row['price'] . '" data-year="' . $row['year_manufacture'] . '">';
+                            echo '<a href="car-details.php?name=' . urlencode($row['car_name']) . '" class="linkcar">';
+                            
+                            // Add status badge for discounting items
+                            if ($row['status'] == 'discounting') {
+                                echo '<div class="status-badge status-discounting">';
+                                echo '<i class="fa-solid fa-tag"></i> Giảm giá';
+                                echo '</div>';
+                            }
+                            
+                            echo '<img class="carpic" src="../User/' . $row['image_link'] . '" alt="' . $row['car_name'] . '">';
+                            echo '<h2 class="cith2">' . number_format($row['price'], 0, ',', '.') . ' VND</h2>';
+                            echo '<p class="cit">' . $row['car_name'] . '</p>';
+                            
+                            echo '<div class="carinfo">';
+                            echo '<i class="fas fa-car"><span class="info">' . $row['seat_number'] . ' chỗ</span></i>';
+                            echo '<i class="fas fa-gas-pump"><span class="info">' . $row['fuel_name'] . '</span></i>';
+                            echo '<i class="fa-solid fa-wrench">
+                                    <span class="info">' .
+                                $row['engine_power'] . '
+                                    Mã lực
+                                    </span>
+                                </i>';
+                            echo '<i class="fas fa-tachometer-alt"><span class="info">' . $row['max_speed'] . ' km/h</span></i>';
+                            echo '<i class="fas fa-calendar-alt"><span class="info">' . $row['year_manufacture'] . '</span></i>';
+                            echo '<i class="fa-solid fa-location-dot"><span class="info">TP.HCM</span></i>';
+                            echo '</div>';
+                            
+                            echo '</a></div>';
+                        }
+                    } else {
+                        echo '<div class="no-cars">Xin lỗi hiện chúng tôi không còn xe Lamborghini nào đang bán.</div>';
+                    }
+                    ?>
                 </div>
                 
             </div>

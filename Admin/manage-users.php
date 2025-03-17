@@ -2,7 +2,7 @@
 include 'header.php';
 
 // Fetch users from database
-$sql = "SELECT * FROM users_acc ORDER BY register_date DESC";
+$sql = "SELECT * FROM users_acc ORDER BY register_date ASC";
 $result = mysqli_query($connect, $sql);
 
 // Handle user actions

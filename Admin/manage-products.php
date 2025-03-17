@@ -33,8 +33,10 @@ if (isset($_POST['add_product'])) {
     $fuel_name = mysqli_real_escape_string($connect, $_POST['fuel_name']);
     $color = mysqli_real_escape_string($connect, $_POST['color']);
     $seat_number = mysqli_real_escape_string($connect, $_POST['seat_number']);
-    $horse_power = mysqli_real_escape_string($connect, $_POST['horse_power']);
+    $engine_power = mysqli_real_escape_string($connect, $_POST['engine_power']);
     $status = mysqli_real_escape_string($connect, $_POST['status']);
+    $fuel_capacity = mysqli_real_escape_string($connect, $_POST['fuel_capacity']);
+    $car_description = mysqli_real_escape_string($connect, $_POST['car_description']);
 
     // Xử lý upload ảnh
     $image_link = '';
@@ -61,9 +63,9 @@ if (isset($_POST['add_product'])) {
     }
 
     $query = "INSERT INTO products (car_name, brand_id, year_manufacture, price, max_speed, engine_name, 
-              fuel_name, color, seat_number, horse_power, image_link, status) 
+              fuel_name, color, seat_number, engine_power, image_link, status, fuel_capacity, car_description) 
               VALUES ('$car_name', '$brand_id', '$year', '$price', '$max_speed', '$engine_name', 
-              '$fuel_name', '$color', '$seat_number', '$horse_power', '$image_link', '$status')";
+              '$fuel_name', '$color', '$seat_number', '$engine_power', '$image_link', '$status', '$fuel_capacity', '$car_description')";
 
     if (mysqli_query($connect, $query)) {
         echo "<script>showNotification('Add product successfully!', 'success');</script>";
@@ -84,8 +86,10 @@ if (isset($_POST['update_product'])) {
     $fuel_name = mysqli_real_escape_string($connect, $_POST['fuel_name']);
     $color = mysqli_real_escape_string($connect, $_POST['color']);
     $seat_number = mysqli_real_escape_string($connect, $_POST['seat_number']);
-    $horse_power = mysqli_real_escape_string($connect, $_POST['horse_power']);
+    $engine_power = mysqli_real_escape_string($connect, $_POST['engine_power']);
     $status = mysqli_real_escape_string($connect, $_POST['status']);
+    $fuel_capacity = mysqli_real_escape_string($connect, $_POST['fuel_capacity']);
+    $car_description = mysqli_real_escape_string($connect, $_POST['car_description']);
 
     // Xử lý upload ảnh mới nếu có
     $image_update = '';
@@ -117,7 +121,9 @@ if (isset($_POST['update_product'])) {
               fuel_name = '$fuel_name', 
               color = '$color', 
               seat_number = '$seat_number', 
-              horse_power = '$horse_power', 
+              engine_power = '$engine_power',
+              fuel_capacity = '$fuel_capacity',
+            car_description = '$car_description', 
               status = '$status'
               $image_update
               WHERE product_id = $product_id";
@@ -364,7 +370,8 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         background-color: #c0392b;
     }
 
-    Specific hover effect for Ban button .admin-table button[style*="background-color: red;"] {
+    /* Specific hover effect for Ban */
+     button .admin-table button[style*="background-color: red;"] {
         background-color: #e74c3c;
         color: white;
         border: none;
@@ -1130,7 +1137,50 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         padding-right:10px;
 }
 </style>
-
+<style>
+        /* Add to your existing styles */
+    #addImagePreview, #currentProductImage {
+        text-align: center;
+        margin: 15px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    #addImagePreview img, #currentImagePreview {
+        max-width: 200px;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    #addImagePreview img:hover, #currentImagePreview:hover {
+        transform: scale(1.05);
+    }
+</style>
+<style>
+        /* Add to your existing styles */
+    .form-section textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+        font-size: 15px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        resize: vertical;
+        min-height: 100px;
+    }
+    
+    .form-section textarea:focus {
+        border-color: #1abc9c;
+        box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+        outline: none;
+        background-color: #fff;
+    }
+</style>
 <body>
     <main>
         <section class="admin-section">
@@ -1149,7 +1199,9 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         <th><i class="fa-solid fa-calendar"></i> Year</th>
         <th><i class="fa-solid fa-tag"></i> Price</th>
         <th><i class="fa-solid fa-gas-pump"></i> Fuel</th>
-        <th><i class="fa-solid fa-gear"></i> Horsepower</th>
+        <th><i class="fa-solid fa-oil-can"></i> Fuel Capacity</th>
+
+        <th><i class="fa-solid fa-gear"></i> Engine Power</th>
         <th><i class="fa-solid fa-gears"></i> Engine</th>
         <th><i class="fa-solid fa-palette"></i> Color</th>
         <th><i class="fa-solid fa-users"></i> Seats</th>
@@ -1164,7 +1216,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                     $query = "SELECT p.*, c.type_name 
                               FROM products p 
                               LEFT JOIN car_types c ON p.brand_id = c.type_id 
-                              ORDER BY p.product_id DESC";
+                              ORDER BY p.product_id ASC";
                     $result = mysqli_query($connect, $query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -1177,7 +1229,8 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                             echo '<td>' . $row['year_manufacture'] . '</td>';
                             echo '<td>' . number_format($row['price'], 0, ',', '.') . ' VND</td>';
                             echo '<td>' . $row['fuel_name'] . '</td>';
-                            echo '<td>' . $row['horse_power'] . '</td>';
+                            echo '<td>' . $row['fuel_capacity'] . ' </td>';
+                            echo '<td>' . $row['engine_power'] . '</td>';
                             echo '<td>' . $row['engine_name'] . '</td>';
                             echo '<td>' . $row['color'] . '</td>';
                             echo '<td>' . $row['seat_number'] . '</td>';
@@ -1285,6 +1338,25 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <input type="text" id="fuel_name" name="fuel_name" required>
             </div>
             
+                        <div class="form-section">
+                <div>
+        <label for="fuel_capacity" class="required">
+            <span><i class="fa-solid fa-oil-can"></i></span>Fuel Capacity:
+        </label>
+        <input type="text" 
+               id="fuel_capacity" 
+               name="fuel_capacity" 
+               placeholder="e.g., 65L, 100kWh, 5kg" 
+               required>
+    </div>
+                
+                <div>
+                    <label for="car_description" class="required">
+                        <span><i class="fa-solid fa-align-left"></i></span>Description:
+                    </label>
+                    <textarea id="car_description" name="car_description" rows="4" required></textarea>
+                </div>
+            </div>
             <div>
                 <label for="color" class="required"><span><i class="fa-solid fa-palette"></i></span>Color:</label>
                 
@@ -1300,9 +1372,9 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
             </div>
             
             <div>
-                <label for="horse_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Horsepower:</label>
+                <label for="engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine Power:</label>
                 
-                <input type="number" id="horse_power" name="horse_power" min="0" required>
+                <input type="number" id="engine_power" name="engine_power" min="0" required>
             </div>
         </div>
         
@@ -1386,7 +1458,25 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <label for="edit_fuel_name" class="required"><span><i class="fa-solid fa-gas-pump"></i></span>Fuel Type:</label>
                 <input type="text" id="edit_fuel_name" name="fuel_name" required>
             </div>
-            
+                        <div class="form-section">
+                <div>
+        <label for="edit_fuel_capacity" class="required">
+            <span><i class="fa-solid fa-oil-can"></i></span>Fuel Capacity:
+        </label>
+        <input type="text" 
+               id="edit_fuel_capacity" 
+               name="fuel_capacity" 
+               placeholder="e.g., 65L, 100kWh, 5kg" 
+               required>
+    </div>
+                
+                <div>
+                    <label for="edit_car_description" class="required">
+                        <span><i class="fa-solid fa-align-left"></i></span>Description:
+                    </label>
+                    <textarea id="edit_car_description" name="car_description" rows="4" required></textarea>
+                </div>
+            </div>
             <div>
                 <label for="edit_color" class="required"><span><i class="fa-solid fa-palette"></i></span>Color:</label>
                 <input type="text" id="edit_color" name="color" required>
@@ -1400,8 +1490,8 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
             </div>
             
             <div>
-                <label for="edit_horse_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Horsepower:</label>
-                <input type="number" id="edit_horse_power" name="horse_power" min="0" required>
+                <label for="edit_engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine Power:</label>
+                <input type="number" id="edit_engine_power" name="engine_power" min="0" required>
             </div>
         </div>
         
@@ -1481,9 +1571,11 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                         document.getElementById('edit_fuel_name').value = product.fuel_name;
                         document.getElementById('edit_color').value = product.color;
                         document.getElementById('edit_seat_number').value = product.seat_number;
-                        document.getElementById('edit_horse_power').value = product.horse_power;
+                        document.getElementById('edit_engine_power').value = product.engine_power;
                         document.getElementById('edit_status').value = product.status;
-                        
+                                                // Add this to the showEditProductForm function
+                        document.getElementById('edit_fuel_capacity').value = product.fuel_capacity;
+                        document.getElementById('edit_car_description').value = product.car_description;
                         // Show current image
                         document.getElementById('currentImagePreview').src = '../User/' + product.image_link;
                         
@@ -1550,6 +1642,50 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         
         
 
+    </script>
+    <script>
+    // Image preview function for Add Product form
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            // Create preview container if it doesn't exist
+            let previewContainer = document.getElementById('addImagePreview');
+            if (!previewContainer) {
+                previewContainer = document.createElement('div');
+                previewContainer.id = 'addImagePreview';
+                previewContainer.style.marginTop = '10px';
+                this.parentElement.appendChild(previewContainer);
+            }
+            
+            reader.onload = function(e) {
+                previewContainer.innerHTML = `
+                    <img src="${e.target.result}" 
+                         style="max-width: 200px; 
+                                max-height: 150px; 
+                                object-fit: cover; 
+                                border-radius: 4px; 
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                `;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Image preview function for Edit Product form
+    document.getElementById('edit_image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            const currentPreview = document.getElementById('currentImagePreview');
+            
+            reader.onload = function(e) {
+                currentPreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
     </script>
 </body>
 
