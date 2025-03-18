@@ -24,6 +24,7 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
     $showLoginNotification = true;
     $_SESSION['first_login'] = false; // Reset the flag
 }
+include 'connect.php';
 ?>
 
 
@@ -984,7 +985,38 @@ color:lightslategray;
     }
     
 </style>
+<style>
+/* Add these styles after your existing dropdown styles */
+.price-dropdown {
+    position: relative;
+}
 
+.price-dropdown .sub-dropdown {
+    min-width: 220px; /* Wider to accommodate price ranges */
+}
+
+.price-dropdown .sub-dropdown a {
+    white-space: nowrap;
+    padding: 12px 10px;
+}
+
+.price-dropdown .sub-dropdown a i {
+    color: #1abc9c;
+    width: 20px;
+    text-align: center;
+}
+
+.price-dropdown:hover .sub-dropdown {
+    display: block;
+}
+
+.price-dropdown .sub-dropdown a:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+    padding-left: 25px;
+}
+
+</style>
     <body>
     <header>
     <div id="notification" class="notification"></div>
@@ -1010,6 +1042,7 @@ color:lightslategray;
                     <i class="fa fa-caret-down"></i>
                 </a>
                                 <!-- Replace the existing dropdown-content div in header.php -->
+                                <!-- // Replace the static sub-dropdown div with this dynamic version -->
                 <div class="dropdown-content">
                     <div class="brand-dropdown">
                         <a href="#" class="nav-link dropbtn">
@@ -1017,23 +1050,72 @@ color:lightslategray;
                             <i class="fa fa-caret-right"></i>
                         </a>
                         <div class="sub-dropdown">
-                            <a href="bmw.php">
-                                <i class="fa-solid fa-car"></i> BMW
+                            <?php
+                            // Query to get all car types/brands
+                            $brand_query = "SELECT * FROM car_types ORDER BY type_name";
+                            $brand_result = mysqli_query($connect, $brand_query);
+                            
+                            if ($brand_result && mysqli_num_rows($brand_result) > 0) {
+                                while ($brand = mysqli_fetch_assoc($brand_result)) {
+                                    echo '<a href="brand.php?type=' . urlencode($brand['type_name']) . '">';
+                                    echo '<i class="fa-solid fa-car"></i> ' . htmlspecialchars($brand['type_name']);
+                                    echo '</a>';
+                                }
+                            } else {
+                                echo '<a href="#">';
+                                echo '<i class="fa-solid fa-exclamation-triangle"></i> Không có thương hiệu';
+                                echo '</a>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                                        <!-- // Replace the existing price link with this dropdown structure -->
+                    <div class="brand-dropdown">
+                        <a href="#" class="nav-link dropbtn">
+                            <i class="fa-solid fa-money-bill"></i> Mức Giá
+                            <i class="fa fa-caret-right"></i>
+                        </a>
+                        <div class="sub-dropdown">
+                            <a href="search-results.php?price_max=100000000">
+                                <i class="fa-solid fa-coins"></i> Dưới 100 triệu
                             </a>
-                            <a href="mazda.php">
-                                <i class="fa-solid fa-car"></i> Mazda
+                            <a href="search-results.php?price_min=100000000&price_max=500000000">
+                                <i class="fa-solid fa-coins"></i> Từ 100 triệu đến 500 triệu
                             </a>
-                            <a href="lamborghini.php">
-                                <i class="fa-solid fa-car"></i> Lamborghini
+                            <a href="search-results.php?price_min=500000000&price_max=1000000000">
+                                <i class="fa-solid fa-coins"></i> Từ 500 triệu đến 1 tỷ
+                            </a>
+                            <a href="search-results.php?price_min=1000000000">
+                                <i class="fa-solid fa-coins"></i> Trên 1 tỷ
                             </a>
                         </div>
                     </div>
-                    <a href="more.php">
-                        <i class="fa-solid fa-money-bill"></i> Mức Giá
-                    </a>
-                    <a href="more.php">
-                        <i class="fa-solid fa-calendar"></i> Năm Sản Xuất
-                    </a>
+                                        <!-- // Replace the existing year link with this dropdown structure -->
+                    <div class="brand-dropdown">
+                        <a href="#" class="nav-link dropbtn">
+                            <i class="fa-solid fa-calendar"></i> Năm Sản Xuất
+                            <i class="fa fa-caret-right"></i>
+                        </a>
+                        <div class="sub-dropdown">
+                            <?php
+                            // Query to get distinct years from products
+                            $year_query = "SELECT DISTINCT year_manufacture FROM products WHERE status IN ('selling', 'discounting') ORDER BY year_manufacture ASC";
+                            $year_result = mysqli_query($connect, $year_query);
+                            
+                            if ($year_result && mysqli_num_rows($year_result) > 0) {
+                                while ($year = mysqli_fetch_assoc($year_result)) {
+                                    echo '<a href="search-results.php?year_min=' . $year['year_manufacture'] . '&year_max=' . $year['year_manufacture'] . '">';
+                                    echo '<i class="fa-solid fa-calendar-day"></i> Năm ' . htmlspecialchars($year['year_manufacture']);
+                                    echo '</a>';
+                                }
+                            } else {
+                                echo '<a href="#">';
+                                echo '<i class="fa-solid fa-exclamation-triangle"></i> Không có dữ liệu năm';
+                                echo '</a>';
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
     

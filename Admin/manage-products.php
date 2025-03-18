@@ -1338,25 +1338,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <input type="text" id="fuel_name" name="fuel_name" required>
             </div>
             
-                        <div class="form-section">
-                <div>
-        <label for="fuel_capacity" class="required">
-            <span><i class="fa-solid fa-oil-can"></i></span>Fuel Capacity:
-        </label>
-        <input type="text" 
-               id="fuel_capacity" 
-               name="fuel_capacity" 
-               placeholder="e.g., 65L, 100kWh, 5kg" 
-               required>
-    </div>
-                
-                <div>
-                    <label for="car_description" class="required">
-                        <span><i class="fa-solid fa-align-left"></i></span>Description:
-                    </label>
-                    <textarea id="car_description" name="car_description" rows="4" required></textarea>
-                </div>
-            </div>
+                        
             <div>
                 <label for="color" class="required"><span><i class="fa-solid fa-palette"></i></span>Color:</label>
                 
@@ -1377,7 +1359,25 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <input type="number" id="engine_power" name="engine_power" min="0" required>
             </div>
         </div>
-        
+        <div class="form-section">
+                <div>
+        <label for="fuel_capacity" class="required">
+            <span><i class="fa-solid fa-oil-can"></i></span>Fuel Capacity:
+        </label>
+        <input type="text" 
+               id="fuel_capacity" 
+               name="fuel_capacity" 
+               placeholder="e.g., 65L, 100kWh, 5kg" 
+               required>
+        </div>
+                
+                <div>
+                    <label for="car_description" class="required">
+                        <span><i class="fa-solid fa-align-left"></i></span>Description:
+                    </label>
+                    <textarea id="car_description" name="car_description" rows="4" required></textarea>
+                </div>
+            </div>
         <div>
             <label for="image" class="required"><span><i class="fa-solid fa-image"></i></span>Image:</label>
             
@@ -1458,7 +1458,25 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <label for="edit_fuel_name" class="required"><span><i class="fa-solid fa-gas-pump"></i></span>Fuel Type:</label>
                 <input type="text" id="edit_fuel_name" name="fuel_name" required>
             </div>
-                        <div class="form-section">
+                        
+            <div>
+                <label for="edit_color" class="required"><span><i class="fa-solid fa-palette"></i></span>Color:</label>
+                <input type="text" id="edit_color" name="color" required>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div>
+                <label for="edit_seat_number" class="required"><span><i class="fa-solid fa-users"></i></span>Number of Seats:</label>
+                <input type="number" id="edit_seat_number" name="seat_number" min="1" max="20" required>
+            </div>
+            
+            <div>
+                <label for="edit_engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine Power:</label>
+                <input type="number" id="edit_engine_power" name="engine_power" min="0" required>
+            </div>
+        </div>
+        <div class="form-section">
                 <div>
         <label for="edit_fuel_capacity" class="required">
             <span><i class="fa-solid fa-oil-can"></i></span>Fuel Capacity:
@@ -1477,24 +1495,6 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                     <textarea id="edit_car_description" name="car_description" rows="4" required></textarea>
                 </div>
             </div>
-            <div>
-                <label for="edit_color" class="required"><span><i class="fa-solid fa-palette"></i></span>Color:</label>
-                <input type="text" id="edit_color" name="color" required>
-            </div>
-        </div>
-        
-        <div class="form-section">
-            <div>
-                <label for="edit_seat_number" class="required"><span><i class="fa-solid fa-users"></i></span>Number of Seats:</label>
-                <input type="number" id="edit_seat_number" name="seat_number" min="1" max="20" required>
-            </div>
-            
-            <div>
-                <label for="edit_engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine Power:</label>
-                <input type="number" id="edit_engine_power" name="engine_power" min="0" required>
-            </div>
-        </div>
-        
         <div>
             <label for="edit_image"><span><i class="fa-solid fa-image"></i></span>New Image (leave empty if unchanged):</label>
             <input type="file" id="edit_image" name="image" accept="image/*">

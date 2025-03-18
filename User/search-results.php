@@ -431,7 +431,7 @@ if ($result) {
 
         }
         .main-content{
-            background-color:rgb(245, 245, 245);
+            background-color:rgb(230, 230, 230);
             padding: 100px;
             padding-top: 0;
         }
@@ -833,12 +833,12 @@ if ($result) {
                             <h2 class="car-name"><?php echo $car['car_name']; ?></h2>
                             <p class="price"><?php echo number_format($car['price'], 0, ',', '.'); ?> VND</p>
                             <p><i class="fas fa-building"></i> Hãng: <?php echo $car['type_name']; ?></p>
-                            <p><i class="fas fa-calendar"></i> Năm: <?php echo $car['year_manufacture']; ?></p>
+                            <p><i class="fas fa-calendar"></i> Năm Sản Xuất: <?php echo $car['year_manufacture']; ?></p>
                             <p><i class="fas fa-palette"></i> Màu: <?php echo $car['color']; ?></p>
                             <p><i class="fas fa-gears"></i> Động cơ: <?php echo $car['engine_name']; ?></p>
                             <p><i class="fas fa-gas-pump"></i> Nhiên liệu: <?php echo $car['fuel_name']; ?></p>
                             <p><i class="fas fa-oil-can"></i> Dung tích: <?php echo $car['fuel_capacity']; ?></p>
-                            <p><i class="fas fa-horse"></i> Công suất: <?php echo $car['engine_power']; ?> HP</p>
+                            <p><i class="fas fa-gear"></i> Công suất: <?php echo $car['engine_power']; ?> HP</p>
                             <p><i class="fas fa-users"></i> Số chỗ: <?php echo $car['seat_number']; ?></p>
                             <p><i class="fas fa-gauge"></i> Vận tốc tối đa: <?php echo $car['max_speed']; ?> km/h</p>
                             <p>
