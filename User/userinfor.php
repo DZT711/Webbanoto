@@ -45,11 +45,13 @@ if (isset($_POST['edit_profile'])) { {
         } else {
             echo "<script>showNotification('Lỗi cập nhật thông tin: " . mysqli_error($connect) . "',error);</script>";
         }
-    }}
+    }
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,13 +59,13 @@ if (isset($_POST['edit_profile'])) { {
     <title>Thông tin người dùng</title>
     <style>
         .user-container {
-            
+
             max-width: 800px;
             margin: 2rem auto;
             padding: 2rem;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .back-btn {
@@ -173,21 +175,24 @@ if (isset($_POST['edit_profile'])) { {
                 justify-content: center;
             }
         }
-        main{
+
+        main {
             background-color: #efefef;
         }
-        body{
+
+        body {
             background-color: #efefef;
-            
+
         }
-        header{
+
+        header {
             background-color: #ffffff;
         }
     </style>
-        <!-- Add these styles to your existing CSS -->
-    
+    <!-- Add these styles to your existing CSS -->
+
     <style>
-                /* Add these styles */
+        /* Add these styles */
         .modal {
             display: none;
             position: fixed;
@@ -200,14 +205,14 @@ if (isset($_POST['edit_profile'])) { {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .modal.show {
             opacity: 1;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
+
         .modal-content {
             background-color: #fff;
             padding: 2rem;
@@ -218,11 +223,11 @@ if (isset($_POST['edit_profile'])) { {
             transform: translateY(-20px);
             transition: transform 0.3s ease;
         }
-        
+
         .modal.show .modal-content {
             transform: translateY(0);
         }
-        
+
         .close-btn {
             position: absolute;
             top: 1rem;
@@ -234,314 +239,536 @@ if (isset($_POST['edit_profile'])) { {
             color: #666;
             transition: color 0.3s ease;
         }
-        
+
         .close-btn:hover {
             color: #dc3545;
         }
     </style>
-        <style>
-            .edit-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background-color: #007bff;
-                color: white;
-                padding: 0.5rem 1rem;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                margin: 1rem 0;
+    <style>
+        .edit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .edit-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+    <style>
+        .edit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .edit-form {
+            display: none;
+            margin-top: 1rem;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+
+        .edit-form.show {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        #edit {
+            background-color: #fff;
+            border: none;
+            height: 37px;
+        }
+
+        #edit:hover {
+            background-color: rgb(241, 241, 241);
+        }
+    </style>
+    <style>
+        /* Enhanced Modal and Form Styles */
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h2 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .modal-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #00d2ff);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #495057;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+
+        .form-group input:hover {
+            border-color: #adb5bd;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #0056b3, #004094);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* Input placeholder styles */
+        .form-group input::placeholder {
+            color: #adb5bd;
+            opacity: 0.7;
+        }
+
+        /* Add icons to form fields */
+        .form-group {
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 12px;
+            top: 38px;
+            color: #adb5bd;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input {
+            padding-left: 35px;
+        }
+
+        .form-group input:focus+i {
+            color: #007bff;
+        }
+
+        /* Animation for modal */
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-60px);
             }
 
-            .edit-btn:hover {
-                background-color: #0056b3;
-                transform: translateY(-1px);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-
-            .edit-btn:active {
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
-        </style>
-        <style>
-                        .edit-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background-color: #007bff;
-                color: white;
-                padding: 0.5rem 1rem;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                margin-bottom: 1rem;
-            }
-            
-            .edit-btn:hover {
-                background-color: #0056b3;
-            }
-            
-            .edit-form {
-                display: none;
-                margin-top: 1rem;
-                background-color: #f8f9fa;
-                padding: 1rem;
-                border-radius: 4px;
-                border: 1px solid #dee2e6;
-            }
-            
-            .edit-form.show {
-                display: block;
-            }
-            
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            
-            .form-group label {
-                display: block;
-                margin-bottom: 0.5rem;
-                font-weight: bold;
-                color: #666;
-            }
-            
-            .form-group input {
-                width: 100%;
-                padding: 0.5rem;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-            
-            .submit-btn {
-                background-color: #28a745;
-                color: white;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            
-            .submit-btn:hover {
-                background-color: #218838;
-            }
-            #edit{
-                background-color: #fff;
-                border: none;
-                height: 37px;
-            }
-            #edit:hover{
-                background-color:rgb(241, 241, 241);
-            }
-        </style>
-        
+        }
+
+        .modal.show .modal-content {
+            animation: modalSlideIn 0.3s ease forwards;
+        }
+    </style>
+<style>
+        .form-group {
+        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .form-group label {
+        min-width: 140px;
+        text-align: left;
+        font-weight: 500;
+        color: #495057;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-group input {
+        flex: 1;
+        padding: 12px 16px 12px 35px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #495057;
+        transition: all 0.3s ease;
+        background: #fff;
+    }
+    
+    .form-group i {
+        position: absolute;
+        left: 170px; /* Adjusted to account for label width */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #adb5bd;
+        transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus + i {
+        color: #007bff;
+    }
+    
+    /* Update modal content width for better layout */
+    .modal-content {
+        width: 90%;
+        max-width: 600px; /* Increased width to accommodate the labels */
+        padding: 2.5rem;
+    }
+</style>
 </head>
+
 <body>
     <main>
 
         <div class="user-container">
             <a href="javascript:history.back()" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i>
-            Trở về
-        </a>
+                <i class="fa-solid fa-arrow-left"></i>
+                Trở về
+            </a>
 
-        <h2><i class="fa-solid fa-user"></i> Thông tin người dùng</h2>
-        
-                <div class="user-info">
-            <!-- Username - Always required -->
-            <div class="info-row">
-                <div class="info-label">Tên người dùng:</div>
-                <div class="info-value"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
-            </div>
-        
-            <!-- Password - Always required -->
-            <div class="info-row">
-                <div class="info-label">Mật khẩu:</div>
-                <div class="info-value"><?php echo htmlspecialchars($_SESSION['password']); ?></div>
-            </div>
-            
-            <!-- Email -->
-            <div class="info-row">
-                <div class="info-label">Email:</div>
-                <div class="info-value">
-                    <?php echo isset($_SESSION['email']) && !empty($_SESSION['email']) 
-                        ? htmlspecialchars($_SESSION['email']) 
-                        : 'Không có'; ?>
+            <h2><i class="fa-solid fa-user"></i> Thông tin người dùng</h2>
+
+            <div class="user-info">
+                <!-- Username - Always required -->
+                <div class="info-row">
+                    <div class="info-label">Tên người dùng:</div>
+                    <div class="info-value"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
                 </div>
-            </div>
-        
-            <!-- Phone number -->
-            <div class="info-row">
-                <div class="info-label">Số điện thoại:</div>
-                <div class="info-value">
-                    <?php echo isset($_SESSION['phone_num']) && !empty($_SESSION['phone_num']) 
-                        ? htmlspecialchars($_SESSION['phone_num']) 
-                        : 'Không có'; ?>
+
+                <!-- Password - Always required -->
+                <div class="info-row">
+                    <div class="info-label">Mật khẩu:</div>
+                    <div class="info-value"><?php echo htmlspecialchars($_SESSION['password']); ?></div>
                 </div>
-            </div>
-        
-            <!-- Register date -->
-            <div class="info-row">
-                <div class="info-label">Ngày đăng ký:</div>
-                <div class="info-value">
-                    <?php echo isset($_SESSION['register_date']) && !empty($_SESSION['register_date']) 
-                        ? htmlspecialchars($_SESSION['register_date']) 
-                        : 'Không có'; ?>
+
+                <!-- Email -->
+                <div class="info-row">
+                    <div class="info-label">Email:</div>
+                    <div class="info-value">
+                        <?php echo isset($_SESSION['email']) && !empty($_SESSION['email'])
+                            ? htmlspecialchars($_SESSION['email'])
+                            : 'Không có'; ?>
+                    </div>
                 </div>
-            </div>
-        
-            <!-- Full name -->
-            <div class="info-row">
-                <div class="info-label">Họ tên:</div>
-                <div class="info-value">
-                    <?php echo isset($_SESSION['full_name']) && !empty($_SESSION['full_name']) 
-                        ? htmlspecialchars($_SESSION['full_name']) 
-                        : 'Không có'; ?>
+
+                <!-- Phone number -->
+                <div class="info-row">
+                    <div class="info-label">Số điện thoại:</div>
+                    <div class="info-value">
+                        <?php echo isset($_SESSION['phone_num']) && !empty($_SESSION['phone_num'])
+                            ? htmlspecialchars($_SESSION['phone_num'])
+                            : 'Không có'; ?>
+                    </div>
                 </div>
-            </div>
-        
-            <!-- Address -->
-            <div class="info-row">
-                <div class="info-label">Địa chỉ:</div>
-                <div class="info-value">
-                    <?php echo isset($_SESSION['address']) && !empty($_SESSION['address']) 
-                        ? htmlspecialchars($_SESSION['address']) 
-                        : 'Không có'; ?>
+
+                <!-- Register date -->
+                <div class="info-row">
+                    <div class="info-label">Ngày đăng ký:</div>
+                    <div class="info-value">
+                        <?php echo isset($_SESSION['register_date']) && !empty($_SESSION['register_date'])
+                            ? htmlspecialchars($_SESSION['register_date'])
+                            : 'Không có'; ?>
+                    </div>
                 </div>
-            </div>
-                        <!-- Role display section -->
-            <div class="info-row">
-                <div class="info-label">Vai trò:</div>
-                <div class="info-value">
-                    <?php 
-                    if (isset($_SESSION['role'])) {
-                        $roleClass = 'role-' . strtolower($_SESSION['role']);
-                        $roleText = '';
-                        switch($_SESSION['role']) {
-                            case 'admin':
-                                $roleText = 'Quản trị viên';
-                                break;
-                            default:
-                                $roleText = 'Khách hàng';
+
+                <!-- Full name -->
+                <div class="info-row">
+                    <div class="info-label">Họ tên:</div>
+                    <div class="info-value">
+                        <?php echo isset($_SESSION['full_name']) && !empty($_SESSION['full_name'])
+                            ? htmlspecialchars($_SESSION['full_name'])
+                            : 'Không có'; ?>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="info-row">
+                    <div class="info-label">Địa chỉ:</div>
+                    <div class="info-value">
+                        <?php echo isset($_SESSION['address']) && !empty($_SESSION['address'])
+                            ? htmlspecialchars($_SESSION['address'])
+                            : 'Không có'; ?>
+                    </div>
+                </div>
+                <!-- Role display section -->
+                <div class="info-row">
+                    <div class="info-label">Vai trò:</div>
+                    <div class="info-value">
+                        <?php
+                        if (isset($_SESSION['role'])) {
+                            $roleClass = 'role-' . strtolower($_SESSION['role']);
+                            $roleText = '';
+                            switch ($_SESSION['role']) {
+                                case 'admin':
+                                    $roleText = 'Quản trị viên';
+                                    break;
+                                default:
+                                    $roleText = 'Khách hàng';
+                            }
+                            echo "<span class='role-badge {$roleClass}'>{$roleText}</span>";
+                        } else {
+                            echo 'Không có';
                         }
-                        echo "<span class='role-badge {$roleClass}'>{$roleText}</span>";
-                    } else {
-                        echo 'Không có';
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
-            </div>
-        
-            <!-- Status -->
-            <div class="info-row">
-                <div class="info-label">Trạng thái:</div>
-                <div class="info-value">
-                    <?php 
-                    if (isset($_SESSION['status']) && !empty($_SESSION['status'])) {
-                        $statusClass = 'status-' . strtolower($_SESSION['status']);
-                        $statusText = '';
-                        switch($_SESSION['status']) {
-                            case 'activated':
-                                $statusText = 'Hoạt động';
-                                break;
-                            case 'banned':
-                                $statusText = 'Đã bị cấm';
-                                break;
-                            case 'disabled':
-                                $statusText = 'Vô hiệu hóa';
-                                break;
-                            default:
-                                $statusText = $_SESSION['status'];
+
+                <!-- Status -->
+                <div class="info-row">
+                    <div class="info-label">Trạng thái:</div>
+                    <div class="info-value">
+                        <?php
+                        if (isset($_SESSION['status']) && !empty($_SESSION['status'])) {
+                            $statusClass = 'status-' . strtolower($_SESSION['status']);
+                            $statusText = '';
+                            switch ($_SESSION['status']) {
+                                case 'activated':
+                                    $statusText = 'Hoạt động';
+                                    break;
+                                case 'banned':
+                                    $statusText = 'Đã bị cấm';
+                                    break;
+                                case 'disabled':
+                                    $statusText = 'Vô hiệu hóa';
+                                    break;
+                                default:
+                                    $statusText = $_SESSION['status'];
+                            }
+                            echo "<span class='status-badge {$statusClass}'>{$statusText}</span>";
+                        } else {
+                            echo 'Không có';
                         }
-                        echo "<span class='status-badge {$statusClass}'>{$statusText}</span>";
-                    } else {
-                        echo 'Không có';
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-<!-- Replace the existing edit form with this modal -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <button type="button" class="close-btn" onclick="closeEditForm()">&times;</button>
-        <h2>Chỉnh sửa thông tin</h2>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="editForm">
-            <div class="form-group">
-                <label>Tên người dùng:</label>
-                <input type="text" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
+            <!-- Replace the existing edit form with this modal -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <button type="button" class="close-btn" onclick="closeEditForm()">&times;</button>
+                    <h2>Chỉnh sửa thông tin</h2>
+                                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="editForm">
+                        <div class="form-group">
+                            <label>Tên người dùng:</label>
+                            <input type="text" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu mới:</label>
+                            <input type="password" name="password" placeholder="Để trống nếu không muốn thay đổi">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại:</label>
+                            <input type="tel" name="phone_num" value="<?php echo isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; ?>">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="form-group">
+                            <label>Họ tên:</label>
+                            <input type="text" name="full_name" value="<?php echo isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : ''; ?>">
+                            <i class="fa-solid fa-user-circle"></i>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ:</label>
+                            <input type="text" name="address" value="<?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <button type="submit" name="edit_profile" class="submit-btn">
+                            <i class="fa-solid fa-save"></i> Lưu thay đổi
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Mật khẩu mới:</label>
-                <input type="password" name="password" placeholder="Nhập mật khẩu mới">
+
+            <div class="nav-links">
+                <a href="cart.php" class="nav-link">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    Giỏ hàng của tôi
+                </a>
+                <a href="billhistory.php" class="nav-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Lịch sử mua hàng
+                </a>
+                <button class="nav-link" id="edit" onclick="toggleEditForm()">
+                    <i class="fa-solid fa-user-edit"></i>
+                    Chỉnh sửa thông tin
+                </button>
             </div>
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>">
-            </div>
-            <div class="form-group">
-                <label>Số điện thoại:</label>
-                <input type="tel" name="phone_num" value="<?php echo isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; ?>">
-            </div>
-            <div class="form-group">
-                <label>Họ tên:</label>
-                <input type="text" name="full_name" value="<?php echo isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : ''; ?>">
-            </div>
-            <div class="form-group">
-                <label>Địa chỉ:</label>
-                <input type="text" name="address" value="<?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>">
-            </div>
-            <input type="submit" name="edit_profile" value="Lưu thay đổi" class="submit-btn">
-        </form>
-    </div>
-</div>
+    </main>
+    <script>
 
-<div class="nav-links">
-    <a href="cart.php" class="nav-link">
-        <i class="fa-solid fa-shopping-cart"></i>
-        Giỏ hàng của tôi
-    </a>
-    <a href="billhistory.php" class="nav-link">
-        <i class="fa-solid fa-clock-rotate-left"></i>
-        Lịch sử mua hàng
-    </a>
-    <button class="nav-link" id="edit" onclick="toggleEditForm()">
-        <i class="fa-solid fa-user-edit"></i>
-        Chỉnh sửa thông tin
-    </button>
-</div>
-</main>
-<script>
+        function toggleEditForm() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('show');
+        }
 
-function toggleEditForm() {
-    const modal = document.getElementById('editModal');
-    modal.classList.add('show');
-}
+        function closeEditForm() {
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('show');
+        }
 
-function closeEditForm() {
-    const modal = document.getElementById('editModal');
-    modal.classList.remove('show');
-}
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                closeEditForm();
+            }
+        }
 
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('editModal');
-    if (event.target == modal) {
-        closeEditForm();
-    }
-}
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeEditForm();
+            }
+        });
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeEditForm();
-    }
-});
-
-</script>
+    </script>
 </body>
+
 </html>
 
 <?php

@@ -13,7 +13,7 @@ include 'connect.php';
 
 //     foreach ($searchTerms as $term) {
 //         $term = mysqli_real_escape_string($connect, strtolower($term));
-        
+
 //         // Check for numeric comparisons
 //         if (preg_match('/(giá|mã lực|dung tích|số chỗ|năm sản xuất|công suất|vận tốc tối đa):([<>=])(\d+)/', $term, $matches)) {
 //             $field = $matches[1];
@@ -122,10 +122,10 @@ include 'connect.php';
 
 //     foreach ($searchTerms as $term) {
 //         $term = mysqli_real_escape_string($connect, strtolower($term));
-        
+
 //         // Pattern for numeric comparisons with Vietnamese terms
 //         $pattern = '/(giá|mã lực|dung tích|số chỗ|năm sản xuất|công suất|vận tốc tối đa)(\s*)(>|<|=)(\s*)(\d+)/u';
-        
+
 //         if (preg_match($pattern, $term, $matches)) {
 //             $field = $matches[1];
 //             $operator = $matches[3];
@@ -190,10 +190,10 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
 
     foreach ($searchTerms as $term) {
         $term = mysqli_real_escape_string($connect, strtolower($term));
-        
+
         // Pattern for numeric comparisons with Vietnamese terms
         $pattern = '/(giá|mã lực|dung tích|số chỗ|năm sản xuất|công suất|vận tốc tối đa)(\s*)(>|<|=)(\s*)(\d+)/u';
-        
+
         if (preg_match($pattern, $term, $matches)) {
             $field = $matches[1];
             $operator = $matches[3];
@@ -296,7 +296,7 @@ if ($result) {
     <title>Kết quả tìm kiếm</title>
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
     <link rel="icon" href="dp56vcf7.png" type="image/png">
-    
+
     <style>
         .results {
             max-width: 1200px;
@@ -309,7 +309,7 @@ if ($result) {
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 20px;
@@ -318,7 +318,7 @@ if ($result) {
 
         .result-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .car-image {
@@ -399,7 +399,7 @@ if ($result) {
 
         .search-header button {
             padding: 10px 20px;
-            background:rgb(0, 0, 0);
+            background: rgb(0, 0, 0);
             color: white;
             border: none;
             border-radius: 4px;
@@ -422,36 +422,40 @@ if ($result) {
                 grid-template-columns: 1fr;
             }
         }
-        body{
-            margin:0;
+
+        body {
+            margin: 0;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: #333;
 
         }
-        .main-content{
-            background-color:rgb(230, 230, 230);
+
+        .main-content {
+            background-color: rgb(230, 230, 230);
             padding: 100px;
             padding-top: 0;
         }
-        .search-header{
-            padding:-100px;
-            padding-left: 350px ;
-            padding-right: 350px ;
+
+        .search-header {
+            padding: -100px;
+            padding-left: 350px;
+            padding-right: 350px;
             margin-left: -100px;
             margin-right: -100px;
             padding-top: 20px;
             padding-bottom: 20px;
         }
     </style>
-        <style>
+    <style>
         /* Add these styles to your existing CSS */
         .search-container {
             position: relative;
             flex-grow: 1;
         }
-    
+
         .search-help {
             display: none;
             position: absolute;
@@ -460,34 +464,34 @@ if ($result) {
             background: white;
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             z-index: 1000;
         }
-        
+
         .search-container:hover .search-help {
             display: block;
         }
-        
+
         .search-help p {
             margin: 0;
             font-weight: bold;
             color: #333;
         }
-        
+
         .search-help ul {
             list-style: none;
             padding: 0;
             margin: 10px 0 0 0;
         }
-        
+
         .search-help li {
             margin: 5px 0;
             color: #666;
             font-size: 0.9em;
             padding-left: 15px;
         }
-    
+
         .search-help li:first-child {
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
@@ -496,419 +500,448 @@ if ($result) {
     </style>
     <style>
         /* Add these status badge styles after your existing .status-badge class */
-    .status-badge {
-        display: inline-block;
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    
-    /* Status-specific styles */
-    .status-selling {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        color: white;
-        animation: pulse 2s infinite;
-    }
-    
-    .status-selling::before {
-        content: '\f155';
-        font-family: 'Font Awesome 6 Free';
-    }
-    
-    .status-discounting {
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        color: white;
-        animation: flash 1.5s infinite;
-    }
-    
-    .status-discounting::before {
-        content: '\f02c';
-        font-family: 'Font Awesome 6 Free';
-    }
-    
-    .status-hidden {
-        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-        color: white;
-        opacity: 0.8;
-    }
-    
-    .status-hidden::before {
-        content: '\f070';
-        font-family: 'Font Awesome 6 Free';
-    }
-    
-    .status-soldout {
-        background: linear-gradient(135deg, #34495e, #2c3e50);
-        color: white;
-    }
-    
-    .status-soldout::before {
-        content: '\f05e';
-        font-family: 'Font Awesome 6 Free';
-    }
-    
-    /* Animations */
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-    
-    @keyframes flash {
-        0% { opacity: 1; }
-        50% { opacity: 0.8; }
-        100% { opacity: 1; }
-    }
-</style>
-<style>
+        .status-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Status-specific styles */
+        .status-selling {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .status-selling::before {
+            content: '\f155';
+            font-family: 'Font Awesome 6 Free';
+        }
+
+        .status-discounting {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            animation: flash 1.5s infinite;
+        }
+
+        .status-discounting::before {
+            content: '\f02c';
+            font-family: 'Font Awesome 6 Free';
+        }
+
+        .status-hidden {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+            opacity: 0.8;
+        }
+
+        .status-hidden::before {
+            content: '\f070';
+            font-family: 'Font Awesome 6 Free';
+        }
+
+        .status-soldout {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+        }
+
+        .status-soldout::before {
+            content: '\f05e';
+            font-family: 'Font Awesome 6 Free';
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <style>
         /* Add to your existing styles */
-    .filter-section {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin: 20px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .filter-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    
-    .filter-item {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .filter-item label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #666;
-        font-weight: 500;
-    }
-    
-    .filter-item label i {
-        color: #1abc9c;
-    }
-    
-    .range-inputs {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .range-inputs input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    
-    .filter-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-        justify-content: center;
-    }
-    
-    .filter-btn, .reset-btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .filter-btn {
-        background: #1abc9c;
-        color: white;
-    }
-    
-    .reset-btn {
-        background: #e74c3c;
-        color: white;
-    }
-    
-    .filter-btn:hover, .reset-btn:hover {
-        transform: translateY(-2px);
-    }
-    .filter-section{
-        background-color: rgb(220,220,220);
-        padding-left:350px;
-        padding-right:350px;
-                    margin-left: -100px;
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-item label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .filter-item label i {
+            color: #1abc9c;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .range-inputs input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .filter-btn,
+        .reset-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .reset-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .filter-btn:hover,
+        .reset-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .filter-section {
+            background-color: rgb(220, 220, 220);
+            padding-left: 350px;
+            padding-right: 350px;
+            margin-left: -100px;
             margin-right: -100px;
             margin-top: 0px;
-    }
-    .filter-section select, .filter-section input[type=text]{
-        height:30px;
-        border:none;
-    }
-</style>
-</head>
-<body>
-    <div class="main-content">
+        }
 
-                <div class="search-header">
-            <a href="index.php" class="home">
-                <i class="fa-solid fa-house"></i>
-            </a>
-    <form action="search-results.php" method="GET" id="searchFilterForm">
-        <div class="search-container">
-            <input type="text" 
-                   name="query" 
-                   placeholder="Tìm kiếm (vd: BMW + giá:<500000000 + số chỗ:>4)..." 
-                   value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>">
-            <button type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-            <div class="search-help">
-                        <p>Cú pháp tìm kiếm:</p>
-                        <ul>
-                            <li>Tìm thông thường: BMW + đen + 2023</li>
-                            <li>So sánh số: giá:>500000000</li>
-                            <li>Các trường hỗ trợ so sánh:</li>
-                            <li>- giá: (VND)</li>
-                            <li>- mã lực: (HP)</li>
-                            <li>- dung tích: (L/kWh)</li>
-                            <li>- số chỗ: (chỗ)</li>
-                            <li>- năm sản xuất: (năm)</li>
-                            <li>- vận tốc tối đa: (km/h)</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- <button type="submit">
-                    <i class="fa fa-search"></i>
-                </button> -->
-            <!-- </form> -->
-        </div>
-<div class="filter-section">
-    <div class="filter-grid">
-        <div class="filter-item">
-            <label><i class="fas fa-building"></i> Hãng xe:</label>
-            <select name="brand">
-                <option value="">Tất cả</option>
-                <?php
-                $brand_query = "SELECT DISTINCT type_name FROM car_types ORDER BY type_name";
-                $brand_result = mysqli_query($connect, $brand_query);
-                while ($brand = mysqli_fetch_assoc($brand_result)) {
-                    $selected = (isset($_GET['brand']) && strtolower($_GET['brand']) === strtolower($brand['type_name'])) ? 'selected' : '';
-                    echo "<option value='" . htmlspecialchars($brand['type_name']) . "' $selected>" . $brand['type_name'] . "</option>";
-                }
-                ?>
-            </select>
-            </div>
+        .filter-section select,
+        .filter-section input[type=text] {
+            height: 30px;
+            border: none;
+        }
+    </style>
+    </head>
 
-            <div class="filter-item">
-                <label><i class="fas fa-tag"></i> Giá (VND):</label>
-                <div class="range-inputs">
-                    <input type="number" name="price_min" placeholder="Từ" 
-                           value="<?php echo htmlspecialchars($_GET['price_min'] ?? ''); ?>">
-                    <input type="number" name="price_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['price_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-palette"></i> Màu sắc:</label>
-                <input type="text" name="color" placeholder="Màu xe"
-                       value="<?php echo htmlspecialchars($_GET['color'] ?? ''); ?>">
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-gears"></i> Động cơ:</label>
-                <input type="text" name="engine" placeholder="Tên động cơ"
-                       value="<?php echo htmlspecialchars($_GET['engine'] ?? ''); ?>">
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-gas-pump"></i> Nhiên liệu:</label>
-                <input type="text" name="fuel" placeholder="Loại nhiên liệu"
-                       value="<?php echo htmlspecialchars($_GET['fuel'] ?? ''); ?>">
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-gauge"></i> Tốc độ tối đa (km/h):</label>
-                <div class="range-inputs">
-                    <input type="number" name="speed_min" placeholder="Từ"
-                           value="<?php echo htmlspecialchars($_GET['speed_min'] ?? ''); ?>">
-                    <input type="number" name="speed_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['speed_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-gear"></i> Công suất (HP):</label>
-                <div class="range-inputs">
-                    <input type="number" name="power_min" placeholder="Từ"
-                           value="<?php echo htmlspecialchars($_GET['power_min'] ?? ''); ?>">
-                    <input type="number" name="power_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['power_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-oil-can"></i> Dung tích:</label>
-                <div class="range-inputs">
-                    <input type="number" name="capacity_min" placeholder="Từ"
-                           value="<?php echo htmlspecialchars($_GET['capacity_min'] ?? ''); ?>">
-                    <input type="number" name="capacity_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['capacity_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-users"></i> Số chỗ ngồi:</label>
-                <div class="range-inputs">
-                    <input type="number" name="seats_min" placeholder="Từ"
-                           value="<?php echo htmlspecialchars($_GET['seats_min'] ?? ''); ?>">
-                    <input type="number" name="seats_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['seats_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-calendar"></i> Năm sản xuất:</label>
-                <div class="range-inputs">
-                    <input type="number" name="year_min" placeholder="Từ"
-                           value="<?php echo htmlspecialchars($_GET['year_min'] ?? ''); ?>">
-                    <input type="number" name="year_max" placeholder="Đến"
-                           value="<?php echo htmlspecialchars($_GET['year_max'] ?? ''); ?>">
-                </div>
-            </div>
-            
-            <div class="filter-item">
-                <label><i class="fas fa-info-circle"></i> Trạng thái:</label>
-                <select name="status">
-                    <option value="">Tất cả</option>
-                    <?php
-                    $statuses = [
-                        'selling' => 'Đang bán',
-                        'discounting' => 'Đang giảm giá',
-                        'hidden' => 'Đã ẩn',
-                        'soldout' => 'Đã bán'
-                    ];
-                    foreach ($statuses as $value => $label) {
-                        $selected = (isset($_GET['status']) && $_GET['status'] === $value) ? 'selected' : '';
-                        echo "<option value='$value' $selected>$label</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
+    <body>
+        <div class="main-content">
 
-    <div class="filter-buttons">
-        <button type="submit" class="filter-btn">
-            <i class="fas fa-filter"></i> Lọc
-        </button>
-        <button type="button" class="reset-btn" onclick="window.location='search-results.php'">
-            <i class="fas fa-undo"></i> Đặt lại
-        </button>
-    </div>
-</div>
-</form>
-        <div class="results">
-        <?php if (empty($searchResults)): ?>
-                <div class="no-results">
-                    <p>Không tìm thấy kết quả phù hợp.</p>
-                </div>
-        <?php else: ?>
-                <?php foreach ($searchResults as $car): ?>
-                        <a href="car-details.php?name=<?php echo urlencode($car['car_name']); ?>" class="car-link">
-                            <div class="result-item">
-                                <img src="<?php echo $car['image_link']; ?>" alt="<?php echo $car['car_name']; ?>" class="car-image">
-                        <div class="car-info">
-                            <h2 class="car-name"><?php echo $car['car_name']; ?></h2>
-                            <p class="price"><?php echo number_format($car['price'], 0, ',', '.'); ?> VND</p>
-                            <p><i class="fas fa-building"></i> Hãng: <?php echo $car['type_name']; ?></p>
-                            <p><i class="fas fa-calendar"></i> Năm Sản Xuất: <?php echo $car['year_manufacture']; ?></p>
-                            <p><i class="fas fa-palette"></i> Màu: <?php echo $car['color']; ?></p>
-                            <p><i class="fas fa-gears"></i> Động cơ: <?php echo $car['engine_name']; ?></p>
-                            <p><i class="fas fa-gas-pump"></i> Nhiên liệu: <?php echo $car['fuel_name']; ?></p>
-                            <p><i class="fas fa-oil-can"></i> Dung tích: <?php echo $car['fuel_capacity']; ?></p>
-                            <p><i class="fas fa-gear"></i> Công suất: <?php echo $car['engine_power']; ?> HP</p>
-                            <p><i class="fas fa-users"></i> Số chỗ: <?php echo $car['seat_number']; ?></p>
-                            <p><i class="fas fa-gauge"></i> Vận tốc tối đa: <?php echo $car['max_speed']; ?> km/h</p>
-                            <p>
-                                <i class="fas fa-info-circle"></i> 
-                                Trạng thái: 
-                                <span class="status-badge status-<?php echo $car['status']; ?>">
-                                    <?php 
-                                    switch($car['status']) {
-                                        case 'selling': echo 'Đang bán'; break;
-                                        case 'discounting': echo 'Đang giảm giá'; break;
-                                        case 'hidden': echo 'Tạm thời ẩn'; break;
-                                        case 'soldout': echo 'Hết hàng'; break;
-                                    }
-                                    ?>
-                                </span>
-                            </p>
+            <div class="search-header">
+                <a href="index.php" class="home">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <form action="search-results.php" method="GET" id="searchFilterForm">
+                    <div class="search-container">
+                        <input type="text" name="query" placeholder="Tìm kiếm (vd: BMW + giá:<500000000 + số chỗ:>4)..."
+                            value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <div class="search-help">
+                            <p>Cú pháp tìm kiếm:</p>
+                            <ul>
+                                <li>Tìm thông thường: BMW + đen + 2023</li>
+                                <li>So sánh số: giá:>500000000</li>
+                                <li>Các trường hỗ trợ so sánh:</li>
+                                <li>- giá: (VND)</li>
+                                <li>- mã lực: (HP)</li>
+                                <li>- dung tích: (L/kWh)</li>
+                                <li>- số chỗ: (chỗ)</li>
+                                <li>- năm sản xuất: (năm)</li>
+                                <li>- vận tốc tối đa: (km/h)</li>
+                            </ul>
                         </div>
                     </div>
-                </a>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</div>
-<script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
+
+                    <!-- <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button> -->
+                    <!-- </form> -->
+            </div>
+            <div class="filter-section">
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <label><i class="fas fa-building"></i> Hãng xe:</label>
+                        <select name="brand">
+                            <option value="">Tất cả</option>
+                            <?php
+                            $brand_query = "SELECT DISTINCT type_name FROM car_types ORDER BY type_name";
+                            $brand_result = mysqli_query($connect, $brand_query);
+                            while ($brand = mysqli_fetch_assoc($brand_result)) {
+                                $selected = (isset($_GET['brand']) && strtolower($_GET['brand']) === strtolower($brand['type_name'])) ? 'selected' : '';
+                                echo "<option value='" . htmlspecialchars($brand['type_name']) . "' $selected>" . $brand['type_name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-tag"></i> Giá (VND):</label>
+                        <div class="range-inputs">
+                            <input type="number" name="price_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['price_min'] ?? ''); ?>">
+                            <input type="number" name="price_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['price_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-palette"></i> Màu sắc:</label>
+                        <input type="text" name="color" placeholder="Màu xe"
+                            value="<?php echo htmlspecialchars($_GET['color'] ?? ''); ?>">
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-gears"></i> Động cơ:</label>
+                        <input type="text" name="engine" placeholder="Tên động cơ"
+                            value="<?php echo htmlspecialchars($_GET['engine'] ?? ''); ?>">
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-gas-pump"></i> Nhiên liệu:</label>
+                        <input type="text" name="fuel" placeholder="Loại nhiên liệu"
+                            value="<?php echo htmlspecialchars($_GET['fuel'] ?? ''); ?>">
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-gauge"></i> Tốc độ tối đa (km/h):</label>
+                        <div class="range-inputs">
+                            <input type="number" name="speed_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['speed_min'] ?? ''); ?>">
+                            <input type="number" name="speed_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['speed_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-gear"></i> Công suất (HP):</label>
+                        <div class="range-inputs">
+                            <input type="number" name="power_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['power_min'] ?? ''); ?>">
+                            <input type="number" name="power_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['power_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-oil-can"></i> Dung tích:</label>
+                        <div class="range-inputs">
+                            <input type="number" name="capacity_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['capacity_min'] ?? ''); ?>">
+                            <input type="number" name="capacity_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['capacity_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-users"></i> Số chỗ ngồi:</label>
+                        <div class="range-inputs">
+                            <input type="number" name="seats_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['seats_min'] ?? ''); ?>">
+                            <input type="number" name="seats_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['seats_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-calendar"></i> Năm sản xuất:</label>
+                        <div class="range-inputs">
+                            <input type="number" name="year_min" placeholder="Từ"
+                                value="<?php echo htmlspecialchars($_GET['year_min'] ?? ''); ?>">
+                            <input type="number" name="year_max" placeholder="Đến"
+                                value="<?php echo htmlspecialchars($_GET['year_max'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label><i class="fas fa-info-circle"></i> Trạng thái:</label>
+                        <select name="status">
+                            <option value="">Tất cả</option>
+                            <?php
+                            $statuses = [
+                                'selling' => 'Đang bán',
+                                'discounting' => 'Đang giảm giá',
+                                'hidden' => 'Đã ẩn',
+                                'soldout' => 'Đã bán'
+                            ];
+                            foreach ($statuses as $value => $label) {
+                                $selected = (isset($_GET['status']) && $_GET['status'] === $value) ? 'selected' : '';
+                                echo "<option value='$value' $selected>$label</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-buttons">
+                    <button type="submit" class="filter-btn">
+                        <i class="fas fa-filter"></i> Lọc
+                    </button>
+                    <button type="button" class="reset-btn" onclick="window.location='search-results.php'">
+                        <i class="fas fa-undo"></i> Đặt lại
+                    </button>
+                </div>
+            </div>
+            </form>
+            <div class="results">
+                <?php if (empty($searchResults)): ?>
+                    <div class="no-results">
+                        <p>Không tìm thấy kết quả phù hợp.</p>
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($searchResults as $car): ?>
+                        <a href="car-details.php?name=<?php echo urlencode($car['car_name']); ?>" class="car-link">
+                            <div class="result-item">
+                                <img src="<?php echo $car['image_link']; ?>" alt="<?php echo $car['car_name']; ?>"
+                                    class="car-image">
+                                <div class="car-info">
+                                    <h2 class="car-name"><?php echo $car['car_name']; ?></h2>
+                                    <p class="price"><?php echo number_format($car['price'], 0, ',', '.'); ?> VND</p>
+                                    <p><i class="fas fa-building"></i> Hãng: <?php echo $car['type_name']; ?></p>
+                                    <p><i class="fas fa-calendar"></i> Năm Sản Xuất: <?php echo $car['year_manufacture']; ?></p>
+                                    <p><i class="fas fa-palette"></i> Màu: <?php echo $car['color']; ?></p>
+                                    <p><i class="fas fa-gears"></i> Động cơ: <?php echo $car['engine_name']; ?></p>
+                                    <p><i class="fas fa-gas-pump"></i> Nhiên liệu: <?php echo $car['fuel_name']; ?></p>
+                                    <p><i class="fas fa-oil-can"></i> Dung tích: <?php echo $car['fuel_capacity']; ?></p>
+                                    <p><i class="fas fa-gear"></i> Công suất: <?php echo $car['engine_power']; ?> HP</p>
+                                    <p><i class="fas fa-users"></i> Số chỗ: <?php echo $car['seat_number']; ?></p>
+                                    <p><i class="fas fa-gauge"></i> Vận tốc tối đa: <?php echo $car['max_speed']; ?> km/h</p>
+                                    <p>
+                                        <i class="fas fa-info-circle"></i>
+                                        Trạng thái:
+                                        <span class="status-badge status-<?php echo $car['status']; ?>">
+                                            <?php
+                                            switch ($car['status']) {
+                                                case 'selling':
+                                                    echo 'Đang bán';
+                                                    break;
+                                                case 'discounting':
+                                                    echo 'Đang giảm giá';
+                                                    break;
+                                                case 'hidden':
+                                                    echo 'Tạm thời ẩn';
+                                                    break;
+                                                case 'soldout':
+                                                    echo 'Hết hàng';
+                                                    break;
+                                            }
+                                            ?>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
     // Preserve form values after submission
     const urlParams = new URLSearchParams(window.location.search);
-    for (const [key, value] of urlParams) {
+                for (const [key, value] of urlParams) {
         const element = document.querySelector(`[name="${key}"]`);
-        if (element) {
+                if (element) {
             if (element.tagName === 'SELECT') {
                 // Handle select elements
                 const option = Array.from(element.options).find(opt => opt.value.toLowerCase() === value.toLowerCase());
                 if (option) option.selected = true;
             } else {
-                // Handle other input types
-                element.value = value;
+                    // Handle other input types
+                    element.value = value;
             }
         }
     }
 
-    // Handle form reset
-    const resetBtn = document.querySelector('.reset-btn');
-    resetBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const form = document.getElementById('searchFilterForm');
-        form.reset();
-        window.location.href = 'search-results.php';
+                // Handle form reset
+                const resetBtn = document.querySelector('.reset-btn');
+                resetBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                const form = document.getElementById('searchFilterForm');
+                form.reset();
+                window.location.href = 'search-results.php';
     });
 
-    // Handle form submission
-    const form = document.getElementById('searchFilterForm');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Create URL params
-        const formData = new FormData(form);
-        const params = new URLSearchParams();
+                // Handle form submission
+                const form = document.getElementById('searchFilterForm');
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-        // Only add non-empty values to URL
-        for (const [key, value] of formData.entries()) {
+                // Create URL params
+                const formData = new FormData(form);
+                const params = new URLSearchParams();
+
+                // Only add non-empty values to URL
+                for (const [key, value] of formData.entries()) {
             if (value.trim() !== '') {
-                params.append(key, value.trim());
+                    params.append(key, value.trim());
             }
         }
 
-        // Redirect with query parameters
-        const queryString = params.toString();
-        window.location.href = `search-results.php${queryString ? '?' + queryString : ''}`;
+                // Redirect with query parameters
+                const queryString = params.toString();
+                window.location.href = `search-results.php${queryString ? '?' + queryString : ''}`;
     });
 
     // Handle range inputs validation
@@ -956,8 +989,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-</script>
-</script>
-</body>
+        </script>
+        </script>
+    </body>
+
 </html>
 <?php include 'footer.php'; ?>

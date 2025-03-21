@@ -131,6 +131,8 @@ $car_count = mysqli_num_rows($result);
             padding: 0 15px 15px;
             margin: 0;
             font-weight: 500;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .carinfo {
@@ -272,7 +274,7 @@ $car_count = mysqli_num_rows($result);
             </div>
         <?php else: ?>
             <div class="brand-header">
-                <img src="<?php echo htmlspecialchars($brand['logo_url']); ?>"
+                <img src="https://img.logo.dev/<?php echo htmlspecialchars($brand_name); ?>.com"
                     alt="<?php echo htmlspecialchars($brand_name); ?>" class="brand-logo">
                 <h1 class="brand-title"><?php echo htmlspecialchars($brand_name); ?></h1>
             </div>

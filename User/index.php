@@ -931,19 +931,20 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
                 </div>
             </div>
         </div>
-                <!-- Replace the static brand section with this dynamic one -->
+        <!-- Replace the static brand section with this dynamic one -->
         <div class="ds-md-sb">
             <div id="searchbar">
                 <form action="search-results.php" method="GET" style="display: flex; align-items: center;">
                     <input type="text" class="search" id="search" name="query"
                         placeholder="Nhập hãng xe vd: Lamborghini,...."
                         style="flex: 1; padding: 10px; font-size: 16px;">
-                    <button type="submit" style="padding: 10px 20px; font-size: 16px; margin-left: 5px; cursor: pointer;">
+                    <button type="submit"
+                        style="padding: 10px 20px; font-size: 16px; margin-left: 5px; cursor: pointer;">
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
             </div>
-            
+
             <div id="ds-md">
                 <h1 id="ds-md-title">Kiểu Dáng/ Hãng Xe Phổ Biến</h1>
                 <div id="ctn21">
@@ -951,9 +952,9 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
                     // Query to get all car types/brands
                     $brand_query = "SELECT * FROM car_types ORDER BY type_name";
                     $brand_result = mysqli_query($connect, $brand_query);
-        
+
                     while ($brand = mysqli_fetch_assoc($brand_result)) {
-                        if($brand['type_name']=='bmw'||$brand['type_name']=='lamborghini'||$brand['type_name']=='mazda'){
+                        if ($brand['type_name'] == 'bmw' || $brand['type_name'] == 'lamborghini' || $brand['type_name'] == 'mazda') {
 
                             echo '<div class="lgb">';
                             echo '<a style="text-transform:uppercase;" class="lg" href="' . urlencode($brand['type_name']) . '.php">';
@@ -964,8 +965,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
                             echo htmlspecialchars($brand['type_name']);
                             echo '</a>';
                             echo '</div>';
-                        }
-                        else{
+                        } else {
                             echo '<div class="lgb">';
                             echo '<a style="text-transform:uppercase;" class="lg" href="brand.php?type=' . urlencode($brand['type_name']) . '">';                            // Use the logo_url field from your database
                             echo '<img class="lg-b" src="https://img.logo.dev/' . htmlspecialchars($brand['type_name']) . '.com" 
@@ -975,7 +975,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
                             echo '</a>';
                             echo '</div>';
                         }
-                        }
+                    }
                     ?>
                 </div>
             </div>
@@ -1010,7 +1010,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
                                     <span class="info"><?= $car['enginepower'] ?>&nbsp;Mã lực</span>
                                 </i>
                                 <i class="fas fa-tachometer-alt">
-                                    <span class="info"><?= $car['speed'] ?></span>
+                                    <span class="info"><?= $car['speed'] ?>&nbsp;km/h</span>
                                 </i>
                                 <i class="fas fa-calendar-alt">
                                     <span class="info"><?= $car['year'] ?></span>
@@ -1029,7 +1029,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
             <div class="pagination">
                 <?php if ($page > 1): ?>
                     <a href="?page=<?= $page - 1 ?>#view" class="page-link page-nav">
-                        <i class="fas fa-chevron-left"></i> Prev
+                        <i class="fas fa-chevron-left"></i> Trang trước
                     </a>
                 <?php endif; ?>
 
@@ -1041,7 +1041,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
 
                 <?php if ($page < $totalPages): ?>
                     <a href="?page=<?= $page + 1 ?>#view" class="page-link page-nav">
-                        Next <i class="fas fa-chevron-right"></i>
+                        Trang sau <i class="fas fa-chevron-right"></i>
                     </a>
                 <?php endif; ?>
             </div>

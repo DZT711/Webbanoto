@@ -61,14 +61,14 @@ include 'connect.php';
     /* Add this to your HTML right after the delivery-top section */ -->
 </style>
 <style>
-/* Delivery Page Container */
-.delivery {
-    padding: 40px 0;
-    background-color: #efefef;
-}
+    /* Delivery Page Container */
+    .delivery {
+        padding: 40px 0;
+        background-color: #efefef;
+    }
 
-/* Title Styling */
-/* .eight {
+    /* Title Styling */
+    /* .eight {
     height: 100px;
     background-color: #efefef;
     border-radius: 8px;
@@ -78,186 +78,187 @@ include 'connect.php';
 
 
 
-/* Progress Bar */
-.delivery-top-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
-}
+    /* Progress Bar */
+    .delivery-top-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
 
-.delivery-top {
-    height: 2px;
-    width: 70%;
-    background-color: #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px auto;
-    max-width: 840px;
-    position: relative;
-}
+    .delivery-top {
+        height: 2px;
+        width: 70%;
+        background-color: #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 30px auto;
+        max-width: 840px;
+        position: relative;
+    }
 
-.delivery-top-item {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-}
+    .delivery-top-item {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
 
-.delivery-top-item i {
-    color: #666;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
+    .delivery-top-item i {
+        color: #666;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+    }
 
-.delivery-top-item.active {
-    border-color: #007bff;
-    background-color: #007bff;
-}
+    .delivery-top-item.active {
+        border-color: #007bff;
+        background-color: #007bff;
+    }
 
-.delivery-top-item.active i {
-    color: #fff;
-}
+    .delivery-top-item.active i {
+        color: #fff;
+    }
 
-/* Content Layout */
-.delivery-content-row {
-    display: flex;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Left Section - Form */
-.delivery-content-left {
-    flex: 2;
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.input-group {
-    margin-bottom: 20px;
-    width:590px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #2c3e50;
-    font-weight: 500;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-}
-
-.input-group input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Right Section - Summary */
-.delivery-content-right {
-    flex: 1;
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.delivery-content-right table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.delivery-content-right th,
-.delivery-content-right td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.delivery-content-right th {
-    font-weight: 600;
-    color: #2c3e50;
-    background-color: #f8f9fa;
-}
-
-/* Action Buttons */
-.delivery-content-left-button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-}
-
-#checkout-button {
-    padding: 12px 24px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#checkout-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.return {
-    color: #666;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s ease;
-}
-
-.return:hover {
-    color: #007bff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+    /* Content Layout */
     .delivery-content-row {
-        flex-direction: column;
+        display: flex;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
 
-    .delivery-content-left,
-    .delivery-content-right {
+    /* Left Section - Form */
+    .delivery-content-left {
+        flex: 2;
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+        width: 590px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+        font-weight: 500;
+    }
+
+    .input-group input {
         width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
     }
 
+    .input-group input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Right Section - Summary */
+    .delivery-content-right {
+        flex: 1;
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .delivery-content-right table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .delivery-content-right th,
+    .delivery-content-right td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    .delivery-content-right th {
+        font-weight: 600;
+        color: #2c3e50;
+        background-color: #f8f9fa;
+    }
+
+    /* Action Buttons */
     .delivery-content-left-button {
-        flex-direction: column;
-        gap: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
     }
 
     #checkout-button {
-        width: 100%;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
-}
-.registration-form{
-padding: 10px;
-}
+
+    #checkout-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .return {
+        color: #666;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .return:hover {
+        color: #007bff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .delivery-content-row {
+            flex-direction: column;
+        }
+
+        .delivery-content-left,
+        .delivery-content-right {
+            width: 100%;
+        }
+
+        .delivery-content-left-button {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #checkout-button {
+            width: 100%;
+        }
+    }
+
+    .registration-form {
+        padding: 10px;
+    }
 </style>
 <style>
     /* Update Title Container */
@@ -265,7 +266,7 @@ padding: 10px;
         height: 100px;
         background-color: white;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin: 20px auto;
         max-width: 1200px;
         position: relative;
@@ -273,7 +274,7 @@ padding: 10px;
         align-items: center;
         justify-content: center;
     }
-    
+
     /* Update Title Styling */
     .eight h1 {
         position: relative;
@@ -288,7 +289,7 @@ padding: 10px;
         letter-spacing: 1px;
         transition: all 0.3s ease;
     }
-    
+
     /* Add underline accent */
     .eight h1::after {
         content: '';
@@ -300,15 +301,15 @@ padding: 10px;
         height: 3px;
         background-color: var(--cart-primary);
         border-radius: 2px;
-    }    
+    }
 </style>
 <style>
-        /* Title Container */
+    /* Title Container */
     .eight {
         height: 100px;
         background-color: white;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin: 20px auto;
         max-width: 1200px;
         position: relative;
@@ -316,7 +317,7 @@ padding: 10px;
         align-items: center;
         justify-content: center;
     }
-    
+
     /* Title Styling */
     .eight h1 {
         position: relative;
@@ -331,7 +332,7 @@ padding: 10px;
         letter-spacing: 1px;
         transition: all 0.3s ease;
     }
-    
+
     /* Add underline accent */
     .eight h1::after {
         content: '';
@@ -344,18 +345,19 @@ padding: 10px;
         background-color: #007bff;
         border-radius: 2px;
     }
-    
+
     /* Remove old title lines */
     .eight h1:before {
         content: none;
     }
 </style>
+
 <body>
-    
 
-    
 
-    
+
+
+
 
     <!------------Delivery------------>
     <section class="delivery">
@@ -387,11 +389,11 @@ padding: 10px;
         </div>
 
 
-            <div class="eight">
-                <h1>Thông Tin Vận Chuyển</h1>
-            </div>
+        <div class="eight">
+            <h1>Thông Tin Vận Chuyển</h1>
+        </div>
 
-            <div class="delivery-content-row">
+        <div class="delivery-content-row">
             <div class="delivery-content-left">
                 <p><span class="info">Vui lòng chọn địa chỉ giao hàng</span></p>
                 <!-- <div class="delvery-content-left-dangnhap row">
@@ -502,10 +504,10 @@ padding: 10px;
     </section>
 
     <!------------footer----------->
-    
+
 </body>
 
-                    </html>
+</html>
 <?php
 include 'footer.php';
 ?>
