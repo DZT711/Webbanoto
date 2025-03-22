@@ -1,8 +1,28 @@
 <?php
 include 'header.php';
-include 'connect.php';
-?>
+// include 'connect.php';
 
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Store the intended destination
+    $_SESSION['redirect_after_login'] = 'delivery.php';
+    // Redirect to login page
+    echo "<script>
+        alert('Vui lòng đăng nhập để tiếp tục.');
+        window.location.href='login.php';
+    </script>";
+    exit();
+}
+
+// Get user information
+$user_id = $_SESSION['user_id'];
+$user_query = "SELECT * FROM users_acc WHERE id = ?";
+$stmt = mysqli_prepare($connect, $user_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$user_result = mysqli_stmt_get_result($stmt);
+$user_info = mysqli_fetch_assoc($user_result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -470,7 +490,7 @@ main {
             </div>
         <div class="container">
             <div class="eight">
-                <h1>Thông Tin Vận Chuyển</h1>
+                <h1>Thông Tin Thanh Toán</h1>
             </div>
             <div class="payment-content row">
             <!----Thanh toán bằng thẻ tín dụng-->

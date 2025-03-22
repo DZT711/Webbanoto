@@ -539,7 +539,7 @@ if (isset($_SESSION['user_id'])) {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: 600;
-        color: rgb(153, 153, 153);
+        color: rgb(0, 0, 0);
         font-size: 26px;
         text-align: center;
         text-transform: uppercase;
@@ -1194,10 +1194,150 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .cart {
-        padding-bottom: 50vh;
+        padding-bottom: 10vh;
     }
+    
+</style>
+
+<style>
+/* Progress Bar Section */
+.cart-top-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.cart-top {
+    height: 2px;
+    width: 70%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 840px;
+    position: relative;
+}
+
+.cart-top::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 2px;
+    width: 0%; /* Will be updated based on progress */
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+.cart-top-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.cart-top-item i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.cart-top-item.active {
+    border-color: #4CAF50;
+    background-color: #4CAF50;
+}
+
+.cart-top-item.active i {
+    color: #fff;
+}
+
+.cart-top-item:hover {
+    transform: scale(1.1);
+}
+
+.cart-top-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Progress Line */
+.cart-top-cart.active ~ .cart-top-address .cart-top-item,
+.cart-top-cart.active ~ .cart-top-payment .cart-top-item {
+    border-color: #ddd;
+    background-color: #fff;
+}
+
+.cart-top-cart.active ~ .cart-top-address .cart-top-item i,
+.cart-top-cart.active ~ .cart-top-payment .cart-top-item i {
+    color: #666;
+}
+
+.cart-content-right{
+    font-size:14px;
+}
+.thr{
+    width:50%;
+}
 </style>
 <style>
+        /* Add/update this CSS */
+    .cart-content-right table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed; /* Add this to enforce column widths */
+    }
+    
+    .cart-content-right td.thr {
+        width: 50%;
+        padding-right: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        color: #495057;
+    }
+    
+    .cart-content-right td:last-child {
+        width: 50%;
+        text-align: right;
+        padding-left: 15px;
+        white-space: nowrap;
+    }
+    
+    /* Style for the header row */
+    .cart-content-right th {
+        padding: 15px;
+        text-align: center;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-size: 1rem;
+        border-bottom: 2px solid #e9ecef;
+        font-weight: 600;
+    }
+    
+    /* Icon alignment in thr cells */
+    .cart-content-right td.thr i {
+        margin-right: 8px;
+        width: 16px;
+        text-align: center;
+    }
 
 </style>
 
@@ -1206,26 +1346,22 @@ if (isset($_SESSION['user_id'])) {
     <!------------cart------------->
     <section class="cart">
         <div class="container">
-            <div class="cart-top-wrap">
-
+                        <div class="cart-top-wrap">
                 <div class="cart-top">
-                    <div class="cart-top-cart cart-top-item">
+                    <div class="cart-top-cart cart-top-item active">
                         <a href="cart.php">
-
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </div>
-
+            
                     <div class="cart-top-address cart-top-item">
                         <a href="delivery.php">
-
                             <i class="fa-solid fa-location-dot"></i>
                         </a>
                     </div>
-
+            
                     <div class="cart-top-payment cart-top-item">
                         <a href="payment.php">
-
                             <i class="fa-solid fa-money-check"></i>
                         </a>
                     </div>
@@ -1234,8 +1370,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="container">
             <div class="eight">
-                <h1> ----------------------------------------------- Giỏ Hàng
-                    -----------------------------------------------</h1>
+                <h1>Giỏ Hàng của tôi
+</h1>
             </div>
 
             <div class="cart-content-row">
@@ -1331,7 +1467,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="cart-content-right">
-                    <table>
+                    <table style="table-layout: fixed; border-collapse: collapse;">
                         <tr>
                             <th colspan="2">
                                 <i class="fa-solid fa-shopping-cart cart-icon"></i>
@@ -1339,7 +1475,7 @@ if (isset($_SESSION['user_id'])) {
                             </th>
                         </tr>
                         <tr>
-                            <td>
+                            <td  class="thr">
                                 <i class="fa-solid fa-cubes quantity-icon"></i>
                                 TỔNG SẢN PHẨM
                             </td>
@@ -1348,24 +1484,24 @@ if (isset($_SESSION['user_id'])) {
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td  class="thr">
                                 <i class="fa-solid fa-calculator price-icon"></i>
                                 TỔNG TIỀN
                             </td>
-                            <td>
-                                <p id="total-amount">
-                                    <?php echo number_format($totalAmount, 0, ',', '.'); ?> VND
+                            <td >
+                                <p id="total-amount" >
+                                    <?php echo number_format($totalAmount, 0, ',', '.'); ?> ₫
                                 </p>
                             </td>
-                        </tr>
+                        </tr> 
                         <tr>
-                            <td>
+                            <td  class="thr">
                                 <i class="fa-solid fa-receipt total-icon"></i>
                                 TẠM TÍNH
                             </td>
                             <td>
                                 <p style="color: black; font-weight: bold;">
-                                    <?php echo number_format($totalAmount, 0, ',', '.'); ?> VND
+                                    <?php echo number_format($totalAmount, 0, ',', '.'); ?> ₫
                                 </p>
                             </td>
                         </tr>

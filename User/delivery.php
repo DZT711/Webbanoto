@@ -1,6 +1,56 @@
 <?php
 include 'header.php';
-include 'connect.php';
+// include 'connect.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Store the intended destination
+    $_SESSION['redirect_after_login'] = 'delivery.php';
+    // Redirect to login page
+    echo "<script>
+        showNotification('Vui lòng đăng nhập để tiếp tục.','warning');
+        window.location.href='login.php';
+    </script>";
+    exit();
+}
+
+// Get user information
+$user_id = $_SESSION['user_id'];
+$user_query = "SELECT * FROM users_acc WHERE id = ?";
+$stmt = mysqli_prepare($connect, $user_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$user_result = mysqli_stmt_get_result($stmt);
+$user_info = mysqli_fetch_assoc($user_result);
+// Add this code after getting user information and before the HTML
+$cartItems = [];
+$totalAmount = 0;
+
+// Get cart items for the current user
+$cart_query = "SELECT ci.*, p.*, ct.type_name, (ci.quantity * p.price) as subtotal 
+               FROM cart_items ci
+               JOIN cart c ON ci.cart_id = c.cart_id
+               JOIN products p ON ci.product_id = p.product_id
+               LEFT JOIN car_types ct ON p.brand_id = ct.type_id
+               WHERE c.user_id = ? AND c.cart_status = 'activated'";
+
+$stmt = mysqli_prepare($connect, $cart_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $cartItems[] = $row;
+    $totalAmount += $row['subtotal'];
+}
+
+// Calculate VAT (if needed)
+$vatRate = 10 ; // 0% as per your current display
+$vatAmount = ($totalAmount * $vatRate) / 100;
+$finalTotal = $totalAmount + $vatAmount;
+?>
+<?php
+define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +59,12 @@ include 'connect.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Địa chỉ vận chuyển</title>
+    <!-- Add this in the head section -->
+<!-- Replace Google Maps script with Leaflet CSS and JS in the head section -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- <link rel="stylesheet" href="delivery.css"> -->
     <script src="delivery.js"></script>
@@ -196,14 +252,21 @@ include 'connect.php';
         font-weight: 600;
         color: #2c3e50;
         background-color: #f8f9fa;
+        padding: 12px 2px;
     }
+    /* .delivery-content-right th:first-child{
+        padding-left: 12px;
+    }
+    .delivery-content-right th:last-child{
+        padding-right: 12px;
+    } */
 
     /* Action Buttons */
     .delivery-content-left-button {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 30px;
+        /* margin-top: 170px; */
     }
 
     #checkout-button {
@@ -350,8 +413,320 @@ include 'connect.php';
     .eight h1:before {
         content: none;
     }
+    .VAT{
+        color: #FF5733; /* Màu cam đỏ nổi bật */
+
+    }
+    .total-amount{
+        color: #008000; /* Màu xanh lá cây tiêu chuẩn */
+
+    }
+    .amount{
+        color: #1C4E80; /* Xanh dương đậm */
+
+    }
+</style>
+<style>
+.delivery-content-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width:600px;
+}
+
+/* Products List Section */
+.products-list {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.products-list table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.products-list th {
+    background: #f8f9fa;
+    padding: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.products-list td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.product-brand {
+    color: #666;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.product-name {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Order Summary Section */
+.order-summary {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+    padding-top: 20px;
+    margin-top: 8px;
+    border-top: 2px solid #eee;
+}
+
+.summary-label {
+    color: #666;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.summary-value {
+    font-weight: 600;
+}
+
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: #e9ecef;
+    color: #2c3e50;
+    transform: translateX(-2px);
+}
+
+.back-button i {
+    font-size: 14px;
+}
+
 </style>
 
+<!-- Update the delivery content right section -->
+
+<style>
+        /* Input Group Fixes */
+    .input-group {
+        margin-bottom: 20px;
+        width: 100%; /* Changed from 590px */
+        max-width: 590px;
+    }
+    
+    .input-group input {
+        width: 95%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: #fff;
+    }
+    
+    /* Products List Styling */
+    .products-list {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    
+    .products-list table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    /* Table Header Widths */
+    .products-list th:nth-child(1) { width: 25%; } /* Brand */
+    .products-list th:nth-child(2) { width: 35%; } /* Product Name */
+    .products-list th:nth-child(3) { width: 15%; } /* Quantity */
+    .products-list th:nth-child(4) { width: 10%; } /* Price */
+    
+    .products-list th {
+        background: #f8f9fa;
+        padding: 15px;
+        font-weight: 600;
+        color: #2c3e50;
+        text-transform: uppercase;
+        font-size: 0.85em;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        max-width:110px;
+    }
+    
+    /* Order Summary Section */
+    .order-summary {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .summary-row:last-child {
+        border-bottom: none;
+        padding-top: 20px;
+        margin-top: 8px;
+        border-top: 2px solid #eee;
+        background-color: #f8f9fa;
+        margin: 0 -20px;
+        padding: 20px;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .input-group {
+            max-width: 100%;
+        }
+        
+        .products-list th,
+        .products-list td {
+            padding: 10px;
+        }
+        
+        .products-list th:nth-child(1) { width: 20%; }
+        .products-list th:nth-child(2) { width: 30%; }
+        .products-list th:nth-child(3) { width: 20%; }
+        .products-list th:nth-child(4) { width: 15%; }
+    }
+    /* Add/update these styles */
+    .delivery-top-item {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .delivery-top-item.active {
+        border-color: #4CAF50;
+        background-color: #4CAF50;
+    }
+    
+    .delivery-top-item.active i {
+        color: #fff;
+    }
+    
+    /* Add progress line color */
+    .delivery-top::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 2px;
+        width: 50%; /* Adjust based on current step */
+        background-color: #4CAF50;
+        z-index: 1;
+    }
+</style>
+<style>
+.address-input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    height: 200px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+.location-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.location-button:hover {
+    color: #0056b3;
+}
+</style>
+<style>
+        /* Update the map container styles */
+    .map-container {
+        height: 300px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        z-index: 1;
+    }
+    
+    #map {
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+    
+    .leaflet-control-geocoder {
+        z-index: 2;
+    }
+</style>
+<style>
+    
+</style>
 <body>
 
 
@@ -363,24 +738,22 @@ include 'connect.php';
     <section class="delivery">
         <div class="container">
             <div class="delivery-top-wrap">
+                                <!-- Update the delivery top section -->
                 <div class="delivery-top">
-                    <div class="delivery-top-delivery delivery-top-item">
+                    <div class="delivery-top-delivery delivery-top-item active">
                         <a href="cart.php">
-
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </div>
-
-                    <div class="delivery-top-address delivery-top-item">
+                
+                    <div class="delivery-top-address delivery-top-item active">
                         <a href="delivery.php">
-
                             <i class="fa-solid fa-location-dot"></i>
                         </a>
                     </div>
-
+                
                     <div class="delivery-top-payment delivery-top-item">
                         <a href="payment.php">
-
                             <i class="fa-solid fa-money-check"></i>
                         </a>
                     </div>
@@ -395,41 +768,74 @@ include 'connect.php';
 
         <div class="delivery-content-row">
             <div class="delivery-content-left">
-                <p><span class="info">Vui lòng chọn địa chỉ giao hàng</span></p>
-                <!-- <div class="delvery-content-left-dangnhap row">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <p><span class="info">Đăng nhập nếu bạn đã có tài khoản</span></p>
-                </div> -->
-                <!-- <div class="delivery-content-left-khachle row">
-                    <input id="radio-guest" name="loaikhach" type="radio" onclick="toggleRegisterForm(false)">
-                    <p><span style="font-weight: bold;">Khách lẻ </span> (Nếu bạn không muốn lưu lại thông tin)</p>
+                <p><span class="info">Vui lòng nhập địa chỉ giao hàng (nếu chưa có)</span></p>
+                <div class="delivery-content-left-input-top row">
+    <div class="input-group">
+        <label>
+            <i class="fas fa-user"></i>
+            Họ tên<span class="required-indicator">*</span>
+        </label>
+        <input type="text" id="full_name" name="full_name" 
+               value="<?php echo htmlspecialchars($user_info['full_name'] ?? ''); ?>" required>
+                        <!-- <i class="fas fa-user-circle"></i> -->
+                    </div>
+                
+                    <div class="input-group">
+                        <label>
+                            <i class="fas fa-phone"></i>
+                            Số điện thoại<span class="required-indicator">*</span>
+                        </label>
+                        <input type="text" id="phone" name="phone"
+                            value="<?php echo htmlspecialchars($user_info['phone_num'] ?? ''); ?>" required>
+                        <!-- <i class="fas fa-phone-alt"></i> -->
+                    </div>
+                
+                                        <!-- Update the address input section -->
+                    <div class="input-group">
+                        <label>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Địa chỉ<span class="required-indicator">*</span>
+                        </label>
+                        <div class="map-container">
+                            <div id="map"></div>
+                        </div>
+                        <div class="address-input-container">
+                            <input type="text" id="address" name="address" 
+                                   value="<?php echo htmlspecialchars($user_info['address'] ?? ''); ?>" 
+                                   placeholder="Nhập địa chỉ của bạn" required>
+                            <button type="button" class="location-button" onclick="getCurrentLocation()">
+                                <i class="fas fa-crosshairs"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="delivery-content-left-dangky row">
-                    <input id="radio-register" name="loaikhach" type="radio" onclick="toggleRegisterForm(true)">
-                    <p><span style="font-weight: bold;">Đăng ký </span> (Tạo mới tài khoản với thông tin bên dưới)</p>
-                </div> -->
-                <div id="registration-form" class="delivery-content-left-input-top row" style="display: none;">
-                    <div class="input-group">
-                        <label for="">Họ tên<span style="color: red;">*</span></label>
-                        <input type="text" placeholder="Nhập họ tên">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Số điện thoại<span style="color: red;">*</span></label>
-                        <input type="text" placeholder="Nhập số điện thoại">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Tỉnh/Tp<span style="color: red;">*</span></label>
-                        <input type="text" placeholder="Nhập tỉnh/thành phố">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Quận/huyện<span style="color: red;">*</span></label>
-                        <input type="text" placeholder="Nhập quận/huyện">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Địa chỉ<span style="color: red;">*</span></label>
-                        <input type="text" placeholder="Nhập địa chỉ cụ thể">
-                    </div>
-                </div>
+                
+                <script>
+                function saveDeliveryInfo() {
+                    const deliveryData = {
+                        full_name: document.getElementById('full_name').value,
+                        phone: document.getElementById('phone').value,
+                        address: document.getElementById('address').value
+                    };
+                
+                    // Save to database
+                    fetch('save_delivery.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(deliveryData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = 'payment.php';
+                        } else {
+                            showNotification('Có lỗi xảy ra. Vui lòng thử lại.','error');
+                        }
+                    });
+                }
+                </script>
                 <script>
                     function toggleRegisterForm(show) {
                         const form = document.getElementById('registration-form');
@@ -442,10 +848,11 @@ include 'connect.php';
                     toggleRegisterForm(true);
                 </script>
                 <div class="delivery-content-left-button row">
-                    <a href="cart.php">
-                        <p><span class="return"><span>&#171;</span>Quay lại giỏ hàng</span></p>
-                    </a>
-                    <button id="checkout-button" onclick="navigateToPayment()">THANH TOÁN VÀ GIAO HÀNG</button>
+                    <button onclick="window.location.href='cart.php'" class="back-button" style="height:39px;cursor:pointer;">
+                        <i class="fas fa-arrow-left"></i> Quay lại giỏ hàng
+
+                    </button>
+                    <button id="checkout-button" onclick="navigateToPayment()">Thanh toán và giao hàng</button>
                     <script>
                         function navigateToPayment() {
                             // Chuyển hướng đến trang payment.php
@@ -454,57 +861,232 @@ include 'connect.php';
                     </script>
                 </div>
             </div>
-            <div class="delivery-content-right">
-                <table>
-                    <tr>
-                        <th>Thương hiệu</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Giá</th>
-                    </tr>
-                    <tr>
-                        <td>BMW</td>
-                        <td>BMW 320I SPORT LINE 2023</td>
-                        <td>1</td>
-                        <td>
-                            <p>1,189,000,000VND</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>BMW</td>
-                        <td>
-                            <p>BMW 520I LUXURY 2021</p>
-                        </td>
-                        <td>1</td>
-                        <td>
-                            <p>1,450,000,000VND</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;" colspan="3">TẠM TÍNH</td>
-                        <td style="font-weight: bold;">
-                            <p>2,639,000,000VND</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;" colspan="3">THUẾ VAT</td>
-                        <td style="font-weight: bold;">
-                            <p>0%</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;" colspan="3">TỔNG</td>
-                        <td style="font-weight: bold;">
-                            <p>2,639,000,000VND</p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                        <div class="delivery-content-right">
+    <div class="products-list">
+        <table>
+            <tr>
+                <th><i class="fas fa-tag"></i> Thương hiệu</th>
+                <th><i class="fas fa-car"></i> Tên sản phẩm</th>
+                <th><i class="fas fa-sort-amount-up"></i> Số lượng</th>
+                <th><i class="fas fa-dollar-sign"></i> Đơn Giá</th>
+            </tr>
+            <?php foreach ($cartItems as $item): ?>
+            <tr>
+                <td>
+                    <span class="product-brand">
+                        <i class="fas fa-building"></i>
+                        <?php echo htmlspecialchars($item['type_name'] ?? 'N/A'); ?>
+                    </span>
+                </td>
+                <td>
+                    <span class="product-name" style="text-transform: uppercase; color: gray;">
+                        <?php echo htmlspecialchars($item['car_name']); ?>
+                    </span>
+                </td>
+                <td><?php echo htmlspecialchars($item['quantity']); ?></td>
+                <td>
+                    <p><?php echo number_format($item['price'], 0, ',', '.'); ?> ₫</p>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <div class="order-summary">
+        <div class="summary-row">
+            <span class="summary-label">
+                <i class="fas fa-calculator"></i>
+                Thành tiền
+            </span>
+            <span class="summary-value amount">
+                <?php echo number_format($totalAmount, 0, ',', '.'); ?> ₫
+            </span>
+        </div>
+        <div class="summary-row">
+            <span class="summary-label">
+                <i class="fas fa-percent"></i>
+                Thuế VAT
+            </span>
+            <span class="summary-value VAT">
+                <?php echo $vatRate; ?>%
+            </span>
+        </div>
+        <div class="summary-row">
+            <span class="summary-label">
+                <i class="fas fa-money-bill-wave"></i>
+                Tổng cộng
+            </span>
+            <span class="summary-value total-amount">
+                <?php echo number_format($finalTotal, 0, ',', '.'); ?> ₫
+            </span>
+        </div>
+    </div>
+</div>
+
         </div>
     </section>
 
     <!------------footer----------->
+<script>
+let map, marker, geocoder;
 
+function initMap() {
+    // Default to Vietnam center
+    const defaultLocation = [16.0474, 108.2062];
+    
+    // Initialize map
+    map = L.map('map').setView(defaultLocation, 13);
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+    // Initialize marker
+    marker = L.marker(defaultLocation, {
+        draggable: true
+    }).addTo(map);
+    
+    // Initialize geocoder
+    geocoder = L.Control.geocoder({
+        defaultMarkGeocode: false
+    })
+    .on('markgeocode', function(e) {
+        const latlng = e.geocode.center;
+        marker.setLatLng(latlng);
+        map.setView(latlng, 16);
+        reverseGeocode(latlng);
+    })
+    .addTo(map);
+    
+    // Handle marker drag
+    marker.on('dragend', function() {
+        const position = marker.getLatLng();
+        reverseGeocode(position);
+    });
+    
+    // Handle address input changes
+    const addressInput = document.getElementById('address');
+    addressInput.addEventListener('change', function() {
+        geocoder.geocode(this.value);
+    });
+
+    // Try to get user's location on load
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const latlng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                marker.setLatLng(latlng);
+                map.setView(latlng, 16);
+                reverseGeocode(latlng);
+            },
+            (error) => {
+                console.log('Error getting location:', error);
+            }
+        );
+    }
+}
+
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const latlng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                marker.setLatLng(latlng);
+                map.setView(latlng, 16);
+                reverseGeocode(latlng);
+            },
+            () => {
+                showNotification('Không thể lấy vị trí hiện tại.', 'error');
+            }
+        );
+    } else {
+        showNotification('Trình duyệt không hỗ trợ định vị.', 'error');
+    }
+}
+
+function reverseGeocode(latlng) {
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&accept-language=vi`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.address) {
+                // Format address components
+                const addressComponents = [];
+                
+                // Add specific components if they exist
+                if (data.address.house_number) addressComponents.push(data.address.house_number);
+                if (data.address.road) addressComponents.push(data.address.road);
+                if (data.address.suburb) addressComponents.push(data.address.suburb);
+                if (data.address.city_district) addressComponents.push(data.address.city_district);
+                if (data.address.city) addressComponents.push(data.address.city);
+                if (data.address.state) addressComponents.push(data.address.state);
+                
+                // Join components with commas
+                const formattedAddress = addressComponents.join(', ');
+                
+                // Update input field
+                document.getElementById('address').value = formattedAddress;
+                
+                // Show success notification
+                showNotification('Đã cập nhật địa chỉ thành công', 'success');
+            } else {
+                showNotification('Không thể xác định địa chỉ từ vị trí này', 'error');
+            }
+        })
+        .catch(() => {
+            showNotification('Có lỗi khi lấy thông tin địa chỉ', 'error');
+        });
+}
+
+// Initialize map when page loads
+document.addEventListener('DOMContentLoaded', initMap);
+</script>
+<script>
+        function navigateToPayment() {
+        const fullName = document.getElementById('full_name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+    
+        // Validate required fields
+        if (!fullName || !phone || !address) {
+            showNotification('Vui lòng điền đầy đủ thông tin giao hàng', 'error');
+            return;
+        }
+    
+        // Save delivery info
+        const deliveryData = {
+            full_name: fullName,
+            phone: phone,
+            address: address
+        };
+    
+        fetch('save_delivery.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(deliveryData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = 'payment.php';
+            } else {
+                showNotification(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.', 'error');
+            }
+        })
+        .catch(error => {
+            showNotification('Có lỗi xảy ra. Vui lòng thử lại.', 'error');
+            console.error('Error:', error);
+        });
+    }
+</script>
 </body>
 
 </html>
