@@ -1506,10 +1506,15 @@ if (isset($_SESSION['user_id'])) {
                             </td>
                         </tr>
                     </table>
-                    <div class="cart-content-right-button">
-                        <button id="continue-shopping" onclick="history.back()">TRỞ VỀ</button>
-                        <!-- <button id="checkout-button" onclick="navigateToDelivery()">THANH TOÁN</button> -->
-                        <button id="checkout-button" onclick="proceedToCheckout()">THANH TOÁN</button>
+                                        <div class="cart-content-right-button">
+                        <button id="continue-shopping" onclick="history.back()">
+                            <i class="fas fa-arrow-left"></i>
+                            Trở về
+                        </button>
+                        <button id="checkout-button" onclick="proceedToCheckout()">
+                            Tiếp tục
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
 
                     <!-- <div class="cart-content-right-dangnhap">

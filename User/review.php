@@ -1,362 +1,415 @@
 <?php
-
 include 'header.php';
-include 'connect.php';
 
+// Get order details
+$order_id = $_SESSION['current_order_id'];
+$user_id = $_SESSION['user_id'];
+
+// Get order information
+$order_query = "SELECT o.*, u.full_name, u.phone_num, u.address, pm.description 
+                FROM orders o
+                JOIN users_acc u ON o.user_id = u.id
+                LEFT JOIN payment_methods pm ON o.payment_method_id = pm.payment_method_id
+                WHERE o.order_id = ? AND o.user_id = ?";
+
+$stmt = mysqli_prepare($connect, $order_query);
+mysqli_stmt_bind_param($stmt, "ii", $order_id, $user_id);
+mysqli_stmt_execute($stmt);
+$order = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+
+// Get order details (products)
+$products_query = "SELECT od.*, p.car_name, p.price, p.year_manufacture, p.max_speed, ct.type_name 
+                  FROM order_details od
+                  JOIN products p ON od.product_id = p.product_id
+                  LEFT JOIN car_types ct ON p.brand_id = ct.type_id
+                  WHERE od.order_id = ?";
+
+$stmt = mysqli_prepare($connect, $products_query);
+mysqli_stmt_bind_param($stmt, "i", $order_id);
+mysqli_stmt_execute($stmt);
+$products = mysqli_stmt_get_result($stmt);
+
+$total = 0;
+$products_query = "SELECT od.*, p.car_name, p.price, p.year_manufacture, p.max_speed, ct.type_name 
+                FROM order_details od
+                JOIN products p ON od.product_id = p.product_id
+                LEFT JOIN car_types ct ON p.brand_id = ct.type_id
+                WHERE od.order_id = ?";
+
+$stmt = mysqli_prepare($connect, $products_query);
+mysqli_stmt_bind_param($stmt, "i", $order_id);
+mysqli_stmt_execute($stmt);
+$products = mysqli_stmt_get_result($stmt);
+
+// Calculate totals
+while ($product = mysqli_fetch_assoc($products)) {
+    $subtotal = $product['quantity'] * $product['price'];
+    $total += $subtotal;
+}
+
+// Calculate VAT and total amount
+$vat = $total * 0.1;
+$total_with_shipping = $total + $order['shipping_fee'] + $vat;
+
+// Update the order with calculated values
+$update_totals = "UPDATE orders SET 
+    expected_total_amount = ?,
+    VAT = ?,
+    total_amount = ?
+    WHERE order_id = ?";
+
+$stmt = mysqli_prepare($connect, $update_totals);
+mysqli_stmt_bind_param(
+    $stmt,
+    "dddi",
+    $total,
+    $vat,
+    $total_with_shipping,
+    $order_id
+);
+mysqli_stmt_execute($stmt);
+
+// Refresh order data after update
+$stmt = mysqli_prepare($connect, $order_query);
+mysqli_stmt_bind_param($stmt, "ii", $order_id, $user_id);
+mysqli_stmt_execute($stmt);
+$order = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+
+// Reset products result for display
+mysqli_data_seek($products, 0);
+// Handle form submission for final confirmation
+// Update the order submission handling
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        mysqli_begin_transaction($connect);
+
+        // Calculate final amounts
+        $total_amount = $order['expected_total_amount'] + $order['shipping_fee'] + $order['VAT'];
+
+        // Update order with final amounts and status
+        $update_order = "UPDATE orders SET 
+            shipping_fee = ?,
+            total_amount = ?,
+            order_status = 'is pending',
+            order_date = NOW()
+            WHERE order_id = ?";
+
+        $stmt = mysqli_prepare($connect, $update_order);
+        mysqli_stmt_bind_param($stmt, "ddi", 
+            $order['shipping_fee'],
+            $total_amount,
+            $order_id
+        );
+
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Không thể hoàn tất đơn hàng");
+        }
+
+        mysqli_commit($connect);
+
+        // Clear session cart data
+        $_SESSION['cart'] = array();
+        
+        echo "<script>
+            showNotification('Đặt hàng thành công! Vui lòng chờ xác nhận.', 'success');
+            setTimeout(() => { window.location.href = 'billhistory.php'; }, 2000);
+        </script>";
+        exit();
+
+    } catch (Exception $e) {
+        mysqli_rollback($connect);
+        echo "<script>
+            showNotification('Có lỗi xảy ra: " . addslashes($e->getMessage()) . "','error');
+        </script>";
+    }
+}
 ?>
 <!DOCTYPE html>
-<html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Xem lại đơn hàng - Auto Car</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <script src="review.js"></script>
+    <title>Xác nhận đơn hàng</title>
     <link rel="stylesheet" href="review.css">
-    <link rel="icon" href="dp56vcf7.png" type="image/png">
-    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
-    
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <div class="bg-blue-600 text-white p-4">
-                <h1 class="text-2xl font-bold text-center">XÁC NHẬN THÔNG TIN ĐƠN HÀNG</h1>
+<style>
+    /* Order Review Page Styling */
+    .review-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .review-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .review-header {
+        background: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .review-header h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .review-content {
+        padding: 30px;
+    }
+
+    .section {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        color: #2c3e50;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eee;
+    }
+
+    /* Product Items */
+    .product-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .product-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .product-price {
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .product-details {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    /* Order Summary */
+    .order-summary {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 5px 0;
+    }
+
+    .total-row {
+        border-top: 2px solid #dee2e6;
+        margin-top: 10px;
+        padding-top: 10px;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .total-amount {
+        color: #dc3545;
+    }
+
+    /* Delivery Info */
+    .delivery-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .info-block {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .info-title {
+        color: #6c757d;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .info-content strong {
+        color: #2c3e50;
+    }
+
+    /* Payment Method */
+    .payment-method {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-back:hover {
+        background: #5a6268;
+    }
+
+    .btn-confirm {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-confirm:hover {
+        background: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .delivery-info {
+            grid-template-columns: 1fr;
+        }
+
+        .review-content {
+            padding: 20px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="review-container">
+        <div class="review-card">
+            <div class="review-header">
+                <h1>XÁC NHẬN THÔNG TIN ĐƠN HÀNG</h1>
             </div>
 
-            <div class="p-6">
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">1. CHI TIẾT SẢN PHẨM</h2>
-                    <div id="product-details" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Product details will be dynamically populated by JavaScript -->
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">2. THÔNG TIN GIAO HÀNG</h2>
-                    <div id="delivery-details" class="bg-gray-50 p-4 rounded-lg">
-                        <p class="text-gray-600">Đang tải thông tin giao hàng...</p>
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold mb-4">3. PHƯƠNG THỨC THANH TOÁN</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-medium mb-2">Thẻ tín dụng</h3>
-                            <p id="credit-card-method" class="text-gray-600">Chưa chọn phương thức</p>
+            <div class="review-content">
+                <!-- Products Section -->
+                <div class="section">
+                    <h2 class="section-title">1. CHI TIẾT SẢN PHẨM</h2>
+                    <?php while ($product = mysqli_fetch_assoc($products)): ?>
+                        <div class="product-item">
+                            <div class="product-header">
+                                <span class="product-name">
+                                    <?= htmlspecialchars($product['car_name']) ?>
+                                    (<?= $product['year_manufacture'] ?>)
+                                </span>
+                                <span class="product-price">
+                                    <?= number_format($product['price']) ?> VND
+                                </span>
+                            </div>
+                            <div class="product-details">
+                                <p>Số lượng: <?= $product['quantity'] ?></p>
+                                <p>Vận tốc: <?= $product['max_speed'] ?> km/h</p>
+                                <p>Thương hiệu: <?= $product['type_name'] ?></p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-medium mb-2">Thẻ ATM / Tiền mặt</h3>
-                            <p id="atm-method" class="text-gray-600">Chưa chọn phương thức</p>
+                    <?php endwhile; ?>
+
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>Tổng tiền hàng:</span>
+                            <span><?= number_format($order['expected_total_amount']) ?> VND</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Phí vận chuyển:</span>
+                            <span><?= number_format($order['shipping_fee']) ?> VND</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>VAT (10%):</span>
+                            <span><?= number_format($order['VAT']) ?> VND</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Tổng cộng:</span>
+                            <span class="total-amount"><?= number_format($order['total_amount']) ?> VND</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between mt-8">
-                    <a href="delivery.php" class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">
+                <!-- Delivery Information -->
+                <div class="section">
+                    <h2 class="section-title">2. THÔNG TIN GIAO HÀNG</h2>
+                    <div class="info-block">
+                        <div class="delivery-info">
+                            <div>
+                                <p class="info-title">Thông Tin Người Nhận</p>
+                                <p><strong>Họ và Tên:</strong> <?= htmlspecialchars($order['full_name']) ?></p>
+                                <p><strong>Số Điện Thoại:</strong> <?= htmlspecialchars($order['phone_num']) ?></p>
+                            </div>
+                            <div>
+                                <p class="info-title">Địa Chỉ Giao Hàng</p>
+                                <p><?= htmlspecialchars($order['address']) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="section">
+                    <h2 class="section-title">3. PHƯƠNG THỨC THANH TOÁN</h2>
+                    <div class="payment-method">
+                        <p class="font-medium"><?= htmlspecialchars($order['description']) ?></p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <form method="POST" class="action-buttons">
+                    <a href="payment.php" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i>
                         Quay Lại
                     </a>
-                    <a href="payment.php" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
-                        Tiếp Tục Thanh Toán
-                    </a>
-                </div>
+                    <button type="submit" class="btn btn-confirm">
+                        Xác Nhận Đặt Hàng
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
             </div>
         </div>
-
-        <div class="text-center mt-6 text-gray-600">
-            AUTO CAR - Chỉ Xe Chất - Giá Tốt Nhất!
-        </div>
     </div>
-
-    <script>document.addEventListener('DOMContentLoaded', () => {
-    class RandomOrderGenerator {
-        constructor() {
-            this.products  = [
-    {
-        name: "BMW 320i Sportline",
-        price: 1529000000,
-        year: 2024,
-        speed: "235 km/h",
-        location: "TP.HCM",
-        image: "3-series.jpeg"
-    },
-    {
-        name: "BMW 330i M Sport",
-        price: 1629000000,
-        year: 2023,
-        speed: "250 km/h",
-        location: "TP.HCM",
-        image: "trang-alpine-3.webp"
-    },
-    {
-        name: "430i Convertible M Sport",
-        price: 2629000000,
-        year: 2021,
-        speed: "250 km/h",
-        location: "TP.HCM",
-        image: "bmw3.png"
-    },
-    {
-        name: "BMW 735i M Sport",
-        price: 4499000000,
-        year: 2023,
-        speed: "250 km/h",
-        location: "TP.HCM",
-        image: "bmw4.png"
-    },
-    {
-        name: "BMW XM",
-        price: 10990000000,
-        year: 2022,
-        speed: "250 km/h",
-        location: "TP.HCM",
-        image: "bmw5.jpg"
-    },
-    {
-        name: "MAZDA 6",
-        price: 899000000,
-        year: 2023,
-        speed: "220 km/h",
-        location: "TP.HCM",
-        image: "mazda1.png"
-    },
-    {
-        name: "MAZDA 2",
-        price: 420000000,
-        year: 2021,
-        speed: "220 km/h",
-        location: "TP.HCM",
-        image: "mazda2.jpg"
-    },
-    {
-        name: "MAZDA 3",
-        price: 579000000,
-        year: 2022,
-        speed: "187 km/h",
-        location: "TP.HCM",
-        image: "mazda3.png"
-    },
-    {
-        name: "MAZDA CX-5",
-        price: 829000000,
-        year: 2023,
-        speed: "220 km/h",
-        location: "TP.HCM",
-        image: "mazda4.png"
-    },
-    {
-        name: "MAZDA CX-8",
-        price: 1109000000,
-        year: 2024,
-        speed: "240 km/h",
-        location: "TP.HCM",
-        image: "mazda5.webp"
-    },
-    {
-        name: "Lamborghini Aventador SVJ",
-        price: 60000000000,
-        year: 2021,
-        speed: "310 km/h",
-        location: "TP.HCM",
-        image: "lambo1.jpg"
-    },
-    {
-        name: "Lamborghini Gallardo",
-        price: 50000000000,
-        year: 2022,
-        speed: "309 km/h",
-        location: "TP.HCM",
-        image: "lambo2.png"
-    },
-    {
-        name: "Lamborghini Huracan",
-        price: 7100000000,
-        year: 2023,
-        speed: "325 km/h",
-        location: "TP.HCM",
-        image: "lambo3.jpg"
-    },
-    {
-        name: "Lamborghini Aventador LP 770-4 SVJ",
-        price: 12000000000,
-        year: 2024,
-        speed: "350 km/h",
-        location: "TP.HCM",
-        image: "lambo4.jpg"
-    },
-    {
-        name: "Lamborghini Huracan Tecnica",
-        price: 17900000000,
-        year: 2024,
-        speed: "325 km/h",
-        location: "TP.HCM",
-        image: "lambo5.jpg"
-    }
-];
-
-            this.provinces = ['Hà Nội', 'TP. Hồ Chí Minh', 'Đà Nẵng', 'Hải Phòng', 'Cần Thơ', 'Đồng Nai', 'Bình Dương'];
-            this.districts = ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 10', 'Bình Thạnh', 'Gò Vấp'];
-        }
-
-        generateRandomProducts(count = 2) {
-            return Array.from({ length: count }, () => {
-                const randomProduct = this.products[Math.floor(Math.random() * this.products.length)];
-                return randomProduct;
-            });
-        }
-
-        generateDeliveryInfo() {
-            return {
-                fullName: this.generateRandomName(),
-                phone: this.generateRandomPhone(),
-                province: this.getRandomItem(this.provinces),
-                district: this.getRandomItem(this.districts),
-                address: this.generateRandomAddress()
-            };
-        }
-
-        generatePaymentMethod() {
-            const methods = [
-                { 
-                    creditCard: this.generateCreditCardNumber(),
-                    atmMethod: this.getRandomItem(['cash', 'bank_transfer', 'atm'])
-                }
-            ];
-            return methods[0];
-        }
-
-        getRandomItem(array) {
-            return array[Math.floor(Math.random() * array.length)];
-        }
-
-        generateRandomName() {
-            const firstNames = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Vũ'];
-            const lastNames = ['Văn', 'Thị', 'Đức', 'Minh', 'Hùng', 'Mai'];
-            const middleNames = ['Anh', 'Tuấn', 'Hương', 'Lan', 'Quốc', 'Thành'];
-
-            return `${this.getRandomItem(firstNames)} ${this.getRandomItem(middleNames)} ${this.getRandomItem(lastNames)}`;
-        }
-
-        generateRandomPhone() {
-            const prefixes = ['090', '091', '092', '088', '086', '089'];
-            return `${this.getRandomItem(prefixes)} ${Math.floor(Math.random() * 9000000) + 1000000}`;
-        }
-
-        generateRandomAddress() {
-            const streetTypes = ['Đường', 'Phố', 'Đại lộ', 'Ngõ'];
-            const streetNames = ['Bà Huyện Thanh Quan', 'Trần Hưng Đạo', 'Lê Lợi', 'Nguyễn Trãi', 'Lý Thái Tổ'];
-
-            return `Số ${Math.floor(Math.random() * 200) + 1} ${this.getRandomItem(streetTypes)} ${this.getRandomItem(streetNames)}`;
-        }
-
-        generateCreditCardNumber() {
-            return Array.from({ length: 4 }, () => 
-                Math.floor(Math.random() * 9000) + 1000
-            ).join(' ');
-        }
-
-        displayReviewDetails() {
-            const products = this.generateRandomProducts();
-            const deliveryInfo = this.generateDeliveryInfo();
-            const paymentMethod = this.generatePaymentMethod();
-
-            // Hiển thị thông tin sản phẩm
-            const productContainer = document.getElementById('product-details');
-            if (productContainer) {
-                let totalPrice = 0;
-                const productList = products.map(item => {
-                    totalPrice += item.price;
-                    return `
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="flex justify-between">
-                                <span class="font-medium">${item.name} (${item.year})</span>
-                                <span class="text-blue-600">${item.price.toLocaleString()} VND</span>
-                            </div>
-                            <div class="text-sm text-gray-500 mt-2">
-                                <p>Vận tốc: ${item.speed}</p>
-                                <p>Địa điểm: ${item.location}</p>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                productContainer.innerHTML = productList + `
-                    <div class="bg-white border-t p-4">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Tổng số lượng:</span>
-                            <span>${products.length} xe</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Tổng tiền:</span>
-                            <span class="text-blue-600 font-bold">${totalPrice.toLocaleString()} VND</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Thuế VAT (10%):</span>
-                            <span>${(totalPrice * 0.1).toLocaleString()} VND</span>
-                        </div>
-                        <div class="flex justify-between font-bold">
-                            <span>Tổng cộng:</span>
-                            <span class="text-red-600">${(totalPrice * 1.1).toLocaleString()} VND</span>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // Hiển thị thông tin giao hàng
-            const deliveryContainer = document.getElementById('delivery-details');
-            if (deliveryContainer) {
-                deliveryContainer.innerHTML = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <p class="font-semibold text-gray-700">Thông Tin Người Nhận</p>
-                            <p><strong>Họ và Tên:</strong> ${deliveryInfo.fullName}</p>
-                            <p><strong>Số Điện Thoại:</strong> ${deliveryInfo.phone}</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-gray-700">Địa Chỉ Giao Hàng</p>
-                            <p>${deliveryInfo.address}, ${deliveryInfo.district}, ${deliveryInfo.province}</p>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // Hiển thị thông tin thanh toán
-            const creditCardMethod = document.getElementById('credit-card-method');
-            const atmMethod = document.getElementById('atm-method');
-
-            if (paymentMethod.creditCard) {
-                const cardType = this.getRandomItem(['Visa', 'MasterCard', 'American Express']);
-                creditCardMethod.innerHTML = `${cardType}: **** **** **** ${paymentMethod.creditCard.slice(-4)}`;
-                creditCardMethod.classList.remove('text-gray-600');
-                creditCardMethod.classList.add('text-green-600');
-            }
-
-            if (paymentMethod.atmMethod) {
-                const methodLabels = {
-                    'cash': 'Thanh toán tiền mặt',
-                    'bank_transfer': 'Chuyển khoản ngân hàng',
-                    'atm': 'Thanh toán qua thẻ ATM'
-                };
-                atmMethod.innerHTML = methodLabels[paymentMethod.atmMethod];
-                atmMethod.classList.remove('text-gray-600');
-                atmMethod.classList.add('text-green-600');
-            }
-        }
-    }
-
-    const reviewManager = new RandomOrderGenerator();
-    reviewManager.displayReviewDetails();
-});
-
-    
-    
-    </script>
-
-
 </body>
-</html>
 
-<?php
-include 'footer.php';
-?>
+</html>
+<?php include 'footer.php'; ?>

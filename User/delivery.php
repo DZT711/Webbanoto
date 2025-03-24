@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 // Calculate VAT (if needed)
-$vatRate = 10 ; // 0% as per your current display
+$vatRate = 10; // 0% as per your current display
 $vatAmount = ($totalAmount * $vatRate) / 100;
 $finalTotal = $totalAmount + $vatAmount;
 ?>
@@ -60,11 +60,11 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Địa chỉ vận chuyển</title>
     <!-- Add this in the head section -->
-<!-- Replace Google Maps script with Leaflet CSS and JS in the head section -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- Replace Google Maps script with Leaflet CSS and JS in the head section -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- <link rel="stylesheet" href="delivery.css"> -->
     <script src="delivery.js"></script>
@@ -254,6 +254,7 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         background-color: #f8f9fa;
         padding: 12px 2px;
     }
+
     /* .delivery-content-right th:first-child{
         padding-left: 12px;
     }
@@ -413,141 +414,147 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
     .eight h1:before {
         content: none;
     }
-    .VAT{
-        color: #FF5733; /* Màu cam đỏ nổi bật */
+
+    .VAT {
+        color: #FF5733;
+        /* Màu cam đỏ nổi bật */
 
     }
-    .total-amount{
-        color: #008000; /* Màu xanh lá cây tiêu chuẩn */
+
+    .total-amount {
+        color: #008000;
+        /* Màu xanh lá cây tiêu chuẩn */
 
     }
-    .amount{
-        color: #1C4E80; /* Xanh dương đậm */
+
+    .amount {
+        color: #1C4E80;
+        /* Xanh dương đậm */
 
     }
 </style>
 <style>
-.delivery-content-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width:600px;
-}
+    .delivery-content-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 600px;
+    }
 
-/* Products List Section */
-.products-list {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+    /* Products List Section */
+    .products-list {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.products-list table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
+    .products-list table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
 
-.products-list th {
-    background: #f8f9fa;
-    padding: 15px;
-    font-weight: 600;
-    color: #2c3e50;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    letter-spacing: 0.5px;
-}
+    .products-list th {
+        background: #f8f9fa;
+        padding: 15px;
+        font-weight: 600;
+        color: #2c3e50;
+        text-transform: uppercase;
+        font-size: 0.85em;
+        letter-spacing: 0.5px;
+    }
 
-.products-list td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
-}
+    .products-list td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+    }
 
-.product-brand {
-    color: #666;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+    .product-brand {
+        color: #666;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-.product-name {
-    color: #2c3e50;
-    font-weight: 500;
-}
+    .product-name {
+        color: #2c3e50;
+        font-weight: 500;
+    }
 
-/* Order Summary Section */
-.order-summary {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+    /* Order Summary Section */
+    .order-summary {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px dashed #eee;
-}
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px dashed #eee;
+    }
 
-.summary-row:last-child {
-    border-bottom: none;
-    padding-top: 20px;
-    margin-top: 8px;
-    border-top: 2px solid #eee;
-}
+    .summary-row:last-child {
+        border-bottom: none;
+        padding-top: 20px;
+        margin-top: 8px;
+        border-top: 2px solid #eee;
+    }
 
-.summary-label {
-    color: #666;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+    .summary-label {
+        color: #666;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-.summary-value {
-    font-weight: 600;
-}
+    .summary-value {
+        font-weight: 600;
+    }
 
-/* Back Button */
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    color: #666;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
+    /* Back Button */
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
 
-.back-button:hover {
-    background: #e9ecef;
-    color: #2c3e50;
-    transform: translateX(-2px);
-}
+    .back-button:hover {
+        background: #e9ecef;
+        color: #2c3e50;
+        transform: translateX(-2px);
+    }
 
-.back-button i {
-    font-size: 14px;
-}
-
+    .back-button i {
+        font-size: 14px;
+    }
 </style>
 
 <!-- Update the delivery content right section -->
 
 <style>
-        /* Input Group Fixes */
+    /* Input Group Fixes */
     .input-group {
         margin-bottom: 20px;
-        width: 100%; /* Changed from 590px */
+        width: 100%;
+        /* Changed from 590px */
         max-width: 590px;
     }
-    
+
     .input-group input {
         width: 95%;
         padding: 12px;
@@ -556,7 +563,7 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         font-size: 14px;
         background-color: #fff;
     }
-    
+
     /* Products List Styling */
     .products-list {
         background: #ffffff;
@@ -565,19 +572,35 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
     }
-    
+
     .products-list table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
     }
-    
+
     /* Table Header Widths */
-    .products-list th:nth-child(1) { width: 25%; } /* Brand */
-    .products-list th:nth-child(2) { width: 35%; } /* Product Name */
-    .products-list th:nth-child(3) { width: 15%; } /* Quantity */
-    .products-list th:nth-child(4) { width: 10%; } /* Price */
-    
+    .products-list th:nth-child(1) {
+        width: 25%;
+    }
+
+    /* Brand */
+    .products-list th:nth-child(2) {
+        width: 35%;
+    }
+
+    /* Product Name */
+    .products-list th:nth-child(3) {
+        width: 15%;
+    }
+
+    /* Quantity */
+    .products-list th:nth-child(4) {
+        width: 10%;
+    }
+
+    /* Price */
+
     .products-list th {
         background: #f8f9fa;
         padding: 15px;
@@ -587,9 +610,9 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         font-size: 0.85em;
         letter-spacing: 0.5px;
         white-space: nowrap;
-        max-width:110px;
+        max-width: 110px;
     }
-    
+
     /* Order Summary Section */
     .order-summary {
         background: #ffffff;
@@ -597,14 +620,14 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    
+
     .summary-row {
         display: flex;
         justify-content: space-between;
         padding: 15px 0;
         border-bottom: 1px dashed #eee;
     }
-    
+
     .summary-row:last-child {
         border-bottom: none;
         padding-top: 20px;
@@ -615,23 +638,35 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         padding: 20px;
         border-radius: 0 0 12px 12px;
     }
-    
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
         .input-group {
             max-width: 100%;
         }
-        
+
         .products-list th,
         .products-list td {
             padding: 10px;
         }
-        
-        .products-list th:nth-child(1) { width: 20%; }
-        .products-list th:nth-child(2) { width: 30%; }
-        .products-list th:nth-child(3) { width: 20%; }
-        .products-list th:nth-child(4) { width: 15%; }
+
+        .products-list th:nth-child(1) {
+            width: 20%;
+        }
+
+        .products-list th:nth-child(2) {
+            width: 30%;
+        }
+
+        .products-list th:nth-child(3) {
+            width: 20%;
+        }
+
+        .products-list th:nth-child(4) {
+            width: 15%;
+        }
     }
+
     /* Add/update these styles */
     .delivery-top-item {
         width: 40px;
@@ -646,16 +681,16 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         position: relative;
         z-index: 2;
     }
-    
+
     .delivery-top-item.active {
         border-color: #4CAF50;
         background-color: #4CAF50;
     }
-    
+
     .delivery-top-item.active i {
         color: #fff;
     }
-    
+
     /* Add progress line color */
     .delivery-top::before {
         content: '';
@@ -664,47 +699,48 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         left: 0;
         transform: translateY(-50%);
         height: 2px;
-        width: 50%; /* Adjust based on current step */
+        width: 50%;
+        /* Adjust based on current step */
         background-color: #4CAF50;
         z-index: 1;
     }
 </style>
 <style>
-.address-input-container {
-    position: relative;
-    margin-bottom: 20px;
-}
+    .address-input-container {
+        position: relative;
+        margin-bottom: 20px;
+    }
 
-.map-container {
-    height: 200px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #ddd;
-}
+    .map-container {
+        height: 200px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+    }
 
-#map {
-    height: 100%;
-    width: 100%;
-}
+    #map {
+        height: 100%;
+        width: 100%;
+    }
 
-.location-button {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-}
+    .location-button {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+    }
 
-.location-button:hover {
-    color: #0056b3;
-}
+    .location-button:hover {
+        color: #0056b3;
+    }
 </style>
 <style>
-        /* Update the map container styles */
+    /* Update the map container styles */
     .map-container {
         height: 300px;
         margin-bottom: 15px;
@@ -713,20 +749,21 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
         border: 1px solid #ddd;
         z-index: 1;
     }
-    
+
     #map {
         height: 100%;
         width: 100%;
         z-index: 1;
     }
-    
+
     .leaflet-control-geocoder {
         z-index: 2;
     }
 </style>
 <style>
-    
+
 </style>
+
 <body>
 
 
@@ -738,20 +775,20 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
     <section class="delivery">
         <div class="container">
             <div class="delivery-top-wrap">
-                                <!-- Update the delivery top section -->
+                <!-- Update the delivery top section -->
                 <div class="delivery-top">
                     <div class="delivery-top-delivery delivery-top-item active">
                         <a href="cart.php">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </div>
-                
+
                     <div class="delivery-top-address delivery-top-item active">
                         <a href="delivery.php">
                             <i class="fa-solid fa-location-dot"></i>
                         </a>
                     </div>
-                
+
                     <div class="delivery-top-payment delivery-top-item">
                         <a href="payment.php">
                             <i class="fa-solid fa-money-check"></i>
@@ -768,33 +805,40 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
 
         <div class="delivery-content-row">
             <div class="delivery-content-left">
-                <p><span class="info">Vui lòng nhập địa chỉ giao hàng (nếu chưa có)</span></p>
+                <p><span class="info">Vui lòng nhập thông tin người nhận xe (nếu chưa có)</span></p>
                 <div class="delivery-content-left-input-top row">
-    <div class="input-group">
-        <label>
-            <i class="fas fa-user"></i>
-            Họ tên<span class="required-indicator">*</span>
-        </label>
-        <input type="text" id="full_name" name="full_name" 
-               value="<?php echo htmlspecialchars($user_info['full_name'] ?? ''); ?>" required>
+                    <div class="input-group">
+                        <label>
+                            <i class="fas fa-user"></i>
+                            Họ tên:<span class="required-indicator">*</span>
+                        </label>
+                        <input type="text" id="full_name" name="full_name"
+                            value="<?php echo htmlspecialchars($user_info['full_name'] ?? ''); ?>" required>
                         <!-- <i class="fas fa-user-circle"></i> -->
                     </div>
                 
                     <div class="input-group">
                         <label>
                             <i class="fas fa-phone"></i>
-                            Số điện thoại<span class="required-indicator">*</span>
+                            Số điện thoại:<span class="required-indicator">*</span>
                         </label>
                         <input type="text" id="phone" name="phone"
                             value="<?php echo htmlspecialchars($user_info['phone_num'] ?? ''); ?>" required>
-                        <!-- <i class="fas fa-phone-alt"></i> -->
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            Email:<span class="required-indicator">*</span>
+                        </label>
+                        <input type="text" id="email" name="email"
+                            value="<?php echo htmlspecialchars($user_info['email'] ?? ''); ?>" required>
                     </div>
                 
                                         <!-- Update the address input section -->
                     <div class="input-group">
                         <label>
                             <i class="fas fa-map-marker-alt"></i>
-                            Địa chỉ<span class="required-indicator">*</span>
+                            Địa chỉ nhận xe:<span class="required-indicator">*</span>
                         </label>
                         <div class="map-container">
                             <div id="map"></div>
@@ -852,7 +896,7 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
                         <i class="fas fa-arrow-left"></i> Quay lại giỏ hàng
 
                     </button>
-                    <button id="checkout-button" onclick="navigateToPayment()">Thanh toán và giao hàng</button>
+                    <button id="checkout-button" onclick="navigateToPayment()">Tiếp tục&nbsp;&emsp;<i class="fas fa-arrow-right"></i> </button>
                     <script>
                         function navigateToPayment() {
                             // Chuyển hướng đến trang payment.php
@@ -871,23 +915,23 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
                 <th><i class="fas fa-dollar-sign"></i> Đơn Giá</th>
             </tr>
             <?php foreach ($cartItems as $item): ?>
-            <tr>
-                <td>
-                    <span class="product-brand">
-                        <i class="fas fa-building"></i>
-                        <?php echo htmlspecialchars($item['type_name'] ?? 'N/A'); ?>
-                    </span>
-                </td>
-                <td>
-                    <span class="product-name" style="text-transform: uppercase; color: gray;">
-                        <?php echo htmlspecialchars($item['car_name']); ?>
-                    </span>
-                </td>
-                <td><?php echo htmlspecialchars($item['quantity']); ?></td>
-                <td>
-                    <p><?php echo number_format($item['price'], 0, ',', '.'); ?> ₫</p>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <span class="product-brand">
+                            <i class="fas fa-building"></i>
+                            <?php echo htmlspecialchars($item['type_name'] ?? 'N/A'); ?>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="product-name" style="text-transform: uppercase; color: gray;">
+                            <?php echo htmlspecialchars($item['car_name']); ?>
+                        </span>
+                    </td>
+                    <td><?php echo htmlspecialchars($item['quantity']); ?></td>
+                    <td>
+                        <p><?php echo number_format($item['price'], 0, ',', '.'); ?> ₫</p>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
     </div>
