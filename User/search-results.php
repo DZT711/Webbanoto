@@ -283,6 +283,22 @@ $query = "SELECT p.*, c.type_name
           $whereClause
           ORDER BY p.product_id DESC";
 
+// Add this after your existing query but before executing it
+$items_per_page = 5;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $items_per_page;
+
+// Modify your main query to include LIMIT and OFFSET
+$query .= " LIMIT $items_per_page OFFSET $offset";
+
+// Get total number of results for pagination
+$count_query = "SELECT COUNT(*) as total FROM products p 
+                LEFT JOIN car_types c ON p.brand_id = c.type_id 
+                $whereClause";
+$count_result = mysqli_query($connect, $count_query);
+$total_rows = mysqli_fetch_assoc($count_result)['total'];
+$total_pages = ceil($total_rows / $items_per_page);
+
 $result = mysqli_query($connect, $query);
 if ($result) {
     $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -680,6 +696,136 @@ if ($result) {
             height: 30px;
             border: none;
         }
+                /* Add to your existing styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .pagination-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .pagination-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+        }
+        
+        .page-info {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .page-numbers {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .page-numbers a {
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .page-numbers a.active {
+            background: #1abc9c;
+            color: white;
+        }
+        
+        .page-numbers a:hover:not(.active) {
+            background: #f5f5f5;
+        }
+                /* Update the pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .page-numbers {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .page-numbers a {
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 35px;
+            text-align: center;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .page-numbers a.active {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+        }
+        
+        .page-numbers a:hover:not(.active) {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+        
+        .page-dots {
+            color: #666;
+            letter-spacing: 2px;
+            margin: 0 4px;
+        }
+        
+        .pagination-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .pagination-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .pagination-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+        }
     </style>
     </head>
 
@@ -894,8 +1040,67 @@ if ($result) {
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+            <div class="pagination">
+                <?php if ($total_pages > 1): ?>
+                    <!-- Previous button -->
+                    <button 
+                        onclick="navigateToPage(<?= $page - 1 ?>)"
+                        class="pagination-btn"
+                        <?= $page <= 1 ? 'disabled' : '' ?>
+                    >
+                        <i class="fas fa-chevron-left"></i>
+                        Trang trước
+                    </button>
+            
+                    <!-- Page numbers -->
+                    <div class="page-numbers">
+                        <?php
+                        $start_page = max(1, $page - 2);
+                        $end_page = min($total_pages, $page + 2);
+            
+                        // Show first page if we're not starting at 1
+                        if ($start_page > 1) {
+                            echo '<a href="javascript:void(0)" onclick="navigateToPage(1)">1</a>';
+                            if ($start_page > 2) {
+                                echo '<span class="page-dots">...</span>';
+                            }
+                        }
+            
+                        // Show page numbers
+                        for ($i = $start_page; $i <= $end_page; $i++) {
+                            echo '<a href="javascript:void(0)" ' . 
+                                 'onclick="navigateToPage(' . $i . ')" ' .
+                                 'class="' . ($i == $page ? 'active' : '') . '">' . 
+                                 $i . 
+                                 '</a>';
+                        }
+            
+                        // Show last page if we're not ending at total_pages
+                        if ($end_page < $total_pages) {
+                            if ($end_page < $total_pages - 1) {
+                                echo '<span class="page-dots">...</span>';
+                            }
+                            echo '<a href="javascript:void(0)" onclick="navigateToPage(' . $total_pages . ')">' . 
+                                 $total_pages . 
+                                 '</a>';
+                        }
+                        ?>
+                    </div>
+            
+                    <!-- Next button -->
+                    <button 
+                        onclick="navigateToPage(<?= $page + 1 ?>)"
+                        class="pagination-btn"
+                        <?= $page >= $total_pages ? 'disabled' : '' ?>
+                    >
+                        Trang sau
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                <?php endif; ?>
+            </div>      
         </div>
-        <script>
+                  
+        <!-- // Replace the existing pagination div with this -->
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
     // Preserve form values after submission
@@ -970,6 +1175,8 @@ if ($result) {
     const searchInput = document.querySelector('input[name="query"]');
     let searchTimeout;
 
+    // Remove this auto-search code:
+    /*
     searchInput.addEventListener('input', function(e) {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
@@ -979,6 +1186,7 @@ if ($result) {
             }
         }, 500); // Wait 500ms after user stops typing
     });
+    */
 
     // Add tooltips for range inputs
     const rangeContainers = document.querySelectorAll('.range-inputs');
@@ -989,8 +1197,32 @@ if ($result) {
         });
     });
 });
+// Add to your existing scripts
+function navigateToPage(page) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('page', page);
+    window.location.href = 'search-results.php?' + urlParams.toString();
+}
+
+// Update your existing form submission code to preserve the page parameter
+document.getElementById('searchFilterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const params = new URLSearchParams();
+    
+    for (const [key, value] of formData.entries()) {
+        if (value.trim() !== '') {
+            params.append(key, value.trim());
+        }
+    }
+    
+    // Reset to page 1 when applying new filters
+    params.set('page', '1');
+    
+    window.location.href = 'search-results.php?' + params.toString();
+});
         </script>
-        </script>
+
     </body>
 
 </html>

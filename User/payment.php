@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = mysqli_prepare($connect, $update_order);
         mysqli_stmt_bind_param($stmt, "idddi", 
             $payment_method,
-            $distance,
+            $distance,  
             $shipping_fee,
             $shipping_fee,
             $order_id
@@ -91,7 +91,6 @@ mysqli_stmt_execute($stmt);
 $user_result = mysqli_stmt_get_result($stmt);
 $user_info = mysqli_fetch_assoc($user_result);
 
-// Rest of your HTML code follows...
 ?>
 <!DOCTYPE html>
 <html lang="en">

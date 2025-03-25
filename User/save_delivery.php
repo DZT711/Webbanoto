@@ -70,8 +70,8 @@ try {
     }
 
     // Create new order
-    $create_order = "INSERT INTO orders (user_id, order_date, shipping_address, expected_total_amount, order_status) 
-                     VALUES (?, NOW(), ?, ?, 'is pending')";
+    $create_order = "INSERT INTO orders (user_id, order_date, shipping_address, expected_total_amount) 
+                     VALUES (?, NOW(), ?, ?)";
 
     $stmt = mysqli_prepare($connect, $create_order);
     mysqli_stmt_bind_param($stmt, "isd", $user_id, $data['address'], $total_amount);

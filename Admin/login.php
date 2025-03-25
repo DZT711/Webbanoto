@@ -10,7 +10,7 @@ if (isset($_SESSION['logout_message'])) {
             }
         </script>";
     unset($_SESSION['logout_message']); // Remove the message after showing it
-}//neeed notification features for testing the connection
+}//need notification features for testing the connection
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +73,11 @@ if (isset($_SESSION['logout_message'])) {
             color: #856404;
             border-left: 4px solid #ffc107;
         }
-    
+    body{
+    background-image: url(download.jpg);
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+}
         /* Responsive design */
         @media (max-width: 768px) {
             .notification {

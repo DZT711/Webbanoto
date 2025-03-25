@@ -505,55 +505,57 @@ if (isset($_POST['edit_profile'])) { {
             animation: modalSlideIn 0.3s ease forwards;
         }
     </style>
-<style>
+    <style>
         .form-group {
-        margin-bottom: 20px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .form-group label {
-        min-width: 140px;
-        text-align: left;
-        font-weight: 500;
-        color: #495057;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-    
-    .form-group input {
-        flex: 1;
-        padding: 12px 16px 12px 35px;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        font-size: 15px;
-        color: #495057;
-        transition: all 0.3s ease;
-        background: #fff;
-    }
-    
-    .form-group i {
-        position: absolute;
-        left: 170px; /* Adjusted to account for label width */
-        top: 50%;
-        transform: translateY(-50%);
-        color: #adb5bd;
-        transition: all 0.3s ease;
-    }
-    
-    .form-group input:focus + i {
-        color: #007bff;
-    }
-    
-    /* Update modal content width for better layout */
-    .modal-content {
-        width: 90%;
-        max-width: 600px; /* Increased width to accommodate the labels */
-        padding: 2.5rem;
-    }
-</style>
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .form-group label {
+            min-width: 140px;
+            text-align: left;
+            font-weight: 500;
+            color: #495057;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input {
+            flex: 1;
+            padding: 12px 16px 12px 35px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #495057;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 170px;
+            /* Adjusted to account for label width */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus+i {
+            color: #007bff;
+        }
+
+        /* Update modal content width for better layout */
+        .modal-content {
+            width: 90%;
+            max-width: 600px;
+            /* Increased width to accommodate the labels */
+            padding: 2.5rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -686,10 +688,11 @@ if (isset($_POST['edit_profile'])) { {
                 <div class="modal-content">
                     <button type="button" class="close-btn" onclick="closeEditForm()">&times;</button>
                     <h2>Chỉnh sửa thông tin</h2>
-                                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="editForm">
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="editForm">
                         <div class="form-group">
                             <label>Tên người dùng:</label>
-                            <input type="text" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
+                            <input type="text" name="username"
+                                value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <div class="form-group">
@@ -699,22 +702,26 @@ if (isset($_POST['edit_profile'])) { {
                         </div>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>">
+                            <input type="email" name="email"
+                                value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
                         <div class="form-group">
                             <label>Số điện thoại:</label>
-                            <input type="tel" name="phone_num" value="<?php echo isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; ?>">
+                            <input type="tel" name="phone_num"
+                                value="<?php echo isset($_SESSION['phone_num']) ? htmlspecialchars($_SESSION['phone_num']) : ''; ?>">
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div class="form-group">
                             <label>Họ tên:</label>
-                            <input type="text" name="full_name" value="<?php echo isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : ''; ?>">
+                            <input type="text" name="full_name"
+                                value="<?php echo isset($_SESSION['full_name']) ? htmlspecialchars($_SESSION['full_name']) : ''; ?>">
                             <i class="fa-solid fa-user-circle"></i>
                         </div>
                         <div class="form-group">
                             <label>Địa chỉ:</label>
-                            <input type="text" name="address" value="<?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>">
+                            <input type="text" name="address"
+                                value="<?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>">
                             <i class="fa-solid fa-location-dot"></i>
                         </div>
                         <button type="submit" name="edit_profile" class="submit-btn">

@@ -22,6 +22,19 @@ mysqli_stmt_bind_param($stmt, "i", $user_id);
 mysqli_stmt_execute($stmt);
 $user_result = mysqli_stmt_get_result($stmt);
 $user_info = mysqli_fetch_assoc($user_result);
+// Replace the existing address query with this
+// Update the address query and check
+$addresses_query = "SELECT DISTINCT shipping_address FROM orders 
+                   WHERE user_id = ? AND shipping_address IS NOT NULL 
+                   ORDER BY order_date DESC LIMIT 5";
+$stmt = mysqli_prepare($connect, $addresses_query);
+mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+$saved_addresses = mysqli_stmt_get_result($stmt);
+$has_saved_addresses = mysqli_num_rows($saved_addresses) > 0;
+
+// Then update the address display code
+
 // Add this code after getting user information and before the HTML
 $cartItems = [];
 $totalAmount = 0;
@@ -49,9 +62,7 @@ $vatRate = 10; // 0% as per your current display
 $vatAmount = ($totalAmount * $vatRate) / 100;
 $finalTotal = $totalAmount + $vatAmount;
 ?>
-<?php
-define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -727,7 +738,7 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
     .location-button {
         position: absolute;
         right: 10px;
-        top: 50%;
+        top: 70%;
         transform: translateY(-50%);
         background: none;
         border: none;
@@ -759,6 +770,62 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
     .leaflet-control-geocoder {
         z-index: 2;
     }
+        /* Add to your existing styles */
+        .address-selection {
+            margin-bottom: 30px;
+        }
+        
+        .address-method-label {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .address-methods {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .address-method {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .address-method input[type="radio"] {
+            display: none;
+        }
+        
+        .address-method label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .address-method input[type="radio"]:checked + label {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+        
+        .saved-addresses {
+            margin-bottom: 20px;
+        }
+        
+        .address-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
 </style>
 <style>
 
@@ -835,22 +902,79 @@ define('GOOGLE_MAPS_API_KEY', 'YOUR_GOOGLE_MAPS_API_KEY');
                     </div>
                 
                                         <!-- Update the address input section -->
-                    <div class="input-group">
-                        <label>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Địa chỉ nhận xe:<span class="required-indicator">*</span>
-                        </label>
-                        <div class="map-container">
-                            <div id="map"></div>
+                                        <!-- Update the address input section -->
+                                        <!-- // Update the address input section with radio buttons -->
+                    <div class="input-group address-selection">
+                        <label class="address-method-label">Chọn phương thức nhập địa chỉ:</label>
+                        
+                        <div class="address-methods">
+                            <div class="address-method">
+                                <input type="radio" id="map-method" name="address-method" value="map" 
+                                       <?php echo !$has_saved_addresses ? 'checked' : ''; ?>>
+                                <label for="map-method">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Chọn vị trí trên bản đồ
+                                </label>
+                            </div>
+                    
+                            <?php if ($has_saved_addresses): ?>
+                            <div class="address-method">
+                                <input type="radio" id="saved-method" name="address-method" value="saved" checked>
+                                <label for="saved-method">
+                                    <i class="fas fa-history"></i>
+                                    Sử dụng địa chỉ đã lưu
+                                </label>
+                            </div>
+                            <?php endif; ?>
                         </div>
+                    
+                        <div id="saved-addresses" class="saved-addresses" style="display: <?php echo $has_saved_addresses ? 'block' : 'none'; ?>">
+                            <select id="address-select" class="address-select" onchange="updateAddress(this.value)">
+                                <option value="">-- Chọn địa chỉ --</option>
+                                <?php while ($address = mysqli_fetch_assoc($saved_addresses)): ?>
+                                    <option value="<?= htmlspecialchars($address['shipping_address']) ?>">
+                                        <?= htmlspecialchars($address['shipping_address']) ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            </select>
+                        </div>
+                    
                         <div class="address-input-container">
+                            <label for="address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Địa chỉ:<span class="required-indicator">*</span>
+                            </label>
                             <input type="text" id="address" name="address" 
                                    value="<?php echo htmlspecialchars($user_info['address'] ?? ''); ?>" 
-                                   placeholder="Nhập địa chỉ của bạn" required>
+                                   placeholder="Nhập địa chỉ của bạn"
+                                   required>
                             <button type="button" class="location-button" onclick="getCurrentLocation()">
                                 <i class="fas fa-crosshairs"></i>
                             </button>
                         </div>
+                    </div>
+                    
+                    <div id="map-container" class="map-container">
+                        <div id="map" style="height: 300px;"></div>
+                    </div>
+                    
+                    <div id="map-container" class="map-container" style="display: <?php echo !$has_saved_addresses ? 'block' : 'none'; ?>">
+                        <div id="map" style="height: 300px;"></div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="address-input-container" style="display: none;">
+                            <input type="text" id="address" name="address"
+                                value="<?php echo htmlspecialchars($user_info['address'] ?? ''); ?>" placeholder="Nhập địa chỉ của bạn"
+                                required>
+                            <button type="button" class="location-button" onclick="getCurrentLocation()">
+                                <i class="fas fa-crosshairs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="map-container" class="map-container" style="display: none;">
+                        <div id="map" style="height: 300px;"></div>
                     </div>
                 </div>
                 
@@ -1130,6 +1254,47 @@ document.addEventListener('DOMContentLoaded', initMap);
             console.error('Error:', error);
         });
     }
+        // Add to your existing scripts
+        function handleAddressMethodChange() {
+            const mapMethod = document.getElementById('map-method');
+            const savedAddresses = document.getElementById('saved-addresses');
+            const addressInput = document.querySelector('.address-input-container');
+            
+            if (mapMethod.checked) {
+                savedAddresses.style.display = 'none';
+                addressInput.style.display = 'block';
+                document.getElementById('address').value = '';
+                initMap();
+            } else {
+                savedAddresses.style.display = 'block';
+                const selectedAddress = document.getElementById('address-select').value;
+                if (selectedAddress) {
+                    document.getElementById('address').value = selectedAddress;
+                }
+            }
+        }
+        
+        function updateAddress(value) {
+            if (value) {
+                document.getElementById('address').value = value;
+            }
+        }
+        
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapMethod = document.getElementById('map-method');
+            const savedMethod = document.getElementById('saved-method');
+            
+            if (mapMethod) {
+                mapMethod.addEventListener('change', handleAddressMethodChange);
+            }
+            if (savedMethod) {
+                savedMethod.addEventListener('change', handleAddressMethodChange);
+            }
+            
+            // Initialize map
+            initMap();
+        });
 </script>
 </body>
 

@@ -378,11 +378,11 @@ if (isset($_SESSION['user_id'])) {
         height: 50px;
     }
 
-    h1 span {
+    /* h1 span {
         display: block;
         font-size: 0.5em;
         line-height: 1.3;
-    }
+    } */
 
     h1 em {
         font-style: normal;
@@ -1196,114 +1196,116 @@ if (isset($_SESSION['user_id'])) {
     .cart {
         padding-bottom: 10vh;
     }
-    
 </style>
 
 <style>
-/* Progress Bar Section */
-.cart-top-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
-}
+    /* Progress Bar Section */
+    .cart-top-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
 
-.cart-top {
-    height: 2px;
-    width: 70%;
-    background-color: #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px auto;
-    max-width: 840px;
-    position: relative;
-}
+    .cart-top {
+        height: 2px;
+        width: 70%;
+        background-color: #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 30px auto;
+        max-width: 840px;
+        position: relative;
+    }
 
-.cart-top::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    height: 2px;
-    width: 0%; /* Will be updated based on progress */
-    background-color: #4CAF50;
-    transition: width 0.3s ease;
-    z-index: 1;
-}
+    .cart-top::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 2px;
+        width: 0%;
+        /* Will be updated based on progress */
+        background-color: #4CAF50;
+        transition: width 0.3s ease;
+        z-index: 1;
+    }
 
-.cart-top-item {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    position: relative;
-    transition: all 0.3s ease;
-    z-index: 2;
-}
+    .cart-top-item {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        position: relative;
+        transition: all 0.3s ease;
+        z-index: 2;
+    }
 
-.cart-top-item i {
-    color: #666;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
+    .cart-top-item i {
+        color: #666;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+    }
 
-.cart-top-item.active {
-    border-color: #4CAF50;
-    background-color: #4CAF50;
-}
+    .cart-top-item.active {
+        border-color: #4CAF50;
+        background-color: #4CAF50;
+    }
 
-.cart-top-item.active i {
-    color: #fff;
-}
+    .cart-top-item.active i {
+        color: #fff;
+    }
 
-.cart-top-item:hover {
-    transform: scale(1.1);
-}
+    .cart-top-item:hover {
+        transform: scale(1.1);
+    }
 
-.cart-top-item a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-}
+    .cart-top-item a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: inherit;
+    }
 
-/* Progress Line */
-.cart-top-cart.active ~ .cart-top-address .cart-top-item,
-.cart-top-cart.active ~ .cart-top-payment .cart-top-item {
-    border-color: #ddd;
-    background-color: #fff;
-}
+    /* Progress Line */
+    .cart-top-cart.active~.cart-top-address .cart-top-item,
+    .cart-top-cart.active~.cart-top-payment .cart-top-item {
+        border-color: #ddd;
+        background-color: #fff;
+    }
 
-.cart-top-cart.active ~ .cart-top-address .cart-top-item i,
-.cart-top-cart.active ~ .cart-top-payment .cart-top-item i {
-    color: #666;
-}
+    .cart-top-cart.active~.cart-top-address .cart-top-item i,
+    .cart-top-cart.active~.cart-top-payment .cart-top-item i {
+        color: #666;
+    }
 
-.cart-content-right{
-    font-size:14px;
-}
-.thr{
-    width:50%;
-}
+    .cart-content-right {
+        font-size: 14px;
+    }
+
+    .thr {
+        width: 50%;
+    }
 </style>
 <style>
-        /* Add/update this CSS */
+    /* Add/update this CSS */
     .cart-content-right table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
-        table-layout: fixed; /* Add this to enforce column widths */
+        table-layout: fixed;
+        /* Add this to enforce column widths */
     }
-    
+
     .cart-content-right td.thr {
         width: 50%;
         padding-right: 15px;
@@ -1313,14 +1315,14 @@ if (isset($_SESSION['user_id'])) {
         font-weight: 500;
         color: #495057;
     }
-    
+
     .cart-content-right td:last-child {
         width: 50%;
         text-align: right;
         padding-left: 15px;
         white-space: nowrap;
     }
-    
+
     /* Style for the header row */
     .cart-content-right th {
         padding: 15px;
@@ -1331,14 +1333,13 @@ if (isset($_SESSION['user_id'])) {
         border-bottom: 2px solid #e9ecef;
         font-weight: 600;
     }
-    
+
     /* Icon alignment in thr cells */
     .cart-content-right td.thr i {
         margin-right: 8px;
         width: 16px;
         text-align: center;
     }
-
 </style>
 
 <body>
@@ -1346,20 +1347,20 @@ if (isset($_SESSION['user_id'])) {
     <!------------cart------------->
     <section class="cart">
         <div class="container">
-                        <div class="cart-top-wrap">
+            <div class="cart-top-wrap">
                 <div class="cart-top">
                     <div class="cart-top-cart cart-top-item active">
                         <a href="cart.php">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </div>
-            
+
                     <div class="cart-top-address cart-top-item">
                         <a href="delivery.php">
                             <i class="fa-solid fa-location-dot"></i>
                         </a>
                     </div>
-            
+
                     <div class="cart-top-payment cart-top-item">
                         <a href="payment.php">
                             <i class="fa-solid fa-money-check"></i>
@@ -1371,7 +1372,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="container">
             <div class="eight">
                 <h1>Giỏ Hàng của tôi
-</h1>
+                </h1>
             </div>
 
             <div class="cart-content-row">
@@ -1475,7 +1476,7 @@ if (isset($_SESSION['user_id'])) {
                             </th>
                         </tr>
                         <tr>
-                            <td  class="thr">
+                            <td class="thr">
                                 <i class="fa-solid fa-cubes quantity-icon"></i>
                                 TỔNG SẢN PHẨM
                             </td>
@@ -1484,18 +1485,18 @@ if (isset($_SESSION['user_id'])) {
                             </td>
                         </tr>
                         <tr>
-                            <td  class="thr">
+                            <td class="thr">
                                 <i class="fa-solid fa-calculator price-icon"></i>
                                 TỔNG TIỀN
                             </td>
-                            <td >
-                                <p id="total-amount" >
+                            <td>
+                                <p id="total-amount">
                                     <?php echo number_format($totalAmount, 0, ',', '.'); ?> ₫
                                 </p>
                             </td>
-                        </tr> 
+                        </tr>
                         <tr>
-                            <td  class="thr">
+                            <td class="thr">
                                 <i class="fa-solid fa-receipt total-icon"></i>
                                 TẠM TÍNH
                             </td>
@@ -1506,7 +1507,7 @@ if (isset($_SESSION['user_id'])) {
                             </td>
                         </tr>
                     </table>
-                                        <div class="cart-content-right-button">
+                    <div class="cart-content-right-button">
                         <button id="continue-shopping" onclick="history.back()">
                             <i class="fas fa-arrow-left"></i>
                             Trở về
