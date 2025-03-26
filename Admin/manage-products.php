@@ -177,7 +177,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lí sản phẩm</title>
+    <title>Manage Products</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="icon" href="../User/dp56vcf7.png" type="image/png">
     <!-- <script src="mp.js"></script>
