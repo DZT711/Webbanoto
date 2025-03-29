@@ -1,6 +1,16 @@
 <?php
 include 'header.php';
 
+$query=' SELECT address,full_name FROM users_acc WHERE username = "'.$username.'" AND password = "'.$password.'" '; 
+
+$result = mysqli_query($connect, $query);
+while($row = mysqli_fetch_array($result))
+{
+    $address = $row['address'];
+    $full_name = $row['full_name'];
+    $_SESSION['full_name'] = $full_name;
+    $_SESSION['address'] = $address;
+}   
 // Redirect if not logged in
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');

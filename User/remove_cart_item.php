@@ -2,29 +2,45 @@
 session_start();
 include 'connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_id = intval($_POST['product_id']);
-    
+header('Content-Type: application/json');
+
+if (!isset($_POST['product_id'])) {
+    echo json_encode(['success' => false, 'message' => 'Missing product ID']);
+    exit;
+}
+
+$product_id = intval($_POST['product_id']);
+
+try {
     if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        $query = "DELETE ci FROM cart_items ci 
-                 JOIN cart c ON ci.cart_id = c.cart_id 
-                 WHERE c.user_id = ? AND ci.product_id = ? AND c.status = 'active'";
-        
-        $stmt = mysqli_prepare($connect, $query);
-        mysqli_stmt_bind_param($stmt, "ii", $user_id, $product_id);
-        $success = mysqli_stmt_execute($stmt);
-    } else {
-        $success = false;
-        foreach ($_SESSION['cart'] as $key => $item) {
-            if ($item['product_id'] == $product_id) {
-                unset($_SESSION['cart'][$key]);
-                $success = true;
-                break;
+        // Get cart ID
+        $cart_query = "SELECT cart_id FROM cart WHERE user_id = ? AND cart_status = 'activated'";
+        $stmt = mysqli_prepare($connect, $cart_query);
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $cart = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+
+        if ($cart) {
+            // Delete item from cart
+            $delete_query = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
+            $stmt = mysqli_prepare($connect, $delete_query);
+            mysqli_stmt_bind_param($stmt, "ii", $cart['cart_id'], $product_id);
+            
+            if (mysqli_stmt_execute($stmt)) {
+                echo json_encode(['success' => true]);
+            } else {
+                throw new Exception("Failed to delete item");
             }
         }
-        $_SESSION['cart'] = array_values($_SESSION['cart']);
+    } else {
+        // Remove from session cart
+        if (isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array_filter($_SESSION['cart'], function($item) use ($product_id) {
+                return $item['product_id'] != $product_id;
+            });
+        }
+        echo json_encode(['success' => true]);
     }
-    
-    echo json_encode(['success' => $success]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }

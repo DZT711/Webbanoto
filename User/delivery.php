@@ -13,6 +13,15 @@ if (!isset($_SESSION['user_id'])) {
     </script>";
     exit();
 }
+$query = ' SELECT address,full_name FROM users_acc WHERE username = "' . $username . '" AND password = "' . $password . '" ';
+
+$result = mysqli_query($connect, $query);
+while ($row = mysqli_fetch_array($result)) {
+    $address = $row['address'];
+    $full_name = $row['full_name'];
+    $_SESSION['full_name'] = $full_name;
+    $_SESSION['address'] = $address;
+}
 
 // Get user information
 $user_id = $_SESSION['user_id'];
@@ -22,6 +31,7 @@ mysqli_stmt_bind_param($stmt, "i", $user_id);
 mysqli_stmt_execute($stmt);
 $user_result = mysqli_stmt_get_result($stmt);
 $user_info = mysqli_fetch_assoc($user_result);
+// Add this after your existing queries and before the HTML
 // Replace the existing address query with this
 // Update the address query and check
 $addresses_query = "SELECT DISTINCT shipping_address FROM orders 
@@ -61,6 +71,15 @@ while ($row = mysqli_fetch_assoc($result)) {
 $vatRate = 10; // 0% as per your current display
 $vatAmount = ($totalAmount * $vatRate) / 100;
 $finalTotal = $totalAmount + $vatAmount;
+
+$user_address_query = "SELECT address FROM users_acc WHERE id = ?";
+$stmt = mysqli_prepare($connect, $user_address_query);
+mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+$user_address_result = mysqli_stmt_get_result($stmt);
+$user_address = mysqli_fetch_assoc($user_address_result);
+
+// Then update the address select dropdown
 ?>
 
 <!DOCTYPE html>
@@ -931,6 +950,12 @@ $finalTotal = $totalAmount + $vatAmount;
                         <div id="saved-addresses" class="saved-addresses" style="display: <?php echo $has_saved_addresses ? 'block' : 'none'; ?>">
                             <select id="address-select" class="address-select" onchange="updateAddress(this.value)">
                                 <option value="">-- Chọn địa chỉ --</option>
+                                <?php if (!empty($user_address['address'])): ?>
+                                    <option value="<?= htmlspecialchars($user_address['address']) ?>">
+                                        <?= htmlspecialchars($user_address['address']) ?> (Dịa chỉ hiện tại)
+                                    </option>
+                                <?php endif; ?>
+                                <!-- Keep your existing options -->
                                 <?php while ($address = mysqli_fetch_assoc($saved_addresses)): ?>
                                     <option value="<?= htmlspecialchars($address['shipping_address']) ?>">
                                         <?= htmlspecialchars($address['shipping_address']) ?>

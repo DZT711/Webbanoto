@@ -769,7 +769,7 @@ if (isset($_SESSION['notification'])) {
                         <th><i class="fas fa-hashtag"></i> ID</th>
                         <th><i class="far fa-calendar-alt"></i> Order Date</th>
                         <th><i class="fas fa-user"></i> Full Name/Username</th>
-                        <th><i class="fas fa-map-marker-alt"></i> Address</th>
+                        <th style="width: 20%;"><i class="fas fa-map-marker-alt"></i> Address</th>
                         <th><i class="fas fa-phone"></i> Phone Number</th>
                         <th><i class="fas fa-envelope"></i> Email</th>
                         <th><i class="fas fa-money-bill-wave"></i> Total Amount</th>

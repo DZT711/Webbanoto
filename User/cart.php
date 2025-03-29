@@ -1551,10 +1551,29 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
     <script>
-        function handleQuantityChange(input) {
-            const productId = input.dataset.id;
-            const quantity = input.value;
+        // Replace all JavaScript code with this single organized version
+    let deleteType = '';
+    let selectedItems = [];
+    
 
+    // Quantity Management
+    function handleQuantityChange(input) {
+        const productId = input.dataset.id;
+        const quantity = parseInt(input.value);
+    
+        if (quantity < 1) {
+            showNotification('Số lượng không thể nhỏ hơn 1', 'error');
+            input.value = 1;
+            return;
+        }
+    
+        // Clear any existing timeout
+        if (window.quantityUpdateTimeout) {
+            clearTimeout(window.quantityUpdateTimeout);
+        }
+    
+        // Set a timeout for 1 second
+        window.quantityUpdateTimeout = setTimeout(() => {
             fetch('update_cart.php', {
                 method: 'POST',
                 headers: {
@@ -1562,350 +1581,165 @@ if (isset($_SESSION['user_id'])) {
                 },
                 body: `product_id=${productId}&quantity=${quantity}`
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                });
-        }
-
-        function removeCartItem(productId) {
-            if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-                fetch('remove_from_cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `product_id=${productId}`
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload();
-                        }
-                    });
-            }
-        }
-
-        // Update the proceedToCheckout function
-        function proceedToCheckout() {
-            const totalItems = <?php echo $totalItems; ?>;
-            if (totalItems > 0) {
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    window.location.href = 'delivery.php';
-                <?php else: ?>
-                    showNotification('Vui lòng đăng nhập để tiếp tục thanh toán', 'warning');
-                    setTimeout(() => {
-                        window.location.href = 'login.php';
-                    }, 1500);
-                <?php endif; ?>
-            } else {
-                showNotification('Giỏ hàng của bạn đang trống!', 'warning');
-            }
-        }
-    </script>
-    <script>
-        // Add these new functions
-        function updateQuantity(productId, action) {
-            const input = document.querySelector(`input[data-id="${productId}"]`);
-            let value = parseInt(input.value);
-
-            if (action === 'increase') {
-                value++;
-            } else if (action === 'decrease' && value > 1) {
-                value--;
-            }
-
-            input.value = value;
-            handleQuantityChange(input);
-        }
-
-        function removeAllItems() {
-            if (confirm('Bạn có chắc muốn xóa tất cả sản phẩm?')) {
-                fetch('remove_all_cart_items.php', {
-                    method: 'POST',
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload();
-                        }
-                    });
-            }
-        }
-    </script>
-    <script>
-
-        // Update existing functions to use confirmations and notifications
-        function handleQuantityChange(input) {
-            const productId = input.dataset.id;
-            const quantity = parseInt(input.value);
-
-            if (quantity < 1) {
-                showNotification('Số lượng không thể nhỏ hơn 1', 'error');
-                input.value = 1;
-                return;
-            }
-
-            fetch('update_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `product_id=${productId}&quantity=${quantity}`
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showNotification('Đã cập nhật số lượng', 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showNotification('Có lỗi xảy ra', 'error');
-                    }
-                });
-        }
-
-        function updateQuantity(productId, action) {
-            const input = document.querySelector(`input[data-id="${productId}"]`);
-            let value = parseInt(input.value);
-
-            if (action === 'increase') {
-                value++;
-            } else if (action === 'decrease' && value > 1) {
-                value--;
-            } else if (value <= 1 && action === 'decrease') {
-                showNotification('Số lượng không thể nhỏ hơn 1', 'error');
-                return;
-            }
-
-            input.value = value;
-            handleQuantityChange(input);
-        }
-
-        // Add event listeners for modal buttons
-        document.addEventListener('DOMContentLoaded', function () {
-            // Close modal when clicking outside
-            window.onclick = function (event) {
-                const modal = document.getElementById('deleteConfirmModal');
-                if (event.target === modal) {
-                    closeConfirmModal();
-                }
-            }
-
-            // Add keyboard support for modal
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') {
-                    closeConfirmModal();
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Đã cập nhật số lượng', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showNotification('Có lỗi xảy ra', 'error');
                 }
             });
+        }, 1000);
+    }
+    
+    function updateQuantity(productId, action) {
+        const input = document.querySelector(`input[data-id="${productId}"]`);
+        let value = parseInt(input.value);
+    
+        if (action === 'increase') {
+            value++;
+        } else if (action === 'decrease' && value > 1) {
+            value--;
+        } else if (value <= 1 && action === 'decrease') {
+            showNotification('Số lượng không thể nhỏ hơn 1', 'error');
+            return;
+        }
+    
+        input.value = value;
+        handleQuantityChange(input);
+    }
+    
+    // Delete Management
+    function removeCartItem(productId) {
+        showConfirmModal('Bạn có chắc muốn xóa sản phẩm này?', 'single');
+        selectedItems = [productId];
+    }
+    
+    function confirmDeleteAll() {
+        showConfirmModal('Bạn có chắc muốn xóa tất cả sản phẩm?', 'all');
+    }
+    
+    function deleteSelectedItems() {
+        if (selectedItems.length > 0) {
+            showConfirmModal('Bạn có chắc muốn xóa các sản phẩm đã chọn?', 'selected');
+        }
+    }
+    
+    // Modal Management
+    function showConfirmModal(message, type) {
+        deleteType = type;
+        document.getElementById('deleteConfirmMessage').textContent = message;
+        document.getElementById('deleteConfirmModal').style.display = 'block';
+    }
+    
+    function closeConfirmModal() {
+        document.getElementById('deleteConfirmModal').style.display = 'none';
+    }
+    
+    
+function executeDelete() {
+    closeConfirmModal();
+    let url, data;
 
-            // Initialize select all checkbox state
-            updateSelectAllCheckbox();
+    switch (deleteType) {
+        case 'all':
+            url = 'remove_all_cart_items.php';
+            data = null;
+            break;
+        case 'selected':
+        case 'single':
+            url = deleteType === 'single' ? 'remove_cart_item.php' : 'remove_selected_items.php';
+            data = deleteType === 'single' ? 
+                `product_id=${selectedItems[0]}` :
+                JSON.stringify({ items: selectedItems });
+            break;
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': deleteType === 'single' ? 
+                'application/x-www-form-urlencoded' : 
+                'application/json',
+        },
+        body: data
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Đã xóa sản phẩm thành công', 'success');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showNotification(data.message || 'Có lỗi xảy ra', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Có lỗi xảy ra', 'error');
+    });
+}
+    
+    // Checkbox Management
+    function toggleAllCheckboxes() {
+        const mainCheckbox = document.getElementById('select-all');
+        const checkboxes = document.getElementsByClassName('product-checkbox');
+        Array.from(checkboxes).forEach(checkbox => {
+            if (checkbox !== mainCheckbox) {
+                checkbox.checked = mainCheckbox.checked;
+            }
         });
-
-        function updateSelectAllCheckbox() {
-            const mainCheckbox = document.getElementById('select-all');
-            const checkboxes = Array.from(document.getElementsByClassName('product-checkbox'))
-                .filter(checkbox => checkbox !== mainCheckbox);
-
-            if (checkboxes.length > 0) {
-                const allChecked = checkboxes.every(checkbox => checkbox.checked);
-                const someChecked = checkboxes.some(checkbox => checkbox.checked);
-
-                mainCheckbox.checked = allChecked;
-                mainCheckbox.indeterminate = someChecked && !allChecked;
+        updateDeleteSelectedButton();
+    }
+    
+    function updateDeleteSelectedButton() {
+        const checkboxes = document.getElementsByClassName('product-checkbox');
+        const deleteSelectedBtn = document.getElementById('delete-selected-btn');
+        selectedItems = [];
+    
+        Array.from(checkboxes).forEach(checkbox => {
+            if (checkbox.checked && checkbox.value) {
+                selectedItems.push(checkbox.value);
             }
-        }
-    </script>
-
-    <script>
-        let deleteType = '';
-        let selectedItems = [];
-
-        // Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-            <span>${message}</span>
-        `;
-
-            document.body.appendChild(notification);
-            setTimeout(() => notification.classList.add('show'), 100);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Checkbox functions
-        function toggleAllCheckboxes() {
-            const mainCheckbox = document.getElementById('select-all');
-            const checkboxes = document.getElementsByClassName('product-checkbox');
-            Array.from(checkboxes).forEach(checkbox => {
-                if (checkbox !== mainCheckbox) {
-                    checkbox.checked = mainCheckbox.checked;
-                }
-            });
-            updateDeleteSelectedButton();
-        }
-
-        function updateDeleteSelectedButton() {
-            const checkboxes = document.getElementsByClassName('product-checkbox');
-            const deleteSelectedBtn = document.getElementById('delete-selected-btn');
-            selectedItems = [];
-
-            Array.from(checkboxes).forEach(checkbox => {
-                if (checkbox.checked && checkbox.value) {
-                    selectedItems.push(checkbox.value);
-                }
-            });
-
-            if (deleteSelectedBtn) {
-                deleteSelectedBtn.style.display = selectedItems.length > 0 ? 'flex' : 'none';
-            }
-        }
-
-        // Delete functions
-        function confirmDeleteAll() {
-            showConfirmModal('Bạn có chắc muốn xóa tất cả sản phẩm?', 'all');
-        }
-
-        function deleteSelectedItems() {
-            if (selectedItems.length > 0) {
-                showConfirmModal('Bạn có chắc muốn xóa các sản phẩm đã chọn?', 'selected');
-            }
-        }
-
-        function removeCartItem(productId) {
-            showConfirmModal('Bạn có chắc muốn xóa sản phẩm này?', 'single');
-            selectedItems = [productId];
-        }
-
-        // Modal functions
-        function showConfirmModal(message, type) {
-            deleteType = type;
-            document.getElementById('deleteConfirmMessage').textContent = message;
-            document.getElementById('deleteConfirmModal').style.display = 'block';
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('deleteConfirmModal').style.display = 'none';
-        }
-
-        function executeDelete() {
-            closeConfirmModal();
-            let url, body;
-
-            switch (deleteType) {
-                case 'all':
-                    url = 'remove_all_cart_items.php';
-                    body = '';
-                    break;
-                case 'selected':
-                case 'single':
-                    url = 'remove_selected_items.php';
-                    body = JSON.stringify({ items: selectedItems });
-                    break;
-            }
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: body
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showNotification('Đã xóa sản phẩm thành công', 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showNotification('Có lỗi xảy ra', 'error');
-                    }
-                });
-        }
-
-        // Quantity functions
-        function handleQuantityChange(input) {
-            const productId = input.dataset.id;
-            const quantity = parseInt(input.value);
-
-            if (quantity < 1) {
-                showNotification('Số lượng không thể nhỏ hơn 1', 'error');
-                input.value = 1;
-                return;
-            }
-
-            fetch('update_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `product_id=${productId}&quantity=${quantity}`
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showNotification('Đã cập nhật số lượng', 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showNotification('Có lỗi xảy ra', 'error');
-                    }
-                });
-        }
-
-        function updateQuantity(productId, action) {
-            const input = document.querySelector(`input[data-id="${productId}"]`);
-            let value = parseInt(input.value);
-
-            if (action === 'increase') {
-                value++;
-            } else if (action === 'decrease' && value > 1) {
-                value--;
-            } else if (value <= 1 && action === 'decrease') {
-                showNotification('Số lượng không thể nhỏ hơn 1', 'error');
-                return;
-            }
-
-            input.value = value;
-            handleQuantityChange(input);
-        }
-
-        // Checkout function
-        function proceedToCheckout() {
-            const totalItems = <?php echo $totalItems; ?>;
-            if (totalItems > 0) {
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    window.location.href = 'delivery.php';
-                <?php else: ?>
-                    showNotification('Vui lòng đăng nhập để tiếp tục thanh toán', 'warning');
-                    setTimeout(() => window.location.href = 'login.php', 1500);
-                <?php endif; ?>
-            } else {
-                showNotification('Giỏ hàng của bạn đang trống!', 'warning');
-            }
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            updateDeleteSelectedButton();
-
-            window.onclick = function (event) {
-                if (event.target === document.getElementById('deleteConfirmModal')) {
-                    closeConfirmModal();
-                }
-            }
-
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') {
-                    closeConfirmModal();
-                }
-            });
         });
+    
+        if (deleteSelectedBtn) {
+            deleteSelectedBtn.style.display = selectedItems.length > 0 ? 'flex' : 'none';
+        }
+    }
+    
+    // Checkout Function
+    function proceedToCheckout() {
+        const totalItems = <?php echo $totalItems; ?>;
+        if (totalItems > 0) {
+            <?php if (isset($_SESSION['user_id'])): ?>
+                window.location.href = 'delivery.php';
+            <?php else: ?>
+                showNotification('Vui lòng đăng nhập để tiếp tục thanh toán', 'warning');
+                setTimeout(() => window.location.href = 'login.php', 1500);
+            <?php endif; ?>
+        } else {
+            showNotification('Giỏ hàng của bạn đang trống!', 'warning');
+        }
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDeleteSelectedButton();
+    
+        // Modal close events
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('deleteConfirmModal')) {
+                closeConfirmModal();
+            }
+        }
+    
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeConfirmModal();
+            }
+        });
+    });
     </script>
 </body>
 
