@@ -109,7 +109,7 @@ ul {
 .thumbnail-container {
     display: flex;
     padding-right: 500px;
-    gap: 10px;
+    gap: 20px;
 } 
 
 .thumbnail{
@@ -121,7 +121,7 @@ ul {
     border-radius: 5px;
 }
 .thumbnail:hover {
-    border-color: #f7f201;
+    border-color: #01e7f7;
     transform: scale(1.05);
 }
 .arrow{

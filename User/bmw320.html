@@ -10,6 +10,109 @@
     <link rel="stylesheet" href="bmw320.css">
     <script src="bmw320.js"></script>
 </head>
+<style>
+
+    /* add hover effect for the thumbnail-container div */
+
+    /* add hover effect for the car-info div */
+    .car-info:hover {
+        background-color: #f0f0f0;
+        transition: background-color 0.3s ease-in-out;
+    }
+    /* add hover effect for the car-features and car-safety divs */
+    .car-features:hover, .car-safety:hover {
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease-in-out;
+    }
+.active {
+    border: 4px solid #007bff; /* Blue border for active thumbnail */
+    opacity: 1; /* Full opacity for active thumbnail */
+}
+.thumbnail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.thumbnail {
+    width: 80px;
+    height: 60px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.7; /* Reduced opacity for inactive thumbnails */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity change */
+}
+.thumbnail:hover {
+    opacity: 1; /* Full opacity on hover */
+}
+/* .thumbnail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px; Added gap for better spacing between thumbnails */
+/* } */
+/* animation while change the image */
+.animation {
+    transition: opacity 0.5s ease-in-out; /* Smooth transition for image change */
+}
+/* Add a hover effect to the buttons */
+.btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white; /* White text on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+}
+/* ...existing code... */
+
+/* Add these new styles at the end of your CSS file */
+.fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.car-image img {
+    width: 600px;
+    height: 350px;
+    max-width: 600px;
+    border: 2px solid #f4f4f4;
+    border-radius: 10px;
+    object-fit: contain;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+/* ...existing code... */
+
+.active {
+    border: 4px solid #007bff;
+    opacity: 1;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    z-index: 1;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 60px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    border: 4px solid transparent;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+</style>
 <body>
     <header>
         <div class="logo">
@@ -79,5 +182,69 @@
             <button class="btn secondary" onclick="history.back()">Trở về</button>
         </div>
     </main>
+    <script>
+        //    function changeImage(imageSrc) {
+        //         const mainImage = document.getElementById("mainImage");
+        //         mainImage.src = imageSrc;
+        //         // imageSrc.classList.add("active");
+        //         const thumbnails = document.querySelectorAll('.thumbnail');
+        //         thumbnails.forEach(thumbnail => {
+        //             thumbnail.classList.remove("active");
+        //         });
+        //         const activeThumbnail = Array.from(thumbnails).find(thumbnail => thumbnail.src.includes(imageSrc));
+        //         if (activeThumbnail) {
+        //             activeThumbnail.classList.add("active");
+        //         }
+        //     }
+        function nextImage() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.src.includes(document.getElementById('mainImage').src));
+            const nextIndex = (currentIndex + 1) % thumbnails.length;
+            changeImage(thumbnails[nextIndex].src);
+        }
+        function prevImage() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.src.includes(document.getElementById('mainImage').src));
+            const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+            changeImage(thumbnails[prevIndex].src);
+        }
+// Replace the existing changeImage function with this updated version:
+function changeImage(imageSrc) {
+    const mainImage = document.getElementById("mainImage");
+    
+    // Start fade out
+    mainImage.style.opacity = '0';
+    
+    // Wait for fade out to complete
+    setTimeout(() => {
+        // Change the image source
+        mainImage.src = imageSrc;
+        
+        // Start fade in
+        mainImage.style.opacity = '1';
+        
+        // Update thumbnails
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails.forEach(thumbnail => {
+            thumbnail.classList.remove("active");
+        });
+        const activeThumbnail = Array.from(thumbnails).find(thumbnail => thumbnail.src.includes(imageSrc));
+        if (activeThumbnail) {
+            activeThumbnail.classList.add("active");
+        }
+    }, 500); // This timing should match the CSS transition duration
+}
+
+// Update the autoChangeImage function to use a longer interval
+function autoChangeImage() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    let currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.src.includes(document.getElementById('mainImage').src));
+    const nextIndex = (currentIndex + 1) % thumbnails.length;
+    changeImage(thumbnails[nextIndex].src);
+}
+setInterval(autoChangeImage, 3000); // Changed to 5 seconds to allow for animation
+
+    
+    </script>
 </body>
 </html>
