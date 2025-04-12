@@ -31,10 +31,12 @@ body {
 }
 
 .car-image img {
-    width: 100%;
-    height: auto;
+    width: 600px;
+    height: 350px;
     max-width: 600px;
-    border-radius: 8px;
+    border: 2px solid #f4f4f4;
+    border-radius: 10px;
+    object-fit: contain;
 }
 
 .car-info {
@@ -101,4 +103,31 @@ ul {
 
 .secondary:hover {
     background-color: #5a6268;
+}
+
+
+.thumbnail-container {
+    display: flex;
+    padding-right: 500px;
+    gap: 10px;
+} 
+
+.thumbnail{
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    border: 5px solid transparent;
+    transition: border-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+}
+.thumbnail:hover {
+    border-color: #f7f201;
+    transform: scale(1.05);
+}
+.arrow{
+    background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
 }

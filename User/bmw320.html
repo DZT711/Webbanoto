@@ -8,6 +8,7 @@
     <link rel="icon" href="dp56vcf7.png" type="image/png">
 
     <link rel="stylesheet" href="bmw320.css">
+    <script src="bmw320.js"></script>
 </head>
 <body>
     <header>
@@ -22,7 +23,7 @@
         <div class="container">
             <div class="car-details">
                 <div class="car-image">
-                    <img src="3-series.jpeg" alt="BMW 320i Sport Line 2023">
+                    <img id="mainImage" src="3-series.jpeg" alt="BMW 320i Sport Line 2023">
                 </div>
             <div class="car-info">
                 <h2>1.629.000.000 VND</h2>
@@ -34,6 +35,16 @@
                 <p><strong>Địa chỉ:</strong> TP.HCM</p>
         </div>
 
+        <div class="thumbnail-container">
+            <button class="arrow" onclick="prevImage()">&#10094;</button>
+            <img src="3-series.jpeg" class="thumbnail" alt="Hình thu nhỏ 1" onclick="changeImage('3-series.jpeg')">
+            <img src="3-series2.jpg" class="thumbnail" alt="Hình thu nhỏ 2" onclick="changeImage('3-series2.jpg')">
+            <img src="3-series3.jpg" class="thumbnail" alt="Hình thu nhỏ 3" onclick="changeImage('3-series3.jpg')"> 
+            <img src="3-series4.jpg" class="thumbnail" alt="Hình thu nhỏ 4" onclick="changeImage('3-series4.jpg')">                <img src="3-series5.jpg" class="thumbnail" alt="Hình thu nhỏ 5" onclick="changeImage('3-series5.jpg')">         
+            <button class="arrow" onclick="nextImage()">&#10095;</button>
+        </div>
+        
+        
         <!-- Car Features Section -->
         <div class="car-features">
             <h3>⚙️ Option Nổi Bật</h3>
