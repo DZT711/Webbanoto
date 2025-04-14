@@ -25,6 +25,10 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
     $_SESSION['first_login'] = false; // Reset the flag
 }
 include '../User/connect.php';
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    echo "<script>showNotification('You don't have permission to access this page!','warning'); window.location.href='login.php';</script>";
+    exit();
+}
 
 ?>
 <!DOCTYPE html>

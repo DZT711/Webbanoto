@@ -253,7 +253,7 @@ $system_version = '1.0.0'; // Could be loaded from config file
         default: daySuffix='th'; break;  // for other numbers
       }
 
-      clock.textContent = `${day}/ ${month} / ${year}  ${hour}:${m}:${s} `;
+      clock.textContent = `${day}/${month}/ ${year}  ${hour}:${m}:${s} `;
     //   ampmtext.textContent = `${ampm}`;  // hiển thị AM/PM
     //   date1.textContent = `${dayName}, ${monthName} ${d}${daySuffix}, ${year}  `;
     }
