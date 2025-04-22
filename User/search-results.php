@@ -838,7 +838,7 @@ if ($result) {
                 </a>
                 <form action="search-results.php" method="GET" id="searchFilterForm">
                     <div class="search-container">
-                        <input type="text" name="query" placeholder="Tìm kiếm (vd: BMW + giá:<500000000 + số chỗ:>4)..."
+                        <input type="text" name="query" placeholder="" id="search1"
                             value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>">
                         <button type="submit">
                             <i class="fa fa-search"></i>
@@ -1060,7 +1060,7 @@ if ($result) {
             
                         // Show first page if we're not starting at 1
                         if ($start_page > 1) {
-                            echo '<a href="javascript:void(0)" onclick="navigateToPage(1)">1</a>';
+                            echo '<a href="javascript:void(0)" onclick="navigateToPage(1)">1</a>';//người dùng nhấp chuột, chỉ thực thi mã JavaScript mà không điều hướng, tải lại hay thay đổi URL của trang. Về bản chất, void là một toán tử trong JavaScript, nó đánh giá (evaluate) biểu thức bên trong, rồi luôn trả về giá trị undefined bất kể kết quả thực thi biểu thức đó là g
                             if ($start_page > 2) {
                                 echo '<span class="page-dots">...</span>';
                             }
@@ -1222,7 +1222,80 @@ document.getElementById('searchFilterForm').addEventListener('submit', function(
     window.location.href = 'search-results.php?' + params.toString();
 });
         </script>
+<script>
+// Add this after your existing scripts
+const searchPlaceholders = [
+    "Tìm kiếm sản phẩm...",
+    "Nhập tên xe yêu thích...",
+    "BMW + giá:<500000000",
+    "Mercedes + số chỗ:>4",
+    "Toyota + năm:>2020",
+    "mã lực:>300 + màu:đen",
+    "dung tích:>2.0 + nhiên liệu:xăng",
+    "vận tốc:>200 + động cơ:V8",
+    <?php
+    // Query to get random product names
+    $query = "SELECT car_name FROM products WHERE status IN ('selling', 'discounting') ORDER BY RAND() LIMIT 20";
+    $result = mysqli_query($connect, $query);
+    
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '"' . addslashes($row['car_name']) . ' + giá:<1000000000",' . "\n";
+        }
+    }
+    ?>
+];
 
+function setupSearchPlaceholder(inputId) {
+    const inputEl = document.getElementById(inputId);
+    let currentIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+
+    function type() {
+        const currentText = searchPlaceholders[currentIndex];
+        
+        if (isWaiting) {
+            setTimeout(() => {
+                isWaiting = false;
+                isDeleting = true;
+                type();
+            }, 2000);
+            return;
+        }
+
+        if (isDeleting) {
+            inputEl.setAttribute('placeholder', currentText.substring(0, charIndex - 1));
+            charIndex--;
+
+            if (charIndex === 0) {
+                isDeleting = false;
+                currentIndex = (currentIndex + 1) % searchPlaceholders.length;
+            }
+        } else {
+            inputEl.setAttribute('placeholder', currentText.substring(0, charIndex + 1));
+            charIndex++;
+
+            if (charIndex === currentText.length) {
+                isWaiting = true;
+            }
+        }
+
+        const speed = isDeleting ? 50 : 100;
+        setTimeout(type, speed);
+    }
+
+    // Start the typing effect
+    type();
+}
+
+// Initialize for both search inputs
+document.addEventListener('DOMContentLoaded', function() {
+    // setupSearchPlaceholder('search');  // Nav search
+    setupSearchPlaceholder('search1'); // Main search
+});
+</script>
     </body>
 
 </html>

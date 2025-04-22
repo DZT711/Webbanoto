@@ -902,6 +902,8 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
+
+
 </style>
 
 <body>
@@ -1026,23 +1028,48 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
 
             <!-- Pagination -->
             <!-- Replace the existing pagination div -->
-            <div class="pagination">
-                <?php if ($page > 1): ?>
-                    <a href="?page=<?= $page - 1 ?>#view" class="page-link page-nav">
-                        <i class="fas fa-chevron-left"></i> Trang trước
-                    </a>
-                <?php endif; ?>
+            <!-- Replace the existing pagination div -->
+<div class="pagination">
+    <?php if ($totalPages > 1): ?>
+                    <!-- Previous button -->
+                    <?php if ($page > 1): ?>
+                        <a href="?page=<?= $page - 1 ?>#view" class="page-link">
+                            <i class="fas fa-chevron-left"></i> Trang trước
+                        </a>
+                    <?php endif; ?>
+            
+                    <?php
+                    // Calculate range of pages to show
+                    $startPage = max(1, $page - 2);
+                    $endPage = min($totalPages, $page + 2);
 
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <a href="?page=<?= $i ?>#view" class="page-link <?= $i === $page ? 'active' : '' ?>">
-                        <?= $i ?>
-                    </a>
-                <?php endfor; ?>
+                    // Always show first page
+                    if ($startPage > 1) {
+                        echo '<a href="?page=1#view" class="page-link">1</a>';
+                        if ($startPage > 2) {
+                            echo '<span class="page-dots">...</span>';
+                        }
+                    }
 
-                <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?= $page + 1 ?>#view" class="page-link page-nav">
-                        Trang sau <i class="fas fa-chevron-right"></i>
-                    </a>
+                    // Show pages around current page
+                    for ($i = $startPage; $i <= $endPage; $i++) {
+                        echo '<a href="?page=' . $i . '#view" class="page-link ' . ($i === $page ? 'active' : '') . '">' . $i . '</a>';
+                    }
+
+                    // Always show last page
+                    if ($endPage < $totalPages) {
+                        if ($endPage < $totalPages - 1) {
+                            echo '<span class="page-dots">...</span>';
+                        }
+                        echo '<a href="?page=' . $totalPages . '#view" class="page-link">' . $totalPages . '</a>';
+                    }
+
+                    // Next button
+                    if ($page < $totalPages): ?>
+                        <a href="?page=<?= $page + 1 ?>#view" class="page-link">
+                            Trang sau <i class="fas fa-chevron-right"></i>
+                        </a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
             <!-- Add this after the pagination div -->
