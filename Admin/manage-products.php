@@ -1493,7 +1493,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        opacity:0.5;
+        opacity: 0.5;
     }
 
     .image-preview-item .remove-image:hover {
@@ -1611,16 +1611,53 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
     .remove-preview {
         opacity: 0.7 !important;
     }
+
     .confirm-btn.hide-btn {
-    background-color: #ffc107;
-    color: black;
-}
+        background-color: #ffc107;
+        color: black;
+    }
 
-.confirm-btn.delete-btn {
-    background-color: #dc3545;
-    color: white;
-}
+    .confirm-btn.delete-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+<style>
+    .admin-table th:nth-child(1) {
+        width: 50px;
+    }
 
+    .admin-table th:nth-child(2) {
+        width: 80px;
+    }
+
+    .admin-table th:nth-child(5) {
+        width: 60px;
+    }
+
+    .admin-table th:nth-child(6) {
+        width: 150px;
+    }
+
+    .admin-table th:nth-child(7) {
+        width: 60px;
+    }
+
+    .admin-table th:nth-child(8) {
+        width: 130px;
+    }
+
+    .admin-table th:nth-child(9) {
+        width: 125px;
+    }
+
+    .admin-table th:nth-child(13) {
+        width: 115px;
+    }
+
+    .admin-table th:nth-child(12) {
+        width: 70px;
+    }
 </style>
 
 <body>
@@ -1672,7 +1709,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                             echo '<td>' . number_format($row['price'], 0, ',', '.') . ' VND</td>';
                             echo '<td>' . $row['fuel_name'] . '</td>';
                             echo '<td>' . $row['fuel_capacity'] . ' </td>';
-                            echo '<td>' . $row['engine_power'] . '</td>';
+                            echo '<td>' . $row['engine_power'] . ' hp</td>';
                             echo '<td>' . $row['engine_name'] . '</td>';
                             echo '<td>' . $row['color'] . '</td>';
                             echo '<td>' . $row['seat_number'] . '</td>';
@@ -1803,8 +1840,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <div>
                     <label for="engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine
                         Power:</label>
-
-                    <input type="number" id="engine_power" name="engine_power" min="0" required>
+                    <input type="number" id="engine_power" name="engine_power" min="0" max="2000" required>
                 </div>
             </div>
             <div class="form-section">
@@ -1936,7 +1972,7 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <div>
                     <label for="edit_engine_power" class="required"><span><i class="fa-solid fa-gear"></i></span>Engine
                         Power:</label>
-                    <input type="number" id="edit_engine_power" name="engine_power" min="0" required>
+                    <input type="number" id="edit_engine_power" name="engine_power" min="0" max="2000" required>
                 </div>
             </div>
             <div class="form-section">
@@ -1965,11 +2001,11 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
                 <input type="file" id="edit_additional_images" name="additional_images[]" accept="image/*" multiple>
                 <small style="display: block; margin-top: 5px; color: #666;">You can select multiple images at
                     once</small>
-                    <label for="">Product Additional Image(s):</label>
+                <label for="">Product Additional Image(s):</label>
                 <div id="currentAdditionalImages" class="images-preview-container">
                     <!-- Các hình ảnh hiện tại sẽ được load động -->
                 </div>
-                            <label for="">Product Additional Image(s):</label>
+                <label for="">Product Additional Image(s):</label>
                 <div id="editImagesPreview" class="images-preview-container">
                     <!-- Các hình ảnh mới được chọn sẽ hiển thị ở đây -->
                 </div>
@@ -1993,25 +2029,25 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         </form>
     </div>
 
-<!-- Delete Confirmation Modal -->
-<div id="deleteConfirmModal" class="popup">
-    <div class="popup-content">
-        <h3><i class="fa-solid fa-trash"></i> Delete Product</h3>
-        <p id="deleteMessage"></p>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="hidden" name="product_id" id="delete_product_id">
-            <input type="hidden" name="action_type" id="action_type">
-            <div class="popup-buttons">
-                <button type="submit" name="confirm_action" class="confirm-btn">
-                    <i class="fa-solid fa-trash"></i> Delete
-                </button>
-                <button type="button" class="cancel-btn" onclick="closeDeleteConfirm()">
-                    <i class="fa-solid fa-times"></i> Cancel
-                </button>
-            </div>
-        </form>
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="popup">
+        <div class="popup-content">
+            <h3><i class="fa-solid fa-trash"></i> Delete Product</h3>
+            <p id="deleteMessage"></p>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <input type="hidden" name="product_id" id="delete_product_id">
+                <input type="hidden" name="action_type" id="action_type">
+                <div class="popup-buttons">
+                    <button type="submit" name="confirm_action" class="confirm-btn">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                    <button type="button" class="cancel-btn" onclick="closeDeleteConfirm()">
+                        <i class="fa-solid fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
     <div class="modal-overlay" id="modalOverlay"></div>
     <script>
@@ -2094,38 +2130,38 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         }
         // Replace the existing confirmDeleteProduct function
         // Update your JavaScript functions
-//         function confirmDeleteProduct(productId) {
-//     fetch(`check_product_orders.php?id=${productId}`)
-//         .then(response => response.json())
-//         .then(data => {
-//             const modal = document.getElementById('deleteConfirmModal');
-//             const overlay = document.getElementById('modalOverlay');
-//             document.getElementById('delete_product_id').value = productId;
+        //         function confirmDeleteProduct(productId) {
+        //     fetch(`check_product_orders.php?id=${productId}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const modal = document.getElementById('deleteConfirmModal');
+        //             const overlay = document.getElementById('modalOverlay');
+        //             document.getElementById('delete_product_id').value = productId;
 
-//             if (data.inOrders) {
-//                 // Sản phẩm đã từng được đặt hàng
-//                 document.querySelector('#deleteConfirmModal h3').innerHTML = 
-//                     '<i class="fa-solid fa-eye-slash"></i> Hide Product';
-//                 document.querySelector('#deleteMessage').innerHTML = 
-//                     'This product has been in previous orders and cannot be permanently deleted. It will be hidden from the website instead.';
-//                 document.querySelector('.confirm-btn').innerHTML = 
-//                     '<i class="fa-solid fa-eye-slash"></i> Hide Product';
-//                 document.getElementById('action_type').value = 'hide';
-//             } else {
-//                 // Sản phẩm chưa từng được đặt hàng
-//                 document.querySelector('#deleteConfirmModal h3').innerHTML = 
-//                     '<i class="fa-solid fa-trash"></i> Delete Product';
-//                 document.querySelector('#deleteMessage').innerHTML = 
-//                     'Are you sure you want to permanently delete this product? This action cannot be undone.';
-//                 document.querySelector('.confirm-btn').innerHTML = 
-//                     '<i class="fa-solid fa-trash"></i> Delete';
-//                 document.getElementById('action_type').value = 'delete';
-//             }
-            
-//             modal.style.display = 'flex';
-//             overlay.style.display = 'block';
-//         });
-// }
+        //             if (data.inOrders) {
+        //                 // Sản phẩm đã từng được đặt hàng
+        //                 document.querySelector('#deleteConfirmModal h3').innerHTML = 
+        //                     '<i class="fa-solid fa-eye-slash"></i> Hide Product';
+        //                 document.querySelector('#deleteMessage').innerHTML = 
+        //                     'This product has been in previous orders and cannot be permanently deleted. It will be hidden from the website instead.';
+        //                 document.querySelector('.confirm-btn').innerHTML = 
+        //                     '<i class="fa-solid fa-eye-slash"></i> Hide Product';
+        //                 document.getElementById('action_type').value = 'hide';
+        //             } else {
+        //                 // Sản phẩm chưa từng được đặt hàng
+        //                 document.querySelector('#deleteConfirmModal h3').innerHTML = 
+        //                     '<i class="fa-solid fa-trash"></i> Delete Product';
+        //                 document.querySelector('#deleteMessage').innerHTML = 
+        //                     'Are you sure you want to permanently delete this product? This action cannot be undone.';
+        //                 document.querySelector('.confirm-btn').innerHTML = 
+        //                     '<i class="fa-solid fa-trash"></i> Delete';
+        //                 document.getElementById('action_type').value = 'delete';
+        //             }
+
+        //             modal.style.display = 'flex';
+        //             overlay.style.display = 'block';
+        //         });
+        // }
 
 
         // function closeDeleteConfirm() {
@@ -2135,78 +2171,78 @@ while ($brand = mysqli_fetch_assoc($brands_result)) {
         //     modal.style.display = 'none';
         //     overlay.style.display = 'none';
         // }
-function confirmDeleteProduct(productId) {
-    fetch(`check_product_orders.php?id=${productId}`)
-        .then(response => response.json())
-        .then(data => {
-            const modal = document.getElementById('deleteConfirmModal');
-            const overlay = document.getElementById('modalOverlay');
-            document.getElementById('delete_product_id').value = productId;
+        function confirmDeleteProduct(productId) {
+            fetch(`check_product_orders.php?id=${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const modal = document.getElementById('deleteConfirmModal');
+                    const overlay = document.getElementById('modalOverlay');
+                    document.getElementById('delete_product_id').value = productId;
 
-            if (data.inOrders) {
-                // Setup hide product modal
-                document.querySelector('#deleteConfirmModal h3').innerHTML = 
-                    '<i class="fa-solid fa-eye-slash"></i> Hide Product';
-                document.querySelector('#deleteMessage').innerHTML = 
-                    'This product exists in orders and cannot be deleted. It will be hidden from the website instead.';
-                document.querySelector('.confirm-btn').innerHTML = 
-                    '<i class="fa-solid fa-eye-slash"></i> Hide Product';
-                document.querySelector('.confirm-btn').classList.add('hide-btn');
-                document.querySelector('.confirm-btn').classList.remove('delete-btn');
-                document.getElementById('action_type').value = 'hide';
-            } else {
-                // Setup delete product modal
-                document.querySelector('#deleteConfirmModal h3').innerHTML = 
-                    '<i class="fa-solid fa-trash"></i> Delete Product';
-                document.querySelector('#deleteMessage').innerHTML = 
-                    'Are you sure you want to delete this product? This action cannot be undone.';
-                document.querySelector('.confirm-btn').innerHTML = 
-                    '<i class="fa-solid fa-trash"></i> Delete';
-                document.querySelector('.confirm-btn').classList.add('delete-btn');
-                document.querySelector('.confirm-btn').classList.remove('hide-btn');
-                document.getElementById('action_type').value = 'delete';
-            }
-            
-            modal.style.display = 'flex';
-            overlay.style.display = 'block';
-        });
-}
+                    if (data.inOrders) {
+                        // Setup hide product modal
+                        document.querySelector('#deleteConfirmModal h3').innerHTML =
+                            '<i class="fa-solid fa-eye-slash"></i> Hide Product';
+                        document.querySelector('#deleteMessage').innerHTML =
+                            'This product exists in orders and cannot be deleted. It will be hidden from the website instead.';
+                        document.querySelector('.confirm-btn').innerHTML =
+                            '<i class="fa-solid fa-eye-slash"></i> Hide Product';
+                        document.querySelector('.confirm-btn').classList.add('hide-btn');
+                        document.querySelector('.confirm-btn').classList.remove('delete-btn');
+                        document.getElementById('action_type').value = 'hide';
+                    } else {
+                        // Setup delete product modal
+                        document.querySelector('#deleteConfirmModal h3').innerHTML =
+                            '<i class="fa-solid fa-trash"></i> Delete Product';
+                        document.querySelector('#deleteMessage').innerHTML =
+                            'Are you sure you want to delete this product? This action cannot be undone.';
+                        document.querySelector('.confirm-btn').innerHTML =
+                            '<i class="fa-solid fa-trash"></i> Delete';
+                        document.querySelector('.confirm-btn').classList.add('delete-btn');
+                        document.querySelector('.confirm-btn').classList.remove('hide-btn');
+                        document.getElementById('action_type').value = 'delete';
+                    }
 
-function closeDeleteConfirm() {
-    document.getElementById('deleteConfirmModal').style.display = 'none';
-    document.getElementById('modalOverlay').style.display = 'none';
-}
+                    modal.style.display = 'flex';
+                    overlay.style.display = 'block';
+                });
+        }
+
+        function closeDeleteConfirm() {
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
         // Update the delete form handler
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('deleteForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('deleteForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
 
-        console.log('Delete form submitted');
-        console.log('Form data:', Object.fromEntries(formData));
+                console.log('Delete form submitted');
+                console.log('Form data:', Object.fromEntries(formData));
 
-        fetch('manage-products.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            console.log('Response status:', response.status);
-            return response.text();
-        })
-        .then(data => {
-            console.log('Response data:', data);
-            closeDeleteConfirm();
-            showNotification('Product deleted successfully', 'success');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Error deleting product', 'error');
+                fetch('manage-products.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log('Response data:', data);
+                        closeDeleteConfirm();
+                        showNotification('Product deleted successfully', 'success');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Error deleting product', 'error');
+                    });
+            });
         });
-    });
-});
 
 
 
@@ -2321,34 +2357,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         function deleteProductImage(imageId, button) {
-    // Hiển thị xác nhận
-    if (confirm('Are you sure you want to delete this image?')) {
-        fetch('delete_product_image.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ image_id: imageId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Xóa phần tử hình ảnh khỏi DOM
-                button.closest('.image-preview-item').remove();
-                
-                // Hiển thị thông báo thành công
-                showNotification('Image deleted successfully', 'success');
-            } else {
-                // Hiển thị thông báo lỗi
-                showNotification(data.message || 'Error deleting image', 'error');
+            // Hiển thị xác nhận
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch('delete_product_image.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image_id: imageId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Xóa phần tử hình ảnh khỏi DOM
+                            button.closest('.image-preview-item').remove();
+
+                            // Hiển thị thông báo thành công
+                            showNotification('Image deleted successfully', 'success');
+                        } else {
+                            // Hiển thị thông báo lỗi
+                            showNotification(data.message || 'Error deleting image', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Network error occurred', 'error');
+                    });
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Network error occurred', 'error');
-        });
-    }
-}
+        }
 
         function closeEditProductForm() {
             document.getElementById('editProductModal').style.display = 'none';

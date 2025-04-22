@@ -207,15 +207,335 @@ $car_count = mysqli_num_rows($result);
             /* margin-bottom: 30px; */
         }
     </style>
+    <style>
+        .brand-header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin: 20px 320px;
+            border: 2px solid rgb(227, 219, 219);
+        }
+
+        .brand-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lgb {
+            border: 2px solid gray;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .lgb:hover {
+            border-color: black;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .lg-b {
+            max-width: 100px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .lgb:hover .lg-b {
+            transform: scale(1.05);
+        }
+
+        .brand-title {
+            color: gray;
+            text-transform: uppercase;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1200px) {
+            .brand-header {
+                margin: 20px;
+            }
+        }
+    </style>
+    <style>
+        /* Enhanced Brand Header Animation */
+        .brand-header {
+            position: relative;
+            overflow: hidden;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Enhanced Filter Section */
+        .filter-section {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        .filter-section select {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+        }
+
+        .filter-section select:hover {
+            transform: translateY(-2px);
+            box-shadow: 7px 7px 15px #d9d9d9, -7px -7px 15px #ffffff;
+        }
+
+        /* Enhanced Car Items */
+        .nc-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .ctn21 {
+            perspective: 1000px;
+        }
+
+        .nc-item:hover .carpic {
+            transform: scale(1.05);
+        }
+
+        .carpic {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carinfo i {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carinfo i::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #007bff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .carinfo i:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Skeleton */
+        .skeleton-loader {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            to {
+                background-position: -200% 0;
+            }
+        }
+        .brand-header {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 40px 0;
+            background: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin: 20px 320px;
+            border: 2px solid rgb(227, 219, 219);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.8) 50%,
+                transparent 100%
+            );
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        } 
+        /* Add z-index to ensure content stays above the shimmer effect */
+        .lgb {
+            position: relative;
+            z-index: 1;
+        }
+    </style> */
+
+    <style>
+        .brand-header {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 40px 0;
+            background: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin: 20px 320px;
+            border: 2px solid rgb(227, 219, 219);
+            animation: fadeInDown 0.8s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+    
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(145, 145, 145, 0.8) 50%,
+                transparent 100%
+            );
+            animation: shimmer 2s infinite linear;
+            pointer-events: none; /* Ensures the shimmer doesn't interfere with clicks */
+            z-index: 2; /* Place above content but below text */
+        }
+    
+        .brand-logo-container {
+            position: relative;
+            /* z-index: 3;  */
+        }
+        
+    
+        .lgb {
+            position: relative;
+            border: 2px solid gray;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: white;
+            z-index: 3;
+        }
+    
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+    
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    
+        @media (max-width: 1200px) {
+            .brand-header {
+                margin: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <main>
+            
+
         <?php if ($car_count > 0): ?>
             <div class="brand-header">
-                <img src="<?php echo htmlspecialchars($brand['logo_url']); ?>"
-                    alt="<?php echo htmlspecialchars($brand_name); ?>" class="brand-logo">
-                <h1 class="brand-title"><?php echo htmlspecialchars($brand_name); ?></h1>
+                <!-- <div class="brand-logo-container"> -->
+                    <!-- <div class="lgb"> -->
+                        <img class="lg-b" 
+                             src="https://img.logo.dev/<?php echo htmlspecialchars($brand['type_name']); ?>.com" 
+                             alt="<?php echo htmlspecialchars($brand['type_name']); ?>" 
+                             class="brand-logo">
+                        <h1 class="brand-title"><?php echo htmlspecialchars($brand_name); ?></h1>
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
             <div class="brand-content">
                 <div id="newcar">
@@ -247,9 +567,13 @@ $car_count = mysqli_num_rows($result);
                                 data-year="<?php echo $row['year_manufacture']; ?>">
                                 <a href="car-details.php?name=<?php echo urlencode($row['car_name']); ?>" class="linkcar">
                                     <?php if ($row['status'] == 'discounting'): ?>
-                                        <div class="status-badge status-discounting">Đang giảm giá</div>
+                                        <div class="status-badge status-discounting">
+                                            <i class="fas fa-tags"></i>
+                                            Đang giảm giá
+                                        </div>
                                     <?php endif; ?>
-                                    <img class="carpic" src="<?php echo htmlspecialchars($row['image_link']); ?>"
+                                    <img class="carpic" data-src="<?php echo htmlspecialchars($row['image_link']); ?>"
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                                         alt="<?php echo htmlspecialchars($row['car_name']); ?>">
                                     <h2 class="cith2"><?php echo number_format($row['price'], 0, ',', '.'); ?> VND</h2>
                                     <p class="cit"><?php echo htmlspecialchars($row['car_name']); ?></p>
@@ -273,10 +597,17 @@ $car_count = mysqli_num_rows($result);
                 </div>
             </div>
         <?php else: ?>
+
+
             <div class="brand-header">
-                <img src="https://img.logo.dev/<?php echo htmlspecialchars($brand_name); ?>.com"
-                    alt="<?php echo htmlspecialchars($brand_name); ?>" class="brand-logo">
-                <h1 class="brand-title"><?php echo htmlspecialchars($brand_name); ?></h1>
+                <div class="brand-logo-container">
+                    <div class="lgb">
+                        <img class="lg-b"
+                            src="https://img.logo.dev/<?php echo htmlspecialchars($brand['type_name']); ?>.com"
+                            alt="<?php echo htmlspecialchars($brand['type_name']); ?>">
+                        <h1 class="brand-title"><?php echo htmlspecialchars($brand_name); ?></h1>
+                    </div>
+                </div>
             </div>
             <script>
                 // Show notification when no cars are found
@@ -321,6 +652,77 @@ $car_count = mysqli_num_rows($result);
                 item.style.display = (showByPrice && showByYear) ? 'block' : 'none';
             });
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Stagger animation for car items
+            const items = document.querySelectorAll('.nc-item');
+            items.forEach((item, index) => {
+                item.style.animationDelay = `${0.1 * index}s`;
+            });
+
+            // Smooth scroll for filter changes
+            function smoothScroll(target) {
+                const element = document.querySelector(target);
+                window.scrollTo({
+                    top: element.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Enhanced filter function
+            function filterProducts() {
+                const priceFilter = document.getElementById('priceFilter').value;
+                const yearFilter = document.getElementById('yearFilter').value;
+                const items = document.querySelectorAll('.nc-item');
+
+                items.forEach(item => {
+                    const price = parseInt(item.dataset.price);
+                    const year = item.dataset.year;
+                    let showByPrice = true;
+                    let showByYear = true;
+
+                    if (priceFilter !== 'all') {
+                        if (priceFilter === 'below10b' && price >= 2000000000) showByPrice = false;
+                        if (priceFilter === '10to20b' && (price < 2000000000 || price > 5000000000)) showByPrice = false;
+                        if (priceFilter === 'above20b' && price <= 10000000000) showByPrice = false;
+                    }
+
+                    if (yearFilter !== 'all' && year !== yearFilter) {
+                        showByYear = false;
+                    }
+
+                    if (showByPrice && showByYear) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Scroll to results
+                smoothScroll('#newcar');
+            }
+
+            // Lazy loading for images
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('skeleton-loader');
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.carpic').forEach(img => {
+                    img.classList.add('skeleton-loader');
+                    imageObserver.observe(img);
+                });
+            }
+        });
     </script>
 </body>
 

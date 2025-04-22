@@ -1225,8 +1225,7 @@ document.getElementById('searchFilterForm').addEventListener('submit', function(
 <script>
 // Add this after your existing scripts
 const searchPlaceholders = [
-    "Tìm kiếm sản phẩm...",
-    "Nhập tên xe yêu thích...",
+
     "BMW + giá:<500000000",
     "Mercedes + số chỗ:>4",
     "Toyota + năm:>2020",
