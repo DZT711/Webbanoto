@@ -479,12 +479,151 @@ button.link:active {
     background-color: #c82333;
 }
 </style>
+<style>
+/* Enhanced Admin Header */
+.admin-header {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: headerGradient 5s ease infinite;
+}
+
+.logo {
+    position: relative;
+    z-index: 2;
+}
+
+#logoheader {
+    max-width: 10%;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+
+/* Enhanced Navbar */
+.navbar {
+    background: rgba(44, 62, 80, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.navbar.scrolled {
+    padding: 5px 0;
+    background: rgba(44, 62, 80, 0.98);
+}
+
+.navbar a {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #1abc9c;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar a:hover::after {
+    width: 80%;
+}
+
+/* Enhanced Nav User Section */
+.nav-user {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(-100%);
+    animation: slideDown 0.5s ease forwards;
+}
+
+.user-greeting {
+    position: relative;
+}
+
+.user-greeting::before {
+    /* content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    ); */
+    /* animation: shimmer 2s infinite; */
+}
+
+/* Animations */
+@keyframes headerGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        left: 200%;
+    }
+}
+
+</style>
+<style>
+        /* Replace or update the admin-header and logo styles */
+    .admin-header {
+        background: linear-gradient(270deg, #1a2a6c, #b21f1f, #fdbb2d, #1abc9c);
+        background-size: 400% 400%;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        /* min-height: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center; */
+        animation: gradientAnimation 15s ease infinite;
+    }
+    
+
+
+    
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>
 <body>
     <div id="notification" class="notification"></div>
     <header class="admin-header">
         <div class="logo">
             <a href="index.php">
-                <img id="logoheader" src="../User/dp56vcf7.png" alt="Image Description">
+                <img id="logoheader" src="../User/dp56vcf7.png" alt="Logo">
             </a>
         </div>
     </header>
@@ -551,13 +690,85 @@ button.link:active {
     }
     </script>
     
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+    
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+    
+            lastScroll = currentScroll;
+        });
+    
+        // Add active state to current page link
+        const currentPage = window.location.pathname.split('/').pop();
+        const navLinks = document.querySelectorAll('.navbar a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    
+ 
+        // Enhanced logout button interaction
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('mouseenter', () => {
+                logoutBtn.style.transform = 'translateX(5px)';
+            });
+    
+            logoutBtn.addEventListener('mouseleave', () => {
+                logoutBtn.style.transform = 'translateX(0)';
+            });
+        }
+    
+        // Enhance notification system
+        const showEnhancedNotification = (message, type) => {
+            const notification = document.getElementById('notification');
+            let icon = '';
+            
+            switch(type) {
+                case 'success':
+                    icon = '<i class="fa-solid fa-circle-check"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fa-solid fa-circle-xmark"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                    break;
+                case 'info':
+                    icon = '<i class="fa-solid fa-circle-info"></i>';
+                    break;
+            }
+            
+            notification.innerHTML = `${icon} ${message}`;
+            notification.className = `notification ${type}`;
+            
+            requestAnimationFrame(() => {
+                notification.classList.add('show');
+            });
+            
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    notification.classList.remove('show', 'fade-out');
+                    notification.textContent = '';
+                }, 300);
+            }, 5000);
+        };
+    
+        // Replace existing showNotification function
+        window.showNotification = showEnhancedNotification;
+    });
+    </script>
 </body>
-<?php
-if ($connect) {
-    // echo "<script>showNotification('hi','success');</script>";
-}else{
-     echo "<script>showNotification('Database connection failed', 'error');</script>";
-
-}
-?>
 </html>

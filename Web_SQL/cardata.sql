@@ -245,31 +245,125 @@ Tesla Cybertruck là xe bán tải chạy hoàn toàn bằng điện được Te
 (63, 4, 'Tesla Model Y', 'Tesla Model Y là một chiếc SUV cỡ trung chạy hoàn toàn bằng điện kết hợp hiệu suất, an toàn và tiện ích. Ra mắt vào năm 2020, xe có không gian lưu trữ rộng rãi, chỗ ngồi cho tối đa năm hành khách và các tính năng an toàn tiên tiến.', 1334500000.00, NULL, 'selling', 0, 0, 250.00, 'Pearl White Multi-Coat, Solid Black, Midnight Silver', 'Dual Motor All-Wheel Drive', '2020', 5, 'Electric', 455.00, NULL, 'TPHCM', NULL, '83,9 кWh');
 
 -- --------------------------------------------------------
-UPDATE `products` SET `fuel_name`='Điện' WHERE `fuel_name`='Electric';
-UPDATE `products` SET `fuel_name`='Xăng' WHERE `fuel_name`='Petrol';
-UPDATE `products` SET `fuel_name`='Xăng cao cấp' WHERE `fuel_name`='Premium gasoline';
--- Cập nhật color sang tiếng Việt
-UPDATE `products` SET `color`='Xám Kemora, Xanh Tactical, Đen Mythos, Trắng Ibis' WHERE `color`='Kemora Gray, Tactical Green, Mythos Black, Ibis Wh';
-UPDATE `products` SET `color`='Trắng Alpine, Đen Sapphire, Trắng Khoáng, Brook' WHERE `color`='Alpine White, Black Sapphire, Mineral White, Brook';
-UPDATE `products` SET `color`='Trắng Glacier, Xám Magnetic, Đỏ Solid, Mythos Bl' WHERE `color`='Glacier White, Magnetic Grey, Solid Red, Mythos Bl';
-UPDATE `products` SET `color`='Trắng Arkona, Đen Lấp Lánh, Xanh Navarra Meta' WHERE `color`='Arkona White, Brilliant Black, Navarra Blue Meta';
-UPDATE `products` SET `color`='Xanh Turbo, Trắng Glacier Metallic, Xám Chronos M' WHERE `color`='Turbo Blue, Glacier White Metallic, Chronos Grey M';
-UPDATE `products` SET `color`='Đỏ Chili Metallic, Đen Orca Metallic, Carrara' WHERE `color`='Chili Red Metallic, Orca Black Metallic, Carrara';
-UPDATE `products` SET `color`='Xanh Urban, Xanh Anglesey Metallic, Petrol Mic' WHERE `color`='Urban Green, Anglesey Green Metallic, Petrol Mic';
-UPDATE `products` SET `color`='Đỏ San Francisco, Xanh Misano, Đen Sapphire' WHERE `color`='San Francisco Red, Misano Blue, Black Sapphire';
-UPDATE `products` SET `color`='Trắng Alpine, Đen Sapphire, Xám Khoáng, Crim' WHERE `color`='Alpine White, Black Sapphire, Mineral Grey, Crim';
-UPDATE `products` SET `color`='Trắng Alpine, Xám Oxide, Trắng Khoáng, Sophisto' WHERE `color`='Alpine White, Oxide Grey, Mineral White, Sophisto';
-UPDATE `products` SET `color`='Beige và Nâu, Trắng và Đen, Bạc và Xanh' WHERE `color`='Beige and Brown, White and Black, Silver and Blue';
-UPDATE `products` SET `color`='Trắng, Xanh, Xám, Đen' WHERE `color`='White, Blue, Gray, Black';
-UPDATE `products` SET `color`='Đen Carbon Bóng' WHERE `color`='Black Carbon Glossy';
-UPDATE `products` SET `color`='Xanh, Trắng' WHERE `color`='Blue, While';
-UPDATE `products` SET `color`='Đỏ Corsa, Vàng Modena, Trắng Avus' WHERE `color`='Rosso Corsa, Giallo Modena, Bianco Avus';
-UPDATE `products` SET `color`='Đỏ Mars, Cam Borealis, Đỏ Cadens Matt' WHERE `color`='Rosso Mars, Arancio Borealis, Rosso Cadens Matt';
-UPDATE `products` SET `color`='Xanh và Cam' WHERE `color`='Blue and Orange';
-UPDATE `products` SET `color`='Trắng Snowflake Pearl Mica, Đen Jet Mica, Machin' WHERE `color`='Snowflake White Pearl Mica, Jet Black Mica, Machin';
-UPDATE `products` SET `color`='Trắng Arctic, Đen Jet, Xám Polymetal, Ceramic' WHERE `color`='Arctic White, Jet Black, Polymetal Grey, Ceramic';
-UPDATE `products` SET `color`='Trắng Pearl Multi-Coat, Đen Solid, Bạc Midnight' WHERE `color`='Pearl White Multi-Coat, Solid Black, Midnight Silver';
-
+INSERT INTO `products` (
+  `product_id`, `brand_id`, `car_name`, `car_description`, `price`,
+  `image_link`, `status`, `sold_quantity`, `remain_quantity`, `max_speed`,
+  `color`, `engine_name`, `year_manufacture`, `seat_number`, `fuel_name`,
+  `engine_power`, `time_0_100`, `location`, `linkinfor`, `fuel_capacity`
+) VALUES
+  (64, 8, 'Rolls-Royce Cullinan 2025',
+    'Rolls-Royce Cullinan 2025: SUV siêu sang đầu tiên của Rolls-Royce, kết hợp đỉnh cao tiện nghi và khả năng off-road nhẹ nhàng.',
+    53000000000.00, 'uploads/cullinan2025.avif', 'selling', 0, 0, 250.00,
+    'Đen Black Badge, Bạc Silvershade',
+    'Động cơ V12 tăng áp kép 6.75L', '2025', 5, 'Xăng cao cấp',
+    571.00, 5.0, 'TPHCM', NULL, '100L'
+  ),
+  (65, 5, 'Audi A6 55 TFSI quattro 2025',
+    'Audi A6 2025 phiên bản 55 TFSI quattro – sedan hạng E với công nghệ mild-hybrid và hệ dẫn động bốn bánh toàn thời gian.',
+    5000000000.00, 'uploads/a6-2025.jpg', 'selling', 0, 0, 250.00,
+    'Trắng Glacier White, Đen Mythos',
+    'Động cơ xăng tăng áp 3.0L V6 TFSI', '2025', 5, 'Xăng', 340.00,
+    5.1, 'TPHCM', NULL, '58L'
+  ),
+  (66, 2, 'BMW X5 xDrive40i 2025',
+    'BMW X5 2025 bản xDrive40i – SUV cỡ trung hạng sang, động cơ I6 tăng áp, nội thất rộng rãi, nhiều công nghệ hỗ trợ lái.',
+    4500000000.00, 'uploads/x5-2025.png', 'selling', 0, 0, 250.00,
+    'Trắng Alpine White, Đen Sapphire',
+    'Động cơ I6 3.0L TwinPower Turbo', '2025', 5, 'Xăng', 340.00,
+    5.5, 'TPHCM', NULL, '83L'
+  ),
+  (67, 6, 'Ferrari SF90 Stradale',
+    'Ferrari SF90 Stradale – siêu xe hybrid sạc ngoài đầu tiên của Ferrari, động cơ V8 kết hợp 3 mô-tơ điện, tổng công suất 1.000+ mã lực.',
+    35000000000.00, 'uploads/sf90.png', 'selling', 0, 0, 340.00,
+    'Đỏ Corsa, Đen Carbon',
+    'Động cơ V8 4.0L hybrid plug-in', '2021', 2, 'Xăng cao cấp', 1000.00,
+    2.5, 'TPHCM', NULL, '60L'
+  ),
+  (68, 4, 'Tesla Model 3 2025',
+    'Tesla Model 3 facelift 2025 – sedan điện cỡ nhỏ phổ thông, cập nhật thiết kế, phạm vi lên đến 580 km cho phiên bản Long Range.',
+    1400000000.00, 'uploads/model3-2025.jpg', 'selling', 0, 0, 261.00,
+    'Trắng Pearl White, Đen Midnight',
+    'Dual Motor điện', '2025', 5, 'Điện', 450.00, 5.3, 'TPHCM', NULL, '75 kWh'
+  );
+UPDATE `products`
+SET
+  `engine_name` = CASE `product_id`
+    WHEN 1 THEN 'Động cơ V12 tăng áp kép 6.75L'
+    WHEN 29 THEN 'Động cơ điện'
+    WHEN 30 THEN 'Động cơ điện'
+    WHEN 31 THEN 'Động cơ điện'
+    WHEN 32 THEN 'Động cơ xăng tăng áp 2.0L'
+    WHEN 33 THEN 'Động cơ xăng tăng áp 2.0L'
+    WHEN 34 THEN 'Động cơ 3.0L V6 TFSI'
+    WHEN 35 THEN 'Động cơ V8 hybrid 4.4L'
+    WHEN 36 THEN 'Động cơ V8 hybrid 4.4L'
+    WHEN 37 THEN 'Động cơ I6 3.0L TwinPower Turbo & hybrid nhẹ'
+    WHEN 38 THEN 'Động cơ điện'
+    WHEN 39 THEN 'Động cơ W16 8.0L với 4 tăng áp'
+    WHEN 40 THEN 'Động cơ W16 8.0L với 4 tăng áp'
+    WHEN 41 THEN 'Động cơ W16 8.0L quad-tăng áp'
+    WHEN 42 THEN 'Động cơ W16 8.0L quad-tăng áp'
+    WHEN 43 THEN 'Động cơ W16 8.0L twin-tăng áp'
+    WHEN 44 THEN 'Động cơ V12 6.3L kết hợp với động cơ điện 120 kW'
+    WHEN 45 THEN 'Động cơ V8 3.9L twin-tăng áp'
+    WHEN 46 THEN 'Động cơ V8 3.9L twin-tăng áp'
+    WHEN 47 THEN 'Động cơ V12 6.3L hút khí tự nhiên'
+    WHEN 48 THEN 'Động cơ V12 6.5L hút khí tự nhiên'
+    WHEN 49 THEN 'Động cơ V10 5.2L hút khí tự nhiên'
+    WHEN 50 THEN 'Động cơ V8 4.0L twin-tăng áp'
+    WHEN 51 THEN 'Động cơ V10 5.2L hút khí tự nhiên'
+    WHEN 52 THEN 'Động cơ V10 5.2L hút khí tự nhiên'
+    WHEN 53 THEN 'Động cơ V10 5.2L hút khí tự nhiên'
+    WHEN 54 THEN 'Động cơ xăng thẳng hàng 4 xi-lanh SkyActiv-G 2.0L'
+    WHEN 55 THEN 'Động cơ xăng thẳng hàng 4 xi-lanh SkyActiv-G 2.0L'
+    WHEN 56 THEN 'Động cơ xăng thẳng hàng 4 xi-lanh SkyActiv-G 2.5L'
+    WHEN 57 THEN 'Động cơ xăng thẳng hàng 4 xi-lanh SkyActiv-G 2.0L'
+    WHEN 58 THEN 'Động cơ xăng thẳng hàng 4 xi-lanh SkyActiv-G 1.5L'
+    WHEN 59 THEN 'Động cơ điện Monitor'
+    WHEN 60 THEN 'Ba động cơ điện độc lập'
+    WHEN 61 THEN 'Hệ truyền động điện 2 hoặc 3 mô-tơ dẫn động bốn bánh'
+    WHEN 62 THEN 'Hệ truyền động điện 2 hoặc 3 mô-tơ dẫn động bốn bánh'
+    WHEN 63 THEN 'Hệ dẫn động bốn bánh 2 mô-tơ'
+  END,
+  `color` = CASE `product_id`
+    WHEN 1 THEN 'Xám tungsten đậm nhất, Xanh sapphire nửa đêm, X'
+    WHEN 29 THEN 'Xám Kemora, Xanh Tactical, Đen Mythos, Trắng Ibis'
+    WHEN 30 THEN 'Trắng Alpine, Đen Sapphire, Trắng Khoáng, Brook'
+    WHEN 31 THEN 'Trắng Glacier, Xám Magnetic, Đỏ Solid, Mythos Bl'
+    WHEN 32 THEN 'Trắng Arkona, Đen Lấp Lánh, Xanh Navarra Meta'
+    WHEN 33 THEN 'Xanh Turbo, Trắng Glacier Metallic, Xám Chronos M'
+    WHEN 34 THEN 'Đỏ Chili Metallic, Đen Orca Metallic, Carrara'
+    WHEN 35 THEN 'Xanh Urban, Xanh Anglesey Metallic, Petrol Mic'
+    WHEN 36 THEN 'Đỏ San Francisco, Xanh Misano, Đen Sapphire'
+    WHEN 37 THEN 'Trắng Alpine, Đen Sapphire, Xám Khoáng, Crim'
+    WHEN 38 THEN 'Trắng Alpine, Xám Oxide, Trắng Khoáng, Sophisto'
+    WHEN 39 THEN 'Màu be và nâu, trắng và đen, bạc và xanh'
+    WHEN 40 THEN 'Trắng, xanh, xám, đen'
+    WHEN 41 THEN 'Trắng, xanh, xám, đen'
+    WHEN 42 THEN 'Đen carbon bóng'
+    WHEN 43 THEN 'Xanh, trắng'
+    WHEN 44 THEN 'Đỏ Corsa, Vàng Modena, Trắng Avus'
+    WHEN 45 THEN 'Trắng, xanh, xám, đen'
+    WHEN 46 THEN 'Trắng, xanh, xám, đen'
+    WHEN 47 THEN 'Màu be và nâu, trắng và đen, bạc và xanh'
+    WHEN 48 THEN 'Trắng, xanh, xám, đen'
+    WHEN 49 THEN 'Trắng, xanh, xám, đen'
+    WHEN 50 THEN 'Màu be và nâu, trắng và đen, bạc và xanh'
+    WHEN 51 THEN 'Đỏ Mars, Cam Borealis, Đỏ Cadens Matt'
+    WHEN 52 THEN 'Xanh và cam'
+    WHEN 53 THEN 'Đỏ Corsa, Vàng Modena, Trắng Avus'
+    WHEN 54 THEN 'Trắng Snowflake Pearl Mica, Đen Jet Mica, Machin'
+    WHEN 55 THEN 'Trắng Arctic, Đen Jet, Xám Polymetal, Ceramic'
+    WHEN 56 THEN 'Trắng Snowflake Pearl Mica, Đen Jet Mica, Alum'
+    WHEN 57 THEN 'Trắng Arctic, Đen Jet, Xám Polymetal, Ceramic'
+    WHEN 58 THEN 'Trắng Snowflake Pearl Mica, Đen Jet Mica, Machin'
+    WHEN 59 THEN 'Trắng, xanh, xám, đen'
+    WHEN 60 THEN 'Trắng, xanh, xám, đen'
+    WHEN 61 THEN 'Trắng ngọc trai đa lớp, đen trơn, bạc Midnight'
+    WHEN 62 THEN 'Trắng ngọc trai đa lớp, đen trơn, bạc Midnight'
+    WHEN 63 THEN 'Trắng ngọc trai đa lớp, đen trơn, bạc Midnight'
+  END
+WHERE `product_id` IN (1,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63);
 
 --
 -- Cấu trúc bảng cho bảng `users_acc`

@@ -1105,6 +1105,7 @@ session_start();
 }
 
 </style>
+
     <body>
         <header>
             <div id="notification" class="notification"></div>
@@ -1278,7 +1279,7 @@ session_start();
                     </div> -->
                         <div class="brand-dropdown">
                             <a href="" class="nav-link dropbtn">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fa fa-gear"></i>
                                 động cơ
                                 <i class="fa fa-caret-right"></i>
                             </a>
@@ -1304,7 +1305,7 @@ session_start();
                 </div>
                 <div class="dropdown">
                     <a href="#" class="nav-link dropbtn">
-                        <i class="fa-solid fa-car"></i> Thông số xe
+                        <i class="fa-solid fa-wrench"></i> Thông số xe
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-content">

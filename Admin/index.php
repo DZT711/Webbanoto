@@ -304,7 +304,374 @@ $stats = mysqli_fetch_assoc($stats_result);
         background-color: #c82333;
     }
 </style>
+<style>
+    /* Enhanced Admin Section */
+    .admin-section {
+        margin: 20px;
+        padding: 20px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
 
+    /* Enhanced Stats Container */
+    .stats-container {
+        /* display: grid; */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 20px;
+    }
+
+    .stat-box {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        padding: 20px;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent);
+        animation: shimmer 2s infinite;
+    }
+
+    /* Enhanced Tables */
+    .admin-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 20px 0;
+    }
+
+    .admin-table th {
+        background: linear-gradient(45deg, #1abc9c, #16a085);
+        color: white;
+        padding: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        letter-spacing: 0.5px;
+    }
+
+    .admin-table tr {
+        transition: all 0.3s ease;
+    }
+
+    .admin-table tr:hover {
+        background-color: rgba(26, 188, 156, 0.1);
+        transform: scale(1.01);
+    }
+
+    .admin-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Enhanced Status Badges */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: 500;
+        text-transform: capitalize;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .status-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-active {
+        background-color: #2ecc71;
+        color: white;
+    }
+
+    .status-banned {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .status-pending {
+        background-color: #f1c40f;
+        color: white;
+    }
+
+    .status-completed {
+        background-color: #3498db;
+        color: white;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes shimmer {
+        100% {
+            left: 100%;
+        }
+    }
+
+    /* Enhanced Button Styles */
+    .link {
+        background: linear-gradient(45deg, #1abc9c, #16a085);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(26, 188, 156, 0.3);
+    }
+
+    .link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent);
+        animation: shimmer 2s infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .stats-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .stats-container {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-table {
+            font-size: 0.9em;
+        }
+    }
+</style>
+<style>
+
+    /* Enhanced Section Titles and Admin Greeting */
+    
+    /* .s2 h2 {
+        position: relative;
+        font-size: 1.8rem;
+        color: #2c3e50;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+     */
+    /* .s2 h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #1abc9c, transparent);
+        transition: width 0.3s ease;
+    }
+    
+    .s2 h2:hover::after {
+        width: 120px;
+    }
+      .s2 h2 i {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 1.6em;
+        transition: transform 0.3s ease;
+    }
+    .s2:hover h2 {
+        transform: scale(1.1) ;
+    }  */
+          /* Enhanced Section Titles */
+    .s2 h2 {
+        position: relative;
+        font-size: 1.4rem;
+        color: #2c3e50;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transform-origin: left center; /* Anchor the transform to the left */
+        transition: transform 0.3s ease;
+    }
+    
+    .s2 h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #1abc9c, transparent);
+        transition: width 0.3s ease;
+    }
+    
+    .s2 h2 i {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 1.3em;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Change the hover effect to only scale the icon instead of the entire heading */
+    .s2 h2:hover i {
+        transform: scale(1.2) ;
+    }
+    
+    .s2 h2:hover::after {
+        width: 120px;
+    }
+     .admin-info {
+        background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(26, 188, 156, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    #admin-greeting {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    #admin-greeting::before {
+        content: '👋';
+        font-size: 2rem;
+        animation: wave 2s infinite;
+    }
+    
+    #admin-name {
+        background: linear-gradient(45deg, #1abc9c, #16a085);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: bold;
+        padding: 0 5px;
+        position: relative;
+    }
+    
+    #admin-name::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #1abc9c, #16a085);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+    
+    #admin-name:hover::after {
+        transform: scaleX(1);
+    }
+    
+    /* Animations */
+    @keyframes wave {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-20deg); }
+        75% { transform: rotate(15deg); }
+    }
+    
+    /* Enhanced Table Headers */
+    .admin-table thead th {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        color: white;
+        padding: 15px 20px;
+        /* font-size: 1rem; */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .admin-table thead th i {
+        margin-right: 8px;
+        font-size: 1.1em;
+        opacity: 0.9;
+        transition: transform 0.3s ease;
+    }
+    
+
+    .admin-table thead th::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        animation: shimmer 2s infinite;
+    }  
+    
+</style>
 <body>
 
     <!-- <header class="admin-header">
@@ -328,147 +695,249 @@ $stats = mysqli_fetch_assoc($stats_result);
 
     <!-- Main Content -->
 
-        <!-- User Management -->
+    <!-- User Management -->
+
+    <main>
+        <!-- Statistics Section -->
+        <section class="admin-section">
+            <div class="admin-info">
+                <span id="admin-greeting">Welcome, <span
+                        id="admin-name"><?php echo htmlspecialchars($_SESSION['username']) ?></span></span>
+                <!-- <button id="logout-btn" onclick=""><a href="login.php"></a><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Logout</button> -->
+            </div>
+
+            <p>Overview of recent activities and system status.</p>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h2><i class="fa-solid fa-user-group"></i> Total Users</h2>
+                    <p><?php echo number_format($stats['total_users']); ?></p>
+                </div>
+                <div class="stat-box">
+                    <h2><i class="fa-solid fa-list-check"></i> Orders Today</h2>
+                    <p><?php echo number_format($stats['orders_today']); ?></p>
+                </div>
+                <div class="stat-box">
+                    <h2><i class="fa-solid fa-wallet"></i> Total Revenue</h2>
+                    <p><?php echo number_format($stats['total_revenue']) . ' VND'; ?></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="admin-section s2">
+            <h2><i class="fa-solid fa-users"></i> Recent Registered Users</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-id-badge"></i> ID</th>
+                        <th><i class="fa-solid fa-user"></i> Username</th>
+                        <th><i class="fa-solid fa-user"></i> Full Name</th>
+                        <th><i class="fa-solid fa-envelope"></i> Email</th>
+                        <th><i class="fa-solid fa-phone"></i> Phone</th>
+                        <th><i class="fa-solid fa-user-tag"></i> Role</th>
+                        <th><i class="fa-solid fa-toggle-on"></i> Status</th>
+                        <th><i class="fa-solid fa-calendar-alt"></i> Register Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($user = mysqli_fetch_assoc($users_result)): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($user['id']); ?></td>
+                            <td><?php echo htmlspecialchars($user['username']); ?></td>
+                            <td><?php echo htmlspecialchars($user['full_name']); ?></td>
+                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td><?php echo htmlspecialchars($user['phone_num']); ?></td>
+                            <td><?php echo htmlspecialchars($user['role']); ?></td>
+                            <td>
+                                <span class="status-badge status-<?php echo strtolower($user['status']); ?>">
+                                    <?php echo htmlspecialchars($user['status']); ?>
+                                </span>
+                            </td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($user['register_date'])); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <button class="link" onclick="window.location.href='manage-users.php'">View All Users</button>
+        </section>
+
+        <!-- Products Section -->
+        <section class="admin-section s2">
+            <h2><i class="fa-solid fa-car"></i> Recent Updated Products</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-hashtag"></i> ID</th>
+                        <th><i class="fa-solid fa-image"></i> Image</th>
+                        <th><i class="fa-solid fa-car"></i> Car Name</th>
+                        <th><i class="fa-solid fa-building"></i> Brand</th>
+                        <th><i class="fa-solid fa-tag"></i> Price</th>
+                        <th><i class="fa-solid fa-circle-info"></i> Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($product = mysqli_fetch_assoc($products_result)): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($product['product_id']); ?></td>
+                            <td>
+                                <img src="../User/<?php echo htmlspecialchars($product['image_link']); ?>"
+                                    alt="<?php echo htmlspecialchars($product['car_name']); ?>"
+                                    style="width: 50px; height: 30px; object-fit: cover;">
+                            </td>
+                            <td><?php echo htmlspecialchars($product['car_name']); ?></td>
+                            <td><?php echo htmlspecialchars($product['type_name']); ?></td>
+                            <td><?php echo number_format($product['price']) . ' VND'; ?></td>
+                            <td>
+                                <span class="status-badge status-<?php echo strtolower($product['status']); ?>">
+                                    <?php echo htmlspecialchars($product['status']); ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <button class="link" onclick="window.location.href='manage-products.php'">View All Products</button>
+        </section>
+
+        <!-- Orders Section -->
+        <section class="admin-section s2">
+            <h2><i class="fa-solid fa-list-check"></i> Recent New Orders</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag"></i> ID</th>
+                        <th><i class="far fa-calendar-alt"></i> Order Date</th>
+                        <th><i class="fas fa-user"></i> Customer</th>
+                        <th><i class="fas fa-map-marker-alt"></i> Address</th>
+                        <th><i class="fas fa-money-bill-wave"></i> Total Amount</th>
+                        <th><i class="fas fa-info-circle"></i> Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($order = mysqli_fetch_assoc($orders_result)): ?>
+                        <tr>
+                            <td>#<?php echo htmlspecialchars($order['order_id']); ?></td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($order['order_date'])); ?></td>
+                            <td>
+                                <strong><?php echo htmlspecialchars($order['full_name']); ?></strong>
+                                <br>
+                                <small><?php echo htmlspecialchars($order['username']); ?></small>
+                            </td>
+                            <td><?php echo htmlspecialchars($order['shipping_address']); ?></td>
+                            <td><?php echo number_format($order['total_amount']) . ' VND'; ?></td>
+                            <td>
+                                <span class="status-badge status-<?php echo strtolower($order['order_status']); ?>">
+                                    <?php echo htmlspecialchars($order['order_status']); ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <button class="link" onclick="window.location.href='manage-orders.php'">View All Orders</button>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Stagger animation for sections
+            const sections = document.querySelectorAll('.admin-section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Animate statistics numbers
+            const statNumbers = document.querySelectorAll('.stat-box p');
+            statNumbers.forEach(stat => {
+                const finalNumber = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
+                animateNumber(stat, finalNumber);
+            });
+
+            // Add hover effect to table rows
+            const tableRows = document.querySelectorAll('.admin-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function () {
+                    this.style.transform = 'scale(1.01)';
+                    this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                });
+
+                row.addEventListener('mouseleave', function () {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Function to animate numbers
+            function animateNumber(element, final) {
+                let start = 0;
+                const duration = 2000;
+                const step = timestamp => {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / duration, 1);
+                    const current = Math.floor(progress * final);
+                    element.textContent = current.toLocaleString() +
+                        (element.textContent.includes('VND') ? ' VND' : '');
+
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Add pulse animation to status badges
+            const statusBadges = document.querySelectorAll('.status-badge');
+            statusBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function () {
+                    this.style.transform = 'scale(1.1)';
+                });
+
+                badge.addEventListener('mouseleave', function () {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+    <script>
+                // Add this to your existing DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate admin greeting
+            const adminName = document.getElementById('admin-name');
+            const letters = adminName.textContent.split('');
+            adminName.textContent = '';
+            
+            letters.forEach((letter, i) => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                span.style.opacity = '0';
+                span.style.transform = 'translateY(-20px)';
+                span.style.transition = `all 0.3s ease ${i * 0.1}s`;
+                adminName.appendChild(span);
+                
+                // Trigger animation after a small delay
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                }, 100);
+            });
         
-        <main>
-            <!-- Statistics Section -->
-            <section class="admin-section">
-        <div class="admin-info">
-            <span id="admin-greeting">Welcome, <span
-                    id="admin-name"><?php echo htmlspecialchars($_SESSION['username']) ?></span></span>
-            <!-- <button id="logout-btn" onclick=""><a href="login.php"></a><i class="fa-solid fa-right-from-bracket">&nbsp;&nbsp;</i>Logout</button> -->
-        </div>
-    
-        <p>Overview of recent activities and system status.</p>
-        <div class="stats-container">
-            <div class="stat-box">
-                <h2><i class="fa-solid fa-user-group"></i> Total Users</h2>
-                <p><?php echo number_format($stats['total_users']); ?></p>
-            </div>
-            <div class="stat-box">
-                <h2><i class="fa-solid fa-list-check"></i> Orders Today</h2>
-                <p><?php echo number_format($stats['orders_today']); ?></p>
-            </div>
-            <div class="stat-box">
-                <h2><i class="fa-solid fa-wallet"></i> Total Revenue</h2>
-                <p><?php echo number_format($stats['total_revenue']) . ' VND'; ?></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Users Section -->
-    <section class="admin-section">
-        <h2><i class="fa-solid fa-users"></i> Recent Registered Users</h2>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th><i class="fa-solid fa-id-badge"></i> ID</th>
-                    <th><i class="fa-solid fa-user"></i> Username</th>
-                    <th><i class="fa-solid fa-user"></i> Full Name</th>
-                    <th><i class="fa-solid fa-envelope"></i> Email</th>
-                    <th><i class="fa-solid fa-phone"></i> Phone</th>
-                    <th><i class="fa-solid fa-user-tag"></i> Role</th>
-                    <th><i class="fa-solid fa-toggle-on"></i> Status</th>
-                    <th><i class="fa-solid fa-calendar-alt"></i> Register Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($user = mysqli_fetch_assoc($users_result)): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td><?php echo htmlspecialchars($user['username']); ?></td>
-                        <td><?php echo htmlspecialchars($user['full_name']); ?></td>
-                        <td><?php echo htmlspecialchars($user['email']); ?></td>
-                        <td><?php echo htmlspecialchars($user['phone_num']); ?></td>
-                        <td><?php echo htmlspecialchars($user['role']); ?></td>
-                        <td>
-                            <span class="status-badge status-<?php echo strtolower($user['status']); ?>">
-                                <?php echo htmlspecialchars($user['status']); ?>
-                            </span>
-                        </td>
-                        <td><?php echo date('d/m/Y H:i', strtotime($user['register_date'])); ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-        <button class="link" onclick="window.location.href='manage-users.php'">View All Users</button>
-    </section>
-
-    <!-- Products Section -->
-    <section class="admin-section">
-        <h2><i class="fa-solid fa-car"></i> Recent Updated Products</h2>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th><i class="fa-solid fa-hashtag"></i> ID</th>
-                    <th><i class="fa-solid fa-image"></i> Image</th>
-                    <th><i class="fa-solid fa-car"></i> Car Name</th>
-                    <th><i class="fa-solid fa-building"></i> Brand</th>
-                    <th><i class="fa-solid fa-tag"></i> Price</th>
-                    <th><i class="fa-solid fa-circle-info"></i> Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($product = mysqli_fetch_assoc($products_result)): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($product['product_id']); ?></td>
-                        <td>
-                            <img src="../User/<?php echo htmlspecialchars($product['image_link']); ?>"
-                                alt="<?php echo htmlspecialchars($product['car_name']); ?>"
-                                style="width: 50px; height: 30px; object-fit: cover;">
-                        </td>
-                        <td><?php echo htmlspecialchars($product['car_name']); ?></td>
-                        <td><?php echo htmlspecialchars($product['type_name']); ?></td>
-                        <td><?php echo number_format($product['price']) . ' VND'; ?></td>
-                        <td>
-                            <span class="status-badge status-<?php echo strtolower($product['status']); ?>">
-                                <?php echo htmlspecialchars($product['status']); ?>
-                            </span>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-        <button class="link" onclick="window.location.href='manage-products.php'">View All Products</button>
-    </section>
-
-    <!-- Orders Section -->
-    <section class="admin-section">
-        <h2><i class="fa-solid fa-list-check"></i> Recent New Orders</h2>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th><i class="fas fa-hashtag"></i> ID</th>
-                    <th><i class="far fa-calendar-alt"></i> Order Date</th>
-                    <th><i class="fas fa-user"></i> Customer</th>
-                    <th><i class="fas fa-map-marker-alt"></i> Address</th>
-                    <th><i class="fas fa-money-bill-wave"></i> Total Amount</th>
-                    <th><i class="fas fa-info-circle"></i> Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($order = mysqli_fetch_assoc($orders_result)): ?>
-                    <tr>
-                        <td>#<?php echo htmlspecialchars($order['order_id']); ?></td>
-                        <td><?php echo date('d/m/Y H:i', strtotime($order['order_date'])); ?></td>
-                        <td>
-                            <strong><?php echo htmlspecialchars($order['full_name']); ?></strong>
-                            <br>
-                            <small><?php echo htmlspecialchars($order['username']); ?></small>
-                        </td>
-                        <td><?php echo htmlspecialchars($order['shipping_address']); ?></td>
-                        <td><?php echo number_format($order['total_amount']) . ' VND'; ?></td>
-                        <td>
-                            <span class="status-badge status-<?php echo strtolower($order['order_status']); ?>">
-                                <?php echo htmlspecialchars($order['order_status']); ?>
-                            </span>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-        <button class="link" onclick="window.location.href='manage-orders.php'">View All Orders</button>
-    </section>
-</main>
-                </body>
+            // Add hover effect to table headers
+            const tableHeaders = document.querySelectorAll('.admin-table th');
+            tableHeaders.forEach(header => {
+                header.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2) rotate(5deg)';
+                    }
+                });
+                
+                header.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1) rotate(0)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 <?php include 'footer.php'; ?>

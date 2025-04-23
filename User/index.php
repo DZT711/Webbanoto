@@ -950,21 +950,6 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
         overflow: hidden;
     }
 
-    .carinfo i::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: #007bff;
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-
-    .carinfo i:hover::after {
-        transform: scaleX(1);
-    }
 
     /* Smooth Scroll */
     html {

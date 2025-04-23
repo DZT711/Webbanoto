@@ -7,10 +7,79 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+// Add this after your database connection
+function checkCartItemsStatus($connect) {
+    if (!isset($_SESSION['cart_notifications'])) {
+        $_SESSION['cart_notifications'] = [];
+    }
+
+    $notifications = [];
+    $cartItems = [];
+
+    if (isset($_SESSION['user_id'])) {
+        // For logged in users
+        $query = "SELECT p.product_id, p.car_name, p.status 
+                  FROM cart_items ci 
+                  JOIN cart c ON ci.cart_id = c.cart_id 
+                  JOIN products p ON ci.product_id = p.product_id 
+                  WHERE c.user_id = ? AND c.cart_status = 'activated'";
+        
+        $stmt = mysqli_prepare($connect, $query);
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        while ($row = mysqli_fetch_assoc($result)) {
+            $cartItems[] = $row;
+        }
+    } else {
+        // For guest users
+        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                $query = "SELECT product_id, car_name, status FROM products WHERE product_id = ?";
+                $stmt = mysqli_prepare($connect, $query);
+                mysqli_stmt_bind_param($stmt, "i", $item['product_id']);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+                if ($result) {
+                    $cartItems[] = $result;
+                }
+            }
+        }
+    }
+
+    foreach ($cartItems as $item) {
+        if ($item['status'] === 'hidden' || $item['status'] === 'soldout') {
+            $notification = [
+                'product_id' => $item['product_id'],
+                'message' => $item['status'] === 'hidden' ? 
+                    "Sản phẩm '{$item['car_name']}' đã tạm thời bị ẩn." : 
+                    "Sản phẩm '{$item['car_name']}' đã hết hàng.",
+                'type' => $item['status']
+            ];
+            
+            // Only add if notification doesn't already exist
+            if (!in_array($notification, $_SESSION['cart_notifications'])) {
+                $_SESSION['cart_notifications'][] = $notification;
+            }
+        }
+    }
+}
 // Get cart items
 $cartItems = [];
+
 $totalAmount = 0;
 $totalItems = 0;
+$unavailableItems = 0;
+
+foreach ($cartItems as $item) {
+    if ($item['status'] !== 'hidden' && $item['status'] !== 'soldout') {
+        $totalItems += $item['quantity'];
+        $totalAmount += $item['price'] * $item['quantity'];
+    } else {
+        $unavailableItems++;
+    }
+}
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -75,6 +144,7 @@ if (isset($_SESSION['user_id'])) {
         }
     }
 }
+checkCartItemsStatus($connect);
 ?>
 
 <!DOCTYPE html>
@@ -1342,6 +1412,152 @@ if (isset($_SESSION['user_id'])) {
     }
 </style>
 
+<style>
+.disabled-item {
+    opacity: 0.7;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.disabled-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+.disabled-link {
+    color: #6c757d;
+    text-decoration: none;
+    cursor: not-allowed;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.status-hidden {
+    background-color: #6c757d;
+    color: white;
+}
+
+.status-soldout {
+    background-color: #dc3545;
+    color: white;
+}
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+/* Tooltip styles */
+.cart-warning {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-warning .tooltip {
+    visibility: hidden;
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.cart-warning:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+</style>
+<style>
+.cart-notifications {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.cart-alert {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: slideIn 0.3s ease;
+}
+
+.cart-alert.hidden {
+    background-color: #e2e3e5;
+    border-left-color: #6c757d;
+}
+
+.cart-alert.soldout {
+    background-color: #f8d7da;
+    border-left-color: #dc3545;
+}
+
+.cart-alert i:first-child {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.cart-alert .dismiss-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.cart-alert .dismiss-btn:hover {
+    color: #333;
+    transform: scale(1.1);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    to {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+</style>
 <body>
 
     <!------------cart------------->
@@ -1374,7 +1590,20 @@ if (isset($_SESSION['user_id'])) {
                 <h1>Giỏ Hàng của tôi
                 </h1>
             </div>
-
+            <!-- Add this after your cart header -->
+            <?php if (!empty($_SESSION['cart_notifications'])): ?>
+                <div class="cart-notifications">
+                    <?php foreach ($_SESSION['cart_notifications'] as $notification): ?>
+                        <div class="cart-alert <?php echo $notification['type']; ?>">
+                            <i class="fas <?php echo $notification['type'] === 'hidden' ? 'fa-eye-slash' : 'fa-times-circle'; ?>"></i>
+                            <span><?php echo $notification['message']; ?></span>
+                            <button onclick="dismissNotification(<?php echo $notification['product_id']; ?>)" class="dismiss-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
             <div class="cart-content-row">
                 <div class="cart-content-left">
 
@@ -1397,21 +1626,34 @@ if (isset($_SESSION['user_id'])) {
                         <tbody>
                             <?php if (!empty($cartItems)): ?>
                                 <?php foreach ($cartItems as $item): ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="product-checkbox"
-                                                value="<?php echo $item['product_id']; ?>"
-                                                onchange="updateDeleteSelectedButton()">
-                                        </td>
-                                        <td>
-                                            <img src="<?php echo htmlspecialchars($item['image_link']); ?>"
-                                                alt="<?php echo htmlspecialchars($item['car_name']); ?>">
-                                        </td>
-                                        <td>
-                                            <a href="car-details.php?name=<?php echo urlencode($item['car_name']); ?>">
-                                                <?php echo htmlspecialchars($item['car_name']); ?>
-                                            </a>
-                                        </td>
+    <tr class="<?php echo ($item['status'] === 'hidden' || $item['status'] === 'soldout') ? 'disabled-item' : ''; ?>">
+        <td>
+            <input type="checkbox" class="product-checkbox" 
+                   value="<?php echo $item['product_id']; ?>"
+                   <?php echo ($item['status'] === 'hidden' || $item['status'] === 'soldout') ? 'disabled' : ''; ?>
+                   onchange="updateDeleteSelectedButton()">
+        </td>
+        <td>
+            <img src="<?php echo htmlspecialchars($item['image_link']); ?>" 
+                 alt="<?php echo htmlspecialchars($item['car_name']); ?>"
+                 class="<?php echo ($item['status'] === 'hidden' || $item['status'] === 'soldout') ? 'grayscale' : ''; ?>">
+        </td>
+        <td>
+            <a href="car-details.php?name=<?php echo urlencode($item['car_name']); ?>"
+               class="<?php echo ($item['status'] === 'hidden' || $item['status'] === 'soldout') ? 'disabled-link' : ''; ?>">
+                <?php echo htmlspecialchars($item['car_name']); ?>
+            </a>
+            <?php if ($item['status'] === 'hidden'): ?>
+                <div class="status-badge status-hidden">
+                    <i class="fas fa-eye-slash"></i> Sản phẩm tạm thời bị ẩn
+                </div>
+            <?php elseif ($item['status'] === 'soldout'): ?>
+                <div class="status-badge status-soldout">
+                    <i class="fas fa-times-circle"></i> Sản phẩm tạm thời hết hàng
+                </div>
+            <?php endif; ?>
+        </td>
+
                                         <td>
                                             <?php echo htmlspecialchars($item['type_name'] ?? 'N/A'); ?>
                                         </td>
@@ -1708,21 +1950,30 @@ function executeDelete() {
         }
     }
     
-    // Checkout Function
-    function proceedToCheckout() {
-        const totalItems = <?php echo $totalItems; ?>;
-        if (totalItems > 0) {
-            <?php if (isset($_SESSION['user_id'])): ?>
-                window.location.href = 'delivery.php';
-            <?php else: ?>
-                showNotification('Vui lòng đăng nhập để tiếp tục thanh toán', 'warning');
-                setTimeout(() => window.location.href = 'login.php', 1500);
-            <?php endif; ?>
-        } else {
-            showNotification('Giỏ hàng của bạn đang trống!', 'warning');
-        }
-    }
+function proceedToCheckout() {
+    const unavailableItems = document.querySelectorAll('.disabled-item').length;
     
+    if (unavailableItems > 0) {
+        showNotification(
+            'Vui lòng xóa các sản phẩm không có sẵn khỏi giỏ hàng trước khi tiếp tục', 
+            'warning'
+        );
+        highlightUnavailableItems();
+        return;
+    }
+
+    const totalItems = <?php echo $totalItems; ?>;
+    if (totalItems > 0) {
+        <?php if (isset($_SESSION['user_id'])): ?>
+            window.location.href = 'delivery.php';
+        <?php else: ?>
+            showNotification('Vui lòng đăng nhập để tiếp tục', 'warning');
+            setTimeout(() => window.location.href = 'login.php', 1500);
+        <?php endif; ?>
+    } else {
+        showNotification('Giỏ hàng của bạn đang trống!', 'info');
+    }
+}
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
         updateDeleteSelectedButton();
@@ -1740,6 +1991,37 @@ function executeDelete() {
             }
         });
     });
+    function highlightUnavailableItems() {
+    const unavailableItems = document.querySelectorAll('.disabled-item');
+    unavailableItems.forEach(item => {
+        item.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+            item.style.animation = '';
+        }, 500);
+    });
+}
+    </script>
+        <script>
+    function dismissNotification(productId) {
+        const notification = event.target.closest('.cart-alert');
+        notification.style.animation = 'slideOut 0.3s ease forwards';
+        
+        setTimeout(() => {
+            fetch('dismiss_notification.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    notification.remove();
+                }
+            });
+        }, 300);
+    }
     </script>
 </body>
 
