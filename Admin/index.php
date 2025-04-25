@@ -231,7 +231,7 @@ $stats = mysqli_fetch_assoc($stats_result);
         background-color: #c0392b;
     }
 
-    Specific hover effect for Ban button .admin-table button[style*="background-color: red;"] {
+  button .admin-table button[style*="background-color: red;"] {
         background-color: #e74c3c;
         color: white;
         border: none;

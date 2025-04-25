@@ -284,7 +284,7 @@ footer{
 <div class="copyright" style=" height: 20vh; " >
     <br><br><br><br>
 
-    <p>Copyright © 2024 Auto Car. All rights reserved.</p>
+    <p>Copyright © <?php echo date('Y'); ?> Auto Car. All rights reserved.</p>
     <small>
         Chính sách thanh toán - Chính sách khiếu nại - Chính sách vận chuyển
     </small>  

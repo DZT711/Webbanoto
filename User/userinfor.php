@@ -566,18 +566,320 @@ if (isset($_POST['edit_profile'])) { {
             padding: 2.5rem;
         }
     </style>
+        <style>
+    /* Enhanced Page Title */
+    .page-title-container {
+        position: relative;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    
+    .page-title-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #007bff, #00d2ff, #007bff);
+        background-size: 200% 100%;
+        animation: gradientSlide 3s linear infinite;
+    }
+    
+    h2.page-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 2rem;
+        color: #2c3e50;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    h2.page-title i {
+        font-size: 2.2rem;
+        background: linear-gradient(45deg, #007bff, #00d2ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: iconFloat 3s ease infinite;
+    }
+    
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, #007bff, #00d2ff);
+        transition: width 0.3s ease;
+    }
+    
+    .page-title-container:hover .page-title::after {
+        width: 100px;
+    }
+    
+    @keyframes gradientSlide {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+    }
+    
+    @keyframes iconFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    /* Enhanced Back Button */
+    .back-btn {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(45deg, #6c757d, #495057);
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 30px;
+        color: white;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin-bottom: 2rem;
+    }
+    
+    .back-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+    
+    .back-btn:hover {
+        transform: translateX(-5px);
+        box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+    }
+    
+    .back-btn:hover::before {
+        left: 100%;
+    }
+    
+    .back-btn i {
+        transition: transform 0.3s ease;
+    }
+    
+    .back-btn:hover i {
+        transform: translateX(-5px);
+    }
+    </style>
+        <style>
+    /* Enhanced Info Row Styles */
+    .info-row {
+        display: flex;
+        padding: 1.2rem;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        transition: all 0.3s ease;
+        background: linear-gradient(to right, transparent 50%, rgba(0, 123, 255, 0.05) 50%);
+        background-size: 200% 100%;
+        background-position: left bottom;
+        border-radius: 8px;
+        margin-bottom: 5px;
+    }
+    
+    .info-row:hover {
+        background-position: right bottom;
+        transform: translateX(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .info-label {
+        font-weight: 600;
+        width: 155px;
+        color: #495057;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .info-label::after {
+        content: ':';
+        position: absolute;
+        right: 10px;
+        color: #adb5bd;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .info-row:hover .info-label::after {
+        opacity: 1;
+        transform: translateX(5px);
+    }
+    
+    .info-value {
+        flex: 1;
+        color: #2c3e50;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .info-value::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 3px;
+        height: 0;
+        background: linear-gradient(to bottom, #007bff, #00d2ff);
+        transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+    
+    .info-row:hover .info-value::before {
+        height: 80%;
+    }
+    
+    /* Status and Role Badge Enhancements */
+    .status-badge, .role-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .status-badge::before, .role-badge::before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+    }
+    
+    .status-activated {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    
+    .status-activated::before {
+        content: '\f058'; /* check-circle icon */
+    }
+    
+    .status-banned {
+        background: linear-gradient(135deg, #dc3545, #fd7e14);
+        color: white;
+    }
+    
+    .status-banned::before {
+        content: '\f056'; /* minus-circle icon */
+    }
+    
+    .status-disabled {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+    }
+    
+    .status-disabled::before {
+        content: '\f05e'; /* ban icon */
+    }
+    
+    .role-admin {
+        background: linear-gradient(135deg, #007bff, #6610f2);
+        color: white;
+    }
+    
+    .role-admin::before {
+        content: '\f509'; /* shield icon */
+    }
+    
+    .role-customer {
+        background: linear-gradient(135deg, #17a2b8, #20c997);
+        color: white;
+    }
+    
+    .role-customer::before {
+        content: '\f007'; /* user icon */
+    }
+    
+    /* Hover Effects */
+    .status-badge:hover, .role-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+        /* Add to your existing styles */
+    .password-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .toggle-password {
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        color: #6c757d;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .toggle-password:hover {
+        background-color: rgba(108, 117, 125, 0.1);
+        color: #007bff;
+    }
+    
+    .toggle-password:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+    
+    .password-dots {
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+    
+    .toggle-password.showing .fa-eye {
+        display: none;
+    }
+    
+    .toggle-password:not(.showing) .fa-eye-slash {
+        display: none;
+    }
+    </style>
 </head>
 
 <body>
     <main>
 
-        <div class="user-container">
-            <a href="javascript:history.back()" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i>
-                Trở về
-            </a>
+<div class="user-container">
+    <a href="javascript:history.back()" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Trở về</span>
+    </a>
 
-            <h2><i class="fa-solid fa-user"></i> Thông tin người dùng</h2>
+    <div class="page-title-container">
+        <h2 class="page-title">
+            <i class="fas fa-user-circle"></i>
+            <span>Thông tin người dùng</span>
+        </h2>
+    </div>
 
             <div class="user-info">
                 <!-- Username - Always required -->
@@ -587,9 +889,20 @@ if (isset($_POST['edit_profile'])) { {
                 </div>
 
                 <!-- Password - Always required -->
+                                <!-- Replace the existing password info row -->
                 <div class="info-row">
-                    <div class="info-label">Mật khẩu:</div>
-                    <div class="info-value"><?php echo htmlspecialchars($_SESSION['password']); ?></div>
+                    <div class="info-label">
+                        <i class="fas fa-key"></i> Mật khẩu:
+                    </div>
+                    <div class="info-value password-field">
+                        <span class="password-dots">•••••••••</span>
+                        <span class="password-text" style="display: none;">
+                            <?php echo htmlspecialchars($_SESSION['password']); ?>
+                        </span>
+                        <button type="button" class="toggle-password">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Email -->
@@ -782,7 +1095,100 @@ if (isset($_POST['edit_profile'])) { {
                 closeEditForm();
             }
         });
-
+                // Add this to your existing script section
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleContainer = document.querySelector('.page-title-container');
+            const title = document.querySelector('.page-title');
+            
+            // Add hover effect
+            titleContainer.addEventListener('mouseenter', () => {
+                title.querySelector('i').style.transform = 'scale(1.1) rotate(5deg)';
+            });
+            
+            titleContainer.addEventListener('mouseleave', () => {
+                title.querySelector('i').style.transform = 'scale(1) rotate(0)';
+            });
+            
+            // Add entrance animation
+            titleContainer.style.opacity = '0';
+            titleContainer.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                titleContainer.style.transition = 'all 0.5s ease';
+                titleContainer.style.opacity = '1';
+                titleContainer.style.transform = 'translateY(0)';
+            }, 300);
+        });
+                // Add to your existing script section
+        document.addEventListener('DOMContentLoaded', function() {
+            const infoRows = document.querySelectorAll('.info-row');
+            
+            infoRows.forEach(row => {
+                // Add icons to labels
+                const label = row.querySelector('.info-label');
+                const labelText = label.textContent.toLowerCase();
+                
+                // Add appropriate icons based on the label
+                if (labelText.includes('tên')) {
+                    label.innerHTML = `<i class="fas fa-user"></i> ${label.textContent}`;
+                } else if (labelText.includes('mật khẩu')) {
+                    label.innerHTML = `<i class="fas fa-key"></i> ${label.textContent}`;
+                } else if (labelText.includes('email')) {
+                    label.innerHTML = `<i class="fas fa-envelope"></i> ${label.textContent}`;
+                } else if (labelText.includes('điện thoại')) {
+                    label.innerHTML = `<i class="fas fa-phone"></i> ${label.textContent}`;
+                } else if (labelText.includes('ngày')) {
+                    label.innerHTML = `<i class="fas fa-calendar"></i> ${label.textContent}`;
+                } else if (labelText.includes('địa chỉ')) {
+                    label.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${label.textContent}`;
+                } else if (labelText.includes('vai trò')) {
+                    label.innerHTML = `<i class="fas fa-user-tag"></i> ${label.textContent}`;
+                } else if (labelText.includes('trạng thái')) {
+                    label.innerHTML = `<i class="fas fa-toggle-on"></i> ${label.textContent}`;
+                }
+        
+                // Add hover animation
+                row.addEventListener('mouseenter', () => {
+                    row.querySelector('.info-label i').style.transform = 'scale(1.2) rotate(5deg)';
+                });
+        
+                row.addEventListener('mouseleave', () => {
+                    row.querySelector('.info-label i').style.transform = 'scale(1) rotate(0)';
+                });
+            });
+        });
+                // Add to your existing script section
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.toggle-password');
+            const passwordDots = document.querySelector('.password-dots');
+            const passwordText = document.querySelector('.password-text');
+        
+            toggleBtn.addEventListener('click', function() {
+                // Toggle icon
+                const icon = toggleBtn.querySelector('i');
+                if (icon.classList.contains('fa-eye')) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                    // Show password
+                    passwordDots.style.display = 'none';
+                    passwordText.style.display = 'inline';
+                    toggleBtn.setAttribute('title', 'Ẩn mật khẩu');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                    // Hide password
+                    passwordDots.style.display = 'inline';
+                    passwordText.style.display = 'none';
+                    toggleBtn.setAttribute('title', 'Hiện mật khẩu');
+                }
+        
+                // Add animation effect
+                toggleBtn.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    toggleBtn.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
     </script>
 </body>
 

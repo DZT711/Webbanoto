@@ -826,6 +826,222 @@ if ($result) {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
         }
+                /* Add these styles for the search results title */
+        .results-title-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .results-title i {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: bounce 2s infinite;
+        }
+        
+        .results-count {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.3s forwards;
+        }
+        
+        .results-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1abc9c, #16a085);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        .results-title-container:hover .results-title::after {
+            width: 200px;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Enhanced result items animation */
+        .result-item {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .result-item:nth-child(1) { animation-delay: 0.1s; }
+        .result-item:nth-child(2) { animation-delay: 0.2s; }
+        .result-item:nth-child(3) { animation-delay: 0.3s; }
+        .result-item:nth-child(4) { animation-delay: 0.4s; }
+        .result-item:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <style>
+                /* Update the results title styles */
+        .results-title-container {
+            margin: 30px auto;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInDown 0.5s ease-out;
+            width: fit-content;
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        /* Rainbow border effect */
+        .results-title-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #1abc9c, #3498db, #9b59b6, #f1c40f, #e74c3c) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            animation: borderRotate 4s linear infinite;
+        }
+        
+        /* Enhanced filter input styles */
+        .filter-item input, 
+        .filter-item select {
+            /* padding: 8px 12px; */
+            border: 2px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: white;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        
+        .filter-item input:hover, 
+        .filter-item select:hover {
+            border-color: #1abc9c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.15);
+        }
+        
+        .filter-item input:focus, 
+        .filter-item select:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+            transform: translateY(-2px);
+        }
+        
+
+        .range-inputs::after {
+            content: '~';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-weight: bold;
+            pointer-events: none;
+        }
+        
+        /* Animations */
+        @keyframes borderRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        /* Add floating effect to title */
+        .results-title i {
+            animation: floating 3s ease-in-out infinite;
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+
+        
+        .filter-item:hover label {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+        
+        .filter-item:hover label i {
+            transform: scale(1.2);
+            color: #1abc9c;
+        }
     </style>
     </head>
 
@@ -989,6 +1205,21 @@ if ($result) {
                 </div>
             </div>
             </form>
+                        <!-- Add this after the filter section -->
+            <div class="results-title-container">
+                <h2 class="results-title">
+                    <i class="fas fa-search"></i>
+                    Kết quả tìm kiếm
+                </h2>
+                <div class="results-count">
+                    <?php
+                    $resultText = $total_rows > 0 
+                        ? "Tìm thấy {$total_rows} kết quả" 
+                        : "Không tìm thấy kết quả nào";
+                    echo $resultText;
+                    ?>
+                </div>
+            </div>
             <div class="results">
                 <?php if (empty($searchResults)): ?>
                     <div class="no-results">
@@ -1294,6 +1525,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // setupSearchPlaceholder('search');  // Nav search
     setupSearchPlaceholder('search1'); // Main search
 });
+// Add this to your existing script section
+document.addEventListener('DOMContentLoaded', function() {
+    const titleContainer = document.querySelector('.results-title-container');
+    const title = document.querySelector('.results-title');
+    
+    // Add parallax effect on mouse move
+    titleContainer.addEventListener('mousemove', (e) => {
+        const rect = titleContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const xPercent = (x / rect.width - 0.5) * 20;
+        const yPercent = (y / rect.height - 0.5) * 20;
+        
+        title.style.transform = `translate(${xPercent}px, ${yPercent}px)`;
+    });
+    
+    // Reset position on mouse leave
+    titleContainer.addEventListener('mouseleave', () => {
+        title.style.transform = 'translate(0, 0)';
+    });
+    
+    // Add scroll reveal effect for result items
+    const resultItems = document.querySelectorAll('.result-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+    
+    resultItems.forEach(item => observer.observe(item));
+});
+
 </script>
     </body>
 

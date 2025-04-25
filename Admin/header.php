@@ -591,7 +591,7 @@ button.link:active {
 <style>
         /* Replace or update the admin-header and logo styles */
     .admin-header {
-        background: linear-gradient(270deg, #1a2a6c, #b21f1f, #fdbb2d, #1abc9c);
+        background: linear-gradient(270deg,#40C1A8, #2C3E50,rgb(255, 255, 255));
         background-size: 400% 400%;
         padding: 20px;
         position: relative;
