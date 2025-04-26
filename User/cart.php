@@ -459,10 +459,10 @@ checkCartItemsStatus($connect);
         font-weight: 600;
     }
 
-    .eight {
+    /* .eight {
         height: 100px;
         background-color: #efefef;
-        /* border-radius: 10px; */
+        
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
@@ -486,7 +486,7 @@ checkCartItemsStatus($connect);
         display: block;
         border-bottom: 2px solid #ccc;
         background-color: #efefef;
-    }
+    } */
 </style>
 <!-- <style>
         /* Update Title Container */
@@ -547,20 +547,20 @@ checkCartItemsStatus($connect);
 </style>
 <style>
     /* Update Title Container */
-    .eight {
+    /* .eight {
         height: 100px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin: 20px auto;
-        /* max-width: 1200px; */
+        /* max-width: 1200px; 
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    /* Update Title Styling */
+    /* Update Title Styling 
     .eight h1 {
         position: relative;
         padding: 0;
@@ -575,7 +575,7 @@ checkCartItemsStatus($connect);
         transition: all 0.3s ease;
     }
 
-    /* Add underline accent */
+    /* Add underline accent 
     .eight h1::after {
         content: '';
         position: absolute;
@@ -588,21 +588,21 @@ checkCartItemsStatus($connect);
         border-radius: 2px;
     }
 
-    /* Update Title Container */
+    /* Update Title Container 
     .eight {
         height: 100px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin: 20px auto;
-        /* max-width: 1200px; */
+        /* max-width: 1200px; 
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    /* Update Title Styling */
+    /* Update Title Styling 
     .eight h1 {
         position: relative;
         padding: 0;
@@ -617,19 +617,19 @@ checkCartItemsStatus($connect);
         transition: all 0.3s ease;
     }
 
-    /* Fix underline spacing */
+    /* Fix underline spacing 
+    */
     .eight h1::after {
         content: '';
         position: absolute;
         bottom: -8px;
-        /* Changed from -15px to -8px */
         left: 50%;
         transform: translateX(-50%);
         width: 60px;
         height: 3px;
         background-color: var(--cart-primary);
         border-radius: 2px;
-    }
+    } 
 
     .cart-content-left a {
         text-decoration: none;
@@ -1557,6 +1557,83 @@ checkCartItemsStatus($connect);
         opacity: 0;
     }
 }
+/* Updated Title Styles */
+/* Update the title styles */
+.eight {
+    height: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    padding: 20px 40px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.eight h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 0;
+    /* background: linear-gradient(90deg,rgb(255, 255, 255),#6D6E71, #0056B3); */
+    background-size: 200% auto;
+    color: #2c3e50; /* Fallback color */
+    /* animation: gradientText 3s linear infinite; */
+    /* height:32px; */
+}
+
+.eight h1 span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealLetters 0.5s ease forwards;
+}
+
+/* Gradient Animation */
+@keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Letter Animation */
+@keyframes revealLetters {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+/* Highlight Effect */
+.eight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(90, 90, 90, 0.8),
+        transparent
+    );
+    animation: highlightSweep 3s ease-in-out infinite;
+}
+
+@keyframes highlightSweep {
+    100% { left: 200%; }
+}
 </style>
 <body>
 
@@ -1587,7 +1664,11 @@ checkCartItemsStatus($connect);
         </div>
         <div class="container">
             <div class="eight">
-                <h1>Giỏ Hàng của tôi
+                <h1>
+                    <i class="fa-solid fa-cart-shopping">
+                        
+                </i>
+                Giỏ Hàng 
                 </h1>
             </div>
             <!-- Add this after your cart header -->
@@ -2022,6 +2103,51 @@ function proceedToCheckout() {
             });
         }, 300);
     }
+        // Add this to your existing script
+    // Update the title animation script
+    document.addEventListener('DOMContentLoaded', function() {
+        const title = document.querySelector('.eight h1');
+        const text = title.textContent.trim();
+        title.innerHTML = ''; // Clear the title
+        
+        // Create spans for each letter with proper delays
+        text.split('').forEach((letter, index) => {
+            const span = document.createElement('span');
+            span.textContent = letter === ' ' ? '\u00A0' : letter; // Preserve spaces
+            span.style.display = 'inline-block';
+            span.style.opacity = '0';
+            span.style.transform = 'translateY(20px)';
+            span.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            title.appendChild(span);
+            
+            // Trigger animation after a small delay
+            setTimeout(() => {
+                span.style.opacity = '1';
+                span.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    });
+    
+    // Update hover effect
+    const titleContainer = document.querySelector('.eight');
+    titleContainer.addEventListener('mouseenter', () => {
+        const letters = titleContainer.querySelectorAll('h1 span');
+        letters.forEach((letter, index) => {
+            letter.style.transform = 'translateY(-5px)';
+            letter.style.color = '#007bff';
+            letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
+        });
+    });
+    
+    titleContainer.addEventListener('mouseleave', () => {
+        const letters = titleContainer.querySelectorAll('h1 span');
+        letters.forEach((letter, index) => {
+            letter.style.transform = 'translateY(0)';
+            letter.style.color = '#2c3e50';
+            letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
+        });
+    });
+
     </script>
 </body>
 

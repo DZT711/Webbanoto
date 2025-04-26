@@ -1103,6 +1103,9 @@ session_start();
 #tlp{
     font-size: 14px;
 }
+.dropbtn{
+    font-weight:bold;
+}
 
 </style>
 

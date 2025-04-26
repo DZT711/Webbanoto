@@ -831,6 +831,81 @@ $user_info = mysqli_fetch_assoc($user_result);
         padding: 15px;
     }
 }
+.eight {
+    height: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    padding: 20px 40px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.eight h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 0;
+    /* background: linear-gradient(90deg,rgb(255, 255, 255),#6D6E71, #0056B3); */
+    background-size: 200% auto;
+    color: #2c3e50; /* Fallback color */
+    /* animation: gradientText 3s linear infinite; */
+    /* height:32px; */
+}
+
+.eight h1 span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealLetters 0.5s ease forwards;
+}
+
+/* Gradient Animation */
+@keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Letter Animation */
+@keyframes revealLetters {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+/* Highlight Effect */
+.eight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(90, 90, 90, 0.8),
+        transparent
+    );
+    animation: highlightSweep 3s ease-in-out infinite;
+}
+
+@keyframes highlightSweep {
+    100% { left: 200%; }
+}
 </style>
 <body>
 
@@ -1272,6 +1347,51 @@ $user_info = mysqli_fetch_assoc($user_result);
                 });
             });
         });
+                // Add this to your existing script
+    // Update the title animation script
+    document.addEventListener('DOMContentLoaded', function() {
+        const title = document.querySelector('.eight h1');
+        const text = title.textContent.trim();
+        title.innerHTML = ''; // Clear the title
+        
+        // Create spans for each letter with proper delays
+        text.split('').forEach((letter, index) => {
+            const span = document.createElement('span');
+            span.textContent = letter === ' ' ? '\u00A0' : letter; // Preserve spaces
+            span.style.display = 'inline-block';
+            span.style.opacity = '0';
+            span.style.transform = 'translateY(20px)';
+            span.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            title.appendChild(span);
+            
+            // Trigger animation after a small delay
+            setTimeout(() => {
+                span.style.opacity = '1';
+                span.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    });
+    
+    // Update hover effect
+    const titleContainer = document.querySelector('.eight');
+    titleContainer.addEventListener('mouseenter', () => {
+        const letters = titleContainer.querySelectorAll('h1 span');
+        letters.forEach((letter, index) => {
+            letter.style.transform = 'translateY(-5px)';
+            letter.style.color = '#007bff';
+            letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
+        });
+    });
+    
+    titleContainer.addEventListener('mouseleave', () => {
+        const letters = titleContainer.querySelectorAll('h1 span');
+        letters.forEach((letter, index) => {
+            letter.style.transform = 'translateY(0)';
+            letter.style.color = '#2c3e50';
+            letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
+        });
+    });
+
     </script>
 </body>
 
