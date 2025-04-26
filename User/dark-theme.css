@@ -1,0 +1,163 @@
+/* Dark Theme Variables */
+:root {
+    --dark-bg: #1a1a1a;
+    --dark-surface: #2d2d2d;
+    --dark-primary: #bb86fc;
+    --dark-secondary: #03dac6;
+    --dark-text: #ffffff;
+    --dark-text-secondary: rgba(255, 255, 255, 0.7);
+    --dark-border: rgba(255, 255, 255, 0.12);
+}
+
+/* Dark Theme Base Styles */
+body.dark-theme {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+/* Header & Navigation */
+body.dark-theme .navbar {
+    background-color: var(--dark-surface);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .nav-link {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-theme .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--dark-primary);
+}
+
+/* Dropdowns */
+body.dark-theme .dropdown-content {
+    background-color: var(--dark-surface);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .dropdown-content a {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-theme .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--dark-primary);
+}
+
+/* Login/Register Container */
+body.dark-theme .login-register-ctn {
+    background: linear-gradient(135deg, var(--dark-surface), var(--dark-bg));
+    border-bottom: 1px solid var(--dark-border);
+}
+
+/* Cards and Containers */
+body.dark-theme .container,
+body.dark-theme .user-container,
+body.dark-theme .product-card,
+body.dark-theme .cart-item {
+    background-color: var(--dark-surface);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Elements */
+body.dark-theme input,
+body.dark-theme select,
+body.dark-theme textarea {
+    background-color: var(--dark-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+body.dark-theme input:focus,
+body.dark-theme select:focus,
+body.dark-theme textarea:focus {
+    border-color: var(--dark-primary);
+    box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+}
+
+/* Buttons */
+body.dark-theme .btn,
+body.dark-theme button {
+    background-color: var(--dark-primary);
+    color: #000;
+}
+
+body.dark-theme .btn:hover,
+body.dark-theme button:hover {
+    background-color: #9965db;
+}
+
+/* Tables */
+body.dark-theme table {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+}
+
+body.dark-theme th,
+body.dark-theme td {
+    border-color: var(--dark-border);
+}
+
+body.dark-theme tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Footer */
+body.dark-theme footer {
+    background-color: var(--dark-surface);
+    color: var(--dark-text-secondary);
+}
+
+/* Modals and Dialogs */
+body.dark-theme .modal-content {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+}
+
+/* Product Pages */
+body.dark-theme .product-details,
+body.dark-theme .product-description {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+}
+
+/* Cart Page */
+body.dark-theme .cart-summary {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+/* Status Badges */
+body.dark-theme .status-badge {
+    opacity: 0.9;
+}
+
+/* Notifications */
+body.dark-theme .notification {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+    border-left-color: var(--dark-primary);
+}
+
+/* Scrollbar */
+body.dark-theme::-webkit-scrollbar {
+    width: 12px;
+}
+
+body.dark-theme::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+body.dark-theme::-webkit-scrollbar-thumb {
+    background-color: var(--dark-border);
+    border-radius: 6px;
+    border: 3px solid var(--dark-bg);
+}
+
+/* Icons */
+body.dark-theme .fa,
+body.dark-theme .fas,
+body.dark-theme .far {
+    color: var(--dark-text-secondary);
+}

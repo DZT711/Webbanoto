@@ -423,7 +423,6 @@ if (isset($_SESSION['logout_message'])) {
 
 </style>
 <style>
-    /* Password field styles */
     .password-field {
         position: relative;
         width: 100%;
@@ -444,10 +443,83 @@ if (isset($_SESSION['logout_message'])) {
         color: #007bff;
     }
 
-    /* Adjust input padding to accommodate the icon */
     .password-field input {
         padding-right: 35px;
     }
+</style>
+<style>
+    /* Dark Theme Toggle Button */
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        font-size: 1.2rem;
+    }
+
+    .theme-toggle:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-toggle i {
+        transition: transform 0.5s ease;
+    }
+
+    /* Dark Theme Styles */
+    body.dark-theme {
+        background-image: linear-gradient(45deg, #1a1a1a, #000033);
+    }
+
+    body.dark-theme .login-container {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark-theme .login-container input {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    body.dark-theme .login-container input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    body.dark-theme .password-toggle {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Animation for icon rotation */
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    /* body.dark-theme {
+    background: linear-gradient(45deg, #1a1a1a, #000033) no-repeat center/cover #000033;
+} */
+ html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body.dark-theme {
+    background-color: #000033; /* màu tối nền chung */
+    background-image: linear-gradient(45deg, #1a1a1a, #000033);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 </style>
 <body>
         <!-- Add this right after <body> tag -->
@@ -455,6 +527,9 @@ if (isset($_SESSION['logout_message'])) {
         <i class="fa-solid fa-arrow-left"></i>
         Trở về
     </a>
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun"></i>
+    </button>
     <div id="notification" class="notification"></div>
     <div class="login-container">
         <h2>Login</h2>
@@ -620,6 +695,38 @@ if (isset($_SESSION['logout_message'])) {
                 this.style.transform = 'translateY(-50%) scale(1)';
             }, 100);
         });
+    </script>
+    <script>
+    // Add dark theme functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const darkTheme = localStorage.getItem('darkTheme') === 'true';
+        if (darkTheme) {
+            document.body.classList.add('dark-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            
+            // Animate icon
+            icon.style.animation = 'rotate 0.5s ease';
+            setTimeout(() => icon.style.animation = '', 500);
+            
+            // Toggle icon
+            if (document.body.classList.contains('dark-theme')) {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Save preference
+            localStorage.setItem('darkTheme', document.body.classList.contains('dark-theme'));
+        });
+    });
     </script>
 </body>
 </html>

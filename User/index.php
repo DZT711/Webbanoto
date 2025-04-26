@@ -231,7 +231,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
     .ctn-img {
         margin-top: -5.1em;
         position: relative;
-        background-color: rgb(220, 220, 220);
+        background-color: #EAEDF0 !important;
 
     }
 
@@ -749,7 +749,9 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
         margin: 0;
     }
 
-    .fctn {}
+    .fctn {
+        background-color: rgb(220, 220, 220);
+    }
 </style>
 <style>
     /* Add to your existing CSS */
@@ -1067,17 +1069,17 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
 
     .lgb:hover::before {
         left: 100%;
-        }
-        
+    }
+
     .lgb:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-        
+    }
+
 
     .lg-b {
         max-width: 100px;
-        
+
         transition: transform 0.3s ease;
     }
 
@@ -1099,7 +1101,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
 
     .lg:hover {
         color: #007bff;
-    } 
+    }
 
     @media (max-width: 1200px) {
         .ds-md-sb {
@@ -1221,7 +1223,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
 
 <body>
 
-    <div class="" style="background-color:rgb(220, 220, 220);height:5vh;"></div>
+    <div class="" style="background-color:#EAEDF0;height:5vh;"></div>
     <main>
         <div class="fctn">
 
