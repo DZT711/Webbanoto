@@ -67,11 +67,15 @@ $car = mysqli_fetch_assoc($result);
     }
 
     .car-image {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
     .car-image img {
         width: 100%;
@@ -84,61 +88,126 @@ $car = mysqli_fetch_assoc($result);
     }
 
     .car-info {
-        padding: 20px;
-        background: linear-gradient(to bottom, #ffffff, #f8f9fa);
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(to bottom right, #ffffff, #f1f3f5);
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.4;
+    transition: all 0.3s ease-in-out;
+}
+
+.car-info:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.car-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.car-info h2 {
+    font-size: 17px;
+    color: #007bff;
+    margin-bottom: 18px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.car-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 24px;
+    margin-top: 12px;
+}
+
+.car-features-left,
+.car-features-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: space-between;
+}
+
+.car-feature-item {
+    font-size: 13px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    line-height: 1.5;
+    padding: 5px 0;
+}
+
+.car-feature-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+    min-width: 130px;
+    flex-shrink: 0;
+}
+
+.car-info i {
+    color: #0d6efd;
+    font-size: 13px;
+    min-width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.status-selling {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-discounting {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.status-hidden {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.status-soldout {
+    background-color: #343a40;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .car-features {
+        grid-template-columns: 1fr;
     }
 
-    .car-info h2 {
-        color: #007bff;
-        font-size: 2rem;
-        margin-bottom: 20px;
-        font-weight: 600;
+    .car-title, .car-info h2 {
+        text-align: center;
     }
-
-    .car-info p {
-        color: #495057;
-        margin: 15px 0;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+    
+    .car-feature-item strong {
+        min-width: 110px;
     }
-
-    .car-info p strong {
-        color: #2c3e50;
-        min-width: 120px;
-    }
-
-    .status-badge {
-        display: inline-block;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 600;
-        margin-left: 10px;
-    }
-
-    .status-selling {
-        background-color: #28a745;
-        color: white;
-    }
-
-    .status-discounting {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    .status-hidden {
-        background-color: #6c757d;
-        color: white;
-    }
-
-    .status-soldout {
-        background-color: #343a40;
-        color: white;
-    }
+}
 
     /* Responsive Design */
     @media (max-width: 768px) {
@@ -258,45 +327,48 @@ $car = mysqli_fetch_assoc($result);
                     <img src="<?php echo $car['image_link']; ?>" alt="<?php echo $car['car_name']; ?>">
                 </div>
                 <div class="car-info">
-                    <h1 class="car-title"><?php echo $car['car_name']; ?></h1>
-                    <h2><i class="fas fa-tag"></i> Giá: <?php echo number_format($car['price'], 0, ',', '.'); ?> VND
-                    </h2>
-                    <p><strong><i class="fas fa-car"></i>Thương Hiệu:</strong> <?php echo $car['type_name']; ?></p>
-                    <p><strong><i class="fas fa-calendar-alt"></i>Năm Sản Xuất:</strong>
-                        <?php echo $car['year_manufacture']; ?></p>
-                    <p><strong><i class="fas fa-gears"></i>Động Cơ:</strong> <?php echo $car['engine_name']; ?></p>
-                    <p><strong><i class="fas fa-gear"></i>Mã Lực:</strong> <?php echo $car['engine_power']; ?> HP</p>
-                    <p><strong><i class="fas fa-gas-pump"></i>Loại Nhiên Liệu:</strong> <?php echo $car['fuel_name']; ?>
-                    </p>
-                    <p><strong><i class="fas fa-oil-can"></i>Sức Chứa Nhiên Liệu:</strong>
-                        <?php echo $car['fuel_capacity']; ?></p>
-                    <p><strong><i class="fas fa-palette"></i>Màu:</strong> <?php echo $car['color']; ?></p>
-                    <p><strong><i class="fas fa-users"></i>Số Chỗ Ngồi:</strong> <?php echo $car['seat_number']; ?> chỗ
-                    </p>
-                    <p><strong><i class="fas fa-tachometer-alt"></i>Vận Tốc Tối Đa:</strong>
-                        <?php echo $car['max_speed']; ?> km/h</p>
-                    <p>
-                        <strong><i class="fas fa-info-circle"></i>Tình Trạng Xe:</strong>
-                        <span class="status-badge status-<?php echo $car['status']; ?>">
-                            <?php
-                            switch ($car['status']) {
-                                case 'selling':
-                                    echo 'Đang bán';
-                                    break;
-                                case 'discounting':
-                                    echo 'Đang giảm giá';
-                                    break;
-                                case 'hidden':
-                                    echo 'Tạm thời ẩn';
-                                    break;
-                                case 'soldout':
-                                    echo 'Hết hàng';
-                                    break;
-                            }
-                            ?>
-                        </span>
-                    </p>
-                </div>
+    <h1 class="car-title"><?php echo $car['car_name']; ?></h1>
+    <h2><i class="fas fa-tag"></i> Giá: <?php echo number_format($car['price'], 0, ',', '.'); ?> VND</h2>
+
+    <div class="car-features">
+        <div class="car-features-left">
+            <p class="car-feature-item"><i class="fas fa-car"></i><strong>Thương Hiệu:</strong> <?php echo $car['type_name']; ?></p>
+            <p class="car-feature-item"><i class="fas fa-calendar-alt"></i><strong>Năm Sản Xuất:</strong> <?php echo $car['year_manufacture']; ?></p>
+            <p class="car-feature-item"><i class="fas fa-gears"></i><strong>Động Cơ:</strong> <?php echo $car['engine_name']; ?></p>
+            <p class="car-feature-item"><i class="fas fa-gear"></i><strong>Mã Lực:</strong> <?php echo $car['engine_power']; ?> HP</p>
+            <p class="car-feature-item"><i class="fas fa-gas-pump"></i><strong>Loại Nhiên Liệu:</strong> <?php echo $car['fuel_name']; ?></p>
+        </div>
+
+        <div class="car-features-right">
+            <p class="car-feature-item"><i class="fas fa-oil-can"></i><strong>Sức Chứa Nhiên Liệu:</strong> <?php echo $car['fuel_capacity']; ?></p>
+            <p class="car-feature-item"><i class="fas fa-palette"></i><strong>Màu:</strong> <?php echo $car['color']; ?></p>
+            <p class="car-feature-item"><i class="fas fa-users"></i><strong>Số Chỗ Ngồi:</strong> <?php echo $car['seat_number']; ?> chỗ</p>
+            <p class="car-feature-item"><i class="fas fa-tachometer-alt"></i><strong>Vận Tốc Tối Đa:</strong> <?php echo $car['max_speed']; ?> km/h</p>
+            <p class="car-feature-item">
+                <i class="fas fa-info-circle"></i><strong>Tình Trạng Xe:</strong>
+                <span class="status-badge status-<?php echo $car['status']; ?>">
+                    <?php
+                    switch ($car['status']) {
+                        case 'selling':
+                            echo 'Đang bán';
+                            break;
+                        case 'discounting':
+                            echo 'Đang giảm giá';
+                            break;
+                        case 'hidden':
+                            echo 'Tạm thời ẩn';
+                            break;
+                        case 'soldout':
+                            echo 'Hết hàng';
+                            break;
+                    }
+                    ?>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
             </div>
 
             <?php if (!empty($car['car_description'])): ?>
