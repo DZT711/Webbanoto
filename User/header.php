@@ -1,6 +1,10 @@
 <?php
+
 session_start();
+
+
 $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '';
+$id = isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : '';
 $password = isset($_SESSION['password']) ? htmlspecialchars($_SESSION['password']) : '';
 $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : '';
 $status = isset($_SESSION['status']) ? htmlspecialchars($_SESSION['status']) : '';
@@ -23,7 +27,81 @@ if (isset($_SESSION['first_login']) && $_SESSION['first_login'] === true) {
     $showLoginNotification = true;
     $_SESSION['first_login'] = false; // Reset the flag 
 }
+
+
 include 'connect.php';
+$cartCount = 0;
+$orderCount = 0;
+
+if (isset($_SESSION['user_id'])) {
+    $userId = (int) $_SESSION['user_id'];
+
+    // 1) Đếm tổng sản phẩm trong giỏ hàng
+    $sql1 = "
+      SELECT COALESCE(SUM(ci.quantity),0) AS cnt
+      FROM cart_items ci
+      JOIN cart c ON ci.cart_id = c.cart_id
+      WHERE c.user_id = ? AND cart_status='activated'
+    ";
+    if ($stmt = mysqli_prepare($connect, $sql1)) {
+        mysqli_stmt_bind_param($stmt, 'i', $userId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $cnt);
+        if (mysqli_stmt_fetch($stmt)) {
+            $cartCount = $cnt;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    // 2) Đếm tổng đơn hàng
+    $sql2 = "
+      SELECT COUNT(*) AS cnt
+      FROM orders
+      WHERE user_id = ?
+    ";
+    if ($stmt = mysqli_prepare($connect, $sql2)) {
+        mysqli_stmt_bind_param($stmt, 'i', $userId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $cnt);
+        if (mysqli_stmt_fetch($stmt)) {
+            $orderCount = $cnt;
+        }
+        mysqli_stmt_close($stmt);
+    }
+}
+// function getOrderEachStatusCounts($connect, $id)
+// {
+//     $counts = [
+//         'total_orders' => 0,
+//         'pending_orders' => 0,
+//         'completed_orders' => 0,
+//         'cancelled_orders' => 0
+//     ];
+
+//     if ($id) {
+//         $query = "SELECT 
+//                     COUNT(*) as total_orders,
+//                     SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending_orders,
+//                     SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_orders,
+//                     SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) as cancelled_orders
+//                   FROM orders 
+//                   WHERE user_id = ?";
+
+//         $stmt = mysqli_prepare($connect, $query);
+//         mysqli_stmt_bind_param($stmt, "i", $id);
+//         mysqli_stmt_execute($stmt);
+//         $result = mysqli_stmt_get_result($stmt);
+
+//         if ($row = mysqli_fetch_assoc($result)) {
+//             $counts = $row;
+//         }
+//     }
+
+//     return $counts;
+// }
+
+
+
 ?>
 
 
@@ -409,9 +487,7 @@ include 'connect.php';
 
         }
 
-        .login-register a {
-            margin: 0 10;
-        }
+
 
         .login-register a:hover {
             margin: 0 10;
@@ -1260,6 +1336,133 @@ include 'connect.php';
                 font-size: 13px;
             }
         }
+
+        /* Add to your existing CSS */
+        .loggedin {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .user-link:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .user-link i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .user-link:hover i {
+            transform: scale(1.2);
+        }
+
+        .cart-link {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .username-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .separator {
+            width: 1px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <style>
+        .cart-count,
+        .order-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .order-count {
+            background: #28a745;
+        }
+
+        .cart-link,
+        .history-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        @keyframes countPop {
+            0% {
+                transform: scale(0);
+            }
+
+            80% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .cart-count,
+        .order-count {
+            animation: countPop 0.3s ease-out;
+        }
+
     </style>
 
 <body>
@@ -1459,6 +1662,7 @@ include 'connect.php';
                     </div>
                 </div>
             </div>
+            
             <div class="dropdown">
                 <a href="#" class="nav-link dropbtn">
                     <i class="fa-solid fa-wrench"></i> Thông số xe
@@ -1554,9 +1758,9 @@ include 'connect.php';
                 <i class="fa-solid fa-envelope"></i> Liên Hệ
             </a>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                <a href="../Admin/login.php" class="nav-link">
-                    <i class="fa-solid fa-user-shield"></i> Admin
-                </a>
+                        <a href="../Admin/login.php" class="nav-link">
+                            <i class="fa-solid fa-user-shield"></i> Admin
+                        </a>
             <?php endif; ?>
             <form class="nav-search" action="search-results.php" method="GET">
                 <input type="text" id="search" name="query" placeholder="">
@@ -1578,38 +1782,55 @@ include 'connect.php';
     <div class="login-register-ctn">
         <div class="login-register">
             <?php if (isset($_SESSION['username'])): ?>
-                <!-- Logged in state -->
-                <div class="loggedin">
-                    <span class="user-greeting">
-                        <span>Xin chào,</span>
-                        <a href="userinfor.php" class="username-link">
-                            <i class="fa-regular fa-user"></i>
-                            <?php echo htmlspecialchars($_SESSION['username']); ?>
-                        </a>
+                        <div class="loggedin">
+                            <span class="user-greeting">
+                                <span>Xin chào,</span>
+                                <a href="userinfor.php" class="username-link">
+                                    <i class="fa-regular fa-user"></i>
+                                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                                </a>
+
+                                <div class="user-menu">
+                                    <span class="separator"></span>
+
+
+
+                                        <a href="cart.php" class="user-link cart-link">
+                    <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                    <span class="cart-count"><?= $cartCount ?></span>
+                  </a>
+                  <span class="separator"></span>
+                  <a href="billhistory.php" class="user-link">
+                    <i class="fas fa-history"></i> Lịch sử mua hàng
+                    <span class="order-count"><?= $orderCount ?></span>
+                  </a>
+
+                                    <span class="separator"></span>
+
+
                         <button type="button" id="logout-btn" onclick="showLogoutModal(event)" class="logout-btn">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Đăng xuất
                         </button>
-                    </span>
-                </div>
+
+
+                                </div>
+                        </div>
             <?php else: ?>
-                <!-- Not logged in state -->
-                <div class="notlogin">
-                    <a href="cart.php" class="auth-link cart-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Giỏ hàng của tôi
-                    </a>
-                    <span class="separator">•</span>
-                    <a href="login.php" id="login-btn" class="auth-link">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Đăng nhập
-                    </a>
-                    <span class="separator">•</span>
-                    <a href="login.php#signup" class="auth-link">
-                        <i class="fas fa-user-plus"></i>
-                        Đăng ký
-                    </a>
-                </div>
+                        <div class="notlogin">
+                            <a href="cart.php" class="auth-link cart-link">
+                                <i class="fas fa-shopping-cart"></i>
+                                Giỏ hàng
+                            </a>
+                            <a href="login.php" class="user-link">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Đăng nhập
+                            </a>
+                            <a href="register.php" class="user-link">
+                                <i class="fas fa-user-plus"></i>
+                                Đăng ký
+                            </a>
+                        </div>
             <?php endif; ?>
         </div>
     </div>
@@ -1662,7 +1883,7 @@ include 'connect.php';
             }, 5000);
         }
         <?php if ($showLoginNotification): ?>
-            showNotification("Đăng nhập thành công. Chào mừng <?php echo htmlspecialchars($username); ?>!", "success");
+                    showNotification("Đăng nhập thành công. Chào mừng <?php echo htmlspecialchars($username); ?>!", "success");
         <?php endif; ?>        // showNotification('Login successful!', 'success');
         // showNotification('Error occurred!', 'error');
         // showNotification('Please wait...', 'info');

@@ -1,177 +1,8 @@
 <?php
 include 'header.php';
-include 'connect.php';
+// include 'connect.php';
 ?>
 <?php
-// Replace the existing cars array with this updated version
-// $cars = [
-//     [
-//         'name' => 'BMW 320i Sportline',
-//         'price' => 1529000000,
-//         'year' => 2024,
-//         'speed' => '235 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => '3-series.jpeg',
-//         'enginepower' => 184, // số mã lực
-//         'engine_name' => '2.0L I4', // tên động cơ
-//         'seating_capacity' => 5 // số chỗ
-//     ],
-//     [
-//         'name' => 'BMW 330i M Sport',
-//         'price' => 1629000000,
-//         'year' => 2023,
-//         'speed' => '250 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'trang-alpine-3.webp',
-//         'enginepower' => 258,
-//         'engine_name' => '2.0L I4',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'BMW 430i Convertible M Sport',
-//         'price' => 2629000000,
-//         'year' => 2021,
-//         'speed' => '250 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'bmw3.png',
-//         'enginepower' => 258,
-//         'engine_name' => '2.0L I4',
-//         'seating_capacity' => 4
-//     ],
-//     [
-//         'name' => 'BMW 735i M Sport',
-//         'price' => 4499000000,
-//         'year' => 2023,
-//         'speed' => '250 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'bmw4.png',
-//         'enginepower' => 286,
-//         'engine_name' => '3.0L I6',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'BMW XM',
-//         'price' => 10990000000,
-//         'year' => 2022,
-//         'speed' => '250 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'bmw5.jpg',
-//         'enginepower' => 653,
-//         'engine_name' => '4.4L V8',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'MAZDA 6',
-//         'price' => 899000000,
-//         'year' => 2023,
-//         'speed' => '220 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'mazda1.png',
-//         'enginepower' => 188,
-//         'engine_name' => '2.5L I4',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'MAZDA 2',
-//         'price' => 420000000,
-//         'year' => 2021,
-//         'speed' => '220 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'mazda2.jpg',
-//         'enginepower' => 110,
-//         'engine_name' => '1.5L I4',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'MAZDA 3',
-//         'price' => 579000000,
-//         'year' => 2022,
-//         'speed' => '187 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'mazda3.png',
-//         'enginepower' => 153,
-//         'engine_name' => '2.0L I4',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'MAZDA CX-5',
-//         'price' => 829000000,
-//         'year' => 2023,
-//         'speed' => '220 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'mazda4.png',
-//         'enginepower' => 188,
-//         'engine_name' => '2.5L I4',
-//         'seating_capacity' => 5
-//     ],
-//     [
-//         'name' => 'MAZDA CX-8',
-//         'price' => 1109000000,
-//         'year' => 2024,
-//         'speed' => '240 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'mazda5.webp',
-//         'enginepower' => 188,
-//         'engine_name' => '2.5L I4',
-//         'seating_capacity' => 7
-//     ],
-//     [
-//         'name' => 'Lamborghini Aventador SVJ',
-//         'price' => 60000000000,
-//         'year' => 2021,
-//         'speed' => '310 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'lambo1.jpg',
-//         'enginepower' => 770,
-//         'engine_name' => '6.5L V12',
-//         'seating_capacity' => 2
-//     ],
-//     [
-//         'name' => 'Lamborghini Gallardo',
-//         'price' => 50000000000,
-//         'year' => 2022,
-//         'speed' => '309 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'lambo2.png',
-//         'enginepower' => 570,
-//         'engine_name' => '5.2L V10',
-//         'seating_capacity' => 2
-//     ],
-//     [
-//         'name' => 'Lamborghini Huracan',
-//         'price' => 7100000000,
-//         'year' => 2023,
-//         'speed' => '325 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'lambo3.jpg',
-//         'enginepower' => 640,
-//         'engine_name' => '5.2L V10',
-//         'seating_capacity' => 2
-//     ],
-//     [
-//         'name' => 'Lamborghini Aventador LP 770-4 SVJ',
-//         'price' => 12000000000,
-//         'year' => 2024,
-//         'speed' => '350 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'lambo4.jpg',
-//         'enginepower' => 770,
-//         'engine_name' => '6.5L V12',
-//         'seating_capacity' => 2
-//     ],
-//     [
-//         'name' => 'Lamborghini Huracan Tecnica',
-//         'price' => 17900000000,
-//         'year' => 2024,
-//         'speed' => '325 km/h',
-//         'location' => 'TP.HCM',
-//         'image' => 'lambo5.jpg',
-//         'enginepower' => 610,
-//         'engine_name' => 'V10 5.2L',
-//         'seating_capacity' => 2
-//     ]
-//     ]; 
-
 
 // Get products with selling or discounting status
 $query = "SELECT * FROM products 
@@ -209,6 +40,8 @@ $page = max(1, min($page, $totalPages));
 // Get cars for current page
 $startIndex = ($page - 1) * $carsPerPage;
 $currentCars = array_slice($cars, $startIndex, $carsPerPage);
+
+
 ?>
 
 
@@ -1219,6 +1052,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
             grid-template-columns: repeat(1, 1fr);
         }
     }
+    
 </style>
 
 <body>
