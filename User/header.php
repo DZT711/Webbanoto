@@ -1264,7 +1264,7 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 12px;
+            padding: 8px 15px;
             border-radius: 20px;
             font-size: 14px;
             transition: all 0.3s ease;
@@ -1822,10 +1822,12 @@ if (isset($_SESSION['user_id'])) {
                                 <i class="fas fa-shopping-cart"></i>
                                 Giỏ hàng
                             </a>
+                            <span class="separator"></span>
                             <a href="login.php" class="user-link">
                                 <i class="fas fa-sign-in-alt"></i>
                                 Đăng nhập
                             </a>
+                            <span class="separator"></span>
                             <a href="register.php" class="user-link">
                                 <i class="fas fa-user-plus"></i>
                                 Đăng ký
