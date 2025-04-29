@@ -30,7 +30,26 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
+$counts = array();
+
+// Count users
+$users_query = "SELECT COUNT(*) as count FROM users_acc";
+$result = mysqli_query($connect, $users_query);
+$counts['users'] = mysqli_fetch_assoc($result)['count'];
+
+// Count products
+$products_query = "SELECT COUNT(*) as count FROM products";
+$result = mysqli_query($connect, $products_query);
+$counts['products'] = mysqli_fetch_assoc($result)['count'];
+
+// Count orders
+$orders_query = "SELECT COUNT(*) as count FROM orders";
+$result = mysqli_query($connect, $orders_query);
+$counts['orders'] = mysqli_fetch_assoc($result)['count'];
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -520,7 +539,7 @@ button.link:active {
 
 .navbar a {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: all 0.3s ease;
 }
 
@@ -618,6 +637,66 @@ button.link:active {
         }
     }
 </style>
+<style>
+/* Add or update these styles in your header.php */
+.nav-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Different colors for different types */
+a[href*="users"] .nav-count {
+    background: #007bff;
+    color: white;
+}
+
+a[href*="orders"] .nav-count {
+    background: #28a745;
+    color: white;
+}
+
+a[href*="products"] .nav-count {
+    background: #dc3545;
+    color: white;
+}
+
+/* Hover effect */
+.navbar a:hover .nav-count {
+    transform: scale(1.2) translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Animation for new items */
+@keyframes countBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.nav-count.new {
+    animation: countBounce 1s ease infinite;
+}
+
+/* Position adjustment for the navbar links */
+.navbar a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+</style>
+
 <body>
     <div id="notification" class="notification"></div>
     <header class="admin-header">
@@ -629,14 +708,30 @@ button.link:active {
     </header>
     
     <div class="navbar">
-        <a href="index.php" class="homelink"><i class="fa-solid fa-house-chimney"></i>&nbsp;&nbsp;</i>Home</a>
-        <a href="statics.php" ><i class="fa-regular fa-clipboard">&nbsp;&nbsp;</i>Statics</a>
-        <a href="manage-users.php"><i class="fa-solid fa-users-rectangle">&nbsp;&nbsp;</i>Manage Users</a>
-        <a href="manage-orders.php"><i class="fa-solid fa-clipboard-list">&nbsp;&nbsp;</i>Manage Orders</a>
-         <!-- <a href="reports.php"><i class="fa-solid fa-clipboard-check">&nbsp;&nbsp;</i>Reports</a> 
-         <a href="settings.php"><i class="fa-solid fa-gear">&nbsp;&nbsp;</i>Settings</a>  -->
-        <a href="manage-products.php" ><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;</i>Manage Products</a>
-        <!-- &emsp; -->
+     <a href="index.php" class="homelink">
+        <i class="fa-solid fa-house-chimney"></i>
+        <span>Home</span>
+    </a>
+    <a href="statics.php">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Statics</span>
+    </a>
+    <a href="manage-users.php">
+        <i class="fa-solid fa-users-rectangle"></i>
+        <span>Manage Users</span>
+        <span class="nav-count"><?php echo $counts['users']; ?></span>
+    </a>
+    <a href="manage-orders.php">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>Manage Orders</span>
+        <span class="nav-count"><?php echo $counts['orders']; ?></span>
+    </a>
+    <a href="manage-products.php">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>Manage Products</span>
+        <span class="nav-count"><?php echo $counts['products']; ?></span>
+    </a>
+  
         <div class="nav-user">
         <span class="user-greeting">
             <i class="fa-regular fa-user"></i>
@@ -769,6 +864,28 @@ button.link:active {
         // Replace existing showNotification function
         window.showNotification = showEnhancedNotification;
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    // Store previous counts in localStorage
+    const prevCounts = JSON.parse(localStorage.getItem('navCounts') || '{}');
+    const currentCounts = {
+        users: <?php echo $counts['users']; ?>,
+                orders: <?php echo $counts['orders']; ?>,
+                products: <?php echo $counts['products']; ?>
+            };
+
+            // Compare and animate new counts
+            Object.keys(currentCounts).forEach(key => {
+                if (prevCounts[key] && currentCounts[key] > prevCounts[key]) {
+                    const countElement = document.querySelector(`a[href*="${key}"] .nav-count`);
+                    if (countElement) {
+                        countElement.classList.add('new');
+                    }
+                }
+            });
+
+            // Save current counts
+            localStorage.setItem('navCounts', JSON.stringify(currentCounts));
+        });
     </script>
 </body>
 </html>

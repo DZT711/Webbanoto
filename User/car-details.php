@@ -1,6 +1,31 @@
 <?php
+
+header('Cache-Control: public, max-age=3600');
 include 'header.php';
 include 'connect.php';
+// Get car name from URL
+if (!isset($_GET['name'])) {
+    echo "<script>window.location.href='index.php';</script>";
+    exit();
+}
+// Add view count
+if (isset($car['product_id'])) {
+    $view_query = "UPDATE products SET views = views + 1 WHERE product_id = ?";
+    $stmt = mysqli_prepare($connect, $view_query);
+    mysqli_stmt_bind_param($stmt, "i", $car['product_id']);
+    mysqli_stmt_execute($stmt);
+}
+
+// Get similar cars
+$similar_query = "SELECT * FROM products 
+                 WHERE brand_id = ? 
+                 AND product_id != ? 
+                 AND status IN ('selling', 'discounting')
+                 LIMIT 4";
+$stmt = mysqli_prepare($connect, $similar_query);
+mysqli_stmt_bind_param($stmt, "ii", $car['brand_id'], $car['product_id']);
+mysqli_stmt_execute($stmt);
+$similar_cars = mysqli_stmt_get_result($stmt);
 
 // Get car name from URL
 if (!isset($_GET['name'])) {
@@ -8,7 +33,6 @@ if (!isset($_GET['name'])) {
     exit();
 }
 // First, modify the PHP section to fetch additional images
-
 $car_name = mysqli_real_escape_string($connect, $_GET['name']);
 
 // Get product details with car type using car_name
@@ -125,7 +149,7 @@ $additional_images_result = mysqli_stmt_get_result($stmt);
 
     .car-info h2 {
         font-size: 25px;
-        color: #007bff;
+        color:#28A745;
         margin-bottom: 0;
         /* margin-top: 0; */
         font-weight: bold;
@@ -503,7 +527,272 @@ $additional_images_result = mysqli_stmt_get_result($stmt);
         transition: opacity 0.5s ease;
     }
 </style>
+<style>
+/* Image Gallery Enhancements */
+.car-image {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transform: translateY(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.car-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.car-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.3) 100%
+    );
+    transform: skewX(-25deg);
+    transition: all 0.75s;
+}
+
+.car-image:hover::after {
+    left: 150%;
+}
+
+/* Thumbnail Container Enhancement */
+.thumbnail-container {
+    background: linear-gradient(145deg, #f6f6f6, #ffffff);
+    box-shadow: inset 5px 5px 10px #d1d1d1,
+                inset -5px -5px 10px #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+}
+
+/* Enhanced Thumbnail Animations */
+.thumbnail {
+    transform: scale(1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(30%);
+}
+
+.thumbnail:hover {
+    transform: scale(1.15);
+    filter: grayscale(0%);
+    z-index: 2;
+}
+
+.thumbnail.active {
+    animation: pulse 2s infinite;
+    filter: grayscale(0%);
+}
+
+/* Arrow Button Enhancement */
+.arrow {
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.arrow:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0,123,255,0.5);
+}
+
+/* Car Info Enhancement */
+.car-info {
+    position: relative;
+    overflow: hidden;
+}
+
+.car-feature-item {
+    transform: translateX(0);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.car-feature-item:hover {
+    transform: translateX(10px);
+    background: linear-gradient(90deg, rgba(0,123,255,0.1), transparent);
+    border-radius: 5px;
+}
+
+/* Status Badge Enhancement */
+.status-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.status-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.2);
+    transform: rotate(45deg);
+    animation: shimmer 2s infinite;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0,123,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+}
+
+@keyframes shimmer {
+    from { transform: rotate(45deg) translateX(-100%); }
+    to { transform: rotate(45deg) translateX(100%); }
+}
+
+/* Loading State */
+.loading {
+    position: relative;
+    opacity: 0.7;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+  <!-- Add these styles to your existing CSS -->
+        <style>
+        .car-description {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(145deg, #ffffff, #f6f6f6);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .car-description:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .description-header {
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(0,123,255,0.1);
+            padding-bottom: 15px;
+        }
+        
+        .description-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin: 0;
+            margin-top: 40px;
+        }
+        
+        .description-header i {
+            color: #007bff;
+            font-size: 1.8rem;
+            animation: wrench 3s infinite;
+        }
+        
+        .description-content {
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .description-paragraph {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .description-paragraph:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .description-paragraph i {
+            color: #28a745;
+            font-size: 1.2rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        @keyframes wrench {
+            0% { transform: rotate(0deg); }
+            20%, 30% { transform: rotate(-30deg); }
+            50%, 60% { transform: rotate(30deg); }
+            80% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .car-description {
+                padding: 20px;
+                margin-top: 30px;
+            }
+        
+            .description-paragraph {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+        
+            .description-header h3 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Add smooth reveal animation */
+        .description-paragraph {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealParagraph 0.5s forwards;
+        }
+        
+        @keyframes revealParagraph {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation delay for each paragraph */
+        .description-paragraph:nth-child(1) { animation-delay: 0.1s; }
+        .description-paragraph:nth-child(2) { animation-delay: 0.2s; }
+        .description-paragraph:nth-child(3) { animation-delay: 0.3s; }
+        .description-paragraph:nth-child(4) { animation-delay: 0.4s; }
+        .description-paragraph:nth-child(5) { animation-delay: 0.5s; }
+        </style>
+</style>
+<style></style>
 <body>
     <main>
         <div class="container">
@@ -589,12 +878,36 @@ $additional_images_result = mysqli_stmt_get_result($stmt);
                 <button class="arrow" onclick="nextImage()">&#10095;</button>
             </div>
         
+        <!-- Replace the existing description section with this enhanced version -->
         <?php if (!empty($car['car_description'])): ?>
             <div class="car-description">
-                <h3><i class="fa-solid fa-screwdriver-wrench" style="padding-right: 10px;"></i>Mô Tả:</h3>
-                <p><?php echo nl2br($car['car_description']); ?></p>
+                <div class="description-header">
+                    <h3>
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        Chi tiết về <?php echo htmlspecialchars($car['car_name']); ?>
+                    </h3>
+                </div>
+                <div class="description-content">
+                    <?php 
+                    $description = nl2br(htmlspecialchars($car['car_description']));
+                    // Split description into paragraphs
+                    $paragraphs = explode("<br />", $description);
+                    foreach($paragraphs as $paragraph): 
+                        if(trim($paragraph)): // Only show non-empty paragraphs
+                    ?>
+                        <p class="description-paragraph">
+                            <i class="fas fa-check-circle"></i>
+                            <?php echo trim($paragraph); ?>
+                        </p>
+                    <?php 
+                        endif;
+                    endforeach; 
+                    ?>
+                </div>
             </div>
         <?php endif; ?>
+        
+      
 
         <div class="actions">
             <button class="btn secondary" onclick="history.back()">Trở về</button>
@@ -699,6 +1012,87 @@ $additional_images_result = mysqli_stmt_get_result($stmt);
         // Changed to 5 seconds to allow for animation
 
 
+    </script>
+        <script>
+    // Lazy loading for images
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const images = document.querySelectorAll('.thumbnail');
+    //     const imageOptions = {
+    //         threshold: 0.5,
+    //         rootMargin: '0px 0px 50px 0px'
+    //     };
+    
+    //     const imageObserver = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 const img = entry.target;
+    //                 img.src = img.dataset.src;
+    //                 img.classList.add('fade-in');
+    //                 observer.unobserve(img);
+    //             }
+    //         });
+    //     }, imageOptions);
+    
+    //     images.forEach(img => imageObserver.observe(img));
+    // });
+    
+    // Enhanced image change function
+    function changeImage(src, thumbnail) {
+        const mainImage = document.getElementById('mainImage');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        
+        mainImage.classList.add('loading');
+        mainImage.style.opacity = '0';
+    
+        // Load new image
+        const newImage = new Image();
+        newImage.src = src;
+        newImage.onload = () => {
+            setTimeout(() => {
+                mainImage.src = src;
+                mainImage.style.opacity = '1';
+                mainImage.classList.remove('loading');
+                
+                thumbnails.forEach(thumb => {
+                    thumb.classList.remove('active');
+                    thumb.style.transform = 'scale(1)';
+                });
+                
+                thumbnail.classList.add('active');
+                thumbnail.style.transform = 'scale(1.15)';
+            }, 300);
+        };
+    }
+    
+    // Add smooth scroll to description
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    // Add hover effect for features
+    document.querySelectorAll('.car-feature-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(10px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            prevImage();
+        } else if (e.key === 'ArrowRight') {
+            nextImage();
+        }
+    });
     </script>
 </body>
 
