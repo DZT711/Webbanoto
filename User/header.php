@@ -119,1516 +119,1670 @@ if (isset($_SESSION['user_id'])) {
     <meta name="theme-color" content="#ffffff">
     <!-- <title></title> -->
     <!-- <script src="index.js"></script> -->
-         <link rel="stylesheet" href="dark-theme.css">
+    <link rel="stylesheet" href="dark-theme.css">
 
     <script src="dark-theme.js"></script>
 
     <link rel="icon" href="dp56vcf7.png" type="image/png">
-    
+
     <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
 </head>
-    <style>
+<!-- /* Add to your header.php styles */ -->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    main {
+        flex: 1;
+    }
+</style>
+
+<style>
+    .navbar {
+        background-color: #f8f9fa;
+
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 0 100px;
+        /* Add horizontal margins */
+        height: 50px;
+
+    }
+
+    .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .nav-link {
+        color: rgb(109, 110, 113);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        background-color: #e9ecef;
+        color: #007bff;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        color: rgb(109, 110, 113);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+
+    .nav-right {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .hotline {
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
         .navbar {
-            background-color: #f8f9fa;
-
-            text-transform: uppercase;
-            font-weight: bold;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 0 100px;
-            /* Add horizontal margins */
-            height: 50px;
-
+            flex-direction: column;
+            padding: 0.5rem;
         }
 
         .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .nav-link {
-            color: rgb(109, 110, 113);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background-color: #e9ecef;
-            color: #007bff;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            z-index: 1000;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a {
-            color: rgb(109, 110, 113);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f8f9fa;
-            color: #007bff;
+            flex-direction: column;
+            width: 100%;
         }
 
         .nav-right {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .hotline {
-            color: #333;
-            font-weight: 500;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 0.5rem;
-            }
-
-            .nav-left {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav-right {
-                flex-direction: column;
-                align-items: center;
-                margin-top: 1rem;
-                gap: 0.5rem;
-            }
-
-            .dropdown-content {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-            }
-        }
-
-        header {
-
+            flex-direction: column;
             align-items: center;
-
-        }
-    </style>
-    <style>
-        .logo {
-            display: flex;
-            justify-content: center;
-            /* background-color: white; */
+            margin-top: 1rem;
+            gap: 0.5rem;
         }
 
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-    </style>
-    <style>
-        /* Add these styles to your existing CSS */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        .dropdown-content {
+            position: static;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            animation: fadeIn 0.3s;
+            box-shadow: none;
+        }
+    }
+
+    header {
+
+        align-items: center;
+
+    }
+</style>
+<style>
+    .logo {
+        display: flex;
+        justify-content: center;
+        /* background-color: white; */
+    }
+
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
+<style>
+    /* Add these styles to your existing CSS */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 8px;
+        text-align: center;
+        animation: slideIn 0.3s;
+    }
+
+    .confirm-btn,
+    .cancel-btn {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .confirm-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .cancel-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .confirm-btn:hover {
+        background-color: #c82333;
+    }
+
+    .cancel-btn:hover {
+        background-color: #5a6268;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
 
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
         .modal-content {
-            position: relative;
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 8px;
-            text-align: center;
-            animation: slideIn 0.3s;
+            margin: 30% auto;
         }
+    }
+</style>
 
-        .confirm-btn,
-        .cancel-btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+<style>
+    /* Notification styles */
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateX(150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        .confirm-btn {
-            background-color: #dc3545;
-            color: white;
-        }
+    .notification.show {
+        transform: translateX(0);
+    }
 
-        .cancel-btn {
-            background-color: #6c757d;
-            color: white;
-        }
+    /* Notification types */
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
 
-        .confirm-btn:hover {
-            background-color: #c82333;
-        }
+    .notification.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+    }
 
-        .cancel-btn:hover {
-            background-color: #5a6268;
-        }
+    .notification.info {
+        background-color: #cce5ff;
+        color: #004085;
+        border-left: 4px solid #007bff;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+    .notification.warning {
+        background-color: #fff3cd;
+        color: #856404;
+        border-left: 4px solid #ffc107;
+    }
 
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .modal-content {
-                margin: 30% auto;
-            }
-        }
-    </style>
-
-    <style>
-        /* Notification styles */
+    /* Responsive design */
+    @media (max-width: 768px) {
         .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 4px;
-            background-color: #f8f9fa;
-            color: #333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transform: translateX(150%);
-            transition: transform 0.3s ease-in-out;
-            z-index: 1000;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            width: 90%;
+            top: 10px;
+            right: 50%;
+            transform: translateX(50%) translateY(-100%);
         }
 
         .notification.show {
-            transform: translateX(0);
+            transform: translateX(50%) translateY(0);
+        }
+    }
+</style>
+<style>
+    /* Add these styles to your existing CSS */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 8px;
+        text-align: center;
+        animation: slideIn 0.3s;
+    }
+
+    .confirm-btn,
+    .cancel-btn {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .confirm-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .cancel-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .confirm-btn:hover {
+        background-color: #c82333;
+    }
+
+    .cancel-btn:hover {
+        background-color: #5a6268;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
 
-        /* Notification types */
-        .notification.success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
         }
 
-        .notification.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-
-        .notification.info {
-            background-color: #cce5ff;
-            color: #004085;
-            border-left: 4px solid #007bff;
-        }
-
-        .notification.warning {
-            background-color: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .notification {
-                width: 90%;
-                top: 10px;
-                right: 50%;
-                transform: translateX(50%) translateY(-100%);
-            }
-
-            .notification.show {
-                transform: translateX(50%) translateY(0);
-            }
-        }
-    </style>
-    <style>
-        /* Add these styles to your existing CSS */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            position: relative;
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 8px;
-            text-align: center;
-            animation: slideIn 0.3s;
-        }
-
-        .confirm-btn,
-        .cancel-btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .confirm-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .cancel-btn {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .confirm-btn:hover {
-            background-color: #c82333;
-        }
-
-        .cancel-btn:hover {
-            background-color: #5a6268;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .modal-content {
-                margin: 30% auto;
-            }
-        }
-    </style>
-    <style>
-        .login-register-ctn {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            max-height: 100vh;
-
-        }
-
-        .login-register {
-            padding-top: 15px;
-
-        }
-
-
-
-        .login-register a:hover {
-            margin: 0 10;
-            text-decoration: underline;
-            color: lightslategray;
-        }
-    </style>
-    <style>
-        /* Add to your existing CSS */
-        .login-register-ctn {
-            background-color: rgb(230, 230, 230);
-            /* padding-right: 200px; */
-            display: flex;
-            justify-content: flex-end;
-            height: 50px;
-        }
-
-        .login-register {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-top: 20px;
-        }
-
-        .user-greeting {
-            display: flex;
-            align-items: center;
-
-            color: #333;
-        }
-
-        .username-link {
-            color: gray;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-
-        }
-
-        .username-link:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
-
-        .logout-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-
-        .auth-link {
-            color: #333;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .auth-link:hover {
-            color: #007bff;
-        }
-
-
-
-        @media (max-width: 768px) {
-            .login-register-ctn {
-                justify-content: center;
-            }
-
-            .login-register {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
-    <style>
-        /* Add these styles to your existing navbar styles */
-        .brand-dropdown {
-            position: relative;
-        }
-
-        .sub-dropdown {
-            display: none;
-            position: absolute;
-            left: 100%;
-            top: 0;
-            background-color: #fff;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-
-        .brand-dropdown:hover .sub-dropdown {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .brand-dropdown>a {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sub-dropdown a {
-            padding: 12px 16px;
-            color: rgb(109, 110, 113);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .sub-dropdown a:hover {
-            background-color: #f8f9fa;
-            color: #007bff;
-            padding-left: 20px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-    </style>
-
-    <style>
-        /* Update these styles in your header.php */
-        .user-greeting {
-            display: flex;
-            align-items: center;
-            /* Increased gap */
-            color: #333;
-            font-size: 14px;
-            /* Base font size */
-            padding-top: 5px;
-        }
-
-        .username-link {
-            color: gray;
-            text-decoration: none;
-            font-weight: 600;
-            /* Slightly bolder */
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .username-link:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: #0056b3;
-        }
-
-        .logout-btn {
-            background-color: transparent;
-            /* Changed to transparent */
-            color: #dc3545;
-            /* Red text */
-            border: 1px solid #dc3545;
-            /* Red border */
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            height: 35px;
-            /* Fixed height */
-        }
-
-        .logout-btn:hover {
-            background-color: #dc3545;
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
-        }
-
-        .logout-btn:active {
+        to {
             transform: translateY(0);
+            opacity: 1;
         }
+    }
 
-        .logout-btn i {
-            font-size: 14px;
-            /* Match icon size */
+    @media (max-width: 768px) {
+        .modal-content {
+            margin: 30% auto;
         }
+    }
+</style>
+<style>
+    .login-register-ctn {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
 
-        /* Additional professional touches */
-        .loggedin {
-            display: flex;
-            align-items: center;
-            padding: 5px 15px;
-            background-color: #fff;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-    </style>
-    <style>
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        max-height: 100vh;
+
+    }
+
+    .login-register {
+        padding-top: 15px;
+
+    }
+
+
+
+    .login-register a:hover {
+        margin: 0 10;
+        text-decoration: underline;
+        color: lightslategray;
+    }
+</style>
+<style>
+    /* Add to your existing CSS */
+    .login-register-ctn {
+        background-color: rgb(230, 230, 230);
+        /* padding-right: 200px; */
+        display: flex;
+        justify-content: flex-end;
+        height: 50px;
+    }
+
+    .login-register {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding-top: 20px;
+    }
+
+    .user-greeting {
+        display: flex;
+        align-items: center;
+
+        color: #333;
+    }
+
+    .username-link {
+        color: gray;
+        text-decoration: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+    }
+
+    .username-link:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+
+    .logout-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+        background-color: #c82333;
+    }
+
+    .auth-link {
+        color: #333;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .auth-link:hover {
+        color: #007bff;
+    }
+
+
+
+    @media (max-width: 768px) {
         .login-register-ctn {
-            padding: 0 70px;
-            /* Match navbar padding */
-            display: flex;
-            justify-content: flex-end;
-            height: 50px;
-            /* border-bottom: 1px solid rgb(190, 190, 190);  */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            justify-content: center;
         }
 
         .login-register {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            height: 100%;
-            /* gap: 15px; */
         }
+    }
+</style>
+<style>
+    /* Add these styles to your existing navbar styles */
+    .brand-dropdown {
+        position: relative;
+    }
 
-        /* Logged in state styles */
-        .loggedin {
-            display: flex;
-            align-items: center;
+    .sub-dropdown {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
 
-            background-color: #f0f0f0;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
+    .brand-dropdown:hover .sub-dropdown {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
 
-        .user-greeting {
-            display: flex;
-            align-items: center;
-            /* gap: 15px; */
-            color: #495057;
-            font-size: 14px;
-        }
+    .brand-dropdown>a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .username-link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            /* gap: 8px; */
-            padding: 6px 12px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
+    .sub-dropdown a {
+        padding: 12px 16px;
+        color: rgb(109, 110, 113);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
 
-        .username-link:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: #0056b3;
-        }
+    .sub-dropdown a:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+        padding-left: 20px;
+    }
 
-        .logout-btn {
-            background-color: transparent;
-            color: #dc3545;
-            border: 1px solid #dc3545;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        /* Not logged in state styles */
-        .notlogin {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 8px 15px;
-        }
-
-        .auth-link {
-            color: #495057;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            /* gap: 8px; */
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .auth-link:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-        }
-
-        .separator {
-            color: #333;
-            margin: 0 5px;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .login-register-ctn {
-                padding: 0 20px;
-                justify-content: center;
-            }
-
-            .login-register {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
-    <style>
-        /* Logo animations */
-        .logo a img {
-            transition: transform 0.3s ease;
-        }
-
-        .logo a:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Navbar animations */
-        .navbar {
-            animation: slideInDown 0.5s ease;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .navbar:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Navigation link effects */
-        .nav-link {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: #007bff;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Dropdown animations */
-        .dropdown-content {
-            transform-origin: top;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+    @keyframes fadeIn {
+        from {
             opacity: 0;
-            transform: scaleY(0);
-        }
-
-        .dropdown:hover .dropdown-content {
-            opacity: 1;
-            transform: scaleY(1);
-        }
-
-        /* Sub-dropdown animations */
-        .sub-dropdown {
-            transition: transform 0.3s ease, opacity 0.3s ease;
             transform: translateX(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<style>
+    /* Update these styles in your header.php */
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        /* Increased gap */
+        color: #333;
+        font-size: 14px;
+        /* Base font size */
+        padding-top: 5px;
+    }
+
+    .username-link {
+        color: gray;
+        text-decoration: none;
+        font-weight: 600;
+        /* Slightly bolder */
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .username-link:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #0056b3;
+    }
+
+    .logout-btn {
+        background-color: transparent;
+        /* Changed to transparent */
+        color: #dc3545;
+        /* Red text */
+        border: 1px solid #dc3545;
+        /* Red border */
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        height: 35px;
+        /* Fixed height */
+    }
+
+    .logout-btn:hover {
+        background-color: #dc3545;
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+    }
+
+    .logout-btn:active {
+        transform: translateY(0);
+    }
+
+    .logout-btn i {
+        font-size: 14px;
+        /* Match icon size */
+    }
+
+    /* Additional professional touches */
+    .loggedin {
+        display: flex;
+        align-items: center;
+        padding: 5px 15px;
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+</style>
+<style>
+    .login-register-ctn {
+        padding: 0 70px;
+        /* Match navbar padding */
+        display: flex;
+        justify-content: flex-end;
+        height: 50px;
+        /* border-bottom: 1px solid rgb(190, 190, 190);  */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-register {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        /* gap: 15px; */
+    }
+
+    /* Logged in state styles */
+    .loggedin {
+        display: flex;
+        align-items: center;
+
+        background-color: #f0f0f0;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        /* gap: 15px; */
+        color: #495057;
+        font-size: 14px;
+    }
+
+    .username-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        /* gap: 8px; */
+        padding: 6px 12px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .username-link:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #0056b3;
+    }
+
+    .logout-btn {
+        background-color: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Not logged in state styles */
+    .notlogin {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px 15px;
+    }
+
+    .auth-link {
+        color: #495057;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        /* gap: 8px; */
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+
+    .auth-link:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+    }
+
+    .separator {
+        color: #333;
+        margin: 0 5px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .login-register-ctn {
+            padding: 0 20px;
+            justify-content: center;
+        }
+
+        .login-register {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+<style>
+    /* Logo animations */
+    .logo a img {
+        transition: transform 0.3s ease;
+    }
+
+    .logo a:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Navbar animations */
+    .navbar {
+        animation: slideInDown 0.5s ease;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .navbar:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Navigation link effects */
+    .nav-link {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #007bff;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Dropdown animations */
+    .dropdown-content {
+        transform-origin: top;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        transform: scaleY(0);
+    }
+
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+
+    /* Sub-dropdown animations */
+    .sub-dropdown {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+
+    .brand-dropdown:hover .sub-dropdown {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /* Hotline pulse effect */
+    .hotline i {
+        animation: pulse 2s infinite;
+    }
+
+    /* User greeting animations */
+    .user-greeting {
+        animation: fadeInRight 0.5s ease;
+    }
+
+    .username-link {
+        transition: all 0.3s ease;
+    }
+
+    .username-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+    }
+
+    /* Logout button animations */
+    .logout-btn {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logout-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .logout-btn:hover::before {
+        width: 300%;
+        height: 300%;
+    }
+
+    /* Notification refinements */
+    .notification {
+        animation: slideInRight 0.5s ease;
+    }
+
+    /* New keyframe animations */
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-20px);
             opacity: 0;
         }
 
-        .brand-dropdown:hover .sub-dropdown {
-            transform: translateX(0);
+        to {
+            transform: translateY(0);
             opacity: 1;
         }
+    }
 
-        /* Hotline pulse effect */
-        .hotline i {
-            animation: pulse 2s infinite;
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
         }
 
-        /* User greeting animations */
-        .user-greeting {
-            animation: fadeInRight 0.5s ease;
+        50% {
+            transform: scale(1.2);
         }
 
-        .username-link {
-            transition: all 0.3s ease;
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
         }
 
-        .username-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+        to {
+            opacity: 1;
+            transform: translateX(0);
         }
+    }
 
-        /* Logout button animations */
-        .logout-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+    /* Page load animation */
+    body {
+        animation: fadeIn 0.5s ease;
+    }
 
-        .logout-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .logout-btn:hover::before {
-            width: 300%;
-            height: 300%;
-        }
-
-        /* Notification refinements */
-        .notification {
-            animation: slideInRight 0.5s ease;
-        }
-
-        /* New keyframe animations */
-        @keyframes slideInDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Page load animation */
-        body {
+    /* Responsive animations */
+    @media (max-width: 768px) {
+        .navbar {
             animation: fadeIn 0.5s ease;
         }
 
-        /* Responsive animations */
-        @media (max-width: 768px) {
-            .navbar {
-                animation: fadeIn 0.5s ease;
-            }
+        .nav-left {
+            animation: slideInDown 0.5s ease;
+        }
+    }
 
-            .nav-left {
-                animation: slideInDown 0.5s ease;
-            }
-        }
+    /* Updated dropdown animations */
+    .dropdown-content {
+        transform-origin: top;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+    }
 
-        /* Updated dropdown animations */
-        .dropdown-content {
-            transform-origin: top;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-        }
+    .dropdown-content a {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: calc(var(--index) * 0.1s);
+    }
 
-        .dropdown-content a {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transition-delay: calc(var(--index) * 0.1s);
-        }
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 
-        .dropdown:hover .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+    .dropdown:hover .dropdown-content a {
+        opacity: 1;
+        transform: translateX(0);
+    }
 
-        .dropdown:hover .dropdown-content a {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    /* Enhanced sub-dropdown animations */
+    .sub-dropdown {
+        transform-origin: left center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-20px) scaleX(0.9);
+    }
 
-        /* Enhanced sub-dropdown animations */
-        .sub-dropdown {
-            transform-origin: left center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-20px) scaleX(0.9);
-        }
+    .sub-dropdown a {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: calc(var(--index) * 0.1s);
+    }
 
-        .sub-dropdown a {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transition-delay: calc(var(--index) * 0.1s);
-        }
+    .brand-dropdown:hover .sub-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0) scaleX(1);
+    }
 
-        .brand-dropdown:hover .sub-dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0) scaleX(1);
-        }
+    .brand-dropdown:hover .sub-dropdown a {
+        opacity: 1;
+        transform: translateX(0);
+    }
 
-        .brand-dropdown:hover .sub-dropdown a {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    /* Updated logout modal animations */
+    .modal {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        /* Updated logout modal animations */
-        .modal {
-            display: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .modal.show {
+        opacity: 1;
+        visibility: visible;
+        display: block;
+    }
 
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-            display: block;
-        }
+    .modal-content {
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .modal-content {
-            transform: scale(0.7) translateY(-50px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .modal.show .modal-content {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
 
-        .modal.show .modal-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
+    /* Updated buttons animations */
+    .confirm-btn,
+    .cancel-btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        /* Updated buttons animations */
-        .confirm-btn,
-        .cancel-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .confirm-btn::before,
+    .cancel-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
 
-        .confirm-btn::before,
-        .cancel-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
+    .confirm-btn:hover::before,
+    .cancel-btn:hover::before {
+        width: 300%;
+        height: 300%;
+    }
+</style>
+<style>
+    /* Add these styles after your existing dropdown styles */
+    .price-dropdown {
+        position: relative;
+    }
 
-        .confirm-btn:hover::before,
-        .cancel-btn:hover::before {
-            width: 300%;
-            height: 300%;
-        }
-    </style>
-    <style>
-        /* Add these styles after your existing dropdown styles */
-        .price-dropdown {
-            position: relative;
-        }
+    .price-dropdown .sub-dropdown {
+        min-width: 220px;
+        /* Wider to accommodate price ranges */
+    }
 
-        .price-dropdown .sub-dropdown {
-            min-width: 220px;
-            /* Wider to accommodate price ranges */
-        }
+    .price-dropdown .sub-dropdown a {
+        white-space: nowrap;
+        padding: 12px 10px;
+    }
 
-        .price-dropdown .sub-dropdown a {
-            white-space: nowrap;
-            padding: 12px 10px;
-        }
+    .price-dropdown .sub-dropdown a i {
+        color: #1abc9c;
+        width: 20px;
+        text-align: center;
+    }
 
-        .price-dropdown .sub-dropdown a i {
-            color: #1abc9c;
-            width: 20px;
-            text-align: center;
-        }
+    .price-dropdown:hover .sub-dropdown {
+        display: block;
+    }
 
-        .price-dropdown:hover .sub-dropdown {
-            display: block;
-        }
+    .price-dropdown .sub-dropdown a:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+        padding-left: 25px;
+    }
+</style>
+<style>
+    .nav-search {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
 
-        .price-dropdown .sub-dropdown a:hover {
-            background-color: #f8f9fa;
-            color: #007bff;
-            padding-left: 25px;
-        }
-    </style>
-    <style>
-        .nav-search {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+    .nav-search input[type="text"] {
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 20px 0 0 20px;
+        outline: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        width: 150px;
+    }
 
-        .nav-search input[type="text"] {
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px 0 0 20px;
-            outline: none;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            width: 150px;
-        }
+    .nav-search input[type="text"]:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+        width: 220px;
+    }
 
-        .nav-search input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
-            width: 220px;
-        }
+    .nav-search button {
+        padding: 6px 12px;
+        border: none;
+        background-color: #DCDCDC;
+        color: white;
+        border-radius: 0 20px 20px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        height: 30px;
+    }
 
-        .nav-search button {
-            padding: 6px 12px;
-            border: none;
-            background-color: #DCDCDC;
-            color: white;
-            border-radius: 0 20px 20px 0;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            height: 30px;
-        }
-body.dark-theme .nav-search button{
-    background-color: #2ecc71;
-}
-        .nav-search button:hover {
-            background-color: #0056b3;
-        }
+    body.dark-theme .nav-search button {
+        background-color: #2ecc71;
+    }
 
-        .nav-search i.fa-search {
-            font-size: 14px;
-        }
-    </style>
-    <style>
-        /* #tlp {
+    .nav-search button:hover {
+        background-color: #0056b3;
+    }
+
+    .nav-search i.fa-search {
+        font-size: 14px;
+    }
+</style>
+<style>
+    /* #tlp {
   display: flex;           /* đảm bảo flex 
   flex-direction: column;  /* xếp dọc: item 2 xuống dưới item 1 
   align-items: flex-start; /* canh trái (tuỳ chỉnh) 
   gap: 0.25rem;            /* khoảng cách giữa 2 dòng 
   font-size: 14px;       /* kích thước chữ 
 } */
-        #tlp {
-            font-size: 14px;
+    #tlp {
+        font-size: 14px;
+    }
+
+    .dropbtn {
+        font-weight: bold;
+    }
+
+    /* Enhanced login-register-ctn styles */
+    .login-register-ctn {
+        padding: 0 70px;
+        display: flex;
+        justify-content: flex-end;
+        height: 50px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    body.dark-theme .login-register-ctn {
+        background: linear-gradient(135deg, #2C3E50 0%, #33475c 100%);
+    }
+
+    .login-register {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        gap: 20px;
+    }
+
+    /* Logged in state */
+    .loggedin {
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .loggedin:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #495057;
+    }
+
+    .username-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        background: rgba(0, 123, 255, 0.1);
+    }
+
+    .username-link:hover {
+        background: rgba(0, 123, 255, 0.2);
+        transform: translateY(-1px);
+    }
+
+    /* Not logged in state */
+    .notlogin {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .auth-link {
+        color: #495057;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .auth-link:hover {
+        color: #007bff;
+        background: rgba(0, 123, 255, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .auth-link i {
+        transition: transform 0.3s ease;
+    }
+
+    .auth-link:hover i {
+        transform: scale(1.2);
+    }
+
+    .separator {
+        color: #dee2e6;
+        margin: 0 5px;
+        font-weight: 300;
+    }
+
+    /* Cart link specific styles */
+    .auth-link.cart-link {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+    }
+
+    .auth-link.cart-link:hover {
+        background: rgba(40, 167, 69, 0.2);
+        color: #218838;
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+        from {
+            transform: translateY(-10px);
+            opacity: 0;
         }
 
-        .dropbtn {
-            font-weight: bold;
+        to {
+            transform: translateY(0);
+            opacity: 1;
         }
+    }
 
-        /* Enhanced login-register-ctn styles */
+    .login-register-ctn {
+        animation: slideDown 0.5s ease-out;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
         .login-register-ctn {
-            padding: 0 70px;
-            display: flex;
-            justify-content: flex-end;
-            height: 50px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        }
-body.dark-theme .login-register-ctn{
-    background: linear-gradient(135deg,#2C3E50 0%,#33475c 100%);
-}
-        .login-register {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            gap: 20px;
+            padding: 0 20px;
         }
 
-        /* Logged in state */
-        .loggedin {
-            display: flex;
-            align-items: center;
-            padding: 8px 15px;
-            background: white;
-            border-radius: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .loggedin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-greeting {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #495057;
-        }
-
-        .username-link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            background: rgba(0, 123, 255, 0.1);
-        }
-
-        .username-link:hover {
-            background: rgba(0, 123, 255, 0.2);
-            transform: translateY(-1px);
-        }
-
-        /* Not logged in state */
         .notlogin {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 8px;
-            background: white;
-            border-radius: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .auth-link {
-            color: #495057;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 6px 10px;
+            font-size: 13px;
+        }
+    }
+
+    /* Add to your existing CSS */
+    .loggedin {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .user-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 20px;
+        color: #495057;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .user-link:hover {
+        background: rgba(0, 123, 255, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .user-link i {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+
+    .user-link:hover i {
+        transform: scale(1.2);
+    }
+
+    .cart-link {
+        position: relative;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #dc3545;
+        color: white;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        min-width: 18px;
+        text-align: center;
+    }
+
+    .username-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 20px;
+        background: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+        font-weight: 500;
+    }
+
+    .separator {
+        width: 1px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.1);
+    }
+</style>
+<style>
+    .cart-count,
+    .order-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #dc3545;
+        color: white;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        min-width: 18px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .order-count {
+        background: #28a745;
+    }
+
+    .cart-link,
+    .history-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    @keyframes countPop {
+        0% {
+            transform: scale(0);
         }
 
-        .auth-link:hover {
-            color: #007bff;
-            background: rgba(0, 123, 255, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .auth-link i {
-            transition: transform 0.3s ease;
-        }
-
-        .auth-link:hover i {
+        80% {
             transform: scale(1.2);
         }
 
-        .separator {
-            color: #dee2e6;
-            margin: 0 5px;
-            font-weight: 300;
+        100% {
+            transform: scale(1);
         }
+    }
 
-        /* Cart link specific styles */
-        .auth-link.cart-link {
-            background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-        }
+    .cart-count,
+    .order-count {
+        animation: countPop 0.3s ease-out;
+    }
 
-        .auth-link.cart-link:hover {
-            background: rgba(40, 167, 69, 0.2);
-            color: #218838;
-        }
+    /* Add this to your existing CSS in header.php */
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #ffffff, #e6e6e6);
+        border: none;
+        box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
 
-        /* Animations */
-        @keyframes slideDown {
-            from {
-                transform: translateY(-10px);
-                opacity: 0;
-            }
+    .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 6px 6px 12px #d9d9d9, -6px -6px 12px #ffffff;
+    }
 
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    .theme-toggle i {
+        font-size: 1.2rem;
+        color: #666;
+        transition: transform 0.5s ease;
+    }
 
-        .login-register-ctn {
-            animation: slideDown 0.5s ease-out;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .login-register-ctn {
-                padding: 0 20px;
-            }
-
-            .notlogin {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .auth-link {
-                padding: 6px 10px;
-                font-size: 13px;
-            }
-        }
-
-        /* Add to your existing CSS */
-        .loggedin {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            color: #495057;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .user-link:hover {
-            background: rgba(0, 123, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .user-link i {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .user-link:hover i {
-            transform: scale(1.2);
-        }
-
-        .cart-link {
-            position: relative;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #dc3545;
-            color: white;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .username-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            background: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-            font-weight: 500;
-        }
-
-        .separator {
-            width: 1px;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <style>
-        .cart-count,
-        .order-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #dc3545;
-            color: white;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            min-width: 18px;
-            text-align: center;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .order-count {
-            background: #28a745;
-        }
-
-        .cart-link,
-        .history-link {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        @keyframes countPop {
-            0% {
-                transform: scale(0);
-            }
-
-            80% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .cart-count,
-        .order-count {
-            animation: countPop 0.3s ease-out;
-        }
-
-        /* Add this to your existing CSS in header.php */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #ffffff, #e6e6e6);
-            border: none;
-            box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 6px 6px 12px #d9d9d9, -6px -6px 12px #ffffff;
-        }
-
-        .theme-toggle i {
-            font-size: 1.2rem;
-            color: #666;
-            transition: transform 0.5s ease;
-        }
-
-        /* .theme-toggle:hover i {
+    /* .theme-toggle:hover i {
             transform: rotate(180deg);
         } */
 
-        /* Dark mode styles for the toggle button */
-        body.dark-theme .theme-toggle {
-            background: linear-gradient(145deg, #2c3e50, #243240);
-            box-shadow: 5px 5px 10px #1a2530, -5px -5px 10px #364c64;
+    /* Dark mode styles for the toggle button */
+    body.dark-theme .theme-toggle {
+        background: linear-gradient(145deg, #2c3e50, #243240);
+        box-shadow: 5px 5px 10px #1a2530, -5px -5px 10px #364c64;
+    }
+
+    body.dark-theme .theme-toggle i {
+        color: #fff;
+    }
+</style>
+<style>
+    /* Replace the existing .nav-link.active styles with these */
+    .nav-link.active {
+        color: #007bff;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, #007bff, #00c6ff);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .nav-link.active:hover::after {
+        transform: scaleX(1);
+    }
+
+    /* Optional: subtle glow effect */
+    @keyframes activeGlow {
+        0% {
+            color: #007bff;
         }
 
-        body.dark-theme .theme-toggle i {
-            color: #fff;
+        50% {
+            color: #00c6ff;
         }
-    </style>
-               <style>            /* Replace the existing .nav-link.active styles with these */
-            .nav-link.active {
-                color: #007bff;
-                position: relative;
-                transition: color 0.3s ease;
-            }
-            
-            .nav-link.active::after {
-                content: "";
-                position: absolute;
-                bottom: -2px;
-                left: 0;
-                width: 100%;
-                height: 3px;
-                background: linear-gradient(to right, #007bff, #00c6ff);
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform 0.3s ease;
-                border-radius: 2px;
-            }
-            
-            .nav-link.active:hover::after {
-                transform: scaleX(1);
-            }
-            
-            /* Optional: subtle glow effect */
-            @keyframes activeGlow {
-                0% {
-                    color: #007bff;
-                }
-                50% {
-                    color: #00c6ff;
-                }
-                100% {
-                    color: #007bff;
-                }
-            }
-            
-            .nav-link.active {
-                animation: activeGlow 2s infinite;
-            }
-                        /* Logo section */
+
+        100% {
+            color: #007bff;
+        }
+    }
+
+    .nav-link.active {
+        animation: activeGlow 2s infinite;
+    }
+
+    /* Logo section */
 
 
-            
 
-            
-            /* Background sections */
-            body.dark-theme .br {
-                background-color: #33475C;
-                border-color: #445566;
-            }
-            
-            /* Copyright section */
-            body.dark-theme .copyright {
-                background-color:rgb(33, 46, 59);
-                color: #bdc3c7;
-                border-top: 1px solid #445566;
-            }
-           
-            
-            /* Additional interactive elements */
-            body.dark-theme .nav-search input[type="text"] {
-                background-color: #34495e;
-                color: #e0e0e0;
-                border: 1px solid #445566;
-            }
-            
-            body.dark-theme .nav-search button {
-                background-color: #2ecc71;
-                color: #fff;
-            }
-            
-            body.dark-theme .nav-search button:hover {
-                background-color: #27ae60;
-            }
-            
-            /* User menu items in dark theme */
-            body.dark-theme .user-link {
-                color: #bdc3c7;
-            }
-            
-            body.dark-theme .user-link:hover {
-                background-color: rgba(52, 152, 219, 0.1);
-                color: #3498db;
-            }
-            
-            /* Cart and order count badges */
-            body.dark-theme .cart-count,
-            body.dark-theme .order-count {
-                background-color: #e74c3c;
-                color: #fff;
-            }
-            
-            /* Separator lines */
-            body.dark-theme .separator {
-                background-color: #445566;
-            }
-            
-/* Login register container */
-body.dark-theme .notlogin {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-body.dark-theme .hello,body.dark-theme .hotline {
-    color:#e0e0e0;
-}
-            </style>
+
+
+    /* Background sections */
+    body.dark-theme .br {
+        background-color: #33475C;
+        border-color: #445566;
+    }
+
+    /* Copyright section */
+    body.dark-theme .copyright {
+        background-color: rgb(33, 46, 59);
+        color: #bdc3c7;
+        border-top: 1px solid #445566;
+    }
+
+
+    /* Additional interactive elements */
+    body.dark-theme .nav-search input[type="text"] {
+        background-color: #34495e;
+        color: #e0e0e0;
+        border: 1px solid #445566;
+    }
+
+    body.dark-theme .nav-search button {
+        background-color: #2ecc71;
+        color: #fff;
+    }
+
+    body.dark-theme .nav-search button:hover {
+        background-color: #27ae60;
+    }
+
+    /* User menu items in dark theme */
+    body.dark-theme .user-link {
+        color: #bdc3c7;
+    }
+
+    body.dark-theme .user-link:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+        color: #3498db;
+    }
+
+    /* Cart and order count badges */
+    body.dark-theme .cart-count,
+    body.dark-theme .order-count {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    /* Separator lines */
+    body.dark-theme .separator {
+        background-color: #445566;
+    }
+
+    /* Login register container */
+    body.dark-theme .notlogin {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-theme .hello,
+    body.dark-theme .hotline {
+        color: #e0e0e0;
+    }
+
+    body.dark-theme .logout-btn {
+        color: #28a745;
+        border: 1px solid #28a745;
+    }
+
+    body.dark-theme .logout-btn:hover {
+
+        color: #ffe;
+    }
+
+    body.dark-theme .username-link {
+        background: rgba(0, 123, 255, 0.1);
+        color: rgb(0, 255, 0);
+    }
+
+    body.dark-theme .username-link:hover {
+        /* background: rgba(0, 123, 255, 0.2); */
+        color: #ffffff;
+    }
+
+    body.dark-theme main
+    {
+    background-color: rgb(43, 59, 77);
+    /* Dark background for dark theme */
+    }
+        /* Enhanced sub-dropdown styles for light theme */
+    .sub-dropdown {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        min-width: 220px;
+        background: linear-gradient(to right, #ffffff, #f8f9fa);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .sub-dropdown a {
+        padding: 12px 16px;
+        color: #495057;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .sub-dropdown a i {
+        color: #3498db;
+        width: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .sub-dropdown a:hover {
+        background: linear-gradient(to right, #f0f7ff, #e6f3ff);
+        color: #2980b9;
+        padding-left: 22px;
+    }
+    
+    .sub-dropdown a:hover i {
+        transform: scale(1.2);
+        color: #2980b9;
+    }
+    
+    /* Dark theme styles for sub-dropdown */
+    body.dark-theme .sub-dropdown {
+        background: linear-gradient(to right, #2c3e50, #34495e);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .sub-dropdown a {
+        color: #ecf0f1;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    body.dark-theme .sub-dropdown a i {
+        color: #3498db;
+    }
+    
+    body.dark-theme .sub-dropdown a:hover {
+        background: linear-gradient(to right, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.2));
+        color: #3498db;
+    }
+    
+    /* Animation for sub-dropdown */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Hover effects for parent items */
+    .brand-dropdown > a:hover {
+        background: rgba(52, 152, 219, 0.1);
+    }
+    
+    body.dark-theme .brand-dropdown > a:hover {
+        background: rgba(52, 152, 219, 0.2);
+    }
+    
+    /* Glass effect for dropdowns */
+    .sub-dropdown {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    body.dark-theme .sub-dropdown {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+</style>
 
 <body>
     <!-- <div class="theme-toggle-wrapper">
@@ -1675,9 +1829,29 @@ body.dark-theme .hello,body.dark-theme .hotline {
                             $brand_query = "SELECT * FROM car_types ORDER BY type_name";
                             $brand_result = mysqli_query($connect, $brand_query);
 
+                                                        // Replace the existing brand link generation code with this:
                             if ($brand_result && mysqli_num_rows($brand_result) > 0) {
                                 while ($brand = mysqli_fetch_assoc($brand_result)) {
-                                    echo '<a href="brand.php?type=' . urlencode($brand['type_name']) . '">';
+                                    $brand_name = strtolower($brand['type_name']);
+                                    
+                                    // Define the URL based on brand name
+                                    $url = '';
+                                    switch ($brand_name) {
+                                        case 'bmw':
+                                            $url = 'bmw.php';
+                                            break;
+                                        case 'lamborghini':
+                                            $url = 'lamborghini.php';
+                                            break;
+                                        case 'mazda':
+                                            $url = 'mazda.php';
+                                            break;
+                                        default:
+                                            $url = 'brand.php?type=' . urlencode($brand['type_name']);
+                                            break;
+                                    }
+                            
+                                    echo '<a href="' . $url . '">';
                                     echo '<i class="fa-solid fa-car"></i> ' . htmlspecialchars($brand['type_name']);
                                     echo '</a>';
                                 }
@@ -1685,7 +1859,7 @@ body.dark-theme .hello,body.dark-theme .hotline {
                                 echo '<a href="#">';
                                 echo '<i class="fa-solid fa-exclamation-triangle"></i> Không có thương hiệu';
                                 echo '</a>';
-                            }
+                            } 
                             ?>
                         </div>
                     </div>
@@ -1925,21 +2099,21 @@ body.dark-theme .hello,body.dark-theme .hotline {
                 </a> -->
             <a href="aboutus.php" class="nav-link <?php echo isCurrentPage('aboutus.php') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-info-circle"></i> Giới Thiệu
-                </a>
+            </a>
 
-                <a href="contact.php" class="nav-link <?php echo isCurrentPage('contact.php') ? 'active' : ''; ?>">
-                    <i class="fa-solid fa-envelope"></i> Liên Hệ
-                </a>
+            <a href="contact.php" class="nav-link <?php echo isCurrentPage('contact.php') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-envelope"></i> Liên Hệ
+            </a>
 
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                    <a href="../Admin/login.php" class="nav-link <?php echo isCurrentPage('login.php') ? 'active' : ''; ?>">
-                        <i class="fa-solid fa-user-shield"></i> Admin
-                    </a>
-                <?php endif; ?>
-                <form class="nav-search" action="search-results.php" method="GET">
-                    <input type="text" id="search" name="query" placeholder="">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <a href="../Admin/login.php" class="nav-link <?php echo isCurrentPage('login.php') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-user-shield"></i> Admin
+                </a>
+            <?php endif; ?>
+            <form class="nav-search" action="search-results.php" method="GET">
+                <input type="text" id="search" name="query" placeholder="">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
 
 
         </div>

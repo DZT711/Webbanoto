@@ -181,11 +181,19 @@ include 'connect.php';
     .section:hover .section-title i {
         transform: scale(1.2);
     }
+    body {
+        margin:0;
+    }
+    body.dark-theme main{
+        background-color:rgb(43, 59, 77);
+    }
 </style>
 
 <body>
-    <div class="about-container">
-        <div class="section" data-aos="fade-up">
+    <main>
+
+        <div class="about-container">
+            <div class="section" data-aos="fade-up">
             <div class="logo-section">
                 <img src="dp56vcf7.png" alt="AutoCar Logo" class="image">
 
@@ -239,6 +247,7 @@ include 'connect.php';
             </div>
         </div>
     </div>
+    </main>
     <script>
         // Add this before closing </body> tag
         document.addEventListener('DOMContentLoaded', function () {

@@ -30,7 +30,7 @@ if (!$result) {
         type="image/png">
 
 </head>
-<style>
+
     <style>
 
     /* Mazda Page Container */
@@ -350,12 +350,76 @@ if (!$result) {
         padding-top: 20px;
         padding-bottom: 20px;
     }
+      /* Update the nc-item and linkcar styles */
+    .nc-item {
+        max-width: 360px !important;
+        display: flex;
+        flex-direction: column;
+        height: 100%;  /* Make sure the item takes full height */
+        position: relative;
+    }
+    
+    .linkcar {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;  /* Make the link take full height */
+        justify-content: space-between; /* This will push carinfo to bottom */
+    }
+    
+    /* Update carinfo styles */
+    .carinfo {
+
+min-height: fit-content;
+        white-space: nowrap;
+        margin-top: auto; /* Push to bottom */
+        display: grid;
+        gap: 10px;
+        border-top: 1px solid #eee;
+        background: #f8f9fa;
+        
+    }
+    body.dark-theme .info{
+color: #e0e0e0;
+    }
+    /* Make sure the car image maintains aspect ratio */
+    .carpic {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Adjust content spacing */
+    .cith2, .cit {
+        margin: 0;
+        padding: 15px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .carinfo {
+            grid-template-columns: repeat(3, 1fr); /* Show 3 columns on mobile */
+            font-size: 0.9rem;
+        }
+    }
+    body.dark-theme .title{
+        background-color: #33475C;
+        color: #e0e0e0;
+    }
+        body.dark-theme .filter-section select:hover {
+        border-color: var(--lambo-primary);
+        background-color:rgb(38, 54, 71);
+    }
+
 </style>
 
 <body>
+<main>
 
     <div class="title">
-
+        
         <h1
             style="text-align: center;background-image: url('MAZDA-BANNER-1-copy.webp');min-height: 80vh;padding: 50px;color: rgb(255, 255, 255);background-repeat: no-repeat;margin-right:7em;margin-left: 7em;margin-bottom: -7em;color: #CDD2D0;">
             Mazda Motors</h1>
@@ -418,7 +482,7 @@ if (!$result) {
                     echo '<i class="fas fa-car"><span class="info">' . $row['seat_number'] . ' chỗ</span></i>';
                     echo '<i class="fas fa-gas-pump"><span class="info">' . $row['fuel_name'] . '</span></i>';
                     echo '<i class="fa-solid fa-wrench">
-                                    <span class="info">' .
+                    <span class="info">' .
                         $row['engine_power'] . '
                                     Mã lực
                                     </span>
@@ -436,9 +500,10 @@ if (!$result) {
             ?>
         </div>
     </div>
-    </main>
+    
 
 
+</main>
 
 </body>
 

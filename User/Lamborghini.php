@@ -15,6 +15,7 @@ if (!$result) {
     die("Query failed: " . mysqli_error($connect));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,6 +111,10 @@ if (!$result) {
     .filter-section select:hover {
         border-color: var(--lambo-primary);
         background-color: #f8f9fa;
+    }
+    body.dark-theme .filter-section select:hover {
+        border-color: var(--lambo-primary);
+        background-color:rgb(38, 54, 71);
     }
 
     /* Products Grid */
@@ -328,8 +333,56 @@ if (!$result) {
 
     }
 
+    /* Update the nc-item and linkcar styles */
+    .nc-item {
+        max-width: 360px !important;
+        display: flex;
+        flex-direction: column;
+        height: 100%;  /* Make sure the item takes full height */
+        position: relative;
+    }
+    
+    .linkcar {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;  /* Make the link take full height */
+        justify-content: space-between; /* This will push carinfo to bottom */
+    }
+    
+    /* Update carinfo styles */
     .carinfo {
-        height: 54px;
+
+
+        white-space: nowrap;
+        margin-top: auto; /* Push to bottom */
+        display: grid;
+        gap: 10px;
+        border-top: 1px solid #eee;
+        background: #f8f9fa;
+    }
+    
+    /* Make sure the car image maintains aspect ratio */
+    .carpic {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Adjust content spacing */
+    .cith2, .cit {
+        margin: 0;
+        padding: 15px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .carinfo {
+            grid-template-columns: repeat(3, 1fr); /* Show 3 columns on mobile */
+            font-size: 0.9rem;
+        }
     }
 </style>
 

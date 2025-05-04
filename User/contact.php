@@ -14,7 +14,9 @@ if (isset($_POST['inbox'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liên Hệ - Công Ty Ô Tô</title>
+    
     <style>
+
         /* body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -32,7 +34,7 @@ if (isset($_POST['inbox'])) {
             margin: 8px 0;
             border: 1px solid #ddd;
         }
-        button {
+        #btn {
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
@@ -110,7 +112,7 @@ if (isset($_POST['inbox'])) {
             outline: none;
         }
 
-        button {
+        #btn {
             background-color: #007bff;
             color: white;
             padding: 12px 30px;
@@ -124,7 +126,7 @@ if (isset($_POST['inbox'])) {
             margin: 30px auto 0;
         }
 
-        button:hover {
+        #btn:hover {
             background-color: #0056b3;
             transform: translateY(-2px);
         }
@@ -213,13 +215,13 @@ if (isset($_POST['inbox'])) {
             transform: scale(1.01);
         }
 
-        button[type="submit"] {
+        #btn[type="submit"] {
             position: relative;
             overflow: hidden;
             z-index: 1;
         }
 
-        button[type="submit"]::before {
+        #btn[type="submit"]::before {
             content: '';
             position: absolute;
             top: 50%;
@@ -233,7 +235,7 @@ if (isset($_POST['inbox'])) {
             z-index: -1;
         }
 
-        button[type="submit"]:hover::before {
+        #btn[type="submit"]:hover::before {
             width: 300%;
             height: 300%;
         }
@@ -298,12 +300,19 @@ if (isset($_POST['inbox'])) {
         textarea:invalid:not(:placeholder-shown) {
             border-color: #dc3545;
         }
+
+        #cpm_name {
+            color: #007bff;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
-    <div class="contact-form">
-        <h1>Liên Hệ Với Chúng Tôi</h1>
+    <main>
+
+        <div class="contact-form">
+            <h1>Liên Hệ Với Chúng Tôi</h1>
         <form action="contact.php" method="POST">
             <div class="form-group">
                 <label for="name">Họ và Tên:</label>
@@ -330,18 +339,19 @@ if (isset($_POST['inbox'])) {
                 <textarea id="message" name="message" rows="5" required></textarea>
             </div>
 
-            <button type="submit" name="inbox">Gửi Tin Nhắn</button>
+            <button type="submit" id="btn" name="inbox">Gửi Tin Nhắn</button>
         </form>
 
         <div class="company-info">
             <h2>Thông Tin Công Ty</h2>
-            <p><strong>Công Ty TNHH 1 Thành viên AutoCar</strong></p>
+            <p><strong id="cpm_name">Công Ty TNHH 1 Thành viên AutoCar</strong></p>
             <p>📍 Địa chỉ: 123 Đường XYZ, Quận 1, TP.HCM</p>
             <p>📞 Điện thoại: (028) 1234 5678</p>
             <p>📧 Email: contact@autocompany.com</p>
             <p>⏰ Giờ làm việc: Thứ 2 - Chủ Nhật: 8:00 - 20:00</p>
         </div>
     </div>
+    </main>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Form field animations

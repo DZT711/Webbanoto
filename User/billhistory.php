@@ -940,148 +940,160 @@ $orders = mysqli_stmt_get_result($stmt);
             justify-content: center;
         }
     }
-</style>
-<div class="billHistory-container">
-    <div class="page-header">
-        <h1 class="page-title">Lịch sử đơn hàng</h1>
-        <a href="index.php" class="back-btn">
-            <i class="fas fa-arrow-left"></i>
-            <span>Quay lại trang chủ</span>
-        </a>
-    </div>
 
-    <?php if (mysqli_num_rows($orders) > 0): ?>
-        <?php while ($order = mysqli_fetch_assoc($orders)): ?>
-            <?php
-            // Get order details for this order
-            // Update the details query to include image_link
-            $details_query = "SELECT od.*, p.car_name, p.price, p.year_manufacture, p.image_link, ct.type_name 
+    body {
+        margin: 0;
+    }
+
+    body.dark-theme main {
+        background-color: rgb(43, 59, 77);
+        /* Dark background for dark theme */
+    }
+</style>
+<main>
+
+    <div class="billHistory-container">
+        <div class="page-header">
+            <h1 class="page-title">Lịch sử đơn hàng</h1>
+            <a href="index.php" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại trang chủ</span>
+            </a>
+        </div>
+
+        <?php if (mysqli_num_rows($orders) > 0): ?>
+            <?php while ($order = mysqli_fetch_assoc($orders)): ?>
+                <?php
+                // Get order details for this order
+                // Update the details query to include image_link
+                $details_query = "SELECT od.*, p.car_name, p.price, p.year_manufacture, p.image_link, ct.type_name 
                             FROM order_details od
                             JOIN products p ON od.product_id = p.product_id
                             LEFT JOIN car_types ct ON p.brand_id = ct.type_id
                             WHERE od.order_id = ?";
 
-            $stmt = mysqli_prepare($connect, $details_query);
-            mysqli_stmt_bind_param($stmt, "i", $order['order_id']);
-            mysqli_stmt_execute($stmt);
-            $products = mysqli_stmt_get_result($stmt);
-            ?>
+                $stmt = mysqli_prepare($connect, $details_query);
+                mysqli_stmt_bind_param($stmt, "i", $order['order_id']);
+                mysqli_stmt_execute($stmt);
+                $products = mysqli_stmt_get_result($stmt);
+                ?>
 
-            <div class="bill-container">
-                <div class="bill-header">
-                    <span class="order-id">
-                        <i class="fas fa-receipt"></i>
-                        Đơn hàng #<?= $order['order_id'] ?>
-                    </span>
-                    <span class="order-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <?= date('d/m/Y H:i', strtotime($order['order_date'])) ?>
-                    </span>
-                </div>
+                <div class="bill-container">
+                    <div class="bill-header">
+                        <span class="order-id">
+                            <i class="fas fa-receipt"></i>
+                            Đơn hàng #<?= $order['order_id'] ?>
+                        </span>
+                        <span class="order-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <?= date('d/m/Y H:i', strtotime($order['order_date'])) ?>
+                        </span>
+                    </div>
 
 
-                <div class="order-status status-<?= strtolower(str_replace(' ', '-', $order['order_status'])) ?>">
-                    <i class="fas fa-info-circle"></i>
-                    Trạng thái:
-                    <?php
-                    switch ($order['order_status']) {
-                        case 'initiated':
-                            echo 'Đã khởi tạo';
-                            break;
-                        case 'is pending':
-                            echo 'Đang chờ xác nhận';
-                            break;
-                        case 'is confirmed':
-                            echo 'Đã xác nhận';
-                            break;
-                        case 'is delivering':
-                            echo 'Đang giao hàng';
-                            break;
-                        case 'completed':
-                            echo 'Đã hoàn thành';
-                            break;
-                        case 'cancelled':
-                            echo 'Đã hủy';
-                            break;
-                        default:
-                            echo $order['order_status'];
-                    }
-                    ?>
-                    <?php if (canOrderBeCancelled($order['order_status'])): ?>
-                        <button onclick="cancelOrder(<?= $order['order_id'] ?>)" class="cancel-order-btn">
-                            <i class="fas fa-times"></i>
-                            Hủy đơn hàng
-                        </button>
-                    <?php endif; ?>
-                </div>
+                    <div class="order-status status-<?= strtolower(str_replace(' ', '-', $order['order_status'])) ?>">
+                        <i class="fas fa-info-circle"></i>
+                        Trạng thái:
+                        <?php
+                        switch ($order['order_status']) {
+                            case 'initiated':
+                                echo 'Đã khởi tạo';
+                                break;
+                            case 'is pending':
+                                echo 'Đang chờ xác nhận';
+                                break;
+                            case 'is confirmed':
+                                echo 'Đã xác nhận';
+                                break;
+                            case 'is delivering':
+                                echo 'Đang giao hàng';
+                                break;
+                            case 'completed':
+                                echo 'Đã hoàn thành';
+                                break;
+                            case 'cancelled':
+                                echo 'Đã hủy';
+                                break;
+                            default:
+                                echo $order['order_status'];
+                        }
+                        ?>
+                        <?php if (canOrderBeCancelled($order['order_status'])): ?>
+                            <button onclick="cancelOrder(<?= $order['order_id'] ?>)" class="cancel-order-btn">
+                                <i class="fas fa-times"></i>
+                                Hủy đơn hàng
+                            </button>
+                        <?php endif; ?>
+                    </div>
 
-                <div class="bill-content">
-                    <?php while ($product = mysqli_fetch_assoc($products)): ?>
-                        <div class="bill-item">
-                            <div class="bill-details">
-                                <div class="product-info">
-                                    <div class="product-image">
-                                        <img src="<?= htmlspecialchars($product['image_link']) ?>"
-                                            alt="<?= htmlspecialchars($product['car_name']) ?>"
-                                            onerror="this.src='../placeholder-car.jpg'">
-                                    </div>
-                                    <div class="product-text">
-                                        <div class="product-name"><?= htmlspecialchars($product['car_name']) ?></div>
-                                        <div class="product-meta">
-                                            <?= $product['year_manufacture'] ?> - <?= htmlspecialchars($product['type_name']) ?>
-                                            <span class="quantity">(x<?= $product['quantity'] ?>)</span>
+                    <div class="bill-content">
+                        <?php while ($product = mysqli_fetch_assoc($products)): ?>
+                            <div class="bill-item">
+                                <div class="bill-details">
+                                    <div class="product-info">
+                                        <div class="product-image">
+                                            <img src="<?= htmlspecialchars($product['image_link']) ?>"
+                                                alt="<?= htmlspecialchars($product['car_name']) ?>"
+                                                onerror="this.src='../placeholder-car.jpg'">
+                                        </div>
+                                        <div class="product-text">
+                                            <div class="product-name"><?= htmlspecialchars($product['car_name']) ?></div>
+                                            <div class="product-meta">
+                                                <?= $product['year_manufacture'] ?> - <?= htmlspecialchars($product['type_name']) ?>
+                                                <span class="quantity">(x<?= $product['quantity'] ?>)</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="price-info">
-                                    <?= number_format($product['price']) ?> VND
+                                    <div class="price-info">
+                                        <?= number_format($product['price']) ?> VND
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endwhile; ?>
-                </div>
+                        <?php endwhile; ?>
+                    </div>
 
-                <div class="order-summary">
-                    <div class="summary-item">
-                        <i class="fas fa-shipping-fast"></i>
-                        Phí vận chuyển: <?= number_format($order['shipping_fee']) ?> VND
-                    </div>
-                    <div class="summary-item">
-                        <i class="fas fa-percentage"></i>
-                        VAT (10%): <?= number_format($order['VAT']) ?> VND
-                    </div>
-                    <div class="bill-total">
-                        <i class="fas fa-money-bill-wave"></i>
-                        Tổng cộng: <?= number_format($order['total_amount']) ?> VND
+                    <div class="order-summary">
+                        <div class="summary-item">
+                            <i class="fas fa-shipping-fast"></i>
+                            Phí vận chuyển: <?= number_format($order['shipping_fee']) ?> VND
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-percentage"></i>
+                            VAT (10%): <?= number_format($order['VAT']) ?> VND
+                        </div>
+                        <div class="bill-total">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Tổng cộng: <?= number_format($order['total_amount']) ?> VND
+                        </div>
                     </div>
                 </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="no-orders">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Bạn chưa có đơn hàng nào.</p>
+                <a href="index.php" class="browse-btn">Mua sắm ngay</a>
             </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <div class="no-orders">
-            <i class="fas fa-shopping-cart"></i>
-            <p>Bạn chưa có đơn hàng nào.</p>
-            <a href="index.php" class="browse-btn">Mua sắm ngay</a>
-        </div>
-    <?php endif; ?>
-</div>
-<!-- // Add this HTML right before the footer include -->
-<div id="cancel-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h3>Xác nhận hủy đơn hàng</h3>
-        <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
-        <div class="popup-buttons">
-            <button class="btn-secondary" onclick="closePopup()">
-                <i class="fas fa-times"></i>
-                Không
-            </button>
-            <button class="btn-danger" onclick="confirmCancel()">
-                <i class="fas fa-check"></i>
-                Có, hủy đơn hàng
-            </button>
+        <?php endif; ?>
+    </div>
+    <!-- // Add this HTML right before the footer include -->
+    <div id="cancel-popup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Xác nhận hủy đơn hàng</h3>
+            <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+            <div class="popup-buttons">
+                <button class="btn-secondary" onclick="closePopup()">
+                    <i class="fas fa-times"></i>
+                    Không
+                </button>
+                <button class="btn-danger" onclick="confirmCancel()">
+                    <i class="fas fa-check"></i>
+                    Có, hủy đơn hàng
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <script>
     // Replace your existing cancelOrder function with this

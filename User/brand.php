@@ -17,6 +17,7 @@ $brand = mysqli_fetch_assoc($brand_result);
 if (!$brand) {
     header('Location: index.php');
     exit();
+    
 }
 
 // Get brand's cars
@@ -142,7 +143,8 @@ $car_count = mysqli_num_rows($result);
             gap: 10px;
             border-top: 1px solid #eee;
             background: #f8f9fa;
-            height: 54px;
+            white-space: nowrap;
+            /* height: 54px; */
         }
 
         .carinfo i {
@@ -294,7 +296,7 @@ $car_count = mysqli_num_rows($result);
         }
 
         .filter-section select {
-            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            /* background: linear-gradient(145deg, #ffffff, #f5f5f5); */
             box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
         }
 
@@ -440,7 +442,7 @@ $car_count = mysqli_num_rows($result);
             position: relative;
             z-index: 1;
         }
-    </style> */
+    </style> 
 
     <style>
         .brand-header {
@@ -518,6 +520,12 @@ $car_count = mysqli_num_rows($result);
                 margin: 20px;
             }
         }
+       body.dark-theme .brand-header{
+        background:rgb(43, 59, 77);
+       } 
+       body.dark-theme .brand-content{
+        background:#33475C !important;
+       }
     </style>
 </head>
 
@@ -539,24 +547,41 @@ $car_count = mysqli_num_rows($result);
             </div>
             <div class="brand-content">
                 <div id="newcar">
+                                        <?php
+                    include 'functions.php';
+                    // Get dynamic ranges for current brand
+                    $price_ranges = getPriceRanges($connect, $brand_name);
+                    $years = getYearRanges($connect, $brand_name);
+                    ?>
+                    
                     <div class="filter-section">
                         <div class="s1">
-                            <label for="priceFilter">Lọc theo giá:</label>
+                            <label for="priceFilter">
+                                <i class="fas fa-tags"></i>
+                                Lọc theo giá:
+                            </label>
                             <select id="priceFilter" onchange="filterProducts()">
                                 <option value="all">Tất cả</option>
-                                <option value="below10b">Từ 1 tới 2 tỷ</option>
-                                <option value="10to20b">Từ 2 tới 5 tỷ</option>
-                                <option value="above20b">Trên 10 tỷ</option>
+                                <?php
+                                $step = 1; // Billion VND steps
+                                for ($i = $price_ranges['min']; $i < $price_ranges['max']; $i += $step) {
+                                    $next = $i + $step;
+                                    echo "<option value='{$i}-{$next}'>{$i} tỷ - {$next} tỷ</option>";
+                                }
+                                echo "<option value='{$price_ranges['max']}+'>Trên {$price_ranges['max']} tỷ</option>";
+                                ?>
                             </select>
                         </div>
                         <div class="s2">
-                            <label for="yearFilter">Lọc theo năm:</label>
+                            <label for="yearFilter">
+                                <i class="fas fa-calendar"></i>
+                                Lọc theo năm:
+                            </label>
                             <select id="yearFilter" onchange="filterProducts()">
                                 <option value="all">Tất cả</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
+                                <?php foreach ($years as $year): ?>
+                                    <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -628,32 +653,103 @@ $car_count = mysqli_num_rows($result);
     </main>
 
     <script>
-        function filterProducts() {
-            const priceFilter = document.getElementById('priceFilter').value;
-            const yearFilter = document.getElementById('yearFilter').value;
-            const items = document.querySelectorAll('.nc-item');
-
-            items.forEach(item => {
-                const price = parseInt(item.dataset.price);
-                const year = item.dataset.year;
-                let showByPrice = true;
-                let showByYear = true;
-
-                if (priceFilter !== 'all') {
-                    if (priceFilter === 'below10b' && price >= 2000000000) showByPrice = false;
-                    if (priceFilter === '10to20b' && (price < 2000000000 || price > 5000000000)) showByPrice = false;
-                    if (priceFilter === 'above20b' && price <= 10000000000) showByPrice = false;
+    // Define filterProducts in global scope
+    function filterProducts() {
+        const priceFilter = document.getElementById('priceFilter').value;
+        const yearFilter = document.getElementById('yearFilter').value;
+        const items = document.querySelectorAll('.nc-item');
+        let visibleCount = 0;
+    
+        items.forEach(item => {
+            const price = parseInt(item.dataset.price);
+            const year = item.dataset.year;
+            let showByPrice = true;
+            let showByYear = true;
+    
+            // Price filter logic
+            if (priceFilter !== 'all') {
+                if (priceFilter.includes('-')) {
+                    const [min, max] = priceFilter.split('-').map(x => parseFloat(x) * 1000000000);
+                    showByPrice = price >= min && price < max;
+                } else if (priceFilter.includes('+')) {
+                    const min = parseFloat(priceFilter.replace('+', '')) * 1000000000;
+                    showByPrice = price >= min;
                 }
-
-                if (yearFilter !== 'all' && year !== yearFilter) {
-                    showByYear = false;
-                }
-
-                item.style.display = (showByPrice && showByYear) ? 'block' : 'none';
+            }
+    
+            // Year filter logic
+            if (yearFilter !== 'all') {
+                showByYear = year === yearFilter;
+            }
+    
+            // Show item if it passes either all active filters
+            const shouldShow = (priceFilter === 'all' || showByPrice) && 
+                             (yearFilter === 'all' || showByYear);
+    
+            if (shouldShow) {
+                item.style.display = 'block';
+                item.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    
+        // Update the results count
+        updateResultsCount(visibleCount);
+    
+        // Show notification if no results
+        if (visibleCount === 0) {
+            showNotification('Không tìm thấy xe phù hợp với bộ lọc đã chọn', 'info');
+        }
+    }
+    
+    // Define helper functions in global scope
+    function updateResultsCount(count) {
+        const resultsDiv = document.getElementById('filterResults') || createResultsDiv();
+        resultsDiv.textContent = `Đang hiển thị ${count} xe`;
+        resultsDiv.style.color = count === 0 ? '#dc3545' : '#666';
+    }
+    
+    function createResultsDiv() {
+        const div = document.createElement('div');
+        div.id = 'filterResults';
+        div.style.textAlign = 'center';
+        div.style.marginTop = '20px';
+        div.style.color = '#666';
+        document.querySelector('.filter-section').after(div);
+        return div;
+    }
+    
+    // Keep initialization code in DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Stagger animation for car items
+        const items = document.querySelectorAll('.nc-item');
+        items.forEach((item, index) => {
+            item.style.animationDelay = `${0.1 * index}s`;
+        });
+    
+        // Initialize lazy loading
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('skeleton-loader');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+    
+            document.querySelectorAll('.carpic').forEach(img => {
+                img.classList.add('skeleton-loader');
+                imageObserver.observe(img);
             });
         }
+    });
     </script>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Stagger animation for car items
             const items = document.querySelectorAll('.nc-item');
@@ -670,39 +766,71 @@ $car_count = mysqli_num_rows($result);
                 });
             }
 
-            // Enhanced filter function
-            function filterProducts() {
-                const priceFilter = document.getElementById('priceFilter').value;
-                const yearFilter = document.getElementById('yearFilter').value;
-                const items = document.querySelectorAll('.nc-item');
-
-                items.forEach(item => {
-                    const price = parseInt(item.dataset.price);
-                    const year = item.dataset.year;
-                    let showByPrice = true;
-                    let showByYear = true;
-
-                    if (priceFilter !== 'all') {
-                        if (priceFilter === 'below10b' && price >= 2000000000) showByPrice = false;
-                        if (priceFilter === '10to20b' && (price < 2000000000 || price > 5000000000)) showByPrice = false;
-                        if (priceFilter === 'above20b' && price <= 10000000000) showByPrice = false;
-                    }
-
-                    if (yearFilter !== 'all' && year !== yearFilter) {
-                        showByYear = false;
-                    }
-
-                    if (showByPrice && showByYear) {
-                        item.style.display = 'block';
-                        item.style.animation = 'fadeInUp 0.5s ease-out forwards';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-
-                // Scroll to results
-                smoothScroll('#newcar');
-            }
+            // function filterProducts() {
+            //     const priceFilter = document.getElementById('priceFilter').value;
+            //     const yearFilter = document.getElementById('yearFilter').value;
+            //     const items = document.querySelectorAll('.nc-item');
+            //     let visibleCount = 0;
+            
+            //     items.forEach(item => {
+            //         const price = parseInt(item.dataset.price);
+            //         const year = item.dataset.year;
+            //         let showByPrice = true;
+            //         let showByYear = true;
+            
+            //         // Price filter logic
+            //         if (priceFilter !== 'all') {
+            //             if (priceFilter.includes('-')) {
+            //                 const [min, max] = priceFilter.split('-').map(x => parseFloat(x) * 1000000000);
+            //                 showByPrice = price >= min && price < max;
+            //             } else if (priceFilter.includes('+')) {
+            //                 const min = parseFloat(priceFilter.replace('+', '')) * 1000000000;
+            //                 showByPrice = price >= min;
+            //             }
+            //         }
+            
+            //         // Year filter logic
+            //         if (yearFilter !== 'all') {
+            //             showByYear = year === yearFilter;
+            //         }
+            
+            //         // Show item if it passes either all active filters
+            //         const shouldShow = (priceFilter === 'all' || showByPrice) && 
+            //                          (yearFilter === 'all' || showByYear);
+            
+            //         if (shouldShow) {
+            //             item.style.display = 'block';
+            //             item.style.animation = 'fadeInUp 0.5s ease-out forwards';
+            //             visibleCount++;
+            //         } else {
+            //             item.style.display = 'none';
+            //         }
+            //     });
+            
+            //     // Update the results count
+            //     updateResultsCount(visibleCount);
+            
+            //     // Show notification if no results
+            //     if (visibleCount === 0) {
+            //         showNotification('Không tìm thấy xe phù hợp với bộ lọc đã chọn', 'info');
+            //     }
+            // }
+            
+            // function updateResultsCount(count) {
+            //     const resultsDiv = document.getElementById('filterResults') || createResultsDiv();
+            //     resultsDiv.textContent = `Đang hiển thị ${count} xe`;
+            //     resultsDiv.style.color = count === 0 ? '#dc3545' : '#666';
+            // }
+            
+            // function createResultsDiv() {
+            //     const div = document.createElement('div');
+            //     div.id = 'filterResults';
+            //     div.style.textAlign = 'center';
+            //     div.style.marginTop = '20px';
+            //     div.style.color = '#666';
+            //     document.querySelector('.filter-section').after(div);
+            //     return div;
+            // }
 
             // Lazy loading for images
             if ('IntersectionObserver' in window) {
@@ -723,7 +851,7 @@ $car_count = mysqli_num_rows($result);
                 });
             }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

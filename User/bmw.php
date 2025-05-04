@@ -148,6 +148,7 @@ if (!$result) {
         gap: 5px;
         color: #666;
         font-size: 0.9rem;
+        white-space: nowrap;
     }
 
     /* Responsive Design */
@@ -371,11 +372,114 @@ if (!$result) {
 
     }
 
-    .carinfo {
-        height: 54px;
+
+    body{
+        margin:0;
+    }
+.bmw-content{
+    padding:0;
+}
+body.dark-theme .filter-section {
+    background-color: #333;
+    color: #fff;
+}
+
+</style>
+<style>
+        /* BMW Page Dark Theme Styles */
+    body.dark-theme .bmw-content {
+        background-color: #1a1a1a;
+        --bmw-primary: #3498db;
+        --bmw-secondary: #2c3e50;
+        --bmw-accent: #2980b9;
+    }
+    
+    /* Filter Section */
+    body.dark-theme .filter-section {
+        background-color: #2c3e50;
+        border-color: #445566;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .filter-section label {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .filter-section select {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .filter-section select:hover {
+        border-color: #3498db;
+        background-color: #2c3e50;
+    }
+    
+    /* Product Cards */
+    body.dark-theme .nc-item {
+        background-color: #2c3e50;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .nc-item:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    body.dark-theme .cith2 {
+        color: #3498db;
+    }
+    
+    body.dark-theme .cit {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .carinfo {
+        background-color: #34495e;
+        border-top-color: #445566;
+    }
+    
+    body.dark-theme .carinfo i {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .carinfo .info {
+        color: #ecf0f1;
+    }
+    
+    /* Status Badge */
+    body.dark-theme .status-badge.status-discounting {
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    }
+    
+    /* No Cars Message */
+    body.dark-theme .no-cars {
+        background-color: #2c3e50;
+        color: #bdc3c7;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Links */
+    body.dark-theme .linkcar {
+        color: #ecf0f1;
+    }
+    
+    /* Filter Icons */
+    body.dark-theme .s1 label::before,
+    body.dark-theme .s2 label::before {
+        color: #3498db;
+    }
+    
+    /* Hover Effects */
+    body.dark-theme .filter-section select:focus {
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+    
+    body.dark-theme .nc-item:hover .carpic {
+        filter: brightness(1.1);
     }
 </style>
-
 <body>
 
 
