@@ -1,163 +1,808 @@
-/* Dark Theme Variables */
-:root {
-    --dark-bg: #1a1a1a;
-    --dark-surface: #2d2d2d;
-    --dark-primary: #bb86fc;
-    --dark-secondary: #03dac6;
-    --dark-text: #ffffff;
-    --dark-text-secondary: rgba(255, 255, 255, 0.7);
-    --dark-border: rgba(255, 255, 255, 0.12);
+
+
+ 
+/* Header Styles */
+body.dark-theme header {
+    background-color: #33475c;
+    border-bottom: 1px solid #34495e;
 }
 
-/* Dark Theme Base Styles */
-body.dark-theme {
-    background-color: var(--dark-bg);
-    color: var(--dark-text);
-}
-
-/* Header & Navigation */
+/* Navigation Styles */
 body.dark-theme .navbar {
-    background-color: var(--dark-surface);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #2c3e50;
 }
 
 body.dark-theme .nav-link {
-    color: var(--dark-text-secondary);
+    color: #e0e0e0;
 }
 
 body.dark-theme .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--dark-primary);
+    color: #3498db;
 }
 
-/* Dropdowns */
+/* Dropdown Menu */
 body.dark-theme .dropdown-content {
-    background-color: var(--dark-surface);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    background-color: #2c3e50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-theme .dropdown-content a {
-    color: var(--dark-text-secondary);
+    color: #e0e0e0;
 }
 
 body.dark-theme .dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--dark-primary);
+    background-color: #34495e;
 }
 
-/* Login/Register Container */
-body.dark-theme .login-register-ctn {
-    background: linear-gradient(135deg, var(--dark-surface), var(--dark-bg));
-    border-bottom: 1px solid var(--dark-border);
+/* Card Styles */
+body.dark-theme .nc-item {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Cards and Containers */
-body.dark-theme .container,
-body.dark-theme .user-container,
-body.dark-theme .product-card,
-body.dark-theme .cart-item {
-    background-color: var(--dark-surface);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+body.dark-theme .cith2 {
+    color: #3498db;
+}
+
+body.dark-theme .cit {
+    color: #bdc3c7;
+}
+
+body.dark-theme .carinfo {
+    background-color: #34495e;
+    border-top: 1px solid #445566;
+}
+
+body.dark-theme .carinfo i {
+    color: #bdc3c7;
 }
 
 /* Form Elements */
 body.dark-theme input,
 body.dark-theme select,
 body.dark-theme textarea {
-    background-color: var(--dark-bg);
-    border-color: var(--dark-border);
-    color: var(--dark-text);
+    background-color: #34495e;
+    border: 1px solid #445566;
+    color: #e0e0e0;
 }
 
 body.dark-theme input:focus,
 body.dark-theme select:focus,
 body.dark-theme textarea:focus {
-    border-color: var(--dark-primary);
-    box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
 }
 
-/* Buttons */
-body.dark-theme .btn,
-body.dark-theme button {
-    background-color: var(--dark-primary);
-    color: #000;
+/* Button Styles */
+body.dark-theme .btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #fff;
 }
 
-body.dark-theme .btn:hover,
-body.dark-theme button:hover {
-    background-color: #9965db;
+body.dark-theme .btn:hover {
+    background: linear-gradient(135deg, #2980b9, #2472a4);
 }
 
-/* Tables */
-body.dark-theme table {
-    background-color: var(--dark-surface);
-    color: var(--dark-text);
-}
-
-body.dark-theme th,
-body.dark-theme td {
-    border-color: var(--dark-border);
-}
-
-body.dark-theme tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Footer */
-body.dark-theme footer {
-    background-color: var(--dark-surface);
-    color: var(--dark-text-secondary);
-}
-
-/* Modals and Dialogs */
+/* Modal Styles */
 body.dark-theme .modal-content {
-    background-color: var(--dark-surface);
-    color: var(--dark-text);
+    background-color: #2c3e50;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Product Pages */
-body.dark-theme .product-details,
-body.dark-theme .product-description {
-    background-color: var(--dark-surface);
-    color: var(--dark-text);
+body.dark-theme .modal-content h3 {
+    color: #e0e0e0;
 }
 
-/* Cart Page */
-body.dark-theme .cart-summary {
-    background-color: var(--dark-surface);
-    border-color: var(--dark-border);
+/* Table Styles */
+body.dark-theme table {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+}
+
+body.dark-theme th {
+    background-color: #34495e;
+    color: #e0e0e0;
+}
+
+body.dark-theme td {
+    border-bottom: 1px solid #445566;
+}
+
+/* Footer Styles */
+body.dark-theme footer {
+    background-color: #2c3e50 ;
+    color: #e0e0e0;
+}
+
+/* Notification Styles */
+body.dark-theme .notification {
+    background-color: #34495e;
+    color: #e0e0e0;
+}
+
+/* Cart Styles */
+body.dark-theme .cart-content-left,
+body.dark-theme .cart-content-right {
+    background-color: #2c3e50;
+}
+
+/* Product Details */
+body.dark-theme .product-info {
+    background-color: #34495e;
+}
+
+/* Search Bar */
+body.dark-theme #searchbar {
+    background-color: #34495e;
+}
+
+body.dark-theme #searchbar input {
+    background-color: #2c3e50;
+    color: #e0e0e0;
 }
 
 /* Status Badges */
 body.dark-theme .status-badge {
-    opacity: 0.9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Notifications */
-body.dark-theme .notification {
-    background-color: var(--dark-surface);
-    color: var(--dark-text);
-    border-left-color: var(--dark-primary);
+/* Section Headers */
+body.dark-theme .section-title {
+    color: #3498db;
+    border-bottom-color: #445566;
 }
 
-/* Scrollbar */
-body.dark-theme::-webkit-scrollbar {
-    width: 12px;
+/* Links */
+body.dark-theme a {
+    color: #3498db;
 }
 
-body.dark-theme::-webkit-scrollbar-track {
-    background: var(--dark-bg);
+body.dark-theme a:hover {
+    color: #2980b9;
 }
 
-body.dark-theme::-webkit-scrollbar-thumb {
-    background-color: var(--dark-border);
-    border-radius: 6px;
-    border: 3px solid var(--dark-bg);
+/* Form Validation */
+body.dark-theme input:invalid {
+    border-color: #e74c3c;
 }
 
-/* Icons */
-body.dark-theme .fa,
-body.dark-theme .fas,
-body.dark-theme .far {
-    color: var(--dark-text-secondary);
+body.dark-theme input:valid {
+    border-color: #2ecc71;
+}
+
+/* Loading States */
+body.dark-theme .skeleton-loader {
+    background: linear-gradient(90deg, #34495e 25%, #2c3e50 50%, #34495e 75%);
+}
+/* ...existing code... */
+
+/* About Us Page Styles */
+body.dark-theme .about-container {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .section {
+    border-color: #445566;
+}
+
+body.dark-theme .highlight {
+    color: #3498db;
+}
+
+/* Car Details Page */
+body.dark-theme .product-gallery {
+    background-color: #34495e;
+}
+
+body.dark-theme .product-thumbnails img {
+    border-color: #445566;
+}
+
+body.dark-theme .product-thumbnails img.active {
+    border-color: #3498db;
+}
+
+/* Bill History Page */
+body.dark-theme .billHistory-container {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .order-card {
+    background-color: #34495e;
+    border-color: #445566;
+}
+
+body.dark-theme .order-status {
+    background-color: #2c3e50;
+}
+
+/* Payment Page */
+body.dark-theme .payment-top-wrap {
+    background-color: #34495e;
+}
+
+body.dark-theme .payment-top-item {
+    color: #bdc3c7;
+}
+
+body.dark-theme .payment-top-item.active {
+    color: #3498db;
+}
+
+/* User Profile Page */
+body.dark-theme .user-container {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .profile-section {
+    border-color: #445566;
+}
+
+/* Search Results Page */
+body.dark-theme .search-filters {
+    background-color: #34495e;
+    border-color: #445566;
+}
+
+body.dark-theme .filter-tag {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+}
+
+/* Brand Pages (BMW, Mazda, etc.) */
+body.dark-theme .brand-hero {
+    background-color: #34495e;
+}
+
+body.dark-theme .filter-section {
+    background-color: #2c3e50;
+    border-color: #445566;
+}
+
+/* Cart Page Enhancements */
+body.dark-theme .cart-item {
+    background-color: #34495e;
+    border-color: #445566;
+}
+
+body.dark-theme .quantity-controls {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .cart-summary {
+    background-color: #2c3e50;
+    border-color: #445566;
+}
+
+/* Modal Enhancements */
+body.dark-theme .logout-modal,
+body.dark-theme .confirm-modal {
+    background-color: #2c3e50;
+    border-color: #445566;
+}
+
+body.dark-theme .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Form Enhancements */
+body.dark-theme .form-group label {
+    color: #bdc3c7;
+}
+
+body.dark-theme .form-control::placeholder {
+    color: #95a5a6;
+}
+
+/* Pagination */
+body.dark-theme .pagination {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .page-link {
+    background-color: #34495e;
+    border-color: #445566;
+    color: #e0e0e0;
+}
+
+body.dark-theme .page-link:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+body.dark-theme .page-item.active .page-link {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+/* Price Range Slider */
+body.dark-theme .price-slider {
+    background-color: #34495e;
+}
+
+body.dark-theme .price-slider::-webkit-slider-thumb {
+    background-color: #3498db;
+}
+
+/* Loading States */
+body.dark-theme .loading-spinner {
+    border-color: #3498db transparent transparent transparent;
+}
+
+/* Tooltips */
+body.dark-theme .tooltip {
+    background-color: #2c3e50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+}
+
+/* Review Section */
+body.dark-theme .review-container {
+    background-color: #34495e;
+}
+
+body.dark-theme .review-item {
+    border-color: #445566;
+}
+
+body.dark-theme .star-rating {
+    color: #f1c40f;
+}
+
+/* Error Messages */
+body.dark-theme .error-message {
+    background-color: rgba(231, 76, 60, 0.2);
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+/* Success Messages */
+body.dark-theme .success-message {
+    background-color: rgba(46, 204, 113, 0.2);
+    border-color: #2ecc71;
+    color: #2ecc71;
+}
+
+/* Code Blocks (if any) */
+body.dark-theme pre,
+body.dark-theme code {
+    background-color: #2c3e50;
+    border-color: #445566;
+    color: #e0e0e0;
+}
+
+/* Custom Scrollbar */
+body.dark-theme ::-webkit-scrollbar {
+    width: 10px;
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+    background-color: #2c3e50;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+    background-color: #445566;
+    border-radius: 5px;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+    background-color: #3498db;
+}
+/* ...existing code... */
+
+
+/* Contact Page Styles */
+body.dark-theme .contact-form {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .company-info {
+    background-color: #34495e;
+    border-left: 4px solid #3498db;
+}
+
+body.dark-theme .contact-social-links a {
+    color: #bdc3c7;
+}
+
+body.dark-theme .contact-social-links a:hover {
+    color: #3498db;
+}
+
+/* User Information Page */
+body.dark-theme .user-profile {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .profile-header {
+    background-color: #34495e;
+    border-bottom: 2px solid #445566;
+}
+
+body.dark-theme .profile-stats {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .stats-item {
+    border-right: 1px solid #445566;
+}
+
+/* Delivery Page */
+body.dark-theme .delivery-container {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .delivery-method {
+    background-color: #34495e;
+    border: 1px solid #445566;
+}
+
+body.dark-theme .delivery-method.selected {
+    border-color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* More Cars Page */
+body.dark-theme .filter-container {
+    background-color: #34495e;
+}
+
+body.dark-theme .sort-options {
+    background-color: #2c3e50;
+    border-bottom: 1px solid #445566;
+}
+
+body.dark-theme .car-grid {
+    background-color: #1a1a1a;
+}
+
+/* Brand-specific Pages (BMW, Mazda, Lamborghini) */
+body.dark-theme .brand-showcase {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .brand-description {
+    color: #bdc3c7;
+}
+
+body.dark-theme .brand-features {
+    background-color: #34495e;
+}
+
+body.dark-theme .feature-card {
+    border-color: #445566;
+    background-color: #2c3e50;
+}
+
+/* Payment Review Page */
+body.dark-theme .review-summary {
+    background-color: #2c3e50;
+}
+
+body.dark-theme .payment-details {
+    background-color: #34495e;
+    border: 1px solid #445566;
+}
+
+body.dark-theme .order-summary {
+    border-left: 1px solid #445566;
+}
+
+/* Search Results Enhancements */
+body.dark-theme .search-header {
+    background-color: #2c3e50;
+    border-bottom: 1px solid #445566;
+}
+
+body.dark-theme .filter-group {
+    border-bottom: 1px solid #445566;
+}
+
+body.dark-theme .filter-checkbox:checked + label {
+    color: #3498db;
+}
+
+/* Cart Update Modal */
+body.dark-theme .update-cart-modal {
+    background-color: #2c3e50;
+    border: 1px solid #445566;
+}
+
+body.dark-theme .quantity-selector {
+    background-color: #34495e;
+    border: 1px solid #445566;
+}
+
+/* Footer Enhancements */
+body.dark-theme .footer-links {
+    border-top: 1px solid #445566;
+}
+
+body.dark-theme .social-icons a {
+    color: #bdc3c7;
+}
+
+body.dark-theme .social-icons a:hover {
+    color: #3498db;
+}
+
+body.dark-theme .newsletter-form input {
+    background-color: #34495e;
+    border: 1px solid #445566;
+}
+
+/* Animations and Transitions */
+body.dark-theme .fade-in {
+    animation: darkFadeIn 0.3s ease-in;
+}
+
+@keyframes darkFadeIn {
+    from {
+        opacity: 0;
+        background-color: #1a1a1a;
+    }
+    to {
+        opacity: 1;
+        background-color: #2c3e50;
+    }
+}
+
+/* Responsive Design Dark Theme Adjustments */
+@media (max-width: 768px) {
+    body.dark-theme .mobile-menu {
+        background-color: #2c3e50;
+        border-top: 1px solid #445566;
+    }
+
+    body.dark-theme .mobile-menu-item {
+        border-bottom: 1px solid #445566;
+    }
+
+    body.dark-theme .mobile-search {
+        background-color: #34495e;
+    }
+}
+
+/* Print Mode Dark Theme */
+@media print {
+    body.dark-theme {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    body.dark-theme * {
+        background-color: transparent !important;
+        color: #000000 !important;
+        border-color: #cccccc !important;
+    }
+}
+/* ...existing code... */
+
+/* Typography Styles */
+body.dark-theme h1 {
+    color: #3498db;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme h2 {
+    color: #2ecc71;
+    border-bottom: 2px solid #445566;
+}
+
+body.dark-theme h3 {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+body.dark-theme h4, 
+body.dark-theme h5, 
+body.dark-theme h6 {
+    color: #bdc3c7;
+}
+
+/* Paragraph and Text Content */
+body.dark-theme p {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+body.dark-theme .subtitle {
+    color: #95a5a6;
+    font-size: 0.9em;
+}
+
+body.dark-theme .highlight-text {
+    color: #3498db;
+    font-weight: 500;
+}
+
+/* Section Titles */
+body.dark-theme .page-title {
+    color: #3498db;
+    font-size: 2em;
+    font-weight: 600;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body.dark-theme .section-header {
+    color: #2ecc71;
+    font-size: 1.5em;
+    margin: 1em 0;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid #445566;
+}
+
+/* Card and Component Text */
+body.dark-theme .card-title {
+    color: #3498db;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+body.dark-theme .card-subtitle {
+    color: #95a5a6;
+    font-size: 0.9em;
+}
+
+body.dark-theme .price-text {
+    color: #2ecc71;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* List Items */
+body.dark-theme ul li,
+body.dark-theme ol li {
+    color: #e0e0e0;
+}
+
+body.dark-theme .list-title {
+    color: #3498db;
+    font-weight: 500;
+}
+
+/* Meta Text */
+body.dark-theme .meta-text {
+    color: #95a5a6;
+    font-size: 0.85em;
+}
+
+body.dark-theme .timestamp {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* Alert and Notification Text */
+body.dark-theme .alert-text {
+    font-weight: 500;
+}
+
+body.dark-theme .success-text {
+    color: #2ecc71;
+}
+
+body.dark-theme .error-text {
+    color: #e74c3c;
+}
+
+body.dark-theme .warning-text {
+    color: #f1c40f;
+}
+
+body.dark-theme .info-text {
+    color: #3498db;
+}
+
+/* Form Labels and Help Text */
+body.dark-theme label {
+    color: #bdc3c7;
+    font-weight: 500;
+}
+
+body.dark-theme .help-text {
+    color: #95a5a6;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+}
+
+/* Links in Text */
+body.dark-theme .text-link {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body.dark-theme .text-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Quote and Citation */
+body.dark-theme blockquote {
+    color: #bdc3c7;
+    border-left: 3px solid #3498db;
+    padding-left: 1em;
+    font-style: italic;
+}
+
+body.dark-theme cite {
+    color: #95a5a6;
+    font-size: 0.9em;
+}
+
+/* Code and Pre Text */
+body.dark-theme code {
+    color: #e74c3c;
+    background-color: #34495e;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+/* Table Text */
+body.dark-theme thead th {
+    color: #3498db;
+    font-weight: 600;
+}
+
+body.dark-theme tbody td {
+    color: #e0e0e0;
+}
+
+/* Selection Text */
+body.dark-theme ::selection {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* Placeholder Text */
+body.dark-theme ::placeholder {
+    color: #95a5a6;
+    opacity: 0.7;
+}
+
+/* Status Text */
+body.dark-theme .status-active {
+    color: #2ecc71;
+}
+
+body.dark-theme .status-inactive {
+    color: #e74c3c;
+}
+
+body.dark-theme .status-pending {
+    color: #f1c40f;
+}
+
+/* Button Text */
+body.dark-theme .btn-text {
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation Text */
+body.dark-theme .nav-text {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Footer Text */
+body.dark-theme .footer-title {
+    color: #3498db;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+body.dark-theme .footer-text {
+    color: #bdc3c7!important;
+    font-size: 0.9em;
+}
+
+/* Copyright Text */
+body.dark-theme .copyright-text {
+    color: #95a5a6;
+    font-size: 0.85em;
 }

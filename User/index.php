@@ -40,8 +40,6 @@ $page = max(1, min($page, $totalPages));
 // Get cars for current page
 $startIndex = ($page - 1) * $carsPerPage;
 $currentCars = array_slice($cars, $startIndex, $carsPerPage);
-
-
 ?>
 
 
@@ -64,7 +62,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
     .ctn-img {
         margin-top: -5.1em;
         position: relative;
-        background-color: #EAEDF0 !important;
+        background-color: #EAEDF0 ;
 
     }
 
@@ -84,7 +82,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
         height: 100%;
         width: 100%;
         animation: slider 30s ease-in-out infinite alternate;
-        margin-bottom: 50px;
+        padding-bottom: 50px;
     }
 
     .ctn-img #img1 {
@@ -1052,12 +1050,62 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
             grid-template-columns: repeat(1, 1fr);
         }
     }
-    
+    .br{
+        background-color:#EAEDF0;
+    }
+     body.dark-theme .ctn-img{
+                background-color: #33475C;
+            }
+            /* Brand section dropdown */
+            body.dark-theme .ds-md-sb {
+                background: rgba(44, 62, 80, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }
+            
+            /* New car section */
+            body.dark-theme .newcar {
+                background-color: #2c3e50;
+                border: 1px solid #445566;
+
+            }
+            
+            body.dark-theme .newcar .title {
+                color: #3498db;
+                border-bottom: 2px solid #445566;
+            }
+            
+            body.dark-theme .newcar .description,
+            body.dark-theme #ds-md-title {
+                color: #bdc3c7;
+            }
+            body.dark-theme .ctn-img{
+                background-color: #33475C;
+            }
+            body.dark-theme .wp{
+                background-color:rgb(62, 86, 112);
+            }
+            /* Dark theme styles for main */
+body.dark-theme main,
+body.dark-theme .lgb
+ {
+    background-color:rgb(43, 59, 77);  /* Dark background for dark theme */
+}
+body.dark-theme #newcar,
+body.dark-theme .nc-title,
+body.dark-theme .pagination{
+     background-color:rgb(62, 86, 112);
+      color:#e0e0e0;
+}
+body.dark-theme .garage-btn{
+    color:#e0e0e0;
+}
 </style>
 
 <body>
 
-    <div class="" style="background-color:#EAEDF0;height:5vh;"></div>
+    <div class="br" style="height:5vh;"></div>
     <main>
         <div class="fctn">
 

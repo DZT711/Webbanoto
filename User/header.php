@@ -1,6 +1,11 @@
 <?php
 
 session_start();
+function isCurrentPage($pageName)
+{
+    $currentPage = basename($_SERVER['PHP_SELF']);
+    return $currentPage === $pageName;
+}
 
 
 $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '';
@@ -113,11 +118,15 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff">
     <!-- <title></title> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <script src="index.js"></script>
-    <link rel="icon" href="dp56vcf7.png" type="image/png">
-    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+    <!-- <script src="index.js"></script> -->
+         <link rel="stylesheet" href="dark-theme.css">
 
+    <script src="dark-theme.js"></script>
+
+    <link rel="icon" href="dp56vcf7.png" type="image/png">
+    
+    <script src="https://kit.fontawesome.com/8341c679e5.js" crossorigin="anonymous"></script>
+</head>
     <style>
         .navbar {
             background-color: #f8f9fa;
@@ -232,8 +241,9 @@ if (isset($_SESSION['user_id'])) {
         .logo {
             display: flex;
             justify-content: center;
-            background-color: white;
+            /* background-color: white; */
         }
+
 
         body {
             font-family: Arial, sans-serif;
@@ -1147,13 +1157,13 @@ if (isset($_SESSION['user_id'])) {
             outline: none;
             transition: all 0.3s ease;
             font-size: 14px;
-            width: 170px;
+            width: 150px;
         }
 
         .nav-search input[type="text"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
-            width: 200px;
+            width: 220px;
         }
 
         .nav-search button {
@@ -1166,7 +1176,9 @@ if (isset($_SESSION['user_id'])) {
             transition: background-color 0.3s ease;
             height: 30px;
         }
-
+body.dark-theme .nav-search button{
+    background-color: #2ecc71;
+}
         .nav-search button:hover {
             background-color: #0056b3;
         }
@@ -1201,7 +1213,9 @@ if (isset($_SESSION['user_id'])) {
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         }
-
+body.dark-theme .login-register-ctn{
+    background: linear-gradient(135deg,#2C3E50 0%,#33475c 100%);
+}
         .login-register {
             display: flex;
             align-items: center;
@@ -1463,9 +1477,168 @@ if (isset($_SESSION['user_id'])) {
             animation: countPop 0.3s ease-out;
         }
 
+        /* Add this to your existing CSS in header.php */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border: none;
+            box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 6px 6px 12px #d9d9d9, -6px -6px 12px #ffffff;
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: #666;
+            transition: transform 0.5s ease;
+        }
+
+        /* .theme-toggle:hover i {
+            transform: rotate(180deg);
+        } */
+
+        /* Dark mode styles for the toggle button */
+        body.dark-theme .theme-toggle {
+            background: linear-gradient(145deg, #2c3e50, #243240);
+            box-shadow: 5px 5px 10px #1a2530, -5px -5px 10px #364c64;
+        }
+
+        body.dark-theme .theme-toggle i {
+            color: #fff;
+        }
     </style>
+               <style>            /* Replace the existing .nav-link.active styles with these */
+            .nav-link.active {
+                color: #007bff;
+                position: relative;
+                transition: color 0.3s ease;
+            }
+            
+            .nav-link.active::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(to right, #007bff, #00c6ff);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.3s ease;
+                border-radius: 2px;
+            }
+            
+            .nav-link.active:hover::after {
+                transform: scaleX(1);
+            }
+            
+            /* Optional: subtle glow effect */
+            @keyframes activeGlow {
+                0% {
+                    color: #007bff;
+                }
+                50% {
+                    color: #00c6ff;
+                }
+                100% {
+                    color: #007bff;
+                }
+            }
+            
+            .nav-link.active {
+                animation: activeGlow 2s infinite;
+            }
+                        /* Logo section */
+
+
+            
+
+            
+            /* Background sections */
+            body.dark-theme .br {
+                background-color: #33475C;
+                border-color: #445566;
+            }
+            
+            /* Copyright section */
+            body.dark-theme .copyright {
+                background-color:rgb(33, 46, 59);
+                color: #bdc3c7;
+                border-top: 1px solid #445566;
+            }
+           
+            
+            /* Additional interactive elements */
+            body.dark-theme .nav-search input[type="text"] {
+                background-color: #34495e;
+                color: #e0e0e0;
+                border: 1px solid #445566;
+            }
+            
+            body.dark-theme .nav-search button {
+                background-color: #2ecc71;
+                color: #fff;
+            }
+            
+            body.dark-theme .nav-search button:hover {
+                background-color: #27ae60;
+            }
+            
+            /* User menu items in dark theme */
+            body.dark-theme .user-link {
+                color: #bdc3c7;
+            }
+            
+            body.dark-theme .user-link:hover {
+                background-color: rgba(52, 152, 219, 0.1);
+                color: #3498db;
+            }
+            
+            /* Cart and order count badges */
+            body.dark-theme .cart-count,
+            body.dark-theme .order-count {
+                background-color: #e74c3c;
+                color: #fff;
+            }
+            
+            /* Separator lines */
+            body.dark-theme .separator {
+                background-color: #445566;
+            }
+            
+/* Login register container */
+body.dark-theme .notlogin {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+body.dark-theme .hello,body.dark-theme .hotline {
+    color:#e0e0e0;
+}
+            </style>
 
 <body>
+    <!-- <div class="theme-toggle-wrapper">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div> -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-sun"></i>
+    </button>
     <header>
         <div id="notification" class="notification"></div>
         <div class="logo">
@@ -1480,10 +1653,9 @@ if (isset($_SESSION['user_id'])) {
     <nav class="navbar">
 
         <div class="nav-left">
-            <a href="index.php" class="nav-link homelink">
+            <a href="index.php" class="nav-link homelink <?php echo isCurrentPage('index.php') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-house"></i> Trang Chủ
             </a>
-
             <div class="dropdown">
                 <a href="#" class="nav-link dropbtn">
                     <i class="fa-solid fa-car"></i> các loại xe
@@ -1662,7 +1834,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="dropdown">
                 <a href="#" class="nav-link dropbtn">
                     <i class="fa-solid fa-wrench"></i> Thông số xe
@@ -1751,21 +1923,23 @@ if (isset($_SESSION['user_id'])) {
             <!-- <a href="billhistory.php" class="nav-link">
                 <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mua hàng
                 </a> -->
-            <a href="aboutus.php" class="nav-link">
+            <a href="aboutus.php" class="nav-link <?php echo isCurrentPage('aboutus.php') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-info-circle"></i> Giới Thiệu
-            </a>
-            <a href="contact.php" class="nav-link">
-                <i class="fa-solid fa-envelope"></i> Liên Hệ
-            </a>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                        <a href="../Admin/login.php" class="nav-link">
-                            <i class="fa-solid fa-user-shield"></i> Admin
-                        </a>
-            <?php endif; ?>
-            <form class="nav-search" action="search-results.php" method="GET">
-                <input type="text" id="search" name="query" placeholder="">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+                </a>
+
+                <a href="contact.php" class="nav-link <?php echo isCurrentPage('contact.php') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-envelope"></i> Liên Hệ
+                </a>
+
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <a href="../Admin/login.php" class="nav-link <?php echo isCurrentPage('login.php') ? 'active' : ''; ?>">
+                        <i class="fa-solid fa-user-shield"></i> Admin
+                    </a>
+                <?php endif; ?>
+                <form class="nav-search" action="search-results.php" method="GET">
+                    <input type="text" id="search" name="query" placeholder="">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
 
 
         </div>
@@ -1782,57 +1956,57 @@ if (isset($_SESSION['user_id'])) {
     <div class="login-register-ctn">
         <div class="login-register">
             <?php if (isset($_SESSION['username'])): ?>
-                        <div class="loggedin">
-                            <span class="user-greeting">
-                                <span>Xin chào,</span>
-                                <a href="userinfor.php" class="username-link">
-                                    <i class="fa-regular fa-user"></i>
-                                    <?php echo htmlspecialchars($_SESSION['username']); ?>
-                                </a>
+                <div class="loggedin">
+                    <span class="user-greeting">
+                        <span class="hello">Xin chào,</span>
+                        <a href="userinfor.php" class="username-link">
+                            <i class="fa-regular fa-user"></i>
+                            <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        </a>
 
-                                <div class="user-menu">
-                                    <span class="separator"></span>
-
-
-
-                                        <a href="cart.php" class="user-link cart-link">
-                    <i class="fas fa-shopping-cart"></i> Giỏ hàng
-                    <span class="cart-count"><?= $cartCount ?></span>
-                  </a>
-                  <span class="separator"></span>
-                  <a href="billhistory.php" class="user-link">
-                    <i class="fas fa-history"></i> Lịch sử mua hàng
-                    <span class="order-count"><?= $orderCount ?></span>
-                  </a>
-
-                                    <span class="separator"></span>
+                        <div class="user-menu">
+                            <span class="separator"></span>
 
 
-                        <button type="button" id="logout-btn" onclick="showLogoutModal(event)" class="logout-btn">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Đăng xuất
-                        </button>
+
+                            <a href="cart.php" class="user-link cart-link">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                                <span class="cart-count"><?= $cartCount ?></span>
+                            </a>
+                            <span class="separator"></span>
+                            <a href="billhistory.php" class="user-link">
+                                <i class="fas fa-history"></i> Lịch sử mua hàng
+                                <span class="order-count"><?= $orderCount ?></span>
+                            </a>
+
+                            <span class="separator"></span>
 
 
-                                </div>
+                            <button type="button" id="logout-btn" onclick="showLogoutModal(event)" class="logout-btn">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Đăng xuất
+                            </button>
+
+
                         </div>
+                </div>
             <?php else: ?>
-                        <div class="notlogin">
-                            <a href="cart.php" class="auth-link cart-link">
-                                <i class="fas fa-shopping-cart"></i>
-                                Giỏ hàng
-                            </a>
-                            <span class="separator"></span>
-                            <a href="login.php" class="user-link">
-                                <i class="fas fa-sign-in-alt"></i>
-                                Đăng nhập
-                            </a>
-                            <span class="separator"></span>
-                            <a href="register.php" class="user-link">
-                                <i class="fas fa-user-plus"></i>
-                                Đăng ký
-                            </a>
-                        </div>
+                <div class="notlogin">
+                    <a href="cart.php" class="auth-link cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Giỏ hàng
+                    </a>
+                    <span class="separator"></span>
+                    <a href="login.php" class="user-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Đăng nhập
+                    </a>
+                    <span class="separator"></span>
+                    <a href="register.php" class="user-link">
+                        <i class="fas fa-user-plus"></i>
+                        Đăng ký
+                    </a>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -1885,7 +2059,7 @@ if (isset($_SESSION['user_id'])) {
             }, 5000);
         }
         <?php if ($showLoginNotification): ?>
-                    showNotification("Đăng nhập thành công. Chào mừng <?php echo htmlspecialchars($username); ?>!", "success");
+            showNotification("Đăng nhập thành công. Chào mừng <?php echo htmlspecialchars($username); ?>!", "success");
         <?php endif; ?>        // showNotification('Login successful!', 'success');
         // showNotification('Error occurred!', 'error');
         // showNotification('Please wait...', 'info');
@@ -1973,9 +2147,13 @@ if (isset($_SESSION['user_id'])) {
                 setTimeout(typePlaceholder, deletingSpeed);
             }
         }
+        // Add this after the typePlaceholder function definition
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(typePlaceholder, 5000); // Start with a 1 second delay
+        });
 
-        // Khởi động hiệu ứng
-        document.addEventListener("DOMContentLoaded", typePlaceholder);
+
+
     </script>
 </body>
 
