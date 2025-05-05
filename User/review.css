@@ -1,0 +1,91 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+:root {
+    --primary-color: #1E40AF;  /* Deep blue */
+    --secondary-color: #2563EB;  /* Bright blue */
+    --accent-color: #3B82F6;  /* Lighter blue */
+    --text-color: #1F2937;  /* Dark gray */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F3F4F6;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.review-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.review-header {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.section-header {
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.product-item {
+    background-color: #F9FAFB;
+    border-left: 4px solid var(--accent-color);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.summary-box {
+    background-color: #EFF6FF;
+    border: 1px solid var(--accent-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: #6B7280;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #4B5563;
+    transform: translateY(-2px);
+}
+
+.logo {
+    max-width: 150px;
+    margin: 0 auto 1rem;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+    .review-card {
+        border-radius: 0;
+    }
+}
