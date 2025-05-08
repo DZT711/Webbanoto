@@ -790,9 +790,180 @@ $additional_images_result = mysqli_stmt_get_result($stmt);
         .description-paragraph:nth-child(3) { animation-delay: 0.3s; }
         .description-paragraph:nth-child(4) { animation-delay: 0.4s; }
         .description-paragraph:nth-child(5) { animation-delay: 0.5s; }
-        </style>
 </style>
-<style></style>
+<style>
+        /* Car Details Dark Theme */
+    body.dark-theme .container {
+        background-color: #2c3e50;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Main Content */
+    
+    body.dark-theme main {
+        background-color: #33475C;
+    }
+    
+    /* Car Info Section */
+    body.dark-theme .car-info {
+        background: linear-gradient(to bottom right, #34495e, #2c3e50);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .car-title {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .car-info h2 {
+        color: #2ecc71;
+    }
+    
+    /* Car Features */
+    body.dark-theme .car-feature-item {
+        color: #ecf0f1;
+    }
+    body.dark-theme .car-feature-item strong {
+        color: #3498db;
+    }
+    
+    body.dark-theme .car-feature-item i {
+        color: #3498db;
+    }
+    
+    /* Status Badges */
+    body.dark-theme .status-badge {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .status-selling {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+    
+    body.dark-theme .status-discounting {
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
+    }
+    
+    body.dark-theme .status-hidden {
+        background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+    }
+    
+    body.dark-theme .status-soldout {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+    
+    /* Image Gallery */
+    body.dark-theme .car-image {
+        background-color: #2c3e50;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .thumbnail-container {
+        background: linear-gradient(145deg, #2c3e50, #34495e);
+        box-shadow: inset 5px 5px 10px #233140,
+                    inset -5px -5px 10px #3c526e;
+    }
+    
+    body.dark-theme .thumbnail {
+        border: 2px solid #445566;
+        background-color: #34495e;
+    }
+    
+    body.dark-theme .thumbnail.active {
+        border-color: #3498db;
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+    }
+    
+    /* Arrow Buttons */
+    body.dark-theme .arrow {
+        background: linear-gradient(145deg, #3498db, #2980b9);
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .arrow:hover {
+        background: linear-gradient(145deg, #2980b9, #236a9c);
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+    }
+    
+    /* Car Description */
+    body.dark-theme .car-description {
+        background: linear-gradient(145deg, #2c3e50, #34495e);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .description-header h3 {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .description-header i {
+        color: #3498db;
+    }
+    
+    body.dark-theme .description-content {
+        background: rgba(52, 73, 94, 0.5);
+    }
+    
+    body.dark-theme .description-paragraph {
+        background-color: #34495e;
+        color: #ecf0f1;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .description-paragraph i {
+        color: #2ecc71;
+    }
+    
+    /* Action Buttons */
+    body.dark-theme .btn.primary {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    body.dark-theme .btn.secondary {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
+    }
+    
+    body.dark-theme .btn.primary:hover {
+        background: linear-gradient(135deg, #2980b9, #236a9c);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    body.dark-theme .btn.secondary:hover {
+        background: linear-gradient(135deg, #2c3e50, #233140);
+        box-shadow: 0 6px 20px rgba(52, 73, 94, 0.4);
+    }
+    
+    /* Loading States */
+    body.dark-theme .loading::after {
+        background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+    }
+    
+    /* Hover Effects */
+    body.dark-theme .car-feature-item:hover {
+        background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), transparent);
+    }
+    
+    body.dark-theme .description-paragraph:hover {
+        background-color: #2c3e50;
+        transform: translateX(10px);
+    }
+    
+    /* Animations */
+    @keyframes darkShimmer {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(100%); }
+    }
+    
+    body.dark-theme .status-badge::before {
+        background: rgba(255, 255, 255, 0.1);
+        animation: darkShimmer 2s infinite;
+    }
+        
+    body.dark-theme .car-features:hover,
+    body.dark-theme .car-safety:hover {
+        background-color: #33475C!important;
+    }
+</style>
 <body>
     <main>
         <div class="container">

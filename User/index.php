@@ -761,6 +761,7 @@ $currentCars = array_slice($cars, $startIndex, $carsPerPage);
         opacity: 0;
         animation: fadeInUp 0.6s ease-out forwards;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space:nowrap;
     }
 
     .nc-item:hover {
@@ -1098,8 +1099,14 @@ body.dark-theme .pagination{
      background-color:rgb(62, 86, 112);
       color:#e0e0e0;
 }
-body.dark-theme .garage-btn{
+body.dark-theme .garage-btn,
+body.dark-theme .info{
     color:#e0e0e0;
+}
+
+
+body.dark-theme #searchbar{
+    background:#2C3E50!important;
 }
 </style>
 
@@ -1159,7 +1166,7 @@ body.dark-theme .garage-btn{
                             echo '<div class="lgb">';
                             echo '<a style="text-transform:uppercase;" class="lg" href="' . urlencode($brand['type_name']) . '.php">';
                             // Use the logo_url field from your database
-                            echo '<img class="lg-b" src="https://img.logo.dev/' . htmlspecialchars($brand['type_name']) . '.com" 
+                            echo '<img class="lg-b" src="'. htmlspecialchars($brand['logo_url']) . '" 
                             alt="' . htmlspecialchars($brand['type_name']) . '">';
                             echo '<br>';
                             echo htmlspecialchars($brand['type_name']);
@@ -1168,7 +1175,7 @@ body.dark-theme .garage-btn{
                         } else {
                             echo '<div class="lgb">';
                             echo '<a style="text-transform:uppercase;" class="lg" href="brand.php?type=' . urlencode($brand['type_name']) . '">';                            // Use the logo_url field from your database
-                            echo '<img class="lg-b" src="https://img.logo.dev/' . htmlspecialchars($brand['type_name']) . '.com" 
+                            echo '<img class="lg-b" src="'. htmlspecialchars($brand['logo_url']) . '" 
                             alt="' . htmlspecialchars($brand['type_name']) . '">';
                             echo '<br>';
                             echo htmlspecialchars($brand['type_name']);

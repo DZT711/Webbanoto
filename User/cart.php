@@ -462,7 +462,7 @@ checkCartItemsStatus($connect);
     /* .eight {
         height: 100px;
         background-color: #efefef;
-        
+
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
@@ -498,7 +498,7 @@ checkCartItemsStatus($connect);
         margin: 20px auto;
         max-width: 1200px;
     }
-    
+
     /* Update Title Styling */
     .eight h1 {
         position: relative;
@@ -513,7 +513,7 @@ checkCartItemsStatus($connect);
         letter-spacing: 1px;
         transition: all 0.3s ease;
     }
-    
+
     /* Add underline accent */
     .eight h1::after {
         content: '';
@@ -526,19 +526,19 @@ checkCartItemsStatus($connect);
         background-color: var(--cart-primary);
         border-radius: 2px;
     }
-    
+
     /* Remove old decorative lines */
     .eight h1:before {
         content: none;
     }
-    
+
     /* Container spacing */
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
     }
-    
+
     /* Section spacing */
     .cart {
         padding: 20px 0 40px;
@@ -1088,7 +1088,7 @@ checkCartItemsStatus($connect);
 
     /* Update cart content left padding */
     .cart-content-left {
-        flex: 2;
+        flex: 3;
         background: #fff;
         border-radius: 12px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -1634,6 +1634,232 @@ checkCartItemsStatus($connect);
 @keyframes highlightSweep {
     100% { left: 200%; }
 }
+/* Cart Page Dark Theme */
+body.dark-theme .cart {
+    background-color: #1a1a1a;
+}
+
+/* Progress Bar */
+body.dark-theme .cart-top {
+    background-color: #445566;
+}
+
+body.dark-theme .cart-top-item {
+    background-color: #2c3e50;
+    border-color: #445566;
+}
+
+body.dark-theme .cart-top-item i {
+    color: #bdc3c7;
+}
+
+body.dark-theme .cart-top-item.active {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+body.dark-theme .cart-top-item.active i {
+    color: #fff;
+}
+
+/* Cart Title */
+body.dark-theme .eight {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .eight h1 {
+    color: #ecf0f1;
+}
+
+/* Cart Content */
+body.dark-theme .cart-content-left {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .cart-content-left th {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-bottom-color: #445566;
+}
+
+body.dark-theme .cart-content-left td {
+    border-bottom-color: #445566;
+    color: #ecf0f1;
+}
+
+/* Product Images */
+body.dark-theme .cart-content-left img {
+    background-color: #34495e;
+    border: 1px solid #445566;
+}
+
+/* Links */
+body.dark-theme .cart-content-left a {
+    color: #3498db;
+}
+
+body.dark-theme .cart-content-left a:hover {
+    color: #2980b9;
+}
+
+/* Quantity Controls */
+body.dark-theme .quantity-control {
+    background-color: #34495e;
+    border-color: #445566;
+}
+
+body.dark-theme .quantity-btn {
+    color: #3498db;
+    background-color: transparent;
+}
+
+body.dark-theme .quantity-input {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-color: #445566;
+}
+
+/* Price */
+body.dark-theme #price {
+    color: #2ecc71;
+}
+
+/* Delete Buttons */
+body.dark-theme .delete-buttons-container {
+    background: #34495e;
+    border-top-color: #445566;
+}
+
+body.dark-theme .delete-selected-btn,
+body.dark-theme .delete-all-btn {
+    background-color: #34495e;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+body.dark-theme .delete-selected-btn:hover,
+body.dark-theme .delete-all-btn:hover {
+    background-color: #e74c3c;
+    color: #ecf0f1;
+}
+
+/* Cart Summary */
+body.dark-theme .cart-content-right {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .cart-content-right th {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-bottom-color: #445566;
+}
+
+body.dark-theme .cart-content-right td {
+    color: #ecf0f1;
+    border-bottom-color: #445566;
+}
+
+body.dark-theme .cart-content-right .thr {
+    color: #bdc3c7;
+}
+
+body.dark-theme .cart-content-right i {
+    color: #3498db;
+}
+
+/* Action Buttons */
+body.dark-theme #continue-shopping {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+body.dark-theme #checkout-button {
+    background-color: #3498db;
+    color: #ecf0f1;
+}
+
+body.dark-theme #continue-shopping:hover {
+    background-color: #2c3e50;
+}
+
+body.dark-theme #checkout-button:hover {
+    background-color: #2980b9;
+}
+
+/* Empty Cart Message */
+body.dark-theme .empty-cart-message {
+    color: #bdc3c7;
+}
+
+body.dark-theme .empty-cart-message i {
+    color: #34495e;
+}
+
+/* Status Badges */
+body.dark-theme .status-badge.status-hidden {
+    background-color: #7f8c8d;
+}
+
+body.dark-theme .status-badge.status-soldout {
+    background-color: #e74c3c;
+}
+
+/* Disabled Items */
+body.dark-theme .disabled-item {
+    background-color: #34495e;
+}
+
+body.dark-theme .disabled-item::after {
+    background: rgba(26, 26, 26, 0.5);
+}
+
+/* Cart Notifications */
+body.dark-theme .cart-alert {
+    background-color: #34495e;
+    border-left-color: #3498db;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .cart-alert.hidden {
+    background-color: #2c3e50;
+    border-left-color: #7f8c8d;
+    color:#e0e0e0;
+}
+
+body.dark-theme .cart-alert.soldout {
+    background-color: #2c3e50;
+    border-left-color: #e74c3c;
+    color:#e74c3c;
+}
+
+body.dark-theme .cart-alert .dismiss-btn {
+    color: #bdc3c7;
+}
+
+body.dark-theme .cart-alert .dismiss-btn:hover {
+    color: #ecf0f1;
+}
+
+/* Confirmation Modal */
+body.dark-theme .confirm-modal-content {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .confirm-modal-buttons button {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border: 1px solid #445566;
+}
+
+body.dark-theme .confirm-modal-buttons button:hover {
+    background-color: #3498db;
+}
+
 </style>
 <body>
 
@@ -1665,9 +1891,7 @@ checkCartItemsStatus($connect);
         <div class="container">
             <div class="eight">
                 <h1>
-                    <i class="fa-solid fa-cart-shopping">
-                        
-                </i>
+                    <i class="fa-solid fa-cart-shopping"></i>
                 Giỏ Hàng 
                 </h1>
             </div>
@@ -1691,7 +1915,7 @@ checkCartItemsStatus($connect);
 
                     <!-- Update the quantity control in the table row -->
 
-                    <table>
+                    <table >
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="select-all" class="product-checkbox"
@@ -1700,7 +1924,7 @@ checkCartItemsStatus($connect);
                                 <th><i class="fa-solid fa-tag cart-icon"></i>Tên </th>
                                 <th><i class="fa-solid fa-car cart-icon"></i>Hãng</th>
                                 <th><i class="fa-solid fa-sort-amount-up cart-icon"></i>Số lượng</th>
-                                <th><i class="fa-solid fa-money-bill cart-icon"></i>Giá</th>
+                                <th><i class="fa-solid fa-money-bill cart-icon"></i>Đơn giá</th>
                                 <th><i class="fa-solid fa-trash"></i>&nbsp;Xóa</th>
                             </tr>
                         </thead>
@@ -1824,7 +2048,7 @@ checkCartItemsStatus($connect);
                                 TẠM TÍNH
                             </td>
                             <td>
-                                <p style="color: black; font-weight: bold;">
+                                <p style=" font-weight: bold;">
                                     <?php echo number_format($totalAmount, 0, ',', '.'); ?> ₫
                                 </p>
                             </td>
@@ -2127,13 +2351,15 @@ function proceedToCheckout() {
             }, 100);
         });
     });
-    
     // Update hover effect
+    let $color;
     const titleContainer = document.querySelector('.eight');
     titleContainer.addEventListener('mouseenter', () => {
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(-5px)';
+     $color=letter.style.color;
+            
             letter.style.color = '#007bff';
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
@@ -2143,7 +2369,7 @@ function proceedToCheckout() {
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(0)';
-            letter.style.color = '#2c3e50';
+            letter.style.color = $color;
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
     });

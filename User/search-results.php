@@ -962,7 +962,7 @@ if ($result) {
             bottom: 0;
             border: 3px solid transparent;
             border-radius: 15px;
-            background: linear-gradient(135deg, #1abc9c, #3498db, #9b59b6, #f1c40f, #e74c3c) border-box;
+            /* background: linear-gradient(135deg, #fff, #3498db, #9b59b6, #f1c40f, #e74c3c) border-box; */
             -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
@@ -1041,6 +1041,190 @@ if ($result) {
         .filter-item:hover label i {
             transform: scale(1.2);
             color: #1abc9c;
+        }
+                /* Search Results Dark Theme */
+        body.dark-theme .main-content {
+            background-color:#2C3E50;
+        }
+        
+        /* Search Header */
+        body.dark-theme .search-header {
+            background-color: #2c3e50;
+        }
+        
+        body.dark-theme .search-header input[type="text"] {
+            background-color: #34495e;
+            border: 1px solid #445566;
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .search-header button {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        /* Search Help Tooltip */
+        body.dark-theme .search-help {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-theme .search-help p {
+            color: #3498db;
+        }
+        
+        body.dark-theme .search-help ul {
+            color: #bdc3c7;
+        }
+        
+        /* Filter Section */
+        body.dark-theme .filter-section {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-theme .filter-item label {
+            color: #bdc3c7;
+        }
+        
+        body.dark-theme .filter-item label i {
+            color: #3498db;
+        }
+        
+        body.dark-theme .filter-item select,
+        body.dark-theme .filter-item input {
+            background-color: #34495e;
+            border-color: #445566;
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .filter-item select:hover,
+        body.dark-theme .filter-item input:hover {
+            border-color: #3498db;
+            background-color: #2c3e50;
+        }
+        
+        /* Results Title */
+        body.dark-theme .results-title-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+        
+        body.dark-theme .results-title {
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .results-count {
+            color: #bdc3c7;
+        }
+        
+        /* Result Items */
+        body.dark-theme .result-item {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-theme .car-name {
+            color: #3498db;
+        }
+        
+        body.dark-theme .car-info p {
+            color: #bdc3c7;
+        }
+        
+        body.dark-theme .car-info i {
+            color: #3498db;
+        }
+        
+        body.dark-theme .price {
+            color: #e74c3c;
+        }
+        
+        /* Status Badges */
+        body.dark-theme .status-badge {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-theme .status-selling {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        body.dark-theme .status-discounting {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+        
+        body.dark-theme .status-hidden {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+        }
+        
+        body.dark-theme .status-soldout {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+        
+        /* Pagination */
+        body.dark-theme .pagination-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .pagination-btn:disabled {
+            background: #34495e;
+            opacity: 0.7;
+        }
+        
+        body.dark-theme .page-numbers a {
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .page-numbers a.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        body.dark-theme .page-numbers a:hover:not(.active) {
+            background-color: #2c3e50;
+        }
+        
+        /* No Results Message */
+        body.dark-theme .no-results {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+        }
+        
+        /* Filter Buttons */
+        body.dark-theme .filter-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .reset-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #ecf0f1;
+        }
+        
+        /* Hover Effects */
+        body.dark-theme .result-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-theme .filter-item:hover label i {
+            color: #3498db;
+        }
+        
+        /* Animations */
+        @keyframes darkFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        body.dark-theme .result-item {
+            animation: darkFadeInUp 0.5s ease-out forwards;
         }
     </style>
     </head>

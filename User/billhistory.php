@@ -253,7 +253,7 @@ $orders = mysqli_stmt_get_result($stmt);
     }
 
     .bill-container {
-        background: white;
+        /* background: white; */
         border-radius: 12px;
         box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
         margin-bottom: 25px;
@@ -410,6 +410,7 @@ $orders = mysqli_stmt_get_result($stmt);
         background-color: #ffebee;
         color: #c62828;
     }
+
 
     .order-summary {
         margin-top: 15px;
@@ -948,6 +949,43 @@ $orders = mysqli_stmt_get_result($stmt);
     body.dark-theme main {
         background-color: rgb(43, 59, 77);
         /* Dark background for dark theme */
+    }
+
+    body.dark-theme .page-header {
+        background: #33475C;
+    }
+
+    body.dark-theme .order-id,
+    body.dark-theme .order-date,
+    body.dark-theme .summary-item,
+    body.dark-theme .back-btn,
+    body.dark-theme .product-name,
+    body.dark-theme .product-meta,
+    body.dark-theme .quantity {
+        color: #e0e0e0;
+    }
+
+    body.dark-theme .quantity {
+        background: #1abc9c;
+    }
+
+    body.dark-theme .price-info {
+        color: #F44336;
+    }
+
+    body.dark-theme .billHistory-container {
+        background-color: #364a5e;
+        padding: 50px
+    }
+
+    body.dark-theme .order-status {
+        background-color: rgb(152, 184, 207) !important;
+        font-weight: bold;
+    }
+
+    body.dark-theme .bill-header,
+    body.dark-theme .order-summary {
+        background: #212E3B;
     }
 </style>
 <main>

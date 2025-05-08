@@ -120,7 +120,7 @@ footer{
     }
     
     .image1:hover {
-        transform: rotate(5deg) scale(1.05);
+        transform:  scale(1.05);
     }
     
     .if-title, .ct-title {

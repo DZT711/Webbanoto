@@ -27,9 +27,9 @@ $result = mysqli_query($connect, $query);
     /* Add this CSS to more.php */
     /* Main layout */
     main {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 20px;
+        /* max-width: 1440px; */
+        /* margin: 0 auto; */
+        /* padding: 20px; */
     }
 
     /* Filter section */
@@ -188,9 +188,9 @@ $result = mysqli_query($connect, $query);
     /* Add this CSS to more.php */
     /* Main layout */
     main {
-        max-width: 1440px;
+        /* max-width: 1440px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 20px; */
     }
 
     /* Filter section */
@@ -489,6 +489,9 @@ $result = mysqli_query($connect, $query);
 
     .linkcar .cith2 {
         text-decoration: none;
+    }
+    body.dark-theme select:hover {
+        background-color: #34495E;
     }
 </style>
 

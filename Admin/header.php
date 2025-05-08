@@ -61,6 +61,9 @@ $counts['orders'] = mysqli_fetch_assoc($result)['count'];
 </head>
 
 <style>
+    body{
+        margin:0;
+    }
         /* Notification styles */
         .notification {
             position: fixed;

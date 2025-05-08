@@ -129,7 +129,7 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <!-- /* Add to your header.php styles */ -->
 <style>
-    * {
+    body{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -142,9 +142,7 @@ if (isset($_SESSION['user_id'])) {
         
     }
 
-    main {
-        flex: 1;
-    }
+ 
 </style>
 
 <style>
@@ -513,7 +511,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .login-register {
-        padding-top: 15px;
+        /* padding-top: 15px; */
 
     }
 
@@ -539,7 +537,7 @@ if (isset($_SESSION['user_id'])) {
         display: flex;
         align-items: center;
         gap: 15px;
-        padding-top: 20px;
+        /* padding-top: 20px; */
     }
 
     .user-greeting {
@@ -734,11 +732,18 @@ if (isset($_SESSION['user_id'])) {
     .loggedin {
         display: flex;
         align-items: center;
-        padding: 5px 15px;
+        padding: 5px 15px !important;
         background-color: #fff;
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
+    body.dark-theme .loggedin {
+padding: 5px 15px !important;
+    }
+    body.dark-theme .logo{
+        height:124px !important;
+    }
+
 </style>
 <style>
     .login-register-ctn {
@@ -1251,7 +1256,7 @@ if (isset($_SESSION['user_id'])) {
     .loggedin {
         display: flex;
         align-items: center;
-        padding: 8px 15px;
+        /* padding: 8px 15px; */
         background: white;
         border-radius: 25px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -1380,7 +1385,7 @@ if (isset($_SESSION['user_id'])) {
         display: flex;
         align-items: center;
         gap: 15px;
-        padding: 8px 15px;
+        /* padding: 8px 15px; */
         background: rgba(255, 255, 255, 0.1);
         border-radius: 25px;
         backdrop-filter: blur(10px);
@@ -1682,6 +1687,7 @@ if (isset($_SESSION['user_id'])) {
     body.dark-theme main
     {
     background-color: rgb(43, 59, 77);
+    color:#e0e0e0;
     /* Dark background for dark theme */
     }
         /* Enhanced sub-dropdown styles for light theme */
@@ -1781,6 +1787,10 @@ if (isset($_SESSION['user_id'])) {
     body.dark-theme .sub-dropdown {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+    }
+    body.dark-theme .nav-left a:hover{
+        background: rgba(52, 152, 219, 0.2);
+        color: #2ECC71;
     }
 </style>
 

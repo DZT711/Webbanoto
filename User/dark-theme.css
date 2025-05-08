@@ -120,61 +120,6 @@ body.dark-theme .notification {
     color: #e0e0e0;
 }
 
-/* Cart Styles */
-body.dark-theme .cart-content-left,
-body.dark-theme .cart-content-right {
-    background-color: #2c3e50;
-}
-
-/* Product Details */
-body.dark-theme .product-info {
-    background-color: #34495e;
-}
-
-/* Search Bar */
-body.dark-theme #searchbar {
-    background-color: #34495e;
-}
-
-body.dark-theme #searchbar input {
-    background-color: #2c3e50;
-    color: #e0e0e0;
-}
-
-/* Status Badges */
-body.dark-theme .status-badge {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Section Headers */
-body.dark-theme .section-title {
-    color: #3498db;
-    border-bottom-color: #445566;
-}
-
-/* Links */
-body.dark-theme a {
-    color: #3498db;
-}
-
-body.dark-theme a:hover {
-    color: #2980b9;
-}
-
-/* Form Validation */
-body.dark-theme input:invalid {
-    border-color: #e74c3c;
-}
-
-body.dark-theme input:valid {
-    border-color: #2ecc71;
-}
-
-/* Loading States */
-body.dark-theme .skeleton-loader {
-    background: linear-gradient(90deg, #34495e 25%, #2c3e50 50%, #34495e 75%);
-}
-/* ...existing code... */
 
 /* About Us Page Styles */
 body.dark-theme .about-container {
@@ -205,7 +150,7 @@ body.dark-theme .product-thumbnails img.active {
 
 /* Bill History Page */
 body.dark-theme .billHistory-container {
-    background-color: #2c3e50;
+    background-color: #364a5e;
 }
 
 body.dark-theme .order-card {
@@ -213,9 +158,9 @@ body.dark-theme .order-card {
     border-color: #445566;
 }
 
-body.dark-theme .order-status {
+/* body.dark-theme .order-status {
     background-color: #2c3e50;
-}
+} */
 
 /* Payment Page */
 body.dark-theme .payment-top-wrap {

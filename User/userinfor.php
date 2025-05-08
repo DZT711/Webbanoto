@@ -862,6 +862,175 @@ if (isset($_POST['edit_profile'])) { {
     .toggle-password:not(.showing) .fa-eye-slash {
         display: none;
     }
+        /* User Info Dark Theme */
+    body.dark-theme .user-container {
+        background-color: #2c3e50;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Page Title Container */
+    body.dark-theme .page-title-container {
+        background: linear-gradient(145deg, #34495e, #2c3e50);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    body.dark-theme .page-title {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .page-title i {
+        background: linear-gradient(45deg, #3498db, #2ecc71);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+    
+    /* Back Button */
+    body.dark-theme .back-btn {
+        background: linear-gradient(45deg, #34495e, #2c3e50);
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .back-btn:hover {
+        background: linear-gradient(45deg, #2c3e50, #243240);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Info Rows */
+    body.dark-theme .info-row {
+        border-bottom: 1px solid #445566;
+        /* background: linear-gradient(to right, transparent 50%, rgba(52, 152, 219, 0.1) 50%); */
+    }
+    
+    body.dark-theme .info-row:hover {
+        background-position: right bottom;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .info-label {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .info-value {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .info-label i {
+        color: #3498db;
+    }
+    
+    /* Modal */
+    body.dark-theme .modal-content {
+        background: linear-gradient(145deg, #34495e, #2c3e50);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .modal-content h2 {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .form-group label {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .form-group input {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .form-group input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+    
+    body.dark-theme .form-group input::placeholder {
+        color: #95a5a6;
+    }
+    
+    body.dark-theme .form-group i {
+        color: #7f8c8d;
+    }
+    
+    /* Submit Button */
+    body.dark-theme .submit-btn {
+        background: linear-gradient(90deg, #3498db, #2980b9);
+    }
+    
+    body.dark-theme .submit-btn:hover {
+        background: linear-gradient(90deg, #2980b9, #2472a4);
+    }
+    
+    /* Close Button */
+    body.dark-theme .close-btn {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .close-btn:hover {
+        color: #e74c3c;
+        background-color: rgba(231, 76, 60, 0.1);
+    }
+    
+    /* Status Badges */
+    body.dark-theme .status-badge {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .role-badge {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Password Toggle */
+    body.dark-theme .toggle-password {
+        color: #bdc3c7;
+        background-color: rgba(189, 195, 199, 0.1);
+    }
+    
+    body.dark-theme .toggle-password:hover {
+        background-color: rgba(52, 152, 219, 0.2);
+        color: #3498db;
+    }
+    
+    body.dark-theme .password-dots {
+        color: #bdc3c7;
+    }
+    
+    /* Navigation Links */
+    body.dark-theme .nav-links .nav-link {
+        background-color: #34495e;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .nav-links .nav-link:hover {
+        background-color: #2c3e50;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme #edit {
+        background-color: #34495e;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme #edit:hover {
+        background-color: #2c3e50;
+    }
+    
+    /* Animations */
+    @keyframes darkFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    body.dark-theme .user-container,
+    body.dark-theme .modal-content,
+    body.dark-theme .info-row {
+        animation: darkFadeIn 0.3s ease-out;
+    }
     </style>
 </head>
 
