@@ -670,7 +670,7 @@ $user_info = mysqli_fetch_assoc($user_result);
 
     /* Input field styling */
     .input-text {
-        width: 100%;
+        width: 95%;
         padding: 12px;
         margin: 8px 0;
         border: 1px solid #ddd;
@@ -906,6 +906,247 @@ $user_info = mysqli_fetch_assoc($user_result);
 @keyframes highlightSweep {
     100% { left: 200%; }
 }
+/* Payment Page Dark Theme Styles */
+body.dark-theme .payment {
+    background-color: #34495E;
+}
+
+/* Title Container */
+body.dark-theme .eight {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .eight h1 {
+    color: #ecf0f1;
+}
+
+body.dark-theme .eight h1 span {
+    color: #ecf0f1;
+}
+
+body.dark-theme .eight:hover h1 span {
+    color: #3498db;
+}
+
+/* Progress Bar */
+body.dark-theme .payment-top {
+    background-color: #445566;
+}
+
+body.dark-theme .payment-top::before {
+    background-color: #2ecc71;
+}
+
+body.dark-theme .payment-top-item {
+    background-color: #2c3e50;
+    border-color: #445566;
+}
+
+body.dark-theme .payment-top-item i {
+    color: #bdc3c7;
+}
+
+body.dark-theme .payment-top-item.active {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+body.dark-theme .payment-top-item.active i {
+    color: #fff;
+}
+
+/* Payment Methods Container */
+body.dark-theme .payment-methods-container {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .payment-methods-container h3 {
+    color: #ecf0f1;
+}
+
+/* Payment Method Items */
+body.dark-theme .payment-method-item {
+    border-color: #445566;
+    background-color: #34495e;
+}
+
+body.dark-theme .payment-method-item:hover {
+    border-color: #3498db;
+    background-color: #2c3e50;
+}
+
+body.dark-theme .payment-method-item label {
+    color: #ecf0f1;
+}
+
+body.dark-theme .payment-method-item i {
+    color: #3498db;
+}
+
+/* Payment Details */
+body.dark-theme .payment-details {
+    border-top-color: #445566;
+    background-color: #2c3e50;
+}
+
+/* Form Inputs */
+body.dark-theme .input-text {
+    background-color: #34495e;
+    border-color: #445566;
+    color: #ecf0f1;
+}
+
+body.dark-theme .input-text:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+}
+
+body.dark-theme .input-text::placeholder {
+    color: #95a5a6;
+}
+
+/* Map Section */
+body.dark-theme .map-section {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .map-section h3 {
+    color: #ecf0f1;
+}
+
+body.dark-theme .route-info {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+body.dark-theme .distance-info,
+body.dark-theme .shipping-fee-info,
+body.dark-theme .price-info {
+    color: #bdc3c7;
+}
+
+body.dark-theme .route-info i {
+    color: #3498db;
+}
+
+/* Action Buttons */
+body.dark-theme .return-btn {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    color: #ecf0f1;
+    box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
+}
+
+body.dark-theme .pay-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #ecf0f1;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+body.dark-theme .return-btn:hover {
+    background: linear-gradient(135deg, #2c3e50, #233140);
+    box-shadow: 0 6px 20px rgba(52, 73, 94, 0.4);
+}
+
+body.dark-theme .pay-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #2472a4);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* Form Validation */
+body.dark-theme .input-text.error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.25);
+}
+
+body.dark-theme .input-text.valid {
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.25);
+}
+
+body.dark-theme .error-message {
+    color: #e74c3c;
+}
+
+/* Security Note */
+body.dark-theme .security-note {
+    color: #95a5a6;
+}
+
+/* Form Groups */
+body.dark-theme .form-group label {
+    color: #bdc3c7;
+}
+
+/* Leaflet Map Customization */
+body.dark-theme .leaflet-container {
+    background-color: #34495e;
+}
+
+body.dark-theme .leaflet-popup-content-wrapper {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+body.dark-theme .leaflet-popup-tip {
+    background-color: #2c3e50;
+}
+/* Progress Bar Section */
+/* Progress Bar Styles */
+body.dark-theme .payment-top {
+    height: 2px;
+    width: 70%;
+    background-color: #445566;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 840px;
+    position: relative;
+}
+
+/* Update the progress line color from green to blue */
+body.dark-theme .payment-top::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 2px;
+    width: 100%;
+    background-color: #3498db; /* Changed from #2ecc71 to #3498db */
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+/* Update active state colors */
+body.dark-theme .payment-top-item.active {
+    border-color: #2980b9; /* Changed from #27ae60 */
+    background-color: #3498db; /* Changed from #2ecc71 */
+}
+
+/* Update hover effect color */
+body.dark-theme .payment-top-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.3); /* Changed from rgba(46, 204, 113, 0.3) */
+}
+
+/* Update inactive item colors */
+body.dark-theme .payment-top-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #445566;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2c3e50;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
 </style>
 <body>
 
@@ -1028,36 +1269,7 @@ $user_info = mysqli_fetch_assoc($user_result);
                         </div>
                     </div>
 
-                    <!-- Bottom Navigation -->
-                    <!-- <div class="links-container">
-                        <a href="delivery.php" class="return-btn">
-                            <i class="fas fa-arrow-left"></i>
-                            TRỞ VỀ
-                        </a>
-                        <a href="review.php" class="pay-btn">
-                            THANH TOÁN
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div> -->
-                </div>
-                <!-- Quà tặng và nút Thanh toán trên cùng hàng -->
-                <div class="payment-content-right-button"
-                    style=" justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <!-- Nút chọn quà tặng -->
-                    <!-- <button id="gift-btn" style="padding: 10px; width: 49%; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: black; cursor: pointer;" >
-                        Chọn quà tặng
-                    </button> -->
 
-                    <!-- Danh sách quà tặng (ẩn mặc định) -->
-                    <!-- <ul id="gift-options" style="display: none; position: absolute; top: 100%; left: 0; width: 70%; background-color: white; border: 1px solid #ccc; border-radius: 5px; list-style: none; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); z-index: 100;">
-                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Bọc vô lăng')">Bọc vô lăng</li>
-                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Trang trí xe')">Trang trí xe</li>
-                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Vệ sinh xe')">Vệ sinh xe</li>
-                        <li style="padding: 5px; cursor: pointer;" onclick="selectGift('Nước hoa xe hơi')">Nước hoa xe hơi</li>
-                    </ul> -->
-                </div>
-                <!-- Replace the existing button section -->
-                <!-- Add this after your payment methods section -->
 
 
                 </a>
@@ -1371,13 +1583,14 @@ $user_info = mysqli_fetch_assoc($user_result);
             }, 100);
         });
     });
-    
+    let $color;
     // Update hover effect
     const titleContainer = document.querySelector('.eight');
     titleContainer.addEventListener('mouseenter', () => {
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(-5px)';
+            $color=letter.style.color;
             letter.style.color = '#007bff';
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
@@ -1387,7 +1600,7 @@ $user_info = mysqli_fetch_assoc($user_result);
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(0)';
-            letter.style.color = '#2c3e50';
+            letter.style.color = $color;
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
     });

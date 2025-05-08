@@ -472,6 +472,7 @@ $user_address = mysqli_fetch_assoc($user_address_result);
         width: 600px;
     }
 
+
     /* Products List Section */
     .products-list {
         background: #fff;
@@ -924,7 +925,226 @@ $user_address = mysqli_fetch_assoc($user_address_result);
 }
 </style>
 <style>
+        /* Delivery Page Dark Theme */
+    body.dark-theme .delivery {
+        background-color: #33475C;
+    }
     
+    /* Progress Bar */
+    body.dark-theme .delivery-top {
+        background-color: #445566;
+    }
+    
+    body.dark-theme .delivery-top::before {
+        background-color: #3498db;
+    }
+    
+    body.dark-theme .delivery-top-item {
+        background-color: #2c3e50;
+        border-color: #445566;
+    }
+    
+    body.dark-theme .delivery-top-item.active {
+        background-color: #3498db;
+        border-color: #2980b9;
+    }
+    
+    body.dark-theme .delivery-top-item i {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .delivery-top-item.active i {
+        color: #ecf0f1;
+    }
+    
+    /* Title Container */
+    body.dark-theme .eight {
+        background-color: #2c3e50;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .eight h1 {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .eight h1 span {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .eight::before {
+        background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+    }
+    
+    /* Form Container */
+    body.dark-theme .delivery-content-left {
+        background-color: #2c3e50;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Input Groups */
+    body.dark-theme .input-group label {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .input-group label i {
+        color: #3498db;
+    }
+    
+    body.dark-theme .input-group input {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .input-group input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+    
+    body.dark-theme .input-group input::placeholder {
+        color: #95a5a6;
+    }
+    
+    /* Address Selection */
+    body.dark-theme .address-method-label {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .address-method label {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .address-method input[type="radio"]:checked + label {
+        background-color: #3498db;
+        border-color: #2980b9;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .address-select {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    /* Map Container */
+    body.dark-theme .map-container {
+        border-color: #445566;
+        background-color: #34495e;
+    }
+    
+    body.dark-theme .leaflet-container {
+        background-color: #34495e;
+    }
+    
+    body.dark-theme .leaflet-popup-content-wrapper {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+    }
+    
+    /* Products List */
+    body.dark-theme .products-list {
+        background-color: #2c3e50;
+    }
+    
+    body.dark-theme .products-list th {
+        background-color: #34495e;
+        color: #ecf0f1;
+        border-bottom-color: #445566;
+    }
+    
+    body.dark-theme .products-list td {
+        border-bottom-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .product-brand {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .product-name {
+        color: #ecf0f1 !important;
+    }
+    
+    /* Order Summary */
+    body.dark-theme .order-summary {
+        background-color: #2c3e50;
+    }
+    
+    body.dark-theme .summary-row {
+        border-bottom-color: #445566;
+        background:#2C3E50;
+    }
+    
+    body.dark-theme .summary-label {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .summary-label i {
+        color: #3498db;
+    }
+    
+    body.dark-theme .amount {
+        color: #3498db;
+    }
+    
+    body.dark-theme .VAT {
+        color: #e74c3c;
+    }
+    
+    body.dark-theme .total-amount {
+        color: #2ecc71;
+    }
+    
+    /* Action Buttons */
+    body.dark-theme .back-button {
+        background-color: #34495e;
+        border-color: #445566;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .back-button:hover {
+        background-color: #2c3e50;
+    }
+    
+    body.dark-theme #checkout-button {
+        background-color: #3498db;
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme #checkout-button:hover {
+        background-color: #2980b9;
+    }
+    
+    /* Required Indicator */
+    body.dark-theme .required-indicator {
+        color: #e74c3c;
+    }
+    
+    /* Info Text */
+    body.dark-theme .info {
+        color: #bdc3c7;
+    }
+    
+    /* Location Button */
+    body.dark-theme .location-button {
+        color: #3498db;
+    }
+    
+    body.dark-theme .location-button:hover {
+        color: #2980b9;
+    }
+        body.dark-theme .delivery-content-right {
+background:#2C3E50;
+    }
+    body.dark-theme i{
+        
+        color: #e0e0e0; /* Set icon color for dark theme */
+    }
+    body.dark-theme h1{
+        color: #e0e0e0; /* Set title color for dark theme */
+    }
 </style>
 <body>
 
@@ -1418,13 +1638,14 @@ document.addEventListener('DOMContentLoaded', initMap);
             }, 100);
         });
     });
-    
+    let $color;
     // Update hover effect
     const titleContainer = document.querySelector('.eight');
     titleContainer.addEventListener('mouseenter', () => {
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(-5px)';
+            $color=letter.style.color;
             letter.style.color = '#007bff';
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
@@ -1434,7 +1655,7 @@ document.addEventListener('DOMContentLoaded', initMap);
         const letters = titleContainer.querySelectorAll('h1 span');
         letters.forEach((letter, index) => {
             letter.style.transform = 'translateY(0)';
-            letter.style.color = '#2c3e50';
+            letter.style.color = $color;
             letter.style.transition = `all 0.3s ease ${index * 0.05}s`;
         });
     });

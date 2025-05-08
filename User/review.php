@@ -97,7 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE order_id = ?";
 
         $stmt = mysqli_prepare($connect, $update_order);
-        mysqli_stmt_bind_param($stmt, "ddi", 
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ddi",
             $order['shipping_fee'],
             $total_amount,
             $order_id
@@ -111,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Clear session cart data
         $_SESSION['cart'] = array();
-        
+
         echo "<script>
             showNotification('Đặt hàng thành công! Vui lòng chờ xác nhận.', 'success');
             setTimeout(() => { window.location.href = 'billhistory.php'; }, 2000);
@@ -318,7 +320,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
         }
     }
-        /* Add to your existing styles */
+
+    /* Add to your existing styles */
     .product-item {
         display: flex;
         gap: 20px;
@@ -328,12 +331,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         margin-bottom: 15px;
         transition: all 0.3s ease;
     }
-    
+
     .product-item:hover {
         transform: translateX(5px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-    
+
     .product-image {
         width: 120px;
         height: 80px;
@@ -341,22 +344,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         overflow: hidden;
         flex-shrink: 0;
     }
-    
+
     .product-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease;
     }
-    
+
     .product-item:hover .product-image img {
         transform: scale(1.1);
     }
-    
+
     .product-content {
         flex: 1;
     }
-    
+
     .product-header {
         display: flex;
         justify-content: space-between;
@@ -365,167 +368,189 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 </style>
 <style>
-/* Enhanced Review Page Styles */
-.review-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-    animation: fadeIn 0.5s ease-out;
-}
-
-.review-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transform: translateY(20px);
-    opacity: 0;
-    animation: slideUp 0.5s ease-out forwards;
-}
-
-.review-header {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    padding: 25px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    
-}
-
-.review-header::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: shimmer 2s infinite;
-}
-
-.section {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s ease-out forwards;
-}
-
-.section:nth-child(1) { animation-delay: 0.2s; }
-.section:nth-child(2) { animation-delay: 0.4s; }
-.section:nth-child(3) { animation-delay: 0.6s; }
-
-.section-title {
-    position: relative;
-    padding-left: 15px;
-    transition: all 0.3s ease;
-}
-
-.section-title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 0;
-    background: #007bff;
-    transition: height 0.3s ease;
-}
-
-.section:hover .section-title::before {
-    height: 100%;
-}
-
-.product-item {
-    transform: translateX(-20px);
-    opacity: 0;
-    animation: slideInLeft 0.5s ease-out forwards;
-}
-
-.product-item:hover {
-    transform: translateX(5px) translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
-}
-
-.order-summary {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 1px solid rgba(0,123,255,0.1);
-    transform: scale(0.95);
-    opacity: 0;
-    animation: scaleIn 0.5s ease-out 0.8s forwards;
-}
-
-.btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
-}
-
-.btn:hover::after {
-    left: 100%;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    to {
-        transform: translateY(0);
-        opacity: 1;
+    /* Enhanced Review Page Styles */
+    .review-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        animation: fadeIn 0.5s ease-out;
     }
-}
 
-@keyframes shimmer {
-    100% { left: 100%; }
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .review-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: slideUp 0.5s ease-out forwards;
     }
-}
 
-@keyframes slideInLeft {
-    to {
-        transform: translateX(0);
-        opacity: 1;
+    .review-header {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 25px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
     }
-}
 
-@keyframes scaleIn {
-    to {
-        transform: scale(1);
-        opacity: 1;
+    .review-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        animation: shimmer 2s infinite;
     }
-}
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
+    .section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .section:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .section:nth-child(2) {
+        animation-delay: 0.4s;
+    }
+
+    .section:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+    .section-title {
+        position: relative;
+        padding-left: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .section-title::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 0;
+        background: #007bff;
+        transition: height 0.3s ease;
+    }
+
+    .section:hover .section-title::before {
+        height: 100%;
+    }
+
+    .product-item {
+        transform: translateX(-20px);
+        opacity: 0;
+        animation: slideInLeft 0.5s ease-out forwards;
+    }
+
+    .product-item:hover {
+        transform: translateX(5px) translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+    }
+
+    .order-summary {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 1px solid rgba(0, 123, 255, 0.1);
+        transform: scale(0.95);
+        opacity: 0;
+        animation: scaleIn 0.5s ease-out 0.8s forwards;
+    }
+
+    .btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .btn:hover::after {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes shimmer {
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInLeft {
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+    }
 </style>
 <style>
-        /* Enhanced Title Styles */
+    /* Enhanced Title Styles */
     .review-header {
         background: linear-gradient(135deg, #007bff, #0056b3, #003780);
         background-size: 200% 100%;
@@ -536,7 +561,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         overflow: hidden;
         animation: gradientBG 5s ease infinite;
     }
-    
+
     .review-header h1 {
         font-size: 28px;
         font-weight: 600;
@@ -549,9 +574,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         transform: translateY(20px);
         animation: fadeInUp 0.8s ease forwards;
     }
-    
+
     .review-header h1::before {
-        content: '\f058'; /* FontAwesome check icon */
+        content: '\f058';
+        /* FontAwesome check icon */
         font-family: 'Font Awesome 5 Free';
         font-weight: 900;
         font-size: 24px;
@@ -559,7 +585,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         animation: bounce 2s ease infinite;
         padding-right: 10px;
     }
-    
+
     .review-header::after {
         content: '';
         position: absolute;
@@ -567,47 +593,220 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
-        );
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent);
         animation: shimmer 3s ease-in-out infinite;
     }
-    
+
     /* New animations */
     @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
-    
+
     @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
     }
-    
+
     @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
     }
-    
+
     @keyframes fadeInUp {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
-    .review-header h1{
+
+    .review-header h1 {
         display: inline-block;
     }
+        /* Review Page Dark Theme */
+    body.dark-theme .review-container {
+        background-color:#2c3e50;
+    }
+    
+    /* Card and Header */
+    body.dark-theme .review-card {
+        background-color: #2c3e50;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .review-header {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+    }
+    
+    body.dark-theme .review-header h1 {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .review-header::after {
+        background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+    }
+    
+    /* Section Styles */
+    body.dark-theme .section-title {
+        color: #ecf0f1;
+        border-bottom-color: #445566;
+    }
+    
+    body.dark-theme .section-title::before {
+        background: #3498db;
+    }
+    
+    /* Product Items */
+    body.dark-theme .product-item {
+        background: #34495e;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-theme .product-item:hover {
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+    }
+    
+    body.dark-theme .product-name {
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .product-price {
+        color: #2ecc71;
+    }
+    
+    body.dark-theme .product-details {
+        color: #bdc3c7;
+    }
+    
+    /* Order Summary */
+    body.dark-theme .order-summary {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        border-color: #445566;
+    }
+    
+    body.dark-theme .summary-row {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .summary-row.total-row {
+        border-top-color: #445566;
+    }
+    
+    body.dark-theme .total-amount {
+        color: #2ecc71;
+    }
+    
+    /* Delivery Info */
+    body.dark-theme .info-block {
+        background-color: #34495e;
+    }
+    
+    body.dark-theme .info-title {
+        color: #3498db;
+    }
+    
+    body.dark-theme .delivery-info p {
+        color: #bdc3c7;
+    }
+    
+    body.dark-theme .delivery-info strong {
+        color: #ecf0f1;
+    }
+    
+    /* Payment Method */
+    body.dark-theme .payment-method {
+        background-color: #34495e;
+        color: #ecf0f1;
+    }
+    
+    /* Buttons */
+    body.dark-theme .btn-back {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .btn-confirm {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: #ecf0f1;
+    }
+    
+    body.dark-theme .btn-back:hover {
+        background: linear-gradient(135deg, #2c3e50, #233140);
+        box-shadow: 0 5px 15px rgba(52, 73, 94, 0.4);
+    }
+    
+    body.dark-theme .btn-confirm:hover {
+        background: linear-gradient(135deg, #2980b9, #236a9c);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+    }
+    
+    /* Dark Theme Animations */
+    @keyframes darkShimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    body.dark-theme .review-header::after {
+        animation: darkShimmer 3s ease-in-out infinite;
+    }
+    
+    body.dark-theme .btn::after {
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+    
+    /* Image Handling */
+    body.dark-theme .product-image {
+        background-color: #34495e;
+        border: 1px solid #445566;
+    }
+    
+    /* Loading State */
+    body.dark-theme .btn-confirm:disabled {
+        background: #34495e;
+        color: #bdc3c7;
+    }
+    
+    /* Hover Effects */
+    body.dark-theme .section:hover .section-title {
+        color: #3498db;
+    }
+    
+    body.dark-theme .product-item:hover .product-name {
+        color: #3498db;
+    }
 </style>
+
 <body>
+<main>
 
     <div class="review-container">
         <div class="review-card">
@@ -623,9 +822,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php while ($product = mysqli_fetch_assoc($products)): ?>
                         <div class="product-item">
                             <div class="product-image">
-                                <img src="<?= htmlspecialchars($product['image_link']  ) ?>" 
-                                     alt="<?= htmlspecialchars($product['car_name']) ?>"
-                                     onerror="this.src='../images/no-image.png';">
+                                <img src="<?= htmlspecialchars($product['image_link']) ?>"
+                                    alt="<?= htmlspecialchars($product['car_name']) ?>"
+                                    onerror="this.src='../images/no-image.png';">
                             </div>
                             <div class="product-content">
                                 <div class="product-header">
@@ -706,39 +905,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
+    </main>
     <script>
-                // Add to your existing script
-        document.addEventListener('DOMContentLoaded', function() {
+        // Add to your existing script
+        document.addEventListener('DOMContentLoaded', function () {
             // Add hover effect to products
             const products = document.querySelectorAll('.product-item');
             products.forEach((product, index) => {
                 product.style.animationDelay = `${0.2 * index}s`;
-                
+
                 product.addEventListener('mouseenter', () => {
                     product.querySelector('.product-image img').style.transform = 'scale(1.1)';
                 });
-                
+
                 product.addEventListener('mouseleave', () => {
                     product.querySelector('.product-image img').style.transform = 'scale(1)';
                 });
             });
-        
+
             // Add animation to total amount
             // const totalAmount = document.querySelector('.total-amount');
             // if (totalAmount) {
             //     totalAmount.style.animation = 'bounce 2s infinite';
             // }
-        
+
             // Smooth scroll to sections
             document.querySelectorAll('.section-title').forEach(title => {
                 title.addEventListener('click', () => {
                     title.parentElement.scrollIntoView({ behavior: 'smooth' });
                 });
             });
-        
+
             // Add loading animation when submitting
             const form = document.querySelector('form');
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 const confirmBtn = this.querySelector('.btn-confirm');
                 confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
                 confirmBtn.disabled = true;
@@ -746,21 +946,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
     <script>
-                document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const header = document.querySelector('.review-header');
             const title = header.querySelector('h1');
-        
+
             // Add hover effect
             header.addEventListener('mouseenter', () => {
                 title.style.transform = 'scale(1.05)';
                 title.style.textShadow = '0 0 15px rgba(255,255,255,0.5)';
             });
-        
+
             header.addEventListener('mouseleave', () => {
                 title.style.transform = 'scale(1)';
                 title.style.textShadow = 'none';
             });
-        
+
             // Add text reveal animation
             const text = title.textContent;
             title.textContent = '';
@@ -771,7 +971,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 span.style.transform = 'translateY(20px)';
                 span.style.transition = `all 0.3s ease ${i * 0.05}s`;
                 title.appendChild(span);
-        
+
                 setTimeout(() => {
                     span.style.opacity = '1';
                     span.style.transform = 'translateY(0)';

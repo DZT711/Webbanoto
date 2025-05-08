@@ -1636,7 +1636,7 @@ checkCartItemsStatus($connect);
 }
 /* Cart Page Dark Theme */
 body.dark-theme .cart {
-    background-color: #1a1a1a;
+    background-color: #33475C;
 }
 
 /* Progress Bar */
