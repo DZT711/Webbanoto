@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 function isCurrentPage($pageName)
 {
     $currentPage = basename($_SERVER['PHP_SELF']);
@@ -108,7 +109,36 @@ if (isset($_SESSION['user_id'])) {
 
 
 ?>
+<?php
+// Add this function after session_start()
+function getTimeBasedGreeting()
+{
+    $hour = (int) date('H');
+    if ($hour >= 0 && $hour < 10) {
+        return array(
+            'text' => 'Chào buổi sáng,',
+            'icon' => '<i class="fas fa-sun" style="color: #f39c12;"></i>'
+        );
+    } elseif ($hour >= 10 && $hour < 13) {
+        return array(
+            'text' => 'Chào buổi trưa,',
+            'icon' => '<i class="fas fa-sun" style="color: #f1c40f;"></i>'
+        );
+    } elseif ($hour >= 13 && $hour < 18) {
+        return array(
+            'text' => 'Chào buổi chiều,',
+            'icon' => '<i class="fas fa-cloud-sun" style="color: #e67e22;"></i>'
+        );
+    } else {
+        return array(
+            'text' => 'Chào buổi tối,',
+            'icon' => '<i class="fas fa-moon" style="color:rgb(67, 94, 121);"></i>'
+        );
+    }
+}
 
+// Then find the greeting section in your HTML and replace it with:
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1792,6 +1822,36 @@ padding: 5px 15px !important;
         background: rgba(52, 152, 219, 0.2);
         color: #2ECC71;
     }
+        /* Add to your existing CSS */
+    .greeting-icon {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 8px;
+        font-size: 1.2em;
+    }
+    
+    .greeting-icon i {
+        transition: transform 0.3s ease;
+    }
+    
+    .greeting-icon:hover i {
+        transform: scale(1.2);
+    }
+    
+    /* Dark theme support */
+    body.dark-theme .greeting-icon i {
+        filter: brightness(1.2);
+    }
+    
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .hello {
+        white-space: nowrap;
+    }
 </style>
 
 <body>
@@ -2142,7 +2202,11 @@ padding: 5px 15px !important;
             <?php if (isset($_SESSION['username'])): ?>
                 <div class="loggedin">
                     <span class="user-greeting">
-                        <span class="hello">Xin chào,</span>
+                            <?php
+                            $greeting = getTimeBasedGreeting();
+                            echo '<span class="greeting-icon">' . $greeting['icon'] . '</span>';
+                            echo '<span class="hello">' . $greeting['text'] . '</span>';
+                            ?>
                         <a href="userinfor.php" class="username-link">
                             <i class="fa-regular fa-user"></i>
                             <?php echo htmlspecialchars($_SESSION['username']); ?>
