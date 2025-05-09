@@ -493,6 +493,12 @@ $result = mysqli_query($connect, $query);
     body.dark-theme select:hover {
         background-color: #34495E;
     }
+    body.dark-theme .info{
+        color:#e0e0e0;
+    }
+    body.dark-theme .cit:hover{
+        color:#e0e0e0;
+    }
 </style>
 
 <body>

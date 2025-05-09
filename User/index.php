@@ -1108,6 +1108,9 @@ body.dark-theme .info{
 body.dark-theme #searchbar{
     background:#2C3E50!important;
 }
+body.dark-theme .lg{
+    color: #e0e0e0;
+}
 </style>
 
 <body>
