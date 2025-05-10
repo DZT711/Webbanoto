@@ -113,7 +113,9 @@ if (isset($_SESSION['user_id'])) {
 // Add this function after session_start()
 function getTimeBasedGreeting()
 {
+    date_default_timezone_set('Asia/Bangkok');
     $hour = (int) date('H');
+
     if ($hour >= 0 && $hour < 10) {
         return array(
             'text' => 'Chào buổi sáng,',
@@ -159,7 +161,7 @@ function getTimeBasedGreeting()
 </head>
 <!-- /* Add to your header.php styles */ -->
 <style>
-    body{
+    body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -169,10 +171,8 @@ function getTimeBasedGreeting()
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        
-    }
 
- 
+    }
 </style>
 
 <style>
@@ -767,13 +767,14 @@ function getTimeBasedGreeting()
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
+
     body.dark-theme .loggedin {
-padding: 5px 15px !important;
-    }
-    body.dark-theme .logo{
-        height:124px !important;
+        padding: 5px 15px !important;
     }
 
+    body.dark-theme .logo {
+        height: 124px !important;
+    }
 </style>
 <style>
     .login-register-ctn {
@@ -1714,13 +1715,13 @@ padding: 5px 15px !important;
         color: #ffffff;
     }
 
-    body.dark-theme main
-    {
-    background-color: rgb(43, 59, 77);
-    color:#e0e0e0;
-    /* Dark background for dark theme */
+    body.dark-theme main {
+        background-color: rgb(43, 59, 77);
+        color: #e0e0e0;
+        /* Dark background for dark theme */
     }
-        /* Enhanced sub-dropdown styles for light theme */
+
+    /* Enhanced sub-dropdown styles for light theme */
     .sub-dropdown {
         display: none;
         position: absolute;
@@ -1734,7 +1735,7 @@ padding: 5px 15px !important;
         overflow: hidden;
         animation: slideIn 0.3s ease-out;
     }
-    
+
     .sub-dropdown a {
         padding: 12px 16px;
         color: #495057;
@@ -1747,110 +1748,128 @@ padding: 5px 15px !important;
         overflow: hidden;
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
-    
+
     .sub-dropdown a i {
         color: #3498db;
         width: 20px;
         text-align: center;
         transition: transform 0.3s ease;
     }
-    
+
     .sub-dropdown a:hover {
         background: linear-gradient(to right, #f0f7ff, #e6f3ff);
         color: #2980b9;
         padding-left: 22px;
     }
-    
+
     .sub-dropdown a:hover i {
         transform: scale(1.2);
         color: #2980b9;
     }
-    
+
     /* Dark theme styles for sub-dropdown */
     body.dark-theme .sub-dropdown {
         background: linear-gradient(to right, #2c3e50, #34495e);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
-    
+
     body.dark-theme .sub-dropdown a {
         color: #ecf0f1;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
+
     body.dark-theme .sub-dropdown a i {
         color: #3498db;
     }
-    
+
     body.dark-theme .sub-dropdown a:hover {
         background: linear-gradient(to right, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.2));
         color: #3498db;
     }
-    
+
     /* Animation for sub-dropdown */
     @keyframes slideIn {
         from {
             opacity: 0;
             transform: translateX(-10px);
         }
+
         to {
             opacity: 1;
             transform: translateX(0);
         }
     }
-    
+
     /* Hover effects for parent items */
-    .brand-dropdown > a:hover {
+    .brand-dropdown>a:hover {
         background: rgba(52, 152, 219, 0.1);
     }
-    
-    body.dark-theme .brand-dropdown > a:hover {
+
+    body.dark-theme .brand-dropdown>a:hover {
         background: rgba(52, 152, 219, 0.2);
     }
-    
+
     /* Glass effect for dropdowns */
     .sub-dropdown {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
-    
+
     body.dark-theme .sub-dropdown {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
-    body.dark-theme .nav-left a:hover{
+
+    body.dark-theme .nav-left a:hover {
         background: rgba(52, 152, 219, 0.2);
         color: #2ECC71;
     }
-        /* Add to your existing CSS */
+
+    /* Add to your existing CSS */
     .greeting-icon {
         display: inline-flex;
         align-items: center;
         margin-right: 8px;
         font-size: 1.2em;
     }
-    
+
     .greeting-icon i {
         transition: transform 0.3s ease;
     }
-    
+
     .greeting-icon:hover i {
         transform: scale(1.2);
     }
-    
+
     /* Dark theme support */
     body.dark-theme .greeting-icon i {
         filter: brightness(1.2);
     }
-    
+
     .user-greeting {
         display: flex;
         align-items: center;
         gap: 8px;
     }
-    
+
     .hello {
         white-space: nowrap;
+    }
+
+    body.dark-theme #time {
+        color: #e0e0e0;
+    }
+
+    #time {
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: opacity 0.3s ease;
+        display: inline-block;
+        min-width: 70px;
+        /* Prevent layout shift */
+        text-align: center;
     }
 </style>
 
@@ -1899,11 +1918,11 @@ padding: 5px 15px !important;
                             $brand_query = "SELECT * FROM car_types ORDER BY type_name";
                             $brand_result = mysqli_query($connect, $brand_query);
 
-                                                        // Replace the existing brand link generation code with this:
+                            // Replace the existing brand link generation code with this:
                             if ($brand_result && mysqli_num_rows($brand_result) > 0) {
                                 while ($brand = mysqli_fetch_assoc($brand_result)) {
                                     $brand_name = strtolower($brand['type_name']);
-                                    
+
                                     // Define the URL based on brand name
                                     $url = '';
                                     switch ($brand_name) {
@@ -1920,7 +1939,7 @@ padding: 5px 15px !important;
                                             $url = 'brand.php?type=' . urlencode($brand['type_name']);
                                             break;
                                     }
-                            
+
                                     echo '<a href="' . $url . '">';
                                     echo '<i class="fa-solid fa-car"></i> ' . htmlspecialchars($brand['type_name']);
                                     echo '</a>';
@@ -1929,7 +1948,7 @@ padding: 5px 15px !important;
                                 echo '<a href="#">';
                                 echo '<i class="fa-solid fa-exclamation-triangle"></i> Không có thương hiệu';
                                 echo '</a>';
-                            } 
+                            }
                             ?>
                         </div>
                     </div>
@@ -2202,11 +2221,13 @@ padding: 5px 15px !important;
             <?php if (isset($_SESSION['username'])): ?>
                 <div class="loggedin">
                     <span class="user-greeting">
-                            <?php
-                            $greeting = getTimeBasedGreeting();
-                            echo '<span class="greeting-icon">' . $greeting['icon'] . '</span>';
-                            echo '<span class="hello">' . $greeting['text'] . '</span>';
-                            ?>
+                        <span id="time"></span>
+                        <?php
+                        $greeting = getTimeBasedGreeting();
+
+                        echo '<span class="greeting-icon">' . $greeting['icon'] . '</span>';
+                        echo '<span class="hello">' . $greeting['text'] . '</span>';
+                        ?>
                         <a href="userinfor.php" class="username-link">
                             <i class="fa-regular fa-user"></i>
                             <?php echo htmlspecialchars($_SESSION['username']); ?>
@@ -2402,6 +2423,32 @@ padding: 5px 15px !important;
 
 
 
+        function DigitalClock() {
+            const clock = document.getElementById('time');
+            let colonVisible = true;
+
+            function displayTime() {
+                const time = new Date();
+                const h = time.getHours();
+                const hour = h.toString().padStart(2, 0);
+                const m = time.getMinutes().toString().padStart(2, 0);
+
+                // Use colonVisible to toggle the colon
+                const colon = colonVisible ? ':' : ' ';
+                colonVisible = !colonVisible;
+
+                clock.textContent = `${hour}${colon}${m}`;
+            }
+
+            // Update every 500ms for smoother blinking
+            displayTime();
+            setInterval(displayTime, 500);
+        }
+
+
+
+        // Start the clock when the page loads
+        document.addEventListener('DOMContentLoaded', DigitalClock);
     </script>
 </body>
 
