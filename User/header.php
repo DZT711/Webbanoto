@@ -2030,13 +2030,16 @@ function getTimeBasedGreeting()
                             <i class="fa fa-caret-right"></i>
                         </a>
                         <div class="sub-dropdown">
-                            <a href="search-results.php?fuel=petrol">
+                            <a href="search-results.php?fuel=xăng">
                                 <i class="fa-solid fa-gas-pump"></i> Xăng
+                            </a>
+                            <a href="search-results.php?fuel=xăng+cao+cấp">
+                                <i class="fa-solid fa-gas-pump"></i> Xăng cao cấp
                             </a>
                             <a href="search-results.php?fuel=diesel">
                                 <i class="fa-solid fa-gas-pump"></i> Diesel
                             </a>
-                            <a href="search-results.php?fuel=electric">
+                            <a href="search-results.php?fuel=Điện">
                                 <i class="fa-solid fa-bolt"></i> Điện
                             </a>
                             <a href="search-results.php?fuel=hybrid">

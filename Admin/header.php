@@ -508,7 +508,7 @@ button.link:active {
     padding: 20px;
     position: relative;
     overflow: hidden;
-    animation: headerGradient 5s ease infinite;
+    animation: headerGradient 20s ease infinite;
 }
 
 .logo {
@@ -622,7 +622,7 @@ button.link:active {
         display: flex;
         justify-content: center;
         align-items: center; */
-        animation: gradientAnimation 15s ease infinite;
+        animation: gradientAnimation 30s ease-in-out infinite;
     }
     
 
