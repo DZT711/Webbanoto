@@ -7,6 +7,7 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+
 // Add this after your database connection
 function checkCartItemsStatus($connect) {
     if (!isset($_SESSION['cart_notifications'])) {
@@ -80,8 +81,45 @@ foreach ($cartItems as $item) {
         $unavailableItems++;
     }
 }
+// At the beginning of the file, update the guest user cart items fetching
+if (!isset($_SESSION['user_id']) && !empty($_SESSION['cart'])) {
+    $cartItems = [];
+    foreach ($_SESSION['cart'] as $item) {
+        // Get updated product information including status
+        $query = "SELECT p.*, ct.type_name 
+                 FROM products p 
+                 LEFT JOIN car_types ct ON p.brand_id = ct.type_id 
+                 WHERE p.product_id = ?";
 
-if (isset($_SESSION['user_id'])) {
+        $stmt = mysqli_prepare($connect, $query);
+        mysqli_stmt_bind_param($stmt, "i", $item['product_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($product = mysqli_fetch_assoc($result)) {
+            $cartItem = array_merge($item, [
+                'type_name' => $product['type_name'] ?? 'N/A',
+                'status' => $product['status'] // Include status in cart item
+            ]);
+
+            // Update session cart item status
+            foreach ($_SESSION['cart'] as &$sessionItem) {
+                if ($sessionItem['product_id'] == $item['product_id']) {
+                    $sessionItem['status'] = $product['status'];
+                    break;
+                }
+            }
+
+            $cartItems[] = $cartItem;
+            if ($product['status'] !== 'hidden' && $product['status'] !== 'soldout') {
+                $totalItems += $item['quantity'];
+                $totalAmount += $item['price'] * $item['quantity'];
+            }
+        }
+    }
+}
+
+else if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // First, check if user has an active cart

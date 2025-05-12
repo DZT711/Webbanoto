@@ -2261,10 +2261,17 @@ function getTimeBasedGreeting()
                 </div>
             <?php else: ?>
                 <div class="notlogin">
-                    <a href="cart.php" class="auth-link cart-link">
+                <span id="time"></span>
+                        <?php
+                            $greeting = getTimeBasedGreeting();
+
+                            echo '<span class="greeting-icon">' . $greeting['icon'] . '</span>';
+                            // echo '<span class="hello">' . $greeting['text'] . '</span>';
+                            ?>
+                    <!-- <a href="cart.php" class="auth-link cart-link">
                         <i class="fas fa-shopping-cart"></i>
                         Giỏ hàng
-                    </a>
+                    </a> -->
                     <span class="separator"></span>
                     <a href="login.php" class="user-link">
                         <i class="fas fa-sign-in-alt"></i>

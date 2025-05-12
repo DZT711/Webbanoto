@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'connect.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity'] ?? 1);
@@ -64,12 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_rollback($connect);
             $success = false;
         }
-    } else {
+    }  else {
         // For guest users
         $product_query = "SELECT p.*, ct.type_name 
-                          FROM products p 
+                         FROM products p 
                          LEFT JOIN car_types ct ON p.brand_id = ct.type_id 
-                         WHERE p.product_id = ?";
+                         WHERE p.product_id = ? AND p.status IN ('selling', 'discounting')";
 
         $stmt = mysqli_prepare($connect, $product_query);
         mysqli_stmt_bind_param($stmt, "i", $product_id);
@@ -97,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'price' => $product['price'],
                     'image_link' => $product['image_link'],
                     'quantity' => $quantity,
-                    'type_name' => $product['type_name'] ?? 'N/A'
+                    'type_name' => $product['type_name'] ?? 'N/A',
+                    'status' => $product['status'] // Add status field
                 ];
             }
             $success = true;
@@ -106,4 +106,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo json_encode(['success' => $success]);
 }
-?>
