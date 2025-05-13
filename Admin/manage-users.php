@@ -669,8 +669,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         onclick="showEditPopup(<?php
                                         echo $row['id']; ?>, '<?php echo addslashes($row['username']); ?>', '<?php echo addslashes($row['email']); ?>', '<?php echo addslashes($row['full_name']); ?>', '<?php echo addslashes($row['phone_num']); ?>', '<?php echo addslashes($row['address']); ?>', '<?php echo addslashes($row['role']); ?>')"
                                         class="edit-btn">Edit</button>
-                                    <button onclick="showActionPopup('delete', <?php echo $row['id']; ?>)"
-                                        class="delete-btn">Delete</button>
+                                    <!-- <button onclick="showActionPopup('delete', <?php echo $row['id']; ?>)"
+                                        class="delete-btn">Delete</button> -->
                                 <?php else: ?>
                                     <span class="current-user-notice">You Can't Modify Your Own Account</span>
                                 <?php endif; ?>
