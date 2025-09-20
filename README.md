@@ -18,6 +18,6 @@ Webbanoto has been developed using a powerful stack of technologies, including:
 - **CSS**: For designing refined and visually appealing layouts and styles.
 - **PHP**: A trusted backend solution for efficiently managing server-side interactions and database operations.
 - **JavaScript**: To enable interactive, dynamic elements that refresh user experience in real-time.  
-- **MySQL**: A relyable database for php to proccess data for accounts, products, orders,...
+- **MySQL**: A reliable database for php to proccess data for accounts, products, orders,...
 This project use database name 'webbanoto' to make sure you have created it by open our SQL file and imported it
 By leveraging these technologies, Webbanoto successfully combines functionality with aesthetics to deliver an effective and appealing solution for managing notes and tasks.
