@@ -3,12 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2025 lúc 03:07 AM
+-- Thời gian đã tạo: Th5 29, 2025 lúc 11:11 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
-
+CREATE DATABASE IF NOT EXISTS `webbanoto` ;
+USE `webbanoto` ;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -268,7 +268,8 @@ INSERT INTO `products` (`product_id`, `brand_id`, `car_name`, `car_description`,
 (65, 5, 'Audi A6 55 TFSI quattro 2025', 'Audi A6 2025 phiên bản 55 TFSI quattro – sedan hạng E với công nghệ mild-hybrid và hệ dẫn động bốn bánh toàn thời gian.\r\nĐộng cơ: Xe sử dụng động cơ V6 3.0L TFSI, sản sinh công suất 340 mã lực và mô-men xoắn 500 Nm.\r\n\r\nHệ dẫn động: Hệ dẫn động quattro AWD, giúp xe vận hành ổn định trên nhiều loại địa hình.\r\n\r\nTốc độ: Audi A6 55 TFSI quattro có thể tăng tốc từ 0–100 km/h trong 5,1 giây, với tốc độ tối đa 250 km/h.\r\n\r\nThiết kế: Ngoại thất được tinh chỉnh với lưới tản nhiệt Singleframe họa tiết tổ ong, đèn LED matrix thông minh và mâm xe mới.\r\n\r\nNội thất: Khoang lái sang trọng với màn hình Audi Virtual Cockpit Plus 12,3 inch, kết hợp với cặp màn hình cảm ứng 10,1 inch và 8,6 inch hỗ trợ Apple CarPlay & Android Auto.\r\n\r\nCông nghệ an toàn: Xe được trang bị hệ thống hỗ trợ lái tiên tiến, bao gồm cảnh báo điểm mù, kiểm soát hành trình thích ứng và hỗ trợ phanh khẩn cấp.', 5000000000.00, 'uploads/1745375436_download (1).jfif', 'selling', 0, 0, 250.00, 'Trắng Glacier White, Đen Mythos', 'Động cơ xăng tăng áp 3.0L V6 TFSI', '2025', 5, 'Xăng', 340.00, 5.10, 'TPHCM', NULL, '58L'),
 (66, 2, 'BMW X5 xDrive40i 2025', 'BMW X5 2025 bản xDrive40i – SUV cỡ trung hạng sang, động cơ I6 tăng áp, nội thất rộng rãi, nhiều công nghệ hỗ trợ lái.\r\nĐộng cơ: Xe sử dụng động cơ I6 3.0L TwinPower Turbo Mild Hybrid, sản sinh công suất 381 mã lực và mô-men xoắn 520 Nm.\r\n\r\nHộp số: Trang bị hộp số tự động 8 cấp Steptronic, giúp xe vận hành mượt mà và tiết kiệm nhiên liệu.\r\n\r\nHệ dẫn động: Hệ dẫn động xDrive AWD, mang lại khả năng bám đường tốt và ổn định trên nhiều loại địa hình.\r\n\r\nTốc độ: BMW X5 xDrive40i 2025 có thể tăng tốc từ 0–100 km/h trong 5,4 giây.\r\n\r\nThiết kế: Ngoại thất được tinh chỉnh với lưới tản nhiệt Icon Glow, đèn LED matrix thông minh và mâm xe hợp kim 20 inch.\r\n\r\nNội thất: Khoang lái sang trọng với màn hình BMW Curved Display, hệ thống thông tin giải trí iDrive 8.0, ghế bọc da Merino cao cấp.', 4500000000.00, 'uploads/1745375490_download (2).jfif', 'selling', 0, 0, 250.00, 'Trắng Alpine White, Đen Sapphire', 'Động cơ I6 3.0L TwinPower Turbo', '2025', 5, 'Xăng', 340.00, 5.50, 'TPHCM', NULL, '83L'),
 (67, 6, 'Ferrari SF90 Stradale', 'Ferrari SF90 Stradale – siêu xe hybrid sạc ngoài đầu tiên của Ferrari, động cơ V8 kết hợp 3 mô-tơ điện, tổng công suất 1.000+ mã lực.\r\nĐộng cơ: Xe sử dụng động cơ V8 4.0L tăng áp kép, sản sinh công suất 769 mã lực, kết hợp với 3 mô-tơ điện bổ sung 217 mã lực, nâng tổng công suất lên 986 mã lực.\r\n\r\nTốc độ: SF90 Stradale có thể tăng tốc từ 0–100 km/h trong 2,5 giây, từ 0–200 km/h trong 6,7 giây, với tốc độ tối đa 340 km/h.\r\n\r\nChế độ lái: Xe có 4 chế độ lái gồm eDrive (chạy hoàn toàn bằng điện), Hybrid (kết hợp động cơ xăng và điện), Performance (ưu tiên động cơ xăng) và Qualify (tối đa hóa hiệu suất cả hai loại động cơ).\r\n\r\nThiết kế: Ngoại thất mang phong cách khí động học với các đường nét sắc sảo, lấy cảm hứng từ LaFerrari, F8 Tributo và 488 GTB.', 35000000000.00, 'uploads/1745375549_download (3).jfif', 'selling', 0, 0, 340.00, 'Đỏ Corsa, Đen Carbon', 'Động cơ V8 4.0L hybrid plug-in', '2021', 2, 'Xăng cao cấp', 1000.00, 2.50, 'TPHCM', NULL, '60L'),
-(68, 4, 'Tesla Model 3 2025', 'Tesla Model 3 facelift 2025 – sedan điện cỡ nhỏ phổ thông, cập nhật thiết kế, phạm vi lên đến 580 km cho phiên bản Long Range.\r\nĐộng cơ & Pin: Xe được trang bị khối pin lithium-ion 50 kWh, công suất 283 mã lực, mô-men xoắn 375 Nm. Phạm vi hoạt động tăng lên 554–678 km tùy phiên bản.\r\n\r\nTốc độ & Sạc: Model 3 2025 có thể tăng tốc từ 0–100 km/h trong 5,3 giây. Sử dụng nguồn sạc tại nhà 240V, xe mất khoảng 8 giờ để sạc đầy pin. Với trạm Supercharger 400V, thời gian sạc đầy chỉ khoảng 50 phút.\r\n\r\nThiết kế: Ngoại thất được tinh chỉnh với phần đầu xe sắc sảo hơn, đèn LED thanh mảnh và hệ số cản gió chỉ 0.23, giúp xe vận hành hiệu quả hơn.\r\n\r\nNội thất: Khoang lái được nâng cấp với vật liệu cách âm tốt hơn, vô-lăng thiết kế lại, ghế ngồi bọc vải đục lỗ có thông gió. Hành khách phía sau có màn hình 8 inch riêng để điều chỉnh điều hòa hoặc xem Netflix.\r\n\r\nCông nghệ tự lái: Tesla Model 3 2025 được nâng cấp với các tính năng như tự động chuyển làn, đỗ xe tự động và hỗ trợ lái trên đường cao tốc.', 1400000000.00, 'uploads/1745375641_images.jfif', 'selling', 0, 0, 261.00, 'Trắng Pearl White, Đen Midnight', 'Dual Motor điện', '2025', 5, 'Điện', 450.00, 5.30, 'TPHCM', NULL, '75 kWh');
+(68, 4, 'Tesla Model 3 2025', 'Tesla Model 3 facelift 2025 – sedan điện cỡ nhỏ phổ thông, cập nhật thiết kế, phạm vi lên đến 580 km cho phiên bản Long Range.\r\nĐộng cơ & Pin: Xe được trang bị khối pin lithium-ion 50 kWh, công suất 283 mã lực, mô-men xoắn 375 Nm. Phạm vi hoạt động tăng lên 554–678 km tùy phiên bản.\r\n\r\nTốc độ & Sạc: Model 3 2025 có thể tăng tốc từ 0–100 km/h trong 5,3 giây. Sử dụng nguồn sạc tại nhà 240V, xe mất khoảng 8 giờ để sạc đầy pin. Với trạm Supercharger 400V, thời gian sạc đầy chỉ khoảng 50 phút.\r\n\r\nThiết kế: Ngoại thất được tinh chỉnh với phần đầu xe sắc sảo hơn, đèn LED thanh mảnh và hệ số cản gió chỉ 0.23, giúp xe vận hành hiệu quả hơn.\r\n\r\nNội thất: Khoang lái được nâng cấp với vật liệu cách âm tốt hơn, vô-lăng thiết kế lại, ghế ngồi bọc vải đục lỗ có thông gió. Hành khách phía sau có màn hình 8 inch riêng để điều chỉnh điều hòa hoặc xem Netflix.\r\n\r\nCông nghệ tự lái: Tesla Model 3 2025 được nâng cấp với các tính năng như tự động chuyển làn, đỗ xe tự động và hỗ trợ lái trên đường cao tốc.', 1400000000.00, 'uploads/1745375641_images.jfif', 'selling', 0, 0, 261.00, 'Trắng Pearl White, Đen Midnight', 'Dual Motor điện', '2025', 5, 'Điện', 450.00, 5.30, 'TPHCM', NULL, '75 kWh'),
+(70, 5, '350', 'fggd', 5000000000.00, 'uploads/1747099685_download (10).jfif', 'hidden', 0, 0, 300.00, 'Trắng, Xanh, Xám, Đen', 'v', '2025', 4, 'Điện', 400.00, NULL, 'TPHCM', NULL, '80L');
 
 -- --------------------------------------------------------
 
@@ -588,13 +589,13 @@ ALTER TABLE `users_acc`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `car_types`
@@ -606,13 +607,13 @@ ALTER TABLE `car_types`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `payment_methods`
@@ -624,7 +625,7 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT cho bảng `product_images`
@@ -636,7 +637,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT cho bảng `users_acc`
 --
 ALTER TABLE `users_acc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
