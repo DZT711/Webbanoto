@@ -19,7 +19,7 @@
 <tr>
 <td align="center" width="50%">
 <h3>🔐 Admin Portal</h3>
-<a href="http://php.local/WebbanotoPHP/admin/login">
+<a href="http://php.local/WebbanotoPHP/admin/login.php">
 <img src="https://img.shields.io/badge/Admin-Login-red?style=for-the-badge" alt="Admin Login"/>
 </a>
 <br/>
