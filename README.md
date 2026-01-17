@@ -23,7 +23,7 @@
 <img src="https://img.shields.io/badge/Admin-Login-red?style=for-the-badge" alt="Admin Login"/>
 </a>
 <br/>
-<code>http://php.local/WebbanotoPHP/admin/login</code>
+<code>http://php.local/WebbanotoPHP/admin/login.php</code>
 </td>
 <td align="center" width="50%">
 <h3>👤 User Portal</h3>
