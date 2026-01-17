@@ -2197,11 +2197,11 @@ function getTimeBasedGreeting()
                 <i class="fa-solid fa-envelope"></i> Liên Hệ
             </a>
 
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+            <!-- <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                 <a href="../Admin/login.php" class="nav-link <?php echo isCurrentPage('login.php') ? 'active' : ''; ?>">
                     <i class="fa-solid fa-user-shield"></i> Admin
                 </a>
-            <?php endif; ?>
+            <?php endif; ?> -->
             <form class="nav-search" action="search-results.php" method="GET">
                 <input type="text" id="search" name="query" placeholder="">
                 <button type="submit"><i class="fa fa-search"></i></button>
@@ -2281,7 +2281,7 @@ function getTimeBasedGreeting()
                         Đăng nhập
                     </a>
                     <span class="separator"></span>
-                    <a href="register.php" class="user-link">
+                    <a href="login.php#singup" class="user-link">
                         <i class="fas fa-user-plus"></i>
                         Đăng ký
                     </a>
